@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第十七章 表格排版 | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="用表格进行网页元素的排版布局，就像往架子里摆放物品一样。我们要根据规划设定好表格，然后将元素放入其中。">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第十七章 表格排版
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2018-11-14 | Update: 2019-05-09">
+    <p>
+      用表格进行网页元素的排版布局，就像往架子里摆放物品一样。我们要根据规划设定好表格，然后将元素放入其中。
+    </p>
+  </div>
+  <div class="post-content">
+    <p>排版呢，就是把网页中的内容放在各种你希望它在的地方。就像把一篇篇平白的文章，排布成一张丰富多彩的报纸。</p>
+<p>回想一下，我们到目前所学到的各种标签，并没有非常实际的排版功能。对，可以像写文章一样从上到下的按顺序写。但这明显非常的不灵活，和我们日常看到的网页差距极大，所以我们会希望对内容进行排版。</p>
+<p>不过前面我一直强调一个概念：HTML 负责说明这个元素是什么，而它长什么样子则由 CSS 去负责解释。所以其实排版这部分是 CSS 的工作。可是在曾经的某一段时间，事情并不是这个样子的，那时候 HTML 还在一个人独挑大梁，每一种工作他都会亲力亲为，而排版这件事情，大部分都是通过表格来进行的。</p>
+<p>听到这里，你会发现，原来这是一项已经被淘汰的技术，那我们还学它做什么呢？一项事物，如果曾经存在过，那么必然会留下它的痕迹，更何况，他淘汰的时间也并不太长，事实上还颇有一些余威犹存的意味。比如我们熟悉的淘宝，为了安全，限制了许多东西的使用，所以我们不得不用一些笨办法来变通；还有一个大家可能都没注意过的地方，就是邮件里面，如果需要复杂一些的排版，也只能使用表格。</p>
+<p>那么讲一讲它的原理吧，其实也是超级简单的，假如我们把我们的页面整个作为一个表格，在里面分出几行几列，并填上内容，是不是比我们简单的从上往下书写的，要复杂了？</p>
+<p>这就好像，我们有时候会遇到一些对 Word 排版用不好的同学，你会发现它们在描述复杂情况的时候，喜欢使用 Excel，因为想把一个东西放在哪里，就在哪里的单元格里书写就可以了。我们用表格排版，也是一样的道理。</p>
+<p>如果我们的页面不考虑复杂的变化，单纯的写成某个样子，然后放在那里展示就行了，仿佛用表格也是一个可以接受的选择。但是当你真的看到它的代码之后，你会为这一选择而后悔的。</p>
+<p>上一节课我们就说过，当表格加入了拆分和合并单元格之后，再加上一些它特有的属性，代码就变得复杂而混乱起来。你以为这就是全部？想一下，我们在学列表的时候，讲到了列表的嵌套。那么对于表格同样可以进行嵌套，因为我们使用拆分和合并单元格之后，表格十分容易混乱，变得难以调整，在这种情况下，我们就不如在单元格中再放入一个表格，从而进行十分复杂的拆分。效果确实是达到了，但是代码已经惨不忍睹了，每一层表格，就是三到四层的标签嵌套，多层表格嵌套以后，谁还能够凭空读得懂这些代码？如果谁读得懂，我只能说那真的是有时间闲的……</p>
+<p>所以这一章我也只是做一下介绍，讲讲它的原理，在真正需要使用的时候，别偏执于用代码写会感觉自己很酷了，为它浪费生命不值得，乖乖用各种可视化编辑器去吧。当然遇到某些特别的地方，切换到代码去修改一些细节，还是可以有的。</p>
+<p>有兴趣，或者工作中确实用得到的朋友，可以自己动手尝试一下。等到后面我们学到 CSS 排版，再对比一下两种方法，来加深理解。反正这么麻烦的东西，我是不想动手演示了，因为如果不用极大的篇幅去描述，很容易我说绕口令，大家一起犯迷糊。</p>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0017/" title="卡片 for 第十七章">卡片 for 第十七章</a>】</p>
+
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0016/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0018/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

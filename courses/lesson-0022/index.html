@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第二十二章 一些常用的标签 | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="对于 HTML5 中新增的，常用的语义化标签的简要介绍。">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第二十二章 一些常用的标签
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2018-11-17 | Update: 2019-05-09">
+    <p>
+      对于 HTML5 中新增的，常用的语义化标签的简要介绍。
+    </p>
+  </div>
+  <div class="post-content">
+    <p>有没有这样一种感觉？就是每一章都能够听得懂，但是回想一下，却又不知道如何去用。就仿佛虽然双脚实实在在的站在地上，但是放眼看向四周，全是白茫茫的雾气，竟然一时分不清了上下。</p>
+<p>不要着急，也不要担心，这是非常正常的一件事情。因为 HTML 并不是一个孤立的存在，现在对这些语言已经有了非常明确的分工，他们之间要相互配合才能完成我们所期望的任务。而现在，我们单单讲一个方面，随着不断的深入，自然会越来越明显的感受到周围未知区域的存在。不过这不是什么问题，因为随着我们内容的展开，一切自然而然会变得明朗。</p>
+<p>目前呢，你就当做我一句话还没有说完，不要急着下什么判断，安安静静，听我把故事从头说到尾。中间可不许瞌睡哦~</p>
+<p>这一章我们再来简单的介绍一些常用的标签。大家认真看一看，先有个了解，后面随着我们的使用，再去逐渐熟悉。</p>
+<h3 id="lt-header-gt-页头"><a href="#lt-header-gt-页头" class="headerlink" title="&lt;header&gt; 页头"></a><code>&lt;header&gt;</code> 页头</h3><p>这个标签内，放网站的页头内容，比如常见的，logo、标题、导航等。</p>
+<h3 id="lt-footer-gt-页脚"><a href="#lt-footer-gt-页脚" class="headerlink" title="&lt;footer&gt; 页脚"></a><code>&lt;footer&gt;</code> 页脚</h3><p>网站最底下用来显示一些链接，版权信息等的部分。</p>
+<h3 id="lt-nav-gt-导航"><a href="#lt-nav-gt-导航" class="headerlink" title="&lt;nav&gt; 导航"></a><code>&lt;nav&gt;</code> 导航</h3><p>这个标签里面用来放导航内容。</p>
+<h3 id="lt-aside-gt-侧边栏"><a href="#lt-aside-gt-侧边栏" class="headerlink" title="&lt;aside&gt; 侧边栏"></a><code>&lt;aside&gt;</code> 侧边栏</h3><p>这里面放侧边栏的内容，但说是侧边栏，其实只是为了让大家更好理解。它并不一定非要在侧边。</p>
+<h3 id="lt-main-gt-主体"><a href="#lt-main-gt-主体" class="headerlink" title="&lt;main&gt; 主体"></a><code>&lt;main&gt;</code> 主体</h3><p>页面中的主体内容</p>
+<h3 id="lt-article-gt-文章"><a href="#lt-article-gt-文章" class="headerlink" title="&lt;article&gt; 文章"></a><code>&lt;article&gt;</code> 文章</h3><p>文章内容，可以粗略的理解为，一篇文章。</p>
+<h3 id="lt-section-gt-章节"><a href="#lt-section-gt-章节" class="headerlink" title="&lt;section&gt; 章节"></a><code>&lt;section&gt;</code> 章节</h3><p>一个小节，或者说一个小的章节。但是要注意这里我们所说的文章，可能并不是我们传统意义上的一篇文章，也许更应该说它是一个整体的内容，而章节则是对这一个整体内容的进一步细分。</p>
+<hr>
+<p>很容易发现，我们今天讲的这些标签就是用来描述一个页面基本结构的。这些标签全部都是 HTML5 新增加的，他们并不会产生什么特别的效果，非常单纯的就是在说明被标记的内容是什么。所以我们也可以看出 HTML5 非常重视用标签把每一项内容是什么说清楚。</p>
+<p>这件事情做好之后的结果是什么呢？我们的代码变得更容易被阅读，虽然只是代码，但是看一下标签，我就能分出页头、页尾、主体内容和侧边栏，看到文章的主体内容还可以继续分割到小节，可以说这篇文章的提纲，马上就了然于胸了。这比用多层表格嵌套强行布局出来的内容，读起来要舒适太多。</p>
+<p>好了，这一章就到这里，后面我们要为学习 CSS 做准备工作了，是不是有点小激动呢~</p>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0022/" title="卡片 for 第二十二章">卡片 for 第二十二章</a>】</p>
+
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0021/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0023/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

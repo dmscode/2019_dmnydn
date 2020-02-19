@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>关于 | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link active">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link active">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="page">
+  <h1 class="title">
+    关于
+  </h1>
+  <div class="page-content">
+    <h2 id="关于作者"><a href="#关于作者" class="headerlink" title="关于作者"></a>关于作者</h2><p>作者：稻米鼠，人称老鼠，大家也这么叫我就好。</p>
+<p>方方面面都是一知半解，两眼抹黑，三脚猫，四不像……一个正在向油腻大叔转变的宅男（没技术。</p>
+<p>如果我写的东西，你能爱看，那我会很开心；如果恰巧，能给你带来一些帮助，那我就十分满足了。</p>
+<h2 id="与我联系"><a href="#与我联系" class="headerlink" title="与我联系"></a>与我联系</h2><p>您可以发邮件到 <a href="mailto:dms@dmnydn.com?subject=[来自 dmnydncom 的读者]的问题：&amp;body=【如果是提问，请清除完整的描述问题、你采取的尝试、相关的代码等，以避免浪费双方时间，感激您的理解~】">dms@dmnydn.com</a></p>
+<p>如果是提问，请清楚完整的描述问题、你采取的尝试、相关的代码等，以避免浪费双方时间，感激您的理解~</p>
+<p>问题我会选择自己会的进行回答，并将典型问题放入本站 <a href="/categories/questions-and-answers/">Q&amp;A</a> 栏目。但可能无法保证每封信都进行回复。</p>
+<p>大家对我的每一份支持我都十分感激，但是请不要通过付款时的留言与我联系，其中诸多不便。理解~</p>
+
+  </div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

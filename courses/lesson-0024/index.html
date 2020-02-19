@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第二十四章 论论辈分 | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="网页元素之间的相互关系应该如何描述呢？这和人类描述辈分关系是很相似的。">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第二十四章 论论辈分
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2018-11-17 | Update: 2019-05-09">
+    <p>
+      网页元素之间的相互关系应该如何描述呢？这和人类描述辈分关系是很相似的。
+    </p>
+  </div>
+  <div class="post-content">
+    <p>辈分，这是一个难题，我知道，很多年轻的朋友都和我一样，搞不清这些复杂的关系。不过还好，直系亲属和兄弟姐妹，还是完全分得清楚的。嗯，这样就够用了。</p>
+<p>我们页面中的元素会越来越多，在聊这些元素之间相互关系的时候，就需要一些名词进行描述。要不然老说谁挨着谁，谁套着谁，一会儿咱们就都乱了。</p>
+<p>那么如何描述它们之间的关系呢？这个和我们日常描述辈分是非常相似的。</p>
+<p>被套在某一个元素中的，就都是这个元素的后代。比如如下代码中：</p>
+<pre><code class="html">&lt;body&gt;
+  &lt;header&gt;
+    &lt;h1&gt;这是一个简单的页面结构&lt;/h1&gt;
+    &lt;nav&gt;
+      &lt;ul&gt;
+        &lt;li&gt;&lt;a href=&quot;#&quot;&gt;首页&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&quot;#&quot;&gt;关于&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&quot;#&quot;&gt;联系&lt;/a&gt;&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/nav&gt;
+  &lt;/header&gt;
+&lt;/body&gt;
+</code></pre>
+<p>除去 <code>body</code>，其它的（<code>h1</code>、<code>nav</code>、<code>ul</code>、<code>li</code>、<code>a</code>）都在 <code>header</code> 里面，那么刚才小括号里说到的这些元素，就都是 <code>header</code> 的后代元素。</p>
+<p>这很好理解吧，反过来，只要套在这个元素外面的，就是这个元素的祖先。比如上面，对于 <code>ul</code> 来说，<code>header</code> 和 <code>body</code> 都套在它的外面，这两个就都是 <code>ul</code> 的祖先元素（或者叫父辈元素）。</p>
+<p>那么我们再进一步，在这个元素里面（后代元素）的第一层，就是和它紧挨着的那一层，这是它的子元素，也叫直接子元素，说白了就是它儿子，而且是亲儿子。比如 <code>header</code> 的子元素就是 <code>h1</code> 和 <code>nav</code>。而 <code>ul</code>、<code>li</code>、<code>a</code> 并没有紧挨着 <code>header</code>，隔了一辈儿甚至几辈儿，那自然不是儿子而是孙子了（玩笑，所以就都算后代元素么。</p>
+<p>反过来说 <code>header</code> 就是 <code>h1</code> 和 <code>nav</code> 的父元素，就是套在外面，而且紧挨着的那个元素，就是父元素。</p>
+<p>这种关系用语言描述起来多少会觉得有点拗口，但是简单到就像怎么是父亲、怎么是儿子一样。而且还有有意思的地方，就是每个元素可以拥有多个子元素，但只能有一个父元素（祖先元素当然不限制，毕竟祖宗十九代……</p>
+<p>和它拥有相同父元素的，是它的同胞元素（也叫兄弟元素）。所以 <code>h1</code> 和 <code>nav</code> 是亲兄弟；而三个 <code>li</code> 之间也是亲兄弟。但是三个 <code>a</code> 之间不是，你会发现它们不是同一个父亲，而是同一个爷爷。堂兄表兄这不能算，在古代都能结婚的，怎么能是兄弟呢（咦，哪里怪怪的。</p>
+<p>还是一图胜千言吧……然而并没有图，我就把上面代码改写一下：</p>
+<pre><code class="html">&lt;祖先元素&gt;
+  &lt;父元素&gt;
+    &lt;兄弟元素&gt;这是一个简单的页面结构&lt;/兄弟元素&gt;
+    &lt;nav&gt;
+      &lt;子元素&gt;
+        &lt;后代元素&gt;&lt;后代元素 href=&quot;#&quot;&gt;首页&lt;/后代元素&gt;&lt;/后代元素&gt;
+        &lt;后代元素&gt;&lt;后代元素 href=&quot;#&quot;&gt;关于&lt;/后代元素&gt;&lt;/后代元素&gt;
+        &lt;后代元素&gt;&lt;后代元素 href=&quot;#&quot;&gt;联系&lt;/后代元素&gt;&lt;/后代元素&gt;
+      &lt;/子元素&gt;
+    &lt;/nav&gt;
+  &lt;/父元素&gt;
+&lt;/祖先元素&gt;
+</code></pre>
+<p>这是相对于 <code>nav</code> 元素而言的，很容易看懂了吧。记着父亲也算祖先，儿子也算后代（怎么都觉得是废话。</p>
+<p>这就是三代以内的直系亲属辈分问题吧，说搞不明白的可以叫家长了（这都搞不明白怎么找家长……晕。</p>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0024/" title="卡片 for 第第二十四章">卡片 for 第第二十四章</a>】</p>
+
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0023/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0025/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

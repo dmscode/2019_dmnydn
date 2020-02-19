@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第六十九章 显示和隐藏 | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="通过 CSS 的属性来控制元素的显示和隐藏效果，实现简易的动态交互。">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第六十九章 显示和隐藏
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2019-01-10 | Update: 2019-05-09">
+    <p>
+      通过 CSS 的属性来控制元素的显示和隐藏效果，实现简易的动态交互。
+    </p>
+  </div>
+  <div class="post-content">
+    <p>首先，怎么隐藏。</p>
+<p>这很简单，你把元素的 <code>display</code> 属性设置为 <code>none</code> 就行了。相反的，设置为 <code>block</code> （根据具体情况选择对应的值）就显示出来了。</p>
+<p>然后我们希望它何时显示？适当我们的鼠标移动到一级菜单的菜单项上，它里面的二级菜单才显示。</p>
+<p>所以：</p>
+<pre><code class="css">nav&gt;ul&gt;li&gt;ul {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 100%;
+  z-index: 10;
+  width: 120px;
+  padding: 10px;
+  margin: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: #DDDDEE;
+}
+nav&gt;ul&gt;li:hover&gt;ul {
+  display: block;
+}
+</code></pre>
+<p>那么要注意是哪个元素的 <code>hover</code> 状态。</p>
+<p>这么简单？就这么简单。那现在考考你哦，为啥我把鼠标移动到二级菜单上，它不会消失，明明鼠标已经移出了 li 的范围。</p>
+<p>二级菜单的 ul 写在一级菜单的 li 里面的作用很多。首先在道理上说，是包含关系，这样写结构上很合理。然后上面的 CSS 选择器也可以成立，否则单靠 CSS 可能无法实现了。而定位的时候以父元素为参照，也是相对于上级菜单定位，就不会混乱……</p>
+<p>现在呢，二级菜单就是这个一级菜单项的一部分，它是飘出去了，但它依然是父元素的一部分。所以当鼠标在它上面的时候，包含它的 li 元素依旧处于 <code>hover</code> 状态。</p>
+<p>在位置上，这两个元素是无缝衔接的，所以我们可以把鼠标移动到子元素上，并不改变父元素的 <code>hover</code> 状态。那如果我们把二级菜单定位的稍微远一些的话，又会怎样呢？大家动手试试效果吧。</p>
+<p>那么三级菜单呢？依然这样延续下去就行了，我就不写了。不过如果变通一下，我写个无限延续下去的……长龙，每个触发位置又比较小，是不是就成了一个考验耐心的游戏？</p>
+<p>所以，开开脑洞什么的很好玩，别怕出错，不出错才学不会东西呢。何况又不是在学校，出问题了没人打没人骂没人指责也不花钱……你还怕啥？现在不去遇到各种问题，积累足够的经验，难道要等到工作中翻车？喵唧，这账大家应该都算的清楚的。</p>
+<p>然后说一下优化，目前鼠标划过菜单并没有变化效果，这不美观，也没有给用户“这里是可以进行交互的”暗示，所以我们应该给它设置一些变化，不需要很大的变化，只要足够让用户发现，温和的变化就好。比如背景颜色，边框什么的。</p>
+<p>如果你想使用粘性固定来保证导航栏一直显示。那么首先你要在下面添加内容，这样让页面可以滚动，我们才能测试。</p>
+<pre><code class="css">nav {
+  position: -webkit-sticky;
+  top: 0;
+  text-align: center;
+  background-color: #DDDDEE;
+}
+</code></pre>
+<p><code>-webkit-</code> 是一个前缀，因为 <code>sticky</code> 并没成为正式的规范，所以浏览器可能不支持它，也可能支持它。但是支持的方式可能是用私有的方式支持，就是某个浏览器给出一个自己独有的值，来实现相同的效果，这样避免了一些可能的冲突。而这个独有的值如果乱取名字就很混乱，也不容易理解。所以一般都是在名字前面加上这个浏览器的前缀，这样既知道是针对于哪个浏览器，又知道是什么，就很科学。这种方式不止在属性值中使用，更多的是在属性名中使用。不过现在随着浏览器厂商都在努力更新，兼容新技术，统一标准。这种东西用的就越来越少了，作为了解就好，初期可以不去考虑这些事情，以后，还有很多工具可以辅助完成这些事情。</p>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0069/" title="卡片 for 第六十九章">卡片 for 第六十九章</a>】</p>
+
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0068/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0070/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

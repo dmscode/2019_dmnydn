@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第九十五章 变量的命名 | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="JavaScript 中变量命名的一些规则和注意事项，以及常用的书写规范。">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第九十五章 变量的命名
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2019-03-19 | Update: 2019-05-09">
+    <p>
+      JavaScript 中变量命名的一些规则和注意事项，以及常用的书写规范。
+    </p>
+  </div>
+  <div class="post-content">
+    <p>这个真的不是什么重点，它属于规范，什么是规范呢？就是不是必须遵守的。</p>
+<p>这种不是必须遵守的东西，在编程里你还会遇到很多很多。你不遵守它，也许会觉得很爽，但是时间一长，最不爽的肯定是你自己。或者你不知道这些规范，但是在对自己编程的细节进行优化的时候，总是会不知不觉得向着这些规范靠拢。</p>
+<p>所以，聪明的孩子们啊，好好记着这些细节吧，这都是前人掉在坑里摔得嗷嗷叫之后总结出来的血泪的教训啊！</p>
+<h3 id="大小写"><a href="#大小写" class="headerlink" title="大小写"></a>大小写</h3><p>HTML 是不区分大小写的，这很厉害！JS 不行，JS 大小写敏感（就是要明确区分大小写），在 JS 里，<code>A</code> 和 <code>a</code> 是不同的两个变量。反正你非说你全用小写或者全用大写就乐悠悠没烦恼，我也……（反正后面的坑还在等着你，23333</p>
+<h3 id="减号"><a href="#减号" class="headerlink" title="减号"></a>减号</h3><p>HTML 不管计算，CSS 以前也不管。所以 <code>-</code> 对他们没什么歧义，于是你可以这么写：</p>
+<pre><code class="html">&lt;div id=&quot;big-box&quot;&gt;&lt;/div&gt;
+&lt;style&gt;
+#big-box {
+  width: 100%;
+}
+&lt;/style&gt;
+</code></pre>
+<p>完全没问题。</p>
+<p>但是到了 js 里面：</p>
+<pre><code class="js">let big=12;
+let box=5;
+let result = big-box;
+console.log(result);
+</code></pre>
+<p>这不就是减法么？</p>
+<p>所以我们命名 <code>id</code>、<code>class</code> 可以用减号，但是在 JS 里命名变量肯定不能用减号吧。</p>
+<p>上面说的这些是坑，下面给出几种相对规范的命名方法，根据需求（喜好）选择使用，以后也会遇到更多的命名方式，但是总有相通之处，关键还是先养成习惯。</p>
+<p>我们为了能够知道这个变量是做什么的，就要用一些英文单词去描述它<a href="#footnote-1" class="footnote-link"><sup>[1]</sup></a>，那么变量名的写法主要就是如何组织这些单词。</p>
+<h3 id="蛇形写法"><a href="#蛇形写法" class="headerlink" title="蛇形写法"></a>蛇形写法</h3><p>这个很容易理解，就是用下划线来分隔单词：</p>
+<pre><code class="js">let a_lovely_mouse;
+</code></pre>
+<h3 id="大驼峰"><a href="#大驼峰" class="headerlink" title="大驼峰"></a>大驼峰</h3><p>也叫帕斯卡命名法，反正我记不住这名字，记住也没啥用。</p>
+<p>很简单，每个单词的首字母大写就对了：</p>
+<pre><code class="js">let ALovelyMouse;
+</code></pre>
+<p>大写字母像驼峰一样鼓起来，就这个意思。</p>
+<h3 id="小驼峰"><a href="#小驼峰" class="headerlink" title="小驼峰"></a>小驼峰</h3><p>有大就有小，小驼峰也很简单，在大驼峰的基础上，第一个单词的首字母不大写。</p>
+<pre><code class="js">let aLovelyMouse;
+</code></pre>
+<p>上面几种方法就一个目的，让人快速的区分单词间的分隔，从而迅速获取需要的信息。说白了就是为了方便。</p>
+<hr>
+<p>好理解吧？贵在坚持。</p>
+<p>不过并不一定我们在每次写代码都用相同的方法，而是根据实际情况进行选择，哪种方便用哪种（当然你工作中有另外的要求就遵守要求）。</p>
+<p>但是，同一个项目内，命名方法必须保持一致（就是强迫症。</p>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0095/" title="卡片 for 第九十五章">卡片 for 第九十五章</a>】</p>
+<div class="foot-notes"><p><strong id="footnote-1" class="footnote">&gt;注释 1:</strong> 英文不好永远不能成为使用拼音的理由，你可以去学，毕竟常用的单词也没很多。而且你还可以使用各种翻译工具。</p></div>
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0094/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0096/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

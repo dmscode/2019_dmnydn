@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第一百四十一章 敲击键盘 | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="jQuery 中键盘相关事件。">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第一百四十一章 敲击键盘
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2019-05-24 | Update: 2019-05-25">
+    <p>
+      jQuery 中键盘相关事件。
+    </p>
+  </div>
+  <div class="post-content">
+    <p>鼠标相关的事件我们讲完了，接下来自然就是键盘。我们对于键盘的操作当然就是敲击按键。而这个过程分为两个阶段，首先是我们把按键按下去，然后是我们松开按键。这两个阶段正好是按键状态变化的两个时间点，对，时间点，关键的时间点。所以这里是两个事件，<code>keydown</code> 和 <code>keyup</code>。</p>
+<p>按键的事件，可以绑定到任何元素上，但是事件只会发送到具有焦点的元素上。就是说，首先这个元素要具有焦点，否则我们就不知道这是在哪个元素上进行输入了。然后当产生按键操作的时候，才会触发这个元素上对应的事件。</p>
+<p>但是，并不是所有元素都可以具有焦点。而哪些元素可以具有焦点，不同浏览器的表现又不一样。不过，表单中（用以获取输入）的元素，在各种浏览器下都是可以获得焦点的。</p>
+<p>到这里，我们就把键盘事件讲完……了？！然而并没有，因为一旦发生键盘事件，反正就是按键被按下去，弹上来的时候。我们会关注另外一个问题，就是用户刚刚按下去的是哪一个键？</p>
+<p>这个问题很关键，因为不能够了解这一点，我们程序就只好在用户按任何按键的时候都响应，那就很傻了。</p>
+<p>这里的两种事件，从名称上也可以看出来，重点关注的是按键的下去和上来。你它们，刚才究竟是按下了哪个按键？它们是知道的，也会告诉你。但是，用户按下了键盘上的 A，它也如实的告诉你了这件事情。那么现在请问：用户究竟输入的是 a 还是 A？是的，这两种事件的关注点在于按键，而不在于输入的内容。</p>
+<p>这时候就要讲到第三种事件了，它会在 <code>keydown</code> 发生之后，紧随其后的发生。它所关注的是用户的输入，而不是按下的按键。所以在上面的问题中，通过这个事件可以区分出用户输入的大小写。这个事件是 <code>keypress</code>。</p>
+<p>但是因为 <code>keypress</code> 关注的是输入，所以对于一些功能按键，就是不产生实际输入的按键，是不会触发这个事件的。哪些按键算是功能按键呢？不同的浏览器有着不同的定义。这就很气人啊，不过也不用生气，因为这个事件并不支持中文，所以对我们来说很鸡肋。而且，如果是监控输入框上的这些事件，我们完全可以通过输入框当前的内容，来判断用户究竟进行了何种输入。这样用 <code>keydown</code> 也就够了。</p>
+<p>说了半天，可是我们怎么获取用户按下的按键是哪个？</p>
+<p>如果前面我所讲的内容你有认真的去做练习，我觉得，我即便不讲，你也应该有所了解了。</p>
+<p>我们给事件绑定了一个函数，当事件被触发的时候，会传递给这个函数有一个参数，这个参数是一个对象，它包含有这个事件相关的许多信息。这些信息里就有我们所需要的这些内容。再次建议大家自己动手尝试，并进行观察，方法我在前面也已经讲过了。</p>
+<p>通过观察我们会发现，有专门的属性用来描述当前键盘上的某些功能键（Shift、Ctrl、Alt）是否被按下。通过这些我们可以去判断组合键。</p>
+<p>当然上面这部分只是其中很小的一些特例，对于大部分按键来说，我们可以获取当前按键的 keycode，就是按键的编码。它是一个数值，对应了当前按下的按键是哪一个。而这种编码是有统一的标准的，所以知道编码，就知道了按下的是哪一个按键。</p>
+<p>讲到这里，通过自己观察事件数据，应该就可以实际利用了。但是，有一个问题新人并不了解，就是事件产生的数据，因为浏览器的不同而不同。而按键编码这个数据，在不同浏览器下，数据的名称（可能）也有所差异……这就十分气人了！</p>
+<p>不过，还好，我们使用了工具箱（jQuery），并发现工具箱中有一个专门处理这个问题的工具——<code>which</code>。使用方法如下：</p>
+<pre><code class="js">$(&#39;#input&#39;).keydown(function(event){
+  console.log(&#39;当前按键的编码是：&#39;+event.which)
+})
+</code></pre>
+<p>差不多就是用这个工具直接问事件数据，按键的编码是哪一个（which）？这个方法也可以获得鼠标的按键值。</p>
+<p>那如果我按着按键一直不松手，又会发生些什么呢？希望大家动手研究一番。</p>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0141/" title="卡片 for 第一百四十一章">卡片 for 第一百四十一章</a>】</p>
+
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0140/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0142/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

@@ -1,0 +1,505 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第八十章 对齐演示 | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="CSS3 中控制元素对齐方式的属性的实际效果演示。">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第八十章 对齐演示
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2019-01-21 | Update: 2019-05-09">
+    <p>
+      CSS3 中控制元素对齐方式的属性的实际效果演示。
+    </p>
+  </div>
+  <div class="post-content">
+    <p>这可以看作是一个默认形态，我们可以看出它是偏左的，但是这么描述就不确切了，因为一切都是可变的，那么在变化过程中，我们应该以谁为依据去看这个事情，就很重要。</p>
+<div class="code-show" data-before-text="代码效果演示 Start" data-after-text="代码效果演示 End"><div class="flex-box">
+  <div class="flex-item"></div>
+  <div class="flex-item"></div>
+  <div class="flex-item"></div>
+  <div class="flex-item"></div>
+  <div class="flex-item"></div>
+  <div class="flex-item"></div>
+  <div class="flex-item"></div>
+  <div class="flex-item"></div>
+  <div class="flex-item"></div>
+</div>
+<style>
+.flex-box {
+  display: flex;
+  flex-wrap: wrap;
+  border: 5px solid #DEDEDE;
+}
+.flex-item {
+  min-width: 100px;
+  min-height: 100px;
+  background: #DEDEDE;
+  border: 2px solid white;
+}
+</style></div>
+<p>主轴默认是水平方向，从左往右的。这是我们首先要确定的问题：主轴的方向是什么。</p>
+<p>确定了主轴方向，我们就知道水平方向上的对齐，其实应该看主轴方向的对齐属性。主轴的前缀是：<code>justify</code>，然后我们逐项研究。先尝试 <code>content</code>：</p>
+<h2 id="Justify-content"><a href="#Justify-content" class="headerlink" title="Justify-content"></a><code>Justify-content</code></h2><p>那么 <code>justify-content</code> 说的是什么，又可以取哪些值呢？那么查看上一章可知，它说的是内容整体在主轴上的对齐方式。而可以用的取值我列一下：<code>flex-start</code>、<code>flex-end</code>、<code>center</code>、<code>space-around</code>、<code>space-between</code>、<code>space-evenly</code>。<a href="#footnote-1" class="footnote-link"><sup>[1]</sup></a>其中 <code>flex-start</code> 是默认值。</p>
+<p>然后我们来看效果：</p>
+<div class="code-show" data-before-text="代码效果演示 Start" data-after-text="代码效果演示 End"><h3>justify-content: flex-end</h3>
+<div class="flex-box-1">
+  <div class="flex-item"></div>
+  <div class="flex-item"></div>
+  <div class="flex-item"></div>
+  <div class="flex-item"></div>
+  <div class="flex-item"></div>
+  <div class="flex-item"></div>
+  <div class="flex-item"></div>
+  <div class="flex-item"></div>
+  <div class="flex-item"></div>
+</div>
+<style>
+.flex-box-1 {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  border: 5px solid #DEDEDE;
+}
+.flex-item {
+  min-width: 100px;
+  min-height: 100px;
+  background: #DEDEDE;
+  border: 2px solid white;
+}
+</style></div>
+<p>这里我们展开一下，这些对齐属性并不只是为弹性布局准备的，后面的网格布局也会用到，因此就会产生一些细节上的区别。<code>flex-start</code> 和 <code>flex-end</code> 就是用来负责弹性元素的，而 <code>start</code> 和 <code>end</code> 是用来负责非弹性元素的。我们目前使用的是弹性布局，自然要加上 <code>flex</code>。还好，就记住对于弹性元素，轴起止点要加前缀表示就行了。</p>
+<p>其他几个值的效果如下：</p>
+<div class="code-show" data-before-text="代码效果演示 Start" data-after-text="代码效果演示 End"><h3>justify-content: center</h3>
+<div class="flex-box-2">
+  <div class="flex-item"></div>
+  <div class="flex-item"></div>
+  <div class="flex-item"></div>
+  <div class="flex-item"></div>
+  <div class="flex-item"></div>
+  <div class="flex-item"></div>
+  <div class="flex-item"></div>
+  <div class="flex-item"></div>
+  <div class="flex-item"></div>
+</div>
+<h3>justify-content: space-around</h3>
+<div class="flex-box-3">
+  <div class="flex-item"></div>
+  <div class="flex-item"></div>
+  <div class="flex-item"></div>
+  <div class="flex-item"></div>
+  <div class="flex-item"></div>
+  <div class="flex-item"></div>
+  <div class="flex-item"></div>
+  <div class="flex-item"></div>
+  <div class="flex-item"></div>
+</div>
+<h3>justify-content: space-between</h3>
+<div class="flex-box-4">
+  <div class="flex-item"></div>
+  <div class="flex-item"></div>
+  <div class="flex-item"></div>
+  <div class="flex-item"></div>
+  <div class="flex-item"></div>
+  <div class="flex-item"></div>
+  <div class="flex-item"></div>
+  <div class="flex-item"></div>
+  <div class="flex-item"></div>
+</div>
+<h3>justify-content: space-evenly</h3>
+<div class="flex-box-5">
+  <div class="flex-item"></div>
+  <div class="flex-item"></div>
+  <div class="flex-item"></div>
+  <div class="flex-item"></div>
+  <div class="flex-item"></div>
+  <div class="flex-item"></div>
+  <div class="flex-item"></div>
+  <div class="flex-item"></div>
+  <div class="flex-item"></div>
+</div>
+<style>
+.flex-box-2,
+.flex-box-3,
+.flex-box-4,
+.flex-box-5 {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  border: 5px solid #DEDEDE;
+}
+.flex-box-3 { justify-content: space-around }
+.flex-box-4 { justify-content: space-between }
+.flex-box-5 { justify-content: space-evenly }
+.flex-item {
+  min-width: 100px;
+  min-height: 100px;
+  background: #DEDEDE;
+  border: 2px solid white;
+}
+</style></div>
+<p>问：为什么没有 <code>stretch</code>（拉伸）呢？因为弹性布局在主轴方向上已经有两个属性（<code>flex-grow</code> 和 <code>flex-shrink</code>）来控制伸缩了。</p>
+<h2 id="Align-content"><a href="#Align-content" class="headerlink" title="Align-content"></a><code>Align-content</code></h2><p>换个方向而已，然后可以用拉伸（<code>stretch</code>）了，还是默认值。我把父元素的高度设置的大一些（手机上的阅读的小伙伴可能看不出效果，还是来电脑上吧。</p>
+<div class="code-show" data-before-text="代码效果演示 Start" data-after-text="代码效果演示 End"><h3>align-content: stretch</h3>
+<div class="flex-box-10">
+  <div class="flex-item"></div>
+  <div class="flex-item"></div>
+  <div class="flex-item"></div>
+  <div class="flex-item"></div>
+  <div class="flex-item"></div>
+  <div class="flex-item"></div>
+  <div class="flex-item"></div>
+  <div class="flex-item"></div>
+  <div class="flex-item"></div>
+</div>
+<h3>align-content: flex-start</h3>
+<div class="flex-box-11">
+  <div class="flex-item"></div>
+  <div class="flex-item"></div>
+  <div class="flex-item"></div>
+  <div class="flex-item"></div>
+  <div class="flex-item"></div>
+  <div class="flex-item"></div>
+  <div class="flex-item"></div>
+  <div class="flex-item"></div>
+  <div class="flex-item"></div>
+</div>
+<h3>align-content: flex-end</h3>
+<div class="flex-box-12">
+  <div class="flex-item"></div>
+  <div class="flex-item"></div>
+  <div class="flex-item"></div>
+  <div class="flex-item"></div>
+  <div class="flex-item"></div>
+  <div class="flex-item"></div>
+  <div class="flex-item"></div>
+  <div class="flex-item"></div>
+  <div class="flex-item"></div>
+</div>
+<h3>align-content: center</h3>
+<div class="flex-box-13">
+  <div class="flex-item"></div>
+  <div class="flex-item"></div>
+  <div class="flex-item"></div>
+  <div class="flex-item"></div>
+  <div class="flex-item"></div>
+  <div class="flex-item"></div>
+  <div class="flex-item"></div>
+  <div class="flex-item"></div>
+  <div class="flex-item"></div>
+</div>
+<h3>align-content: space-around</h3>
+<div class="flex-box-14">
+  <div class="flex-item"></div>
+  <div class="flex-item"></div>
+  <div class="flex-item"></div>
+  <div class="flex-item"></div>
+  <div class="flex-item"></div>
+  <div class="flex-item"></div>
+  <div class="flex-item"></div>
+  <div class="flex-item"></div>
+  <div class="flex-item"></div>
+</div>
+<h3>align-content: space-between</h3>
+<div class="flex-box-15">
+  <div class="flex-item" "></div>
+  <div class="flex-item" "></div>
+  <div class="flex-item" "></div>
+  <div class="flex-item" "></div>
+  <div class="flex-item" "></div>
+  <div class="flex-item" "></div>
+  <div class="flex-item" "></div>
+  <div class="flex-item" "></div>
+  <div class="flex-item" "></div>
+</div>
+<h3>align-content: space-evenly</h3>
+<div class="flex-box-16">
+  <div class="flex-item"></div>
+  <div class="flex-item"></div>
+  <div class="flex-item"></div>
+  <div class="flex-item"></div>
+  <div class="flex-item"></div>
+  <div class="flex-item"></div>
+  <div class="flex-item"></div>
+  <div class="flex-item"></div>
+  <div class="flex-item"></div>
+</div>
+<style>
+.flex-box-10,
+.flex-box-11,
+.flex-box-12,
+.flex-box-13,
+.flex-box-14,
+.flex-box-15,
+.flex-box-16 {
+  display: flex;
+  height: 300px;
+  flex-wrap: wrap;
+  align-content: stretch;
+  border: 5px solid #DEDEDE;
+}
+.flex-box-11 { align-content: flex-start; }
+.flex-box-12 { align-content: flex-end; }
+.flex-box-13 { align-content: center; }
+.flex-box-14 { align-content: space-around; }
+.flex-box-15 { align-content: space-between; }
+.flex-box-16 { align-content: space-evenly; }
+
+.flex-item {
+  min-width: 100px;
+  min-height: 100px;
+  background: #DEDEDE;
+  border: 2px solid white;
+}
+</style></div>
+<h2 id="Align-items"><a href="#Align-items" class="headerlink" title="Align-items"></a><code>Align-items</code></h2><p>这是在侧轴（默认是垂直方向）上每个元素的对齐方式，因为是复数形式，这个属性依旧是从宏观上进行定义。可以用的取值有：<code>stretch</code>（默认值）、<code>flex-start</code>、<code>flex-end</code>、<code>center</code>、<code>baseline</code>。</p>
+<p>但是想看清这个属性，首先要禁止纵向上的拉伸，我们就让它们在纵向上均匀分布吧（<code>align-content: space-evenly</code>）。然后给不同元素设置一下不同的高度限制（<code>min-height</code> 因为都没什么内容，所以这就是一般情况的下显示的高度）。</p>
+<div class="code-show" data-before-text="代码效果演示 Start" data-after-text="代码效果演示 End"><h3>align-items: stretch</h3>
+<div class="flex-box-20">
+  <div class="flex-item flex-h-1"></div>
+  <div class="flex-item flex-h-2"></div>
+  <div class="flex-item flex-h-3"></div>
+  <div class="flex-item flex-h-4"></div>
+  <div class="flex-item flex-h-5"></div>
+  <div class="flex-item flex-h-6"></div>
+  <div class="flex-item flex-h-7"></div>
+  <div class="flex-item flex-h-8"></div>
+  <div class="flex-item flex-h-9"></div>
+</div>
+<h3>align-items: flex-start</h3>
+<div class="flex-box-21">
+  <div class="flex-item flex-h-1"></div>
+  <div class="flex-item flex-h-2"></div>
+  <div class="flex-item flex-h-3"></div>
+  <div class="flex-item flex-h-4"></div>
+  <div class="flex-item flex-h-5"></div>
+  <div class="flex-item flex-h-6"></div>
+  <div class="flex-item flex-h-7"></div>
+  <div class="flex-item flex-h-8"></div>
+  <div class="flex-item flex-h-9"></div>
+</div>
+<h3>align-items: flex-end</h3>
+<div class="flex-box-22">
+  <div class="flex-item flex-h-1"></div>
+  <div class="flex-item flex-h-2"></div>
+  <div class="flex-item flex-h-3"></div>
+  <div class="flex-item flex-h-4"></div>
+  <div class="flex-item flex-h-5"></div>
+  <div class="flex-item flex-h-6"></div>
+  <div class="flex-item flex-h-7"></div>
+  <div class="flex-item flex-h-8"></div>
+  <div class="flex-item flex-h-9"></div>
+</div>
+<h3>align-items: center</h3>
+<div class="flex-box-23">
+  <div class="flex-item flex-h-1"></div>
+  <div class="flex-item flex-h-2"></div>
+  <div class="flex-item flex-h-3"></div>
+  <div class="flex-item flex-h-4"></div>
+  <div class="flex-item flex-h-5"></div>
+  <div class="flex-item flex-h-6"></div>
+  <div class="flex-item flex-h-7"></div>
+  <div class="flex-item flex-h-8"></div>
+  <div class="flex-item flex-h-9"></div>
+</div>
+<h3>align-items: baseline</h3>
+<div class="flex-box-24">
+  <div class="flex-item flex-h-1" style="font-size: 16px;">x</div>
+  <div class="flex-item flex-h-2" style="font-size: 18px;">x</div>
+  <div class="flex-item flex-h-3" style="font-size: 14px;">x</div>
+  <div class="flex-item flex-h-4" style="font-size: 26px;">x</div>
+  <div class="flex-item flex-h-5" style="font-size: 12px;">x</div>
+  <div class="flex-item flex-h-6" style="font-size: 30px;">x</div>
+  <div class="flex-item flex-h-7" style="font-size: 16px;">x</div>
+  <div class="flex-item flex-h-8" style="font-size: 18px;">x</div>
+  <div class="flex-item flex-h-9" style="font-size: 24px;">x</div>
+</div>
+
+<style>
+.flex-box-20,
+.flex-box-21,
+.flex-box-22,
+.flex-box-23,
+.flex-box-24 {
+  display: flex;
+  height: 300px;
+  flex-wrap: wrap;
+  align-content: space-evenly;
+  align-items: stretch;
+  border: 5px solid #DEDEDE;
+}
+.flex-box-21 { align-items: flex-start; }
+.flex-box-22 { align-items: flex-end; }
+.flex-box-23 { align-items: center; }
+.flex-box-24 { align-items: baseline; }
+
+.flex-item {
+  min-width: 100px;
+  min-height: 100px;
+  background: #DEDEDE;
+  border: 2px solid white;
+}
+.flex-h-1 { min-height: 100px }
+.flex-h-2 { min-height: 130px }
+.flex-h-3 { min-height: 105px }
+.flex-h-4 { min-height: 120px }
+.flex-h-5 { min-height: 125px }
+.flex-h-6 { min-height: 100px }
+.flex-h-7 { min-height: 110px }
+.flex-h-8 { min-height: 130px }
+.flex-h-9 { min-height: 125px }
+</style></div>
+<p>这样一看效果就明白了。<code>align-items</code> 说的是元素们在侧轴方向（默认上下）如何对齐，是哪些元素呢？是主轴方向（默认左右）上的一串元素。</p>
+<p>那么 <code>align-self</code> 属性就应该也会有了，这是在这个对齐方式上，去微调某一个元素的。</p>
+<hr>
+<p>到这里我们就讲完了弹性布局的对齐方式。咦，这才四种，不是还有两种么？</p>
+<p><code>justify-items</code> 和 <code>justify-self</code>，这两个属性说的都是一件事情，只是一个是整体，一个是个体。所以我就解释一个就 OK 了。按着上面推测，这是说垂直方向上一串元素在横向的对齐方式，反正就是把上面的转了 90°。但是，不好意思，<strong>弹性布局并不需要这两个属性</strong>。</p>
+<p>首先，我们最开始我就说过一句：弹性元素像一个个文字一样……所以他们本能的首尾相接，在必要的时候进行一下换行而已。所以它并没有侧轴上的一串<a href="#footnote-2" class="footnote-link"><sup>[2]</sup></a>这样的划分。如此，这两个属性也就无从存在了。</p>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0080/" title="卡片 for 第八十章">卡片 for 第八十章</a>】</p>
+<div class="foot-notes"><p><strong id="footnote-1" class="footnote">&gt;注释 1:</strong> 不是全部，只是主要的，常用的。全介绍太多了，太乱了，而且有些属性只是文档上有，还没有浏览器支持，也挺尴尬的。我带着大家入门，想把技术学精，请务必努力啃文档，而且是啃英文文档（中文的翻译有些真的是……</p><p><strong id="footnote-2" class="footnote">&gt;注释 2:</strong> 这个说法也是我为了方便理解自创的，明白什么意思就好。理解了意思就什么都好办了，千万别背！</p></div>
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0079/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0081/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

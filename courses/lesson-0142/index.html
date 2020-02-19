@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第一百四十二章 聚焦于此 | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="jQuery 中元素获取和失去焦点的事件。">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第一百四十二章 聚焦于此
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2019-05-29 | Update: 2019-06-03">
+    <p>
+      jQuery 中元素获取和失去焦点的事件。
+    </p>
+  </div>
+  <div class="post-content">
+    <p>前面我们说了，页面中的元素，只有一部分可以获得焦点。表单中（用于输入）的元素，因为需要进行输入，所以基本都可以获得焦点。其他的还有比如链接，如果我们尝试用键盘在页面内进行导航的话，会发现链接也是可以获得焦点的。</p>
+<p>在新版本的浏览器中，我们可以通过给元素添加 <code>tabindex</code> 属性，使原本不能被聚焦的元素可以聚焦。需要深入了解这个功能的小伙伴可以自己查阅文档，也是一个十分简单的操作，只是需要考虑浏览器的支持情况。</p>
+<p>一个元素获得焦点，或者说被聚焦，一般在它外面会有一个高亮的边框，这是浏览器给予的样式，为了便于我们识别当前元素的聚焦状态。这个边框的样式也是可以进行一定自定义的。对于表单中的元素，它获得焦点之后，我们输入的内容就会出现在这个元素里面，或者我们所做的一些操作会对这个元素起作用（对于单选框或者复选框，一般的我们可以使用空格键进行选择和取消选择的切换）。如果这是一个链接元素，当它获得焦点的时候，我们点击回车，相当于对这个元素进行了点击。</p>
+<p>元素获得焦点，是一个事件，标志着这个元素聚焦的状态发生了改变。这个事件是：<code>focus</code>。利用这个事件，我们可以做许多事情，比如在输入框内原本是有提示的文字，当它获得焦点之后，就把提示的文字清空。（不过现在有 <code>placeholder</code> 属性专门做这件事情了）。反过来我们也可以用 <code>focus</code> 来触发这个事件，结果就是让指定的元素获得焦点，方便用户进行操作。比如我写了一个搜索页面，那么，我可以认为在这个页面中的所有输入操作，默认都是希望写在输入框内的。所以一旦进入这个页面，就自动让输入框获得输入的焦点，这样用起来就很方便。</p>
+<p>有获得就会有失去，<code>blur</code> 事件表示一个元素从拥有焦点的状态，到失去焦点的状态，这个改变的瞬间。于是参照上面的例子，在失去焦点的时候，我们判断一下输入框里面如果是空的，就是并没有被输入东西，那我们就再把提示文字显示出来。而那个搜索页面，当输入框失去焦点的时候，我们就让它重新获取焦点，这样就可以保证焦点一直在输入框内了（机智~）。我们也可以使用这个方法，让元素失去焦点。</p>
+<p>这是关于元素获得和失去焦点的两个事件。结合我们前面所学的知识，已经可以做出很多有趣的东西来了。因为它们的使用也非常的简单，大家只要自己动手做几个基础的练习，就能够很好的理解，所以我就不在这里带着大家写代码了。</p>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0142/" title="卡片 for 第一百四十二章">卡片 for 第一百四十二章</a>】</p>
+
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0141/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0143/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

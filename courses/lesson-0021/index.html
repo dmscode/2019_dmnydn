@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第二十一章 表单中的其他元素 | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="表单中的元素不只是输入框，还有诸如标签、文本框、多选框等等元素可供使用，这里介绍一下常用的元素。">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第二十一章 表单中的其他元素
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2018-11-16 | Update: 2019-05-09">
+    <p>
+      表单中的元素不只是输入框，还有诸如标签、文本框、多选框等等元素可供使用，这里介绍一下常用的元素。
+    </p>
+  </div>
+  <div class="post-content">
+    <p>虽然 <code>input</code> 元素有那么多种类型，可以实现很多的功能，但它并不是表单中的唯一一种元素。这一章我们就来介绍一下表单中的其他元素。</p>
+<h3 id="lt-fieldset-gt-分组"><a href="#lt-fieldset-gt-分组" class="headerlink" title="&lt;fieldset&gt; 分组"></a><code>&lt;fieldset&gt;</code> 分组</h3><p>有时候，表单内包含大量内容，如果就这么直接的把它们写出来，就仿佛一篇没有标题的万字长文，没有人会喜欢去读。所以我们就要对表单的内容进行分组，好像给文章加上小标题，又或者我们简历中，会分为基本信息，工作经历等几个部分，让人看起来清晰明了，一下子就知道什么信息应该到哪里去找。</p>
+<h3 id="lt-legend-gt-分组的说明"><a href="#lt-legend-gt-分组的说明" class="headerlink" title="&lt;legend&gt; 分组的说明"></a><code>&lt;legend&gt;</code> 分组的说明</h3><p>有了分组，我们还需要向读者说明一下，这一部分主要是什么内容，那就是 <code>&lt;legend&gt;</code> 标签了。这两个标签用起来也十分的简单：</p>
+<pre><code class="html">&lt;form action=&quot;test.php&quot; method=&quot;get&quot;&gt;
+  &lt;fieldset&gt;
+    &lt;legend&gt;这里写说明就行了&lt;/legend&gt;
+    &lt;input type=&quot;text&quot; name=&quot;miao&quot;&gt;
+  &lt;/fieldset&gt;
+&lt;/form&gt;
+</code></pre>
+<p>当然每个分组里放多少表单元素都是可以的，我这里限于篇幅，就只写了一个。</p>
+<h3 id="lt-label-gt-标签"><a href="#lt-label-gt-标签" class="headerlink" title="&lt;label&gt; 标签"></a><code>&lt;label&gt;</code> 标签</h3><p>这是用来对表单中某个元素进行说明的，感觉就很类似于上面的 <code>&lt;legend&gt;</code> 了。只不过一个是对单个元素进行说明，一个是对整个组进行说明。</p>
+<p>然后标签有一个十分常用的属性，<code>for</code>，用来表示这个标签是对哪个元素进行的说明。<code>for</code> 属性的值和被说明元素 <code>id</code> 的值一致即可。比如下面：</p>
+<pre><code class="html">&lt;label for=&quot;User&quot;&gt;点击这里，下方输入框便会获得焦点&lt;/label&gt;
+&lt;input type=&quot;text&quot; id=&quot;User&quot; name=&quot;Name&quot; /&gt;
+</code></pre>
+<div class="code-show" data-before-text="代码效果演示 Start" data-after-text="代码效果演示 End"><label for="User">点击这里，下方输入框便会获得焦点</label><br>
+<input type="text" id="User" name="Name"></div>
+<h3 id="lt-select-gt-下拉列表"><a href="#lt-select-gt-下拉列表" class="headerlink" title="&lt;select&gt; 下拉列表"></a><code>&lt;select&gt;</code> 下拉列表</h3><p>这种形式我们都见到过，不过下拉列表比其他元素略显复杂一些。</p>
+<h3 id="lt-option-gt-列表项"><a href="#lt-option-gt-列表项" class="headerlink" title="&lt;option&gt; 列表项"></a><code>&lt;option&gt;</code> 列表项</h3><p>一听这个名字，大家可能就想起 <a href="/courses/lesson-0015/" title="第十五章 列表">第十五章 列表</a> 中的内容了，他们确实很相似，不过 <code>&lt;option&gt;</code> 其实应该叫做下拉列表的选项。</p>
+<h3 id="lt-optgroup-gt-选项分组"><a href="#lt-optgroup-gt-选项分组" class="headerlink" title="&lt;optgroup&gt; 选项分组"></a><code>&lt;optgroup&gt;</code> 选项分组</h3><p>和最开始的表单分组一样，如果下拉列表中内容过多，我们也可以对他们进行分组。当然，这两种分组都不是必须的，只有三两个内容的时候，就完全没有必要进行分组嘛。下面是下拉列表中三个标签的使用演示，因为是演示，所以虽然内容不多，还是进行了一下分组：</p>
+<pre><code class="html">&lt;select&gt;
+  &lt;option&gt;没有被分组的第一项&lt;/option&gt;
+  &lt;option&gt;没有被分组的第二项&lt;/option&gt;
+  &lt;optgroup label=&quot;第一组&quot;&gt;
+    &lt;option&gt;第一组第一项&lt;/option&gt;
+  &lt;/optgroup&gt; 
+  &lt;optgroup label=&quot;第二组&quot;&gt;
+    &lt;option&gt;第二组第一项&lt;/option&gt;
+    &lt;option&gt;第二组第二项&lt;/option&gt;
+  &lt;/optgroup&gt;
+&lt;/select&gt;
+</code></pre>
+<div class="code-show" data-before-text="代码效果演示 Start" data-after-text="代码效果演示 End"><select>
+  <option>没有被分组的第一项</option>
+  <option>没有被分组的第二项</option>
+  <optgroup label="第一组">
+    <option>第一组第一项</option>
+  </optgroup> 
+  <optgroup label="第二组">
+    <option>第二组第一项</option>
+    <option>第二组第二项</option>
+  </optgroup>
+</select></div>
+<h3 id="lt-datalist-gt-数据列表"><a href="#lt-datalist-gt-数据列表" class="headerlink" title="&lt;datalist&gt; 数据列表"></a><code>&lt;datalist&gt;</code> 数据列表</h3><p>上面的列表只有固定的几项可供选择，但是我们也见过一种列表，既可以自行选择，也可以进行输入。其实就是用数据列表配合 <code>input</code> 标签来实现的。<code>&lt;datalist&gt;</code> 用法和 <code>&lt;select&gt;</code> 十分类似，但是它的选项不能用 <code>&lt;optgroup&gt;</code> 分组。</p>
+<pre><code class="html">&lt;input type=&quot;text&quot; name=&quot;miao&quot; list=&quot;list_a&quot;&gt;
+&lt;datalist id=&quot;list_a&quot;&gt;
+  &lt;option&gt;第一项&lt;/option&gt;
+  &lt;option&gt;第二项&lt;/option&gt;
+  &lt;option&gt;第三项&lt;/option&gt;
+&lt;/datalist&gt;
+</code></pre>
+<div class="code-show" data-before-text="代码效果演示 Start" data-after-text="代码效果演示 End"><input type="text" name="miao" list="list_a">
+<datalist id="list_a">
+  <option>第一项</option>
+  <option>第二项</option>
+  <option>第三项</option>
+</datalist></div>
+<h3 id="lt-textarea-gt-多行文本框"><a href="#lt-textarea-gt-多行文本框" class="headerlink" title="&lt;textarea&gt; 多行文本框"></a><code>&lt;textarea&gt;</code> 多行文本框</h3><p><code>input</code> 只能用来输入单行文本，而需要多行文本的时候，我们就要使用 <code>&lt;textarea&gt;</code> 了。这个标签需要成对出现，它中间的内容会被显示在文本框中，作为默认值，需要注意这时候里面的空白会对内容的显示产生实际影响：</p>
+<pre><code class="html">&lt;textarea&gt;
+  这里面的内容会被显示出来
+  空白    也就会产生一定的影响
+&lt;/textarea&gt;
+</code></pre>
+<div class="code-show" data-before-text="代码效果演示 Start" data-after-text="代码效果演示 End"><textarea style="width: 100%" rows="4">
+  这里面的内容会被显示出来
+  空白    也就会产生一定的影响
+</textarea></div>
+<h3 id="lt-progress-gt-进度条"><a href="#lt-progress-gt-进度条" class="headerlink" title="&lt;progress&gt; 进度条"></a><code>&lt;progress&gt;</code> 进度条</h3><p>他有两个属性需要设置，一个 <code>max</code> 表示整个进度条代表的数量；一个 <code>value</code> 表示当前的数量。如果 <code>value</code> 属性没有设置，进度条显示为不确定的状态。因为用户浏览器和操作系统的不同，进度条会显示成不同的样式。</p>
+<pre><code class="html">&lt;progress value=&quot;70&quot; max=&quot;100&quot;&gt;70 %&lt;/progress&gt;
+&lt;progress max=&quot;100&quot;&gt;奇怪的未知状态&lt;/progress&gt;
+</code></pre>
+<div class="code-show" data-before-text="代码效果演示 Start" data-after-text="代码效果演示 End"><progress value="70" max="100">70 %</progress>
+<br>
+<progress max="100">奇怪的未知状态</progress></div>
+<h3 id="lt-button-gt-按钮"><a href="#lt-button-gt-按钮" class="headerlink" title="&lt;button&gt; 按钮"></a><code>&lt;button&gt;</code> 按钮</h3><p>就是一个按钮，根据它所设置的类型，会有不同的效果。可用的类型如下：</p>
+<ul>
+<li><code>submit</code>:  用来提交当前表单。如果没有设置按钮的类型，默认就是这个类型；</li>
+<li><code>reset</code>:  用来重置所有表单项目；</li>
+<li><code>button</code>: 就是一个按钮，没有任何动作，但你可以自己写脚本，让它实现各式各样的动作；</li>
+</ul>
+<p>比较而言，<code>&lt;button&gt;</code> 要比 <code>&lt;input type=&quot;button&quot;&gt;</code> 更容易设置各种样式。我比较推荐使用这个标签来书写按钮，因为这样更容易读懂这是一个按钮，而不是其他输入元素。</p>
+<h3 id="lt-output-gt-输出"><a href="#lt-output-gt-输出" class="headerlink" title="&lt;output&gt; 输出"></a><code>&lt;output&gt;</code> 输出</h3><p>这个标签其实没有什么实际作用，主要是用来语义化的说明这个区域的内容是输出的内容，比如通过用户输入的数据，进行计算后产生的结果等。</p>
+<hr>
+<p>以上就是我们在表单中常用的元素，主要是带大家简单认识一下，所以介绍的非常简略，详细部分在我们后面应用的时候，再逐渐的去认识，否则现在讲了一堆理论，却没有办法实际应用，是很难以理解的。</p>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0021/" title="卡片 for 第二十一章">卡片 for 第二十一章</a>】</p>
+
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0020/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0022/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

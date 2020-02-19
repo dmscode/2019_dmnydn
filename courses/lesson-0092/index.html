@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第九十二章 变量和运算 | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="JavaScript 中的变量和运用变量进行初步的计算。">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第九十二章 变量和运算
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2019-03-13 | Update: 2019-05-09">
+    <p>
+      JavaScript 中的变量和运用变量进行初步的计算。
+    </p>
+  </div>
+  <div class="post-content">
+    <p>变量这个概念大家应该在初中就学过，简单地说就是用字母代表数，而且所代表的内容可以发生变化（可以变才是变量嘛）。</p>
+<p>那么到了代码里，情况类似，但是被扩大化了。首先可以代表的东西不只是数，还可以是很多种东西。最简单的，可以代表一些文字……</p>
+<p>变量的名字也不只是单纯的字母了，可以很复杂，字母数字以及下划线的组合，但是第一位不能是数字。</p>
+<p>好像讲完了……</p>
+<p>实际操作一下吧~</p>
+<pre><code class="js">a = 12;
+console.log(a);
+</code></pre>
+<p>不是说好变量的名称可以复杂么，为什么还是 a 啊！</p>
+<p>确实可以复杂，我们一般在变量名称中写清楚这个变量是做什么的，方便辨认，毕竟一段程序里可能用到好多变量，真的写 a、b、c、d……怕是自己马上就抓狂了。</p>
+<p>但是现在我们举例子，还是最简单的，我也不知道这个变量该叫个啥，又没什么可混乱的，所以就随手写 a 了。</p>
+<p>然后应该重点说的一个问题是：<strong>这个等号和我们以前认知中的等号不一样！！！</strong></p>
+<p><code>=</code> 是“赋值符”，表示把后面的值赋给前面的变量。再说一遍，这不是等号！（虽然我们也常这么读，习惯使然，但你必须知道这是赋值符，表示赋值。</p>
+<p>当然，现在的写法不严谨，不完善，不是很合理……但，不妨碍我们先这么用一下，然后逐步去完善。</p>
+<p>好啦，说说计算吧，这个反倒很简单（我是说基础的很简单。</p>
+<p>加（+）减（-）乘（*）除（/）四则运算，变量参与运算，都没问题，小括号也可以有，一层一层嵌套（没有中括号和大括号，全用小括号），你看，基本运算就可以搞定了吧？</p>
+<p>我们来简单的举几个例子：</p>
+<p><strong>Number 1：</strong></p>
+<pre><code class="js">a = 1;
+b = 2;
+result = a+b+5;
+console.log(result);
+// 输出 8
+</code></pre>
+<p><strong>Number 2：</strong></p>
+<pre><code class="js">a = 12;
+b = 6;
+result = a+b*5/(66-3);
+console.log(result);
+// 输出 12.476190476190476
+</code></pre>
+<p>反正你能把算式写对，他就能计算。但是，计算结果可能有不严谨的地方，这个要深入了解 JS 进行计算的原理才行，我们就先不管他，假装是 OK 的就好了。毕竟基础概念还没搞定呢。</p>
+<p>目前你可以用 JS 当做计算器使用了，说真的，现在如果告诉你一些基础的操作页面元素的方法，写个计算器出来也不是不可以。不过想要走的更远，还是先和我一起把这些基础知识搞清楚再说吧。</p>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0092/" title="卡片 for 第九十二章">卡片 for 第九十二章</a>】</p>
+
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0091/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0093/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

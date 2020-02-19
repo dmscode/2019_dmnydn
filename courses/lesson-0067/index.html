@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第六十七章 定位 | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="网页元素的定位方法，但是要在必要的时候慎重使用，很方便，不过用的多了会导致混乱。">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第六十七章 定位
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2019-01-09 | Update: 2019-05-09">
+    <p>
+      网页元素的定位方法，但是要在必要的时候慎重使用，很方便，不过用的多了会导致混乱。
+    </p>
+  </div>
+  <div class="post-content">
+    <p>确切的说，是定位的方式，属性名是 <code>position</code>，可用的取值也并不多，四五个而已。但是除了默认值 <code>static</code> 之外，可以说其他的每个值都对应了一套定位方式，就需要仔细区分清楚，这就不是像前面介绍属性值那样，三言两语就可以说清楚的了。</p>
+<h3 id="静态定位-static"><a href="#静态定位-static" class="headerlink" title="静态定位 static"></a>静态定位 <code>static</code></h3><p>我们前面做的排版，完全就是基于这个前提的，所以可以说我们对这个定位方式已经很了解了。它不需要某些额外的属性来辅助（后面涉及到这些属性），依靠文档流的原始力量来进行定位。</p>
+<h3 id="相对定位-relative"><a href="#相对定位-relative" class="headerlink" title="相对定位 relative"></a>相对定位 <code>relative</code></h3><p>这个分两步操作：首先，我们就像什么都没发生一样进行布局。然后，保持这个布局不变的前提下，把相对定位的元素移动到它们被定位到的地方。</p>
+<p>所以，其他元素（不包含这个元素的后代元素）受到影响么？没影响，它们应该保持不动。</p>
+<p>被定为元素原来的位置会被保留么？会的，因为其他元素没动，所以没人抢占它的位置。</p>
+<p>那怎么确定它的位置呢？四个属性 <code>left</code> 、 <code>right</code> 、 <code>top</code> 、 <code>bottom</code>，表示从当前位置向某个方向移动相应的距离。一个都不写，就是保持原来的位置不动。上下互斥，只能写一个方向，同理，左右互斥。</p>
+<p><code>z-index</code>，Z 轴的顺序，说的是元素间堆叠的顺序，值越大，就越在上层，就不会被后面的元素遮挡。</p>
+<p>这些在后面会有练习进行演示。</p>
+<h3 id="绝对定位-absolute"><a href="#绝对定位-absolute" class="headerlink" title="绝对定位 absolute"></a>绝对定位 <code>absolute</code></h3><p>依旧是分两步走：首先假装没有这个元素，进行布局；然后保持当前布局不变，把这个元素放在定位位置。</p>
+<p>那么它都没有原来位置可言了，相对于谁来定位呢？相对于从它向外第一个不是静态定位的祖先元素。</p>
+<p>定位使用的属性还是上面五个，区别只在于，相对于谁发生了变化。</p>
+<h3 id="固定定位-fixed"><a href="#固定定位-fixed" class="headerlink" title="固定定位 fixed"></a>固定定位 <code>fixed</code></h3><p>和上面很像，我就不重复了，唯一的区别只在于：相对于谁定位。</p>
+<p>固定定位是相对于浏览器窗口定位，那么页面滚动就与它无关了，因为浏览器不动，它就不动。这是什么？漂浮元素，对吧。</p>
+<p>而且因为不保留位置，不相对于祖先元素定位，把它写在哪里也不重要了。</p>
+<h3 id="粘性定位-sticky"><a href="#粘性定位-sticky" class="headerlink" title="粘性定位 sticky"></a>粘性定位 <code>sticky</code></h3><p>先说清楚，这是一个实验性的值，所以，如果需要使用，先认真查阅它的兼容性。</p>
+<p>这家伙综合了上面很多特性，首先它保留原有位置，然后它是相对于浏览器窗口定位。最后，开始时，它和静态定位是一样的，只有当页面滚动到符合它定位的位置时，它才和浏览器保持相对不动。而反向滚动，回到它原来的位置时，它又停在了自己原来的位置。</p>
+<p>就像有些网站的导航栏，看起来一切正常，但是向下滚动页面时，导航栏一直显示在最顶部。滚动回页首，它又停在了它布局的位置。</p>
+<hr>
+<p>五种定位方式说完了，都是重点哦，我已经努力的把重点简练成了这样，又特别告诉你们了，所以要记住哦！</p>
+<p>我们下一章开始应用它们。</p>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0067/" title="卡片 for 第六十七章">卡片 for 第六十七章</a>】</p>
+
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0066/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0068/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

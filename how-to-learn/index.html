@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>如何自学以及我的课程 | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="page">
+  <h1 class="title">
+    如何自学以及我的课程
+  </h1>
+  <div class="page-content">
+    <p>如果你是一个前端初学者，希望这篇文章可以为你解答初期的一些疑惑。</p>
+<p>我是一个很普通的前端爱好者，懂的很少，更不是权威和大佬，所以只是说说自己的看法，以及在自学前端路上得到的一点点经验，如果这些恰好对你们有帮助，那我真的是太开心了。</p>
+<p>第一个需要做的事情，是能够有耐心把这篇文章读完，并且认真的加以思考。这个要求很高，能做到的人怕是不足十分之一，希望你，是其中一个。</p>
+<h2 id="关于学习"><a href="#关于学习" class="headerlink" title="关于学习"></a>关于学习</h2><h3 id="自学？培训？"><a href="#自学？培训？" class="headerlink" title="自学？培训？"></a>自学？培训？</h3><p>要先明确：<strong>学习，这件事情，是要自己去做的，也只能由自己去完成</strong>。</p>
+<p>“师者，传道、受业、解惑也。”再好的老师，能做的，也只是把知识告诉你，以及在你遇到问题的时候给你解答。而“学”和“学会”这完全是自己的事情。</p>
+<p>那么你学习的目的是什么？掌握一项技能？拿到一个证书？凭技能吃饭？热爱和钻研？……总之，明确你的目的，才能选择更适合自己的方法。</p>
+<p>如果说学习前端技术，那么自学是足够的，你只要在遇到疑惑的时候，学会搜索、尝试和提问。如果对这句话还有质疑，请先思考这些质疑是不是给自己的借口。</p>
+<p>找培训也没问题，毕竟学习方法要适应个人，而每个人的情况是不同的。那么需要学习气氛、需要老师督促，这完全正常。我仅仅建议，大家在选择培训之前，去知名的程序员社区 V2EX 上看看前端培训机构出来的学生们在应聘时的竞争力如何，如果这些都符合你的预期就好。</p>
+<p>至于能不能学会，能学成什么样，这都是看自身的，和渠道关系并不大。毕竟，如果自己不想去学，用填鸭式教育都无法灌入知识，何况我们都是成年人了，谁还去逼迫谁学习么？</p>
+<h3 id="前端是啥？有啥？该学啥？"><a href="#前端是啥？有啥？该学啥？" class="headerlink" title="前端是啥？有啥？该学啥？"></a>前端是啥？有啥？该学啥？</h3><p>前端就是网页，你看到的网页，运行在浏览器的那部分。这很不明确，不直观，可是没办法。前端现在什么都做，用来写后端也可以（Node.js 就是运行在服务器上的 JS），用来写软件也可以，写 App 也可以，写小程序也还是这些知识……</p>
+<p>它能做的很多，未必都做得很好，但是学习一种技术，能通吃，或者说较低学习成本的应对多种情况，这是很美好的。</p>
+<p>再复杂的东西也有基础。再高的大建筑，也要凭借扎实的地基屹立世间。<strong>它越强大，基础越重要</strong>。</p>
+<p>前端的地基就是 HTML、CSS、JavaScript。对，还有很多技术，无数的名词，眼花缭乱。但基本都是在这个基础上去衍生，去辅助，去发展，去变化……</p>
+<p>如果还不会走，请别急着想跑起来，会摔跤，会疼的。</p>
+<p>我的教程很简陋，基本就是带着大家很初步的认识一下这些东西，了解他们是什么，大概能做些什么，然后可以思考自己要不要去学，该怎么去学。如果你想追问它们具体是什么，不如先来读一下教程。自己去了解，然后做出的判断，不比别人的建议更准确么？毕竟，给你建议的人，并不用承担你走弯路而付出的损失。</p>
+<h3 id="好学吗？能学会吗？我数学差，英语差……"><a href="#好学吗？能学会吗？我数学差，英语差……" class="headerlink" title="好学吗？能学会吗？我数学差，英语差……"></a>好学吗？能学会吗？我数学差，英语差……</h3><p><strong>你想去学吗？你真的想学吗？一个月以后你还想学吗？一年以后你还想学吗？</strong></p>
+<p>不肯付出，不愿坚持，啊，不用问了，什么都学不会的。</p>
+<p>能有多难？再难的知识，也可以不断细化分解，到了每一个细节，再难还能有多难？数学差，1+1=2 也能记住吧；英语差，二十六个字母也能背下来吧。我可以学的比别人慢一点，但是我一直做下去，我相信我还是可以走出很远的距离。对，和大佬比微不足道，但是这距离可以感动我自己。</p>
+<p>漫漫求学路，一步一步都是要自己走出来的。</p>
+<p>你想走，天堑也能成坦途，你不走，坦途也是永远的鸿沟。</p>
+<p><strong>求学啊，是自己求着去学</strong>，因为学会了对自己有益；不是别人求着你学，你学不学的，跟别人没啥影响。</p>
+<p>我曾经遇到问题满世界的追着问网友，别人肯给我解答我都要特别珍惜和感激，因为找到这点答案真不容易，而对方的耐心解答也真的让我感动。</p>
+<p>现在资源很丰富了，想学习就可以拿很多资源对照着学，遇到问题可以各种社区提问了。还……</p>
+<p>老鼠不想说话，老鼠想哭。</p>
+<h3 id="怎么去学"><a href="#怎么去学" class="headerlink" title="怎么去学"></a>怎么去学</h3><p>这个一个全新的知识体系，最初肯定要面对大量陌生知识的冲击，初期的茫然是正常现象。这时候要记住一个词——<strong>纲举目张</strong>。</p>
+<p>读不懂？读下去就是了，你别担心，别着急，到后面就懂了。</p>
+<p>不明白？去试试就对了，记住和会用是两码事，你觉得明白了也要反复练习，才能进一步理解，这叫“温故而知新”。同一件事情，多做几遍，还是会生出新的理解。</p>
+<p>要思考，要理解。死记硬背什么的，真的走不远，程序员这么懒，写代码自动补全，需要背的东西非常少了，但需要理解的东西超级多。你理解的越深刻，你就越厉害。这种事情谁也教不了你，全靠自己思考，探索，积累……</p>
+<p>要学会提问。遇到问题怎么办？这是一个很重要的问题，张嘴去问就行了？那你永远也不知道自己错过了什么样的机会。</p>
+<p>遇到问题，先要自己思考，假设，然后尝试解决。这是为自己积累解决问题的经验，以后工作中，遇到问题，能自己解决问题，这是十分有价值的技能。</p>
+<p>自己解决不了，要先去搜索。你遇到的很可能不是新问题，网上也许有解决的方法，而且不光是解决的方法，还有相关的一系列知识。毕竟出问题而无法解决，就意味着知识的缺失，趁机补齐，就是很大的增长。</p>
+<p>最后才是提问，提问求的不是答案，而是方向。你搜索不到，很可能是方向不对。你需要的是一个正确的方向，所以有时候，对方给出一个关键词，就可以解决你的问题。</p>
+<p>而为了节省大家的时间，提问要描述清楚问题，出问题的环境，自己做的尝试，尝试的结果……</p>
+<h3 id="在哪学"><a href="#在哪学" class="headerlink" title="在哪学"></a>在哪学</h3><p>Google 是个好老师。</p>
+<p>MDN（<a href="https://developer.mozilla.org/zh-CN/" target="_blank" rel="noopener">https://developer.mozilla.org/zh-CN/</a>） 是个不错的前端文档，有中文，但是部分中文翻译不够完美，可以对照英文版阅读。</p>
+<p>其他的不想多解释，只讲一讲国内的技术断层。</p>
+<p>无法否认的，前端技术是国外更先进，标准也是他们制定（国内厂商现在也在积极参与进去）。</p>
+<p>现在前端技术发展十分迅速，更新很快，每次都有好多变化。甚至每个月都在变化（虽然可能是细节）。</p>
+<p>国内很多内容还是在 N 年之前翻译的，那么放在现在，难免有了众多偏差。</p>
+<p>而现在博客和论坛没落，虽然依旧有人在积极地翻译和传播最新的技术，但是再没有曾经的百花齐放的盛况。常常搜索出来的都是五六年前的东西。</p>
+<p>这时候，为什么不选择国际的，积极更新的，又有很多中国开发者贡献翻译来方便国人的 MDN 作为学习依据呢？</p>
+<p>别学一堆旧知识，应付了今天，明天被技术淘汰，不值得啊。</p>
+<h2 id="我的课程"><a href="#我的课程" class="headerlink" title="我的课程"></a>我的课程</h2><p>文本和视频都是公开出来的，但是，是付费课程，价格一杯咖啡，剩下凭良心。</p>
+<p>对，网上很多很多免费的内容，老鼠就是个黑心的奸商，我承认。但是白看付费课程的人，并没资格说我。</p>
+<p>既然承认了自己是黑心奸商，那么就再说一下自己的培训课程好了。大可放心，十分黑心！</p>
+<ul>
+<li><strong>价格：</strong> 4800 元，不分期，不二价</li>
+<li><strong>时长：</strong> 三个月（90天）</li>
+<li><strong>授课：</strong> 没有，自己学去，教程我都发出来了，教程没有的文档里也有</li>
+<li><strong>答疑：</strong> 仅限基础部分，我会的很少，问我复杂的我也解决不了，但是我们可以探讨</li>
+<li><strong>超值：</strong> 嗯，这部分请理解为赠品，所以不接受争议。我会在这三个月中坚持每天检查你的学习收获，布置作业，检查作业，挑问题（专业测试，找问题能力一流），提修改要求……你可以拒绝，但注意下一条：</li>
+<li><strong>服务宗旨：</strong> 概不退款~</li>
+</ul>
+<p>这不是玩笑，随时接受报名，我一起唠叨三五个人问题不大，如果对自己毅力有怀疑的可以来。拖延症什么的总是很容易，而花了钱还没学会就很肉疼，所以，要不要来逼自己一把？没退路的那种。</p>
+
+  </div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第八十四章 网格细节 | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="关于 CSS3 网格布局的一些细节补充。">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第八十四章 网格细节
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2019-01-24 | Update: 2019-05-09">
+    <p>
+      关于 CSS3 网格布局的一些细节补充。
+    </p>
+  </div>
+  <div class="post-content">
+    <p>先来一个简单的 <code>grid-column-gap / grid-row-gap / grid-gap</code>，是说网格线的粗细，默认粗细当然是 0 了，你也可以自定义，但没有颜色，其实也就是网格单元格之间的间隔。最后一个是前两个的复合属性。</p>
+<p>这有啥可讲的？对于现在的我们，最多也就是演示一下效果而已。不过，这难道不应该自己操作么？懒虫啊！你们像我一样懒是吃不饱饭的啊！怎么别的不学，光是学我的缺点呢。</p>
+<p>不过要说这个间隔也是占用父元素空间，所以也就影响了子元素们可以使用的空间。于是计算子元素尺寸就变得更复杂了。所以 <code>fr</code> 的优点就体现出来了，剩余可用长度，可是可以自动把间距排除的哦~</p>
+<p>提示：在检查元素的时候可以清楚地看到网格，这就十分方便了，也很有趣。</p>
+<p>然后还有什么呢？流！就是 <code>flow</code> 啊。这个我们在 <a href="/courses/lesson-0076/" title="第七十六章 一些共性">第七十六章 一些共性</a> 里面提到过，在讲弹性布局的时候也是最先说的这个问题，那么网格布局里，为啥我们一直没提它，不重要了么？</p>
+<p>很重要，但是这个很简单啊。这个属性叫做 <code>grid-auto-flow</code>。注意哦，有一个 <code>auto</code>，这可说明了大问题。你想啊，我们如果想上节课中那样，指定了某个元素所在的区域，那么是不是这个元素和“流”没多大关系了，差不多就相当于把元素钉在那里了。所以只有在你没指定具体位置，只是被“流”（默认规则）驱动的情况下，才会受到这个属性的影响。</p>
+<p>说的这么热闹，这个属性是做什么的呢？就是说这些元素该怎么排列。你看弹性布局里主轴方向是可以改变的，就意味着元素的排列方向可以随之改变，横向排列，或者纵向排列。现在我们有两个轴，固定了，不动了，但是想要达到的效果还是要有的。</p>
+<ul>
+<li><strong>row</strong>：告诉自动布局算法依次填充每行，根据需要添加新行（默认）；</li>
+<li><strong>column</strong>：告诉自动布局算法依次填充每列，根据需要添加新列；</li>
+<li><strong>dense</strong>：告诉自动布局算法，如果后面出现较小的 grid item，则尝试在网格中填充空洞；</li>
+</ul>
+<p>就是一个横排一个竖排，多简单。至于最后一个么，你可能固定了其中几个元素。那么其余元素呢？优先用来填补前面的空白（如果尺寸合适的话）。可以说是十分的智能了呢！</p>
+<p>然后说一下嵌套，父元素作为容器设置为 <code>display: grid;</code>，这个我们前面用过了。而子元素里面如果还需要使用网格布局，则要把子元素设置为 <code>display: subgrid;</code>，就是子网格的意思。</p>
+<p>然后还有一个不是细节的细节（其实这些都不是细节，只是我们在认识阶段，这些属性并没那么大的影响，不作为第一批必须掌握的内容而已）。可能有同学觉得，说网格，说棋盘，我不管你说什么，反正你这东西不直观，我就不懂，我就学不会，你打我呀！</p>
+<p>还真有一个直观的不要不要的方法。差不多就是摆棋盘这件事情本身了。不过在这之前，我们要给每一个棋子取名字。就是给每一个子元素设置 <code>grid-area</code> 属性，对，这就是网格区域的一种表现吧。反正取名字，你别搞怪，老老实实用英文数字减号和下划线命名，记得第一个字符必须是英文就没啥错。如果讲究点，就连减号也别用，免得出现意外。</p>
+<p>然后就是摆棋盘，这是定义在父元素中的，因为要指挥所有棋子，所以这事你得交代给棋盘才行，毕竟和某一个棋子说就很不合理。</p>
+<p><code>grid-template-areas</code> 属性用来画棋盘，每一对引号里面代表一行，在里面摆放棋子，棋子之间用空格分隔，某个位置没有棋子就写 <code>.</code>。</p>
+<p>我这么说肯定不够直观，我们看一下代码就清楚了。</p>
+<div class="code-show" data-before-text="代码效果演示 Start" data-after-text="代码效果演示 End"><pre data-file-name="index.html"><code class="html">&#10;&#60;&#100;&#105;&#118;&#32;&#99;&#108;&#97;&#115;&#115;&#61;&#34;&#103;&#114;&#105;&#100;&#45;&#98;&#111;&#120;&#34;&#62;&#10;&#32;&#32;&#60;&#100;&#105;&#118;&#32;&#99;&#108;&#97;&#115;&#115;&#61;&#34;&#103;&#114;&#105;&#100;&#45;&#105;&#116;&#101;&#109;&#34;&#62;&#60;&#47;&#100;&#105;&#118;&#62;&#10;&#60;&#47;&#100;&#105;&#118;&#62;&#10;</code></pre><pre data-file-name="style.css"><code class="css">&#10;&#46;&#103;&#114;&#105;&#100;&#45;&#98;&#111;&#120;&#32;&#123;&#10;&#32;&#32;&#100;&#105;&#115;&#112;&#108;&#97;&#121;&#58;&#32;&#103;&#114;&#105;&#100;&#59;&#10;&#32;&#32;&#109;&#105;&#110;&#45;&#104;&#101;&#105;&#103;&#104;&#116;&#58;&#32;&#51;&#48;&#48;&#112;&#120;&#59;&#10;&#32;&#32;&#98;&#111;&#114;&#100;&#101;&#114;&#58;&#32;&#50;&#112;&#120;&#32;&#115;&#111;&#108;&#105;&#100;&#32;&#35;&#68;&#69;&#68;&#69;&#68;&#69;&#59;&#10;&#32;&#32;&#103;&#114;&#105;&#100;&#45;&#116;&#101;&#109;&#112;&#108;&#97;&#116;&#101;&#45;&#99;&#111;&#108;&#117;&#109;&#110;&#115;&#58;&#32;&#49;&#102;&#114;&#32;&#49;&#102;&#114;&#32;&#49;&#102;&#114;&#59;&#10;&#32;&#32;&#103;&#114;&#105;&#100;&#45;&#116;&#101;&#109;&#112;&#108;&#97;&#116;&#101;&#45;&#114;&#111;&#119;&#115;&#58;&#32;&#49;&#102;&#114;&#32;&#49;&#102;&#114;&#32;&#49;&#102;&#114;&#59;&#10;&#32;&#32;&#103;&#114;&#105;&#100;&#45;&#116;&#101;&#109;&#112;&#108;&#97;&#116;&#101;&#45;&#97;&#114;&#101;&#97;&#115;&#58;&#32;&#10;&#32;&#32;&#32;&#32;&#34;&#46;&#32;&#99;&#104;&#101;&#115;&#115;&#32;&#46;&#34;&#10;&#32;&#32;&#32;&#32;&#34;&#46;&#32;&#99;&#104;&#101;&#115;&#115;&#32;&#46;&#34;&#10;&#32;&#32;&#32;&#32;&#34;&#46;&#32;&#32;&#32;&#46;&#32;&#32;&#32;&#46;&#34;&#59;&#10;&#125;&#10;&#46;&#103;&#114;&#105;&#100;&#45;&#105;&#116;&#101;&#109;&#32;&#123;&#10;&#32;&#32;&#109;&#105;&#110;&#45;&#104;&#101;&#105;&#103;&#104;&#116;&#58;&#32;&#49;&#48;&#48;&#112;&#120;&#59;&#10;&#32;&#32;&#103;&#114;&#105;&#100;&#45;&#97;&#114;&#101;&#97;&#58;&#32;&#99;&#104;&#101;&#115;&#115;&#59;&#10;&#32;&#32;&#98;&#97;&#99;&#107;&#103;&#114;&#111;&#117;&#110;&#100;&#58;&#32;&#35;&#68;&#69;&#68;&#69;&#68;&#69;&#59;&#10;&#32;&#32;&#98;&#111;&#114;&#100;&#101;&#114;&#58;&#32;&#50;&#112;&#120;&#32;&#115;&#111;&#108;&#105;&#100;&#32;&#119;&#104;&#105;&#116;&#101;&#59;&#10;&#125;&#10;</code></pre>
+<div class="grid-box">
+  <div class="grid-item"></div>
+</div>
+<style>
+.grid-box {
+  display: grid;
+  min-height: 300px;
+  border: 2px solid #DEDEDE;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-areas: 
+    ". chess ."
+    ". chess ."
+    ".   .   .";
+}
+.grid-item {
+  min-height: 100px;
+  grid-area: chess;
+  background: #DEDEDE;
+  border: 2px solid white;
+}
+</style>
+</div>
+<p>这样就可以一次把所有子元素给安排上了，方便！</p>
+<p>但是啊，<code>grid-area</code> 属性还是 <code>grid-column-start</code> / <code>grid-column-end</code> / <code>grid-row-start</code> / <code>grid-row-end</code> 四个属性的简写属性（复合属性）。这就很乱……所以一定要小心使用。</p>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0084/" title="卡片 for 第八十四章">卡片 for 第八十四章</a>】</p>
+
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0083/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0085/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

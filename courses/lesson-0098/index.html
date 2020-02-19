@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第九十八章 比较 | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="在 JavaScript 如何比较两个数据，以及比较的结果和布尔型的数据类型。">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第九十八章 比较
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2019-03-20 | Update: 2019-05-09">
+    <p>
+      在 JavaScript 如何比较两个数据，以及比较的结果和布尔型的数据类型。
+    </p>
+  </div>
+  <div class="post-content">
+    <p>在许多时候，我们需要比较两个值的大小，那么这一章来说一说用来比较的符号。</p>
+<pre><code class="js">a &gt; b;
+b &lt; a;
+</code></pre>
+<p>大于号和小于号就不说了，这个和我们数学里是一样的。那么如果是大于等于和小于等于呢？</p>
+<pre><code class="js">a &gt;= b;
+b &lt;= a;
+</code></pre>
+<p>你可以理解为，怎么读的就怎么去写，这样就记住了。</p>
+<p>然后还有什么？对，等于，但是我们在数学上用的 <code>=</code> 来表示，而在 JS 里面这是赋值符。</p>
+<pre><code class="js">a = 12;
+</code></pre>
+<p>这不是在作比较，而是把后面的值 <code>12</code> 赋值给前面的变量 <code>a</code>，那么这种方法显然是不行的。</p>
+<p>在 JS 里比较相等关系用的符号是 <code>===</code>，叫做全等于，就是两边彻底相等才可以。</p>
+<p>这么一说问题就来了，全等于，那就是说有不全等于？</p>
+<p>我们前面说两个值参与运算，一般会先转换为相同的类型，再进行运算。而我们刚刚所说的这些都是比较运算符，所以这种转换也是存在的。那么我们来看：</p>
+<p><code>&#39;1&#39;</code> 是字符串，<code>1</code> 是数字，如果它们被转换为相同的类型，无论是都转换为字符串，还是都转换为数字，值都是相等的，这个怎么说？</p>
+<p><code>===</code> 全等于就要求两边不仅值相等，而且类型相同。这才是完全相等。</p>
+<p><code>==</code> 这是等于，仅要求值相等，类型不一定相同。</p>
+<p>所以为我们知道啦，一般用全等于（<code>===</code>），特殊情况下用等于（<code>==</code>）。</p>
+<p>比较既然是一个运算，就应该有一个计算结果。这个结果只有两种情况，成立或者不成立。</p>
+<pre><code class="js">12 &gt; 5;
+5 &gt; 12;
+</code></pre>
+<p>两个式子，一个成立，一个不成立，这个很容易理解。当这个式子成立，我们就说这个式子为“真”，不成立则为“假”。诶，这些东西好像初中学过，其中一个十分重要的名词是“真值表”，大家回忆一下。</p>
+<p>这里要引出一个重要的数据类型——<strong>布尔型</strong>（Boolean）。布尔型只有两个值 <code>true</code> 和 <code>false</code>，就是分别表示真假。</p>
+<pre><code class="js">console.log(12&gt;5);
+</code></pre>
+<div class="image-box"><img src="/assets/lesson-0098/is-true-9620f4c34dacb2e793cca140610289ae.png" alt="比较成立"></div>
+<p>那么注意 <code>true</code> 和 <code>false</code> 是很特殊的名词，就不能作为变量名了，这叫做保留关键字，系统保留了，不给你们乱用了，就这个意思。像我们前面学的 <code>var</code>、<code>const</code>、<code>let</code> 都是这样的。不过这里它们是两个特殊的值，这一点有点类似于 π。</p>
+<p>这些都很简单，因为十分符合我们日常的认知。那我们继续搞事情，如果我们把布尔型转换为数字会是怎样的结果？</p>
+<pre><code class="js">console.log(+false);
+console.log(+true);
+console.log(0 == false);
+console.log(1 == true);
+</code></pre>
+<div class="image-box"><img src="/assets/lesson-0098/boolean-and-number-46366d41e35fcb67ad6af93fd98aba8b.png" alt="转换成数字"></div>
+<p>那么，<code>true</code> 转换为数字是 <code>1</code>，<code>false</code> 转换为数字是 <code>0</code>。下面我们又通过比较验证了这一点。</p>
+<p>所以我说数字 1 为真，0 为假，这个应该没有问题。<strong>事实上非零的数字都为真，但不是非零的数字都等于（<code>==</code>） <code>true</code></strong>。毕竟 <code>true</code> 和 <code>false</code> 转换为数字只能对应一个值，那么 <code>true</code> 已经对应了 <code>1</code>，就不能再和其他数字乱搞了。而数字从某个角度可以分为两种状态：有、没有。对应真、假两种状态。所以有的状态为真，没有的状态为假。</p>
+<p>所以不是零的数字，在状态上为有，则为真。零是没有，则为假。</p>
+<p>然后有同学表示要验证一下：</p>
+<pre><code class="js">console.log(12 == true);
+</code></pre>
+<p>结果得出答案 <code>false</code>。这是为什么呢？因为计算之前先要统一两边的数据类型，否则没法比较。默认情况下会把布尔型转换为数字，然后进行比较。那其实刚才的式子经过转换就成了：</p>
+<pre><code class="js">console.log(12 == 1);
+</code></pre>
+<p>自然是没有办法成立的。但如果把两边都转换为布尔型，则成了：</p>
+<pre><code class="js">console.log(true == true);
+</code></pre>
+<p>就是成立的。</p>
+<p>这一章的内容有一些是我们日常中没接触过的概念，希望大家细细的读上两遍，自然就理解了。如果还不理解也不用着急，我们后面还有各种验证的方法。</p>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0098/" title="卡片 for 第九十八章">卡片 for 第九十八章</a>】</p>
+
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0097/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0099/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

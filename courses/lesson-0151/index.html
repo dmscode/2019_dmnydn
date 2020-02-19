@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第一百五十一章 遍历（一） | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="jQuery 的遍历为什么不同">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第一百五十一章 遍历（一）
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2019-06-13 | Update: 2019-06-17">
+    <p>
+      jQuery 的遍历为什么不同
+    </p>
+  </div>
+  <div class="post-content">
+    <p>我们学会了用各式各样的方法去选择元素，然后对它们进行操作。而选择的结果不外乎以下三种：</p>
+<ul>
+<li>没有元素被选中</li>
+<li>有唯一的元素被选中</li>
+<li>有多个元素被选中</li>
+</ul>
+<p>这样看起来情况很复杂，但事实上，每一次我们选择之后返回的都是一个被选中元素的合集。这是一个对象，我是说它的数据类型是一个对象，不过这个对象有很多用法和表现上非常类似于一个数组，我说的是类似，所以在本质上它并不是，好多地方也并不一样。</p>
+<p>如果没有元素被选中，那么这可以看作是一个空数组，我们可以用如下方法进行判断：</p>
+<pre><code class="js">$(&#39;miao&#39;).length === 0 // 返回 true
+</code></pre>
+<p>上面的选择器是说标签为 <code>miao</code> 的元素，显然这个元素是不存在的，所以最终合集中没有元素，于是它的长度为 0。</p>
+<p>因为这个合集类似于数组，我们甚至可以有这样的操作 <code>$(&#39;a&#39;)[0]</code>。就是完全像数组一样，用序号取出其中的某个元素。这很容易理解，不管它究竟是什么数据类型，反正我们可以像数组一样进行操作，这就够了。</p>
+<p>但是，我们要明确一下数组内容是什么。这个合集所包含的确实是所有匹配到的元素，但注意哦，是匹配的元素。而我们前面学习的那些 jQuery 方法所操作的，是经过 jQuery 包装的对象。</p>
+<p>它们的区别是什么呢？jQuery 提供了一系列对元素进行操作的方法，但是我们通过书写的格式也可以看出，这些方法其实是一个对象下面的属性，这个对象是谁？并不是某一个元素，而是 jQuery。是 <code>$()</code> 这个对象下面的方法。这有些超出了我们所学的范围，所以我们慢慢来理解。jQuery 提供了一个对象，它的名字叫作 <code>$</code> <a href="#footnote-1" class="footnote-link"><sup>[1]</sup></a>。然后这个对象具有很多的属性，这些属性中有一部分其实是函数，就是可以用来执行实现某些功能的。而我们写在小括号里的，都是参数。 <code>$()</code> 这个小括号里面，用来描述我们想要操作的元素，表示我们希望对哪些元素来执行后面的方法。而实际上，是我们告诉 jQuery 想要对“谁”做“什么”，然后它去完成这些操作。这就是一个助理，一个工具，甚至说是一个操作界面，我们做了输入，它进行相应的输出，或者说是相应的操作，而中间的过程无须我们关注。在我们看来仿佛这个输入和输出是连贯的，但实际上我们要知道这中间省略了一些过程，我们没有看到而已。</p>
+<p>这上面我们说了，这个合集，包含的是元素。我们可以像上面那样，去将其中每一个元素选取出来，但这是没有经过 jQuery 包装的，原生的元素。我们还可以使用 jQuery 的方法对它进行操作么？自然是不行的。</p>
+<p>这东西没理解的时候觉得很绕，一旦理解了，发现原来挺简单的。我举一个不是很贴切的例子吧。大家都吃过冰激淋吧，冰淇淋本身是不方便去拿的，那东西冰冰凉凉黏黏呼呼，一摸还融化，虽然很好吃（口水……）。所以我们都是在外面再加一个容器，很常见的，套着一个甜筒（蛋卷）。这就是一种包装，我们对冰淇淋做的许多操作其实都是通过甜筒去作用的。比如我们说拿起冰淇淋，其实是抓住了那个甜筒，并没有真的摸着冰淇淋，但是从效果上，我们可以带着冰淇淋去大街上边走边吃了。</p>
+<p>jQuery 就相当于这样一个包装，让我们更方便去操作网页中的元素。而实际上我们的操作是作用在了这个包装上，然后透过包装影响到了这些元素。</p>
+<p>但是当我们谈论这个冰淇淋的量的时候，一个球两个球……甚至10个球，这都是在说里面的冰淇淋本身，并没有包含外面这个包装。这个红色的冰淇淋球很好看，能不能分给我吃？可是我怎么拿走呢……对，我们说这个冰激凌的 10 个球，算是一个合集，它们没有包装，虽然我们在谈论的时候经常不会注意这一点，但是当我们伸手想要拿起其中一个球的时候，就会发现这有点不好操作，还是给我一个甜筒比较方便。</p>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0151/" title="卡片 for 第一百五十一章">卡片 for 第一百五十一章</a>】</p>
+<div class="foot-notes"><p><strong id="footnote-1" class="footnote">&gt;注释 1:</strong> 其实名字叫做 <code>jQuery</code>，<code>$</code> 只是为了使用方便而设定的简写，或者说代号，必要时也可以换成别的。</p></div>
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0150/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0152/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第一百一十二章 补遗 | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="关于事件、属性、方法的区分。JavaScript 中的错误捕捉。以及一些总结。">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第一百一十二章 补遗
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2019-03-28 | Update: 2019-05-09">
+    <p>
+      关于事件、属性、方法的区分。JavaScript 中的错误捕捉。以及一些总结。
+    </p>
+  </div>
+  <div class="post-content">
+    <p>我们前面说过一些名词，但没做解释，比如“属性”、“方法”以及后面会遇到的“事件”，在这里就一起解释一下。开始的时候我也搞不清它们，但慢慢，几乎不用思考也知道该是什么了。</p>
+<p>属性是特征，我们可以说年龄是我们的属性，姓名是我们的属性……虽然有点咬文嚼字的，但是能说得通，你换成方法和事件这就没法解释了。</p>
+<p>事件是一个会发生的东西，年龄是属性，但是我十八岁生日是事件。到那一天，发生这件事。</p>
+<p>好，那么再讲一遍，加深理解：</p>
+<ul>
+<li>我现在的年龄是十八岁 —— 我有这个属性；</li>
+<li>我今天过十八岁生日 —— 发生了这个事件；</li>
+</ul>
+<p>而方法，是操作一些什么的。我的名字是属性，我去改名了这是事件，那么怎么改名？我改名得我自己认可吧，你单方面说：小老鼠的名字变成超级无敌帅老鼠了！可是我自己不知道啊，这不能承认（做人偶尔低调一下）、所以，这需要一定的操作，你来和我商量：小老鼠，你看你这么帅，改名叫帅老鼠好不好？我同意了，和你一起去派出所登记，修改，我这算是成功改名了。那你为了让我改名而采取的一系列措施，就是方法。用实话实说的方法，给小老鼠改名成功。</p>
+<hr>
+<p>再讲讲错误捕捉：</p>
+<p>我们的程序一旦出错，就报错，后面不执行了。这不好，工作出点问题就什么都不做了是摸鱼的表现。</p>
+<p>有些情况，我们希望程序跳过错误，继续执行；也有些情况，我们可以预知可能出现错误，而出错的时候我们会有另外的补救措施……这时候就需要错误捕捉了：</p>
+<pre><code class="js">try {
+  console.log(&#39;a is &#39;+a);
+}
+catch (e) {
+  console.log(&#39;妈耶，出错啦，错误是：&#39;+e);
+}
+</code></pre>
+<p><code>try</code> 后面的大括号里写可能出错的内容，这里写了一个输出，但是没有定义变量 <code>a</code>。</p>
+<p>如果出错，则执行 <code>catch</code> 后面的大括号，参数 <code>e</code>（可以自己改名），代表报错信息。你就可以在这里做各种补救措施了。</p>
+<p>如果没出错，那么 <code>catch</code> 部分不执行。</p>
+<p>这只是最简单的结构，目前够我们使用，就先这样，至于断点调试什么的，后面有需求再讲吧。</p>
+<hr>
+<p>到这里我们就把 JS 的基础非常粗略的走了一下。仅仅是够让我们进行下一部分的内容而已。对，非常简陋、简略、简朴……但是容易掌握呀，掌握之后就可以先用起来呀，还能解决小问题，就十分的开心呀！然后成就感爆棚，忍不住就想多学一点呀……后来就是一发不可收拾，不小心就成了前端大佬什么的。</p>
+<p>就，先这样吧。</p>
+<p>希望大家把这些简单的基础先学会，至少记住我说的内容，而且真的理清楚了，不是在脑子里搅成麻，拧成绳，如同猫咪玩线团一样把自己捆了个结实的硬塞进去哦。</p>
+<p>在这之后再去看后面的内容，要不然东西越多，越难理顺，再强行挣扎，就真的捆结实了。</p>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0112/" title="卡片 for 第一百一十二章">卡片 for 第一百一十二章</a>】</p>
+
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0111/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0113/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

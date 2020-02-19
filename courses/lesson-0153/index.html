@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第一百五十三章 每一个 | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="jQuery 自己提供的更好的遍历。">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第一百五十三章 每一个
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2019-06-13 | Update: 2019-06-17">
+    <p>
+      jQuery 自己提供的更好的遍历。
+    </p>
+  </div>
+  <div class="post-content">
+    <p>前面得出的结论是什么？我们得到的是一个元素的合集，它类似于数组，我们可以对它进行遍历，但是对于遍历出来的结果，我们需要进行包装之后才能再次应用 jQuery 的方法。</p>
+<p>但是这很麻烦，而明显这又是一个极其频繁的操作。这样重复的事情，不如把它包装一下……</p>
+<p>于是就有了 jQuery 里最基础的遍历方法 <code>each()</code>，多好理解，就是每一个的意思。但是再认真的强调一下，要分清楚这个是 jQuery 里面独有的方法。在原生的 JS 中和类似的方法叫做 <code>forEach</code>，还正好是用来遍历数组的，但是，我们并不能够用这个方法去遍历 jQuery 获得的元素合集。因为是类似数组，但不是完全等同于数组……反正就是没有这个方法。</p>
+<p>要注意开始区分 jQuery 和原生了哦~</p>
+<p><code>each()</code> 方法十分简单，用起来和我们前面所学的还是一样。小括号里面的参数是一个函数。效果就是对于所获得的元素合集，中的每一个元素，执行后面小括号中的函数。</p>
+<p>然后我们演示一下：</p>
+<pre><code class="js">$(&#39;a&#39;).each(function(){
+  console.log( $(this).text() )
+})
+</code></pre>
+<p><code>this</code> 用来指代当前所遍历到的那个元素，所以它又是一个类似于变量或者常量的东东，反正不是字符串，所以不用加引号。记得这里指代的只是元素，所以还得包装一下，才能应用 jQuery 的方法。<a href="#footnote-1" class="footnote-link"><sup>[1]</sup></a></p>
+<p>所以就是把遍历这个事情给简化了一下，该包装还得包装<a href="#footnote-2" class="footnote-link"><sup>[2]</sup></a>。</p>
+<p>事情是被简化了，但是有利也有弊，比如没有的序号，可能某些操作就不太方便控制。等等，序号么，是有的，只是刚才我们不需要，所以给省略了。</p>
+<p><code>this</code> 是 JS 中的一个关键字，说直白点，它就是个代词，当然这个单词本身也就是一个代词。而它用来指代什么，要看当前的语境，在我们上面的语境当中（后面的函数里面），它用来指代当前被遍历到的那个元素。我这个解释好像和前面有一些重复，我想说的是什么呢？它并不是传递给这个函数的参数，而只是一个代词。</p>
+<p>关于代词，我们在这里不展开了。像这种概念，因为它比较复杂，要分很多情况去讲，倒不如我们把它先用起来，你对它的每一种情况都了解了，再返回去学习它的概念，反倒更加容易理解。</p>
+<p>而对于这个函数，默认是会传递过来一个参数的（当然你可以不用它），这个参数就是当前元素的序号（在这个合集中的排序）。这时候我们只要设定一个形参，就可以拿到这个参数，然后去使用它：</p>
+<pre><code class="js">$(&#39;a&#39;).each(function(index){
+  console.log( index+&#39;: &#39;+$(this).text() )
+})
+</code></pre>
+<p>动手试一下，观察它的效果，这很有趣。再用我们以前所学的遍历方法写一遍，对比一下它们都不同，看一看究竟哪里变得更加简便了。</p>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0153/" title="卡片 for 第一百五十三章">卡片 for 第一百五十三章</a>】</p>
+<div class="foot-notes"><p><strong id="footnote-1" class="footnote">&gt;注释 1:</strong> 因为使用了 <code>this</code>，所以这里不能使用箭头函数。不知道什么是箭头函数？没关系，因为我们也没讲。</p><p><strong id="footnote-2" class="footnote">&gt;注释 2:</strong> 我得强调一下，包装这个说法是咱们之间的“黑话”，你懂我什么意思就行了，但别拿出去和别人说，他们不懂的。</p></div>
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0152/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0154/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

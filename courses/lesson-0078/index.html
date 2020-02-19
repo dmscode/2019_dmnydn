@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第七十八章 弹性布局补全 | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="对于弹性布局的一些 CSS 属性的补充和说明。可以通过这些属性对盘般的效果进行微调。">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第七十八章 弹性布局补全
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2019-01-17 | Update: 2019-05-09">
+    <p>
+      对于弹性布局的一些 CSS 属性的补充和说明。可以通过这些属性对盘般的效果进行微调。
+    </p>
+  </div>
+  <div class="post-content">
+    <p>于是乎，我们解决了排列的问题，可以方便的横排，竖排，反着排，还不用消除浮动了。但这就够了么？来个新属性吧，<code>order</code>，表示元素在主轴上的排列顺序。额，这个当然不是整体定义，而是对布局中某一个元素进行的细致调整。所以算是个体属性。它的默认值为 0，数值越大有靠后，越小越靠前，可以取负值，不能取小数。然后要注意<strong>这只是视觉上的次序，而没有改变元素的真正顺序</strong>。比如对屏幕阅读器，这个次序就不会产生影响。</p>
+<p>这，并不完美。我们只是简单的解决了一下排列。确实，已经比以前自由太多了。但，这不足以成为一套系统。它，能解决各种设备尺寸跨度大的问题么？</p>
+<p>不能。媒体查询也是 CSS3 的内容，我们没必要把这么方便的东西费掉不用。但是，我们可以给它做一些补充。毕竟我们媒体查询不太可能细致的规定每一个尺寸，那么自适应的能力，就是这个布局方法是否好用的重要标准。</p>
+<p>如果我们布局中的子元素可以自动的膨胀和收缩，来适应宽度，就很开熏。但这还不够。也许这一行中的元素，我们并不希望都增长，或者我希望他们增长的量不同……</p>
+<p>反正要求复杂，但是希望实现简单。（我就这么事儿多，你咬我呀！</p>
+<p><code>flex-grow</code>，grow 是生长的意思，这个属性是规定这个元素如何扩张的。但是扩张的前提是，主轴上存在空白，否则就没有生长的空间。</p>
+<p>默认，子元素不做扩张，这时候 <code>flex-grow</code> 的值为 0。你可以给它设置为正数的值（在你没有了解具体规则的时候不要使用小数）。然后把主轴上的空余空间按这个数值比例分配给这些子元素。如果数值为 0 自然分不到，所以不扩张。你看，完全说得通。</p>
+<p>相反的，我们还有 <code>flex-shrink</code> 来表示在主轴空间不足的时候子元素如何收缩，默认值是 1，即主轴空间不足时，该元素<strong>会</strong>收缩。注意不能取负值。0 表示不收缩。</p>
+<p>强调，这两个属性的计算比较复杂，我们这里先把整体脉络抓住，所以不做展开，大家可以自行查询。</p>
+<p>自适应有了，但是我们又怕他们太随便，所以呢，还可以使用 <code>min-width</code> 和 <code>max-width</code> 进行限制。</p>
+<p>然后还有一个属性 <code>flex-basis</code>，说的是元素沿主轴方向的尺寸，因为和主轴方向相关，那就可能是定义宽度，也可能是定义高度了。那，我们为什么不用宽高呢？用宽高就是固定尺寸了。而这个属性定义的是，<strong>元素在进行扩张或者收缩之前，在主轴方向上占用的长度</strong>。</p>
+<p>好，个体属性也都说了，所以我们的弹性布局已经讲完了。好像，也没啥，回头想想：</p>
+<ul>
+<li>规定了两个轴的方向，当然默认方向和我们预期一致，一般也不用改；</li>
+<li>然后元素可以自由调整次序，虽然只是视觉上的次序；</li>
+<li>元素在主轴上的基础尺寸，但这个尺寸不是最终结果；</li>
+<li>可以收缩和扩张，关键是还可以自由分配比例。</li>
+</ul>
+<p>这是新内容，也确实有几个新属性，而且是新的体系。但谁说这个很复杂我想打谁，你也太小看我的理解能力了吧，好歹我也有小学三年级以上的理解水平啊！</p>
+<p>哼唧，小老鼠为这些东西花了一个多星期的剥茧抽丝……（咳咳，这不是重点</p>
+<p>你看到这些只是最基础的属性，后面还有一点，关于对齐的规则，不太多，而且和网格布局共用。</p>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0078/" title="卡片 for 第七十八章">卡片 for 第七十八章</a>】</p>
+
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0077/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0079/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

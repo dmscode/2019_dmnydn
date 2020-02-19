@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第一百一十三章 聊聊 jQuery | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="我们为什么要学习 jQuery，它有什么用。">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第一百一十三章 聊聊 jQuery
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2019-04-24 | Update: 2019-05-09">
+    <p>
+      我们为什么要学习 jQuery，它有什么用。
+    </p>
+  </div>
+  <div class="post-content">
+    <p>我们前面学习了一个叫做函数的东西，它可以让我们把重复的操作作为一个整体，在需要的时候叫它一下，便可以执行这一系列的操作。这种方法让许多的情境变得简单。</p>
+<p>如果进一步思考，我们对于页面执行的操作，总有一些很基础的，又非常常用的。如果我们把这些东西写成函数，放在一个文件之中，在我们的页面中引入，那么后面的开发，是不是就省去了一部分重复的操作。</p>
+<p>这就像我们在工作中，都喜欢准备一套基础的工具，因为经常会用到，有这么一套工具，总会让工作变得简单和顺手一些。</p>
+<p>jQuery 是一个 JS 库，库呢，差不多就可以理解为我们上面所说的工具箱。换句话说，jQuery 就是让我们对页面的基本操作变得更加简单。</p>
+<p>讲到这里，大家一定觉得这是一个非常有意义的东西。在以前来说算是，而现在就不太好给出一个确切的定义了。网上很多人讲，jQuery 早就已经淘汰了，这个观点，我不太承认。确实我们现在有很多新的解决问题的方法，总体的思路都已经和以前大不相同，在这个方向上，可能 jQuery 的用武之地已经非常少了。可是我们有了电动机械之后，也不能说手动机械就彻底淘汰了。日常敲颗钉子，我还是使用已经用了千百年的锤子，就觉得很顺手。而且在这样简单的情境下，这种落后的工具已经可以很好的完成任务了，我也没必要为了表明自己的先进性，去搞一套复杂的设备，来敲这一颗钉子。</p>
+<p>还有一个方面，JS 也在快速的成长，在现在的 JS 标准下，已经有很多方法可以很好的去替代 jQuery 的操作了<a href="#footnote-1" class="footnote-link"><sup>[1]</sup></a>。我甚至纠结了很长时间，现在我是不是很有必要给大家讲 jQuery。</p>
+<p>直到我想到了一个比喻：如果把 JS 比作刀子，那 jQuery 就是转笔刀。刀子是基础工具，它很简单，甚至于简陋，但它可以做的事情却非常的多，只要你敢想，只要你有足够的手艺，它就可以辅助你去完成各种有趣的加工。如果你想做一个出色的手艺人，那就必须把这把刀子玩转。</p>
+<p>转笔刀就差远了，它能做的事情只有这一件，就是削铅笔。削铅笔也削不出来花，削出来的永远都是那一个样子。真的是逊到让人不想看。可是这样转笔刀就没有它存在的意义吗？我上小学的时候手很笨，铅笔削出来像是狗啃的，一点也不好用。而父母坚持让我使用刀子削铅笔，不肯给我转笔刀。平时也就算了，直到那次考试的时候，铅笔芯折了……</p>
+<p>我们现在就是初学者，而我的教程呢，就是带着大家对这些技术观光一番，先了解前端是什么，有什么，能做什么。我可以给大家讲各种非常先进帅气的方法，但是那样要学习的内容太多了。我们会在一个地方停留太久，大量的记忆就意味着枯燥，而抬头看看，发现自己并没有向前走出多远，这很容易让人想放弃。</p>
+<p>我们管它这个方法究竟 low 不 low 呢？如果我可以用一句话的语法对付成片的问题，那我先用起来，走到远方去看一看，然后再选择自己应该怎样去走这段路。毕竟付出并不高，却可以让我先了解前面的方向。所以为什么不学一学呢？</p>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0113/" title="卡片 for 第一百一十三章">卡片 for 第一百一十三章</a>】</p>
+<div class="foot-notes"><p><strong id="footnote-1" class="footnote">&gt;注释 1:</strong> 替代这个词非常的不严谨，因为 jQuery 本身是对的 JS 的包装、简化、增强。现在只是 JS 成长了，这种包装越来越没必要了，JS 也在变得简单好用，也在变强。</p></div>
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0112/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0114/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

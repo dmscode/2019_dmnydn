@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第一百六十五章 数据 | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="元素的数据属性。">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第一百六十五章 数据
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2019-07-04 | Update: 2019-07-04">
+    <p>
+      元素的数据属性。
+    </p>
+  </div>
+  <div class="post-content">
+    <p>诶，和上一章一样呢！</p>
+<p>并不是哦~</p>
+<p>这是一个补充的部分，我不知道怎么去归类，但是确实用得到。就放在这里说一下吧。</p>
+<p>是我们对 js 的了解，也渐渐发现了数据的重要性。而数据一旦复杂起来，我们就需要对它们进行归纳和整理，最常见的就是数组和对象。但是数组呢，就是一种特殊的对象，可以看做属性名是一系列数字的对象。而我们用的非常多的函数，也是一种特殊的对象……啊，不由得感叹，一切皆对象。所以我们会说面向对象编程。</p>
+<p>这是顺路给大家浅显的解释一下什么是面向对象编程，不理解也没有关系，随着代码写的越来越多，自然会从心底对它有一个深刻的认识。</p>
+<p>如果只是编程，我们当然要按照编程的思路循规蹈矩。但是在写网页的时候，有一些小操作，会让我们觉得仿佛跳出了这些条条框框，虽然本质上依然遵循着那些规则，但因为我们是小白啊，只能看到最表面的现象啊，反倒会觉得很神奇很有趣。</p>
+<p>比如现在我有一个数据，需要临时的储存一下，对，我可以设置一个变量。或者呢？我也可以把它当做一个内容，放置到某个网页元素之中，在需要的时候再把它读取出来。这种做法的性能很低，但也要看你在什么时候去使用它。如果数据不多，而恰巧我们又被数组和对象搞得凌乱，这种方法不失为一种取巧的选择。</p>
+<p>有时候我们需要给某个元素，设置一个特定的数据，并不是用来显示，也不是常规的属性。就是我们程序中要用到，但这个数据又仅仅针对于这一个元素。我们当然可以设置一个变量，然后暗暗的记住这个变量和某个元素是对应的。或者设置一个对象，来写清楚这种对应的关系……但无论怎样，面对庞大的页面元素数量的时候，这些方法都不够直观。倒不如我们把数据直接写在对应的元素里面。</p>
+<p>对于元素，数据当然只能放在属性里面，而为了与普通的属性区分，这些用来储存数据的属性统一加上 <code>data-</code> 前缀。也因为这只是页面元素的属性，所以这些数据只能储存字符串（想想 JSON）。而且不建议储存过于大量的数据。</p>
+<p>我们使用操作元素属性的方法，就可以进行这些设置，不过，jQuery 也提供了专用的方法：</p>
+<pre><code class="js">$( &quot;#miao&quot; ).data( &quot;key&quot;, 123 );
+</code></pre>
+<p>这将为 <code>#miao</code> 这个元素增加一个属性 <code>data-key=123</code>。这很容易理解，也很容易学会使用。如果后面小括号中只给一个参数，则是用来获取对应属性的值；如果完全不给参数，则是获取这个元素中所有的数据属性，以一个对象的形式返回。</p>
+<p>我们可以使用 <code>removeData</code> 方法删除元素的数据：</p>
+<pre><code class="js">$( &quot;#miao&quot; ).removeData(&quot;key&quot;);
+</code></pre>
+<p>如果后面小括号中不给参数，则是删除其中所有的数据。</p>
+<p>当然我们也可以在书写 HTML 的时候就给出某些数据属性，像这样：</p>
+<pre><code class="html">&lt;a href=&quot;https://dmnydn.com/&quot; data-tip=&quot;小老鼠希望你们能喜欢他写的东西呀~&quot;&gt;代码能有多难？&lt;/a&gt;
+</code></pre>
+<p>最后还有一个点需要注意，<strong>通过 <code>data</code> 方法添加的数据，在我们检查元素时并不能够从元素的 html 代码中看到</strong>。但它确实是存在的，也可以被重新读取出来。</p>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0165/" title="卡片 for 第一百六十五章">卡片 for 第一百六十五章</a>】</p>
+
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0164/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0166/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

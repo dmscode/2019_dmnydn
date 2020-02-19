@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第三十五章 字体 | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="网页文字的字体可以通过 CSS 进行设置，但只有当用户电脑中也有对应字体的时候才能够按着我们的设定进行显示，没有对应字体则会使用备用字体，甚至默认字体。">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第三十五章 字体
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2018-11-23 | Update: 2019-05-09">
+    <p>
+      网页文字的字体可以通过 CSS 进行设置，但只有当用户电脑中也有对应字体的时候才能够按着我们的设定进行显示，没有对应字体则会使用备用字体，甚至默认字体。
+    </p>
+  </div>
+  <div class="post-content">
+    <p>前面我们说到，关于文字的属性，好多其实是和字体相关的。这一章我们来讲如何设置字体。</p>
+<p>我知道，大家已经开始感到很兴奋了。如果把自己的页面设置成各种奇奇怪怪的字体，一定会显得非常个性，非常好玩。这种事情别说做，光是想想，都让人觉得热血沸腾。</p>
+<p>那么大家回想一下，你见过多少网页里边的字体，是很奇怪的，或者说是很特殊的？当然，我们说的是纯文字，不是图片上的文字哦。我想经过大家努力的回忆，会发现这种情况非常少。</p>
+<p>这是什么原因呢？我们知道要使用一个字体，首先要下载安装这个字体，你电脑中没有这个字体，它是显示不出来的。而普通的，我们在网页中设置字体，只是说一下这个元素使用哪个名称的字体。能不能显示出来，就看你电脑里有没有相应的字体了。当然如果没有，浏览器也要努力让文字得以显示，那就只好用浏览器设定的默认字体了。</p>
+<p>所以你看，我们的选择范围其实是局限于用户电脑中有哪些字体的。你不可能要求用户安装所有你需要的字体，而只能按着最坏的情况打算，用户的电脑刚装上系统，这时候电脑中有哪些字体就用哪些字体。当然，如果大家都是 Windows 电脑也算了，都是苹果电脑也很美好，毕竟情况变得非常统一。然而，我们不仅要考虑不同的操作系统，甚至不同操作系统的版本，然后还有手机呢……</p>
+<p>于是我们一般就只能使用最基础最基础的字体，有一个称呼叫做“Web 安全字体”。这种事情说出来，都觉得泪目。</p>
+<p>好啦，先学习一下如何去写：</p>
+<pre><code class="css">p {
+  font-family: Helvetica, Tahoma, Arial, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Heiti SC&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, sans-serif;
+}
+</code></pre>
+<p>这个写起来好像很长的样子，其实他是同时指定了多个字体，中间用逗号进行分隔。为什么要这么写呢？原因刚才我们已经说了，这里依旧是为了防止没有相应的字体，所以多设置一些字体进行备用。选用的原则是，从前往后，使用第一个可用的字体。</p>
+<p>当然还有一种情况是有一些英文字体很漂亮，但是它们并不包含中文。那么前面写英文字体后面写中文字体。遇到英文的时候，就使用英文字体进行渲染；而遇到中文，因为英文字体无法适配中文，那就只好选用后面的中文字体进行渲染了。</p>
+<p>然后如果字体名称中有空格，或者某些特殊字符，要用引号标记整个字体的名称。如果字体的名称是中文，一般也需要引号标记。</p>
+<p>说到中文，我们发现上面有微软雅黑，文泉驿微米黑，苹方和黑体等字体，但在这里都用了英文名称。这是为了获得更好的兼容性，反正总之，一般情况下，我们都会使用字体的英文名称。常用名称我会附录在后面，以供大家参考。</p>
+<p>不过一般情况下，大家按照上面的设置<a href="#footnote-1" class="footnote-link"><sup>[1]</sup></a>去写，就已经可以得到不错的效果了，下面还有一个更细致一些的方案可供大家选择：<a href="#footnote-2" class="footnote-link"><sup>[2]</sup></a></p>
+<pre><code class="css">p {
+  font-family: -apple-system, &quot;Noto Sans&quot;, &quot;Helvetica Neue&quot;, Helvetica, &quot;Nimbus Sans L&quot;, Arial, &quot;Liberation Sans&quot;, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Noto Sans CJK SC&quot;, &quot;Source Han Sans SC&quot;, &quot;Source Han Sans CN&quot;, &quot;Microsoft YaHei&quot;, &quot;Wenquanyi Micro Hei&quot;, &quot;WenQuanYi Zen Hei&quot;, &quot;ST Heiti&quot;, SimHei, &quot;WenQuanYi Zen Hei Sharp&quot;, sans-serif;
+}
+</code></pre>
+<h4 id="Windows-系统中的一些字体"><a href="#Windows-系统中的一些字体" class="headerlink" title="Windows 系统中的一些字体"></a>Windows 系统中的一些字体</h4><ul>
+<li><strong>宋体</strong>: SimSun</li>
+<li><strong>黑体</strong>: SimHei</li>
+<li><strong>微软雅黑</strong>: Microsoft YaHei</li>
+<li><strong>微软正黑体</strong>: Microsoft JhengHei</li>
+<li><strong>新宋体</strong>: NSimSun</li>
+<li><strong>新细明体</strong>: PMingLiU</li>
+<li><strong>细明体</strong>: MingLiU</li>
+<li><strong>标楷体</strong>: DFKai-SB</li>
+<li><strong>仿宋</strong>: FangSong</li>
+<li><strong>楷体</strong>: KaiTi</li>
+<li><strong>仿宋_GB2312</strong>: FangSong_GB2312</li>
+<li><strong>楷体_GB2312</strong>: KaiTi_GB2312</li>
+</ul>
+<h4 id="Mac-OS-系统中的一些字体"><a href="#Mac-OS-系统中的一些字体" class="headerlink" title="Mac OS 系统中的一些字体"></a>Mac OS 系统中的一些字体</h4><ul>
+<li><strong>华文细黑</strong>: STHeiti Light [STXihei]</li>
+<li><strong>华文黑体</strong>: STHeiti</li>
+<li><strong>华文楷体</strong>: STKaiti</li>
+<li><strong>华文宋体</strong>: STSong</li>
+<li><strong>华文仿宋</strong>: STFangsong</li>
+<li><strong>俪黑 Pro</strong>: LiHei Pro Medium</li>
+<li><strong>俪宋 Pro</strong>: LiSong Pro Light</li>
+<li><strong>标楷体</strong>: BiauKai</li>
+<li><strong>苹果俪中黑</strong>: Apple LiGothic Medium</li>
+<li><strong>苹果俪细宋</strong>: Apple LiSung Light</li>
+</ul>
+<h4 id="装-Office-会安装的字体"><a href="#装-Office-会安装的字体" class="headerlink" title="装 Office 会安装的字体"></a>装 Office 会安装的字体</h4><ul>
+<li><strong>隶书</strong>: LiSu</li>
+<li><strong>幼圆</strong>: YouYuan</li>
+<li><strong>华文细黑</strong>: STXihei</li>
+<li><strong>华文楷体</strong>: STKaiti</li>
+<li><strong>华文宋体</strong>: STSong</li>
+<li><strong>华文中宋</strong>: STZhongsong</li>
+<li><strong>华文仿宋</strong>: STFangsong</li>
+<li><strong>方正舒体</strong>: FZShuTi</li>
+<li><strong>方正姚体</strong>: FZYaoti</li>
+<li><strong>华文彩云</strong>: STCaiyun</li>
+<li><strong>华文琥珀</strong>: STHupo</li>
+<li><strong>华文隶书</strong>: STLiti</li>
+<li><strong>华文行楷</strong>: STXingkai</li>
+<li><strong>华文新魏</strong>: STXinwei</li>
+</ul>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0035/" title="卡片 for 第三十五章">卡片 for 第三十五章</a>】</p>
+<div class="foot-notes"><p><strong id="footnote-1" class="footnote">&gt;注释 1:</strong> 来源: <a href="https://segmentfault.com/a/1190000006110417" target="_blank" rel="noopener">https://segmentfault.com/a/1190000006110417</a></p><p><strong id="footnote-2" class="footnote">&gt;注释 2:</strong> 来源: <a href="https://zenozeng.github.io/fonts.css/" target="_blank" rel="noopener">https://zenozeng.github.io/fonts.css/</a></p></div>
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0034/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0036/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

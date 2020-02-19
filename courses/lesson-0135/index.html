@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第一百三十五章 JS 动画的另一种实现 | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="用 JavaScript 实现页面动态特效的另一种方式。">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第一百三十五章 JS 动画的另一种实现
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2019-05-13 | Update: 2019-05-13">
+    <p>
+      用 JavaScript 实现页面动态特效的另一种方式。
+    </p>
+  </div>
+  <div class="post-content">
+    <p>如果你对上一章的内容进行了深入的练习，会发现这里面有一些问题。我希望让动画变得更加细腻，所以缩短了时间间隔。但是受限于程序的计算性能，并不能够达到我的预期。说直白点，我希望它以极高的频率去执行我给定的任务，结果把它累傻了，忙不过来了，动画没有变得更细腻，反倒出现了卡顿。</p>
+<p>还有一些同学说，哇，你们好厉害，你们讲的道理我都懂，但是一写那个定时器就迷糊……</p>
+<p>上一章的方法在道理上讲是没有问题的，只是在实际应用中，可能会受到各种限制。所以这一章我们再使用另一种方法去实现一下。</p>
+<p>原理上都是一样的，但是我们这次要借助一些 API 了，就是接口，Emmm，是不是还有人不明白？就是我去找一些专门来做这件事情的人帮忙。</p>
+<p><code>window​.request​Animation​Frame</code>，这个东西真长，长的我都背不下来。就这么几个单词，就算不认识简单查一下字典，差不多也能够明白。首先它是 window 对象上的一个方法，这里先不解释 window 对象，以后会去讲解。反正这次的是一个方法。</p>
+<p>这个方法是用来干什么的呢？后面三个单词解释的很清楚，请求，动画的，下一帧。</p>
+<p>我们用这个方法去告诉浏览器，我们要执行一个动画。浏览器说好呀，那我们就开始动画吧，你下一帧想要显示什么呢？</p>
+<p>对，我们只要告诉他每一帧该显示什么就可以了，其他的让他自己去控制。</p>
+<pre><code class="js">function step() {
+  const newWidth = $(&#39;#miao&#39;).width()+1;
+  $(&#39;#miao&#39;).width( newWidth );
+}
+
+window.requestAnimationFrame(step);
+</code></pre>
+<p>上面的代码简单吧？这次能看懂了吧？这个方法就是这么方便。</p>
+<p>但是你用上面的代码去执行，好像没有什么作用。因为这个方法是请求下一帧，所以上面虽然执行了，但是只显示了一帧，我们应该很难看出他的变化来。动画是需要多帧的，所以我们还要让它继续的请求下一帧。</p>
+<pre><code class="js">function step() {
+  const newWidth = $(&#39;#miao&#39;).width()+1;
+  $(&#39;#miao&#39;).width( newWidth );
+  if( newWidth&lt;800 ){
+    window.requestAnimationFrame(step);
+  }
+}
+
+window.requestAnimationFrame(step);
+</code></pre>
+<p>这样就可以实现一个完整的动画了。这个方法也会返回一个 ID，作为它的标识。我们可以使用 <code>window​.cancel​Animation​Frame(ID)</code> 进行结束。</p>
+<p>然后这个方法会主动的，给它所调用的那个函数，传入一个参数。这个参数就是一个时间戳，单位是毫秒，我们可以根据这个时间去计算这一帧应该显示的效果。这样我们显示的效果就是准确的时间相关。</p>
+<hr>
+<p>现在我们差不多把基础的特效相关的东西都讲了，利用这些方法已经可以去完成大部分的特效了。你要思考的只是如何去设置和排列组合它们。</p>
+<p>它们还具有很多的高级用法，值得我们深入去学习，使我们可以更细致的去调节动画，做出更细腻感人的效果，或者更好的提升执行效率，获得更好的性能。</p>
+<p>但是从页面元素开始动起来的那一刻，就已经十分激动人心了。难道不是吗？我们用羡慕的眼神看着其他人的页面特效，却从没想过，实现它们也许只是几行简单的代码。</p>
+<p>也许效果很粗糙，也许代码很稚嫩，但，它们动起来了，它们真的动起来了，而且是在我的指挥下，按照我的意愿去运动！这，让我忍不住欢呼~</p>
+<p>有了这第一步，后面的万里长征，也许都不算遥远了吧？</p>
+<p>我学会了基础的，就拥有了向更高技术迈进的资本，那，只是下一步吧。</p>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0135/" title="卡片 for 第一百三十五章">卡片 for 第一百三十五章</a>】</p>
+
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0134/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0136/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

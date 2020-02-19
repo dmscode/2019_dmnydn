@@ -1,0 +1,387 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第四十五章 讲个故事 | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="通过故事让大家理解一下网页排版中的一个重要概念——文档流。">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第四十五章 讲个故事
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2018-12-03 | Update: 2019-05-09">
+    <p>
+      通过故事让大家理解一下网页排版中的一个重要概念——文档流。
+    </p>
+  </div>
+  <div class="post-content">
+    <p>这里我们先简单的说一下“文档流”。就是把一个页面看做一个河流，里面的所有元素，具有向着某个特定方向流动的趋势。</p>
+<p>打一个最简单的比方，现在页面中有三个段落，那么它们从上往下排布。如果我在代码中彻底删掉第一段，那么剩下的两段会怎样呢？</p>
+<p>答案当然是它们会向上移动到页面的最顶端，这在我们看来是理所当然的。</p>
+<p>这就是第一个规律，文档中所有内容，默认都具有一个尽量靠上的趋势。这就是把我们认为理所当然的东西，用语言归纳表达了一下。</p>
+<p>那么在一行文字里，也是一样的，不过除了有一个向上的趋势，还都有一个向左的趋势。想一想也很容易理解，对吧？</p>
+<p>这就是基本的文档流。</p>
+<p>虽然上面都能够听得懂，但是用这些刚刚接触到的专业术语去讲，就会显得越来越复杂。所以我们干脆讲一个故事：</p>
+<p>某一天，小老鼠的书写出来了，进行签售。那场面万人空巷。不是吓跑了，是都过来抢购了。</p>
+<p>那么现在假设图书签售的摊位，位于网页的左上角。人们都朝着这个方向蜂拥而来，当然，如果自己前面堆满了人，虽和摊位还有一定距离，但确实已经无法前进了，只能站在原地排队等候。这就是大家都有朝着某个方向前进的趋势，但是如果前面已经堆满了人，那么实际大家都是静止不动的。（都在一边排队，一边抱怨，这个队伍为什么一直都没有动？</p>
+<p>当然这么混乱着不是办法，于是，我们就要维持秩序，大家排队吧，从页面的左侧一直排到右侧，折回来排第二队……这种大排长龙的景象，大家应该都见过。</p>
+<div class="code-show" data-before-text="代码效果演示 Start" data-after-text="代码效果演示 End"><style>
+span.people-for-show {
+  display:inline-block;
+  width: 3em;
+  margin: 10px 5px;
+  border: 1px solid #666;
+  text-align: center;
+}
+</style>
+<div class="page-box-show">
+  <h3>● ←这个圆点就是小老鼠签售的摊位</h3>
+  <div class="page-box-row">
+    <span class="people-for-show">1</span>
+    <span class="people-for-show">2</span>
+    <span class="people-for-show">3</span>
+    <span class="people-for-show">4</span>
+    <span class="people-for-show">5</span>
+    <span class="people-for-show">6</span>
+    <span class="people-for-show">7</span>
+    <span class="people-for-show">8</span>
+    <span class="people-for-show">9</span>
+    <span class="people-for-show">10</span>
+    <span class="people-for-show">11</span>
+    <span class="people-for-show">12</span>
+    <span class="people-for-show">13</span>
+    <span class="people-for-show">14</span>
+    <span class="people-for-show">15</span>
+    <span class="people-for-show">16</span>
+    <span class="people-for-show">17</span>
+    <span class="people-for-show">18</span>
+    <span class="people-for-show">19</span>
+    ……这些是排队的人群
+  </div>
+</div></div>
+<p>好了，到目前秩序井然。不过也有外地来的朋友，是组团的，作为一个团体，他们不希望走散了。所以这些人非常连贯的排在了一起，队长站在最前面，副队长站在最后面，这样就不容易走散。</p>
+<p>但是他们并不会有什么特权，也是和大家一样的排队。这就是行内元素。</p>
+<div class="code-show" data-before-text="代码效果演示 Start" data-after-text="代码效果演示 End"><style>
+span.people-in-team {
+  background: #FFDDE8;
+}
+</style>
+<div class="page-box-show">
+  <h3>● ←这个圆点就是小老鼠签售的摊位</h3>
+  <div class="page-box-row">
+    <span class="people-for-show">1</span>
+    <span class="people-for-show">2</span>
+    <span class="people-for-show">3</span>
+    <span class="people-for-show">4</span>
+    <span class="people-for-show">5</span>
+    <span class="people-for-show">6</span>
+    <span class="people-for-show">7</span>
+    <span class="people-for-show">8</span>
+    <span class="people-for-show">9</span>
+    <span class="people-for-show">10</span>
+    <span class="people-for-show">11</span>
+    <span class="people-for-show">12</span>
+    <span class="people-for-show">13</span>
+    <span class="people-for-show">14</span>
+    <span class="people-for-show">15</span>
+    <span class="people-for-show">16</span>
+    <span class="people-for-show">17</span>
+    <span class="people-for-show">18</span>
+    <span class="people-in-team">
+    <span class="people-for-show">队长</span>
+    <span class="people-for-show">20</span>
+    <span class="people-for-show">21</span>
+    <span class="people-for-show">22</span>
+    <span class="people-for-show">23</span>
+    <span class="people-for-show">24</span>
+    <span class="people-for-show">副队</span>
+    </span>
+    <span class="people-for-show">26</span>
+    <span class="people-for-show">27</span>
+    <span class="people-for-show">28</span>
+    ……这些是排队的人群
+  </div>
+  <h6>这些身着粉色队服的，他们是一个团队，这个整体就是一个行内元素。队长是元素的开始标签，副队长是元素的结束标签，</h6>
+</div></div>
+<p>但是现在出来了一些意外情况，某大公司，决定集体出来购买图书，作为公司的福利。虽然说他们也会按顺序排队，但是因为自己这边人多，为了便于管理，就希望和其他人划清界限。</p>
+<p>比如说他们到来之后，并没有紧紧的贴在队尾。而是在队尾后面单独开始排队，一个属于他们自己的队伍。当然，他们的队尾，也不允许不属于他们公司的人员进入。</p>
+<div class="code-show" data-before-text="代码效果演示 Start" data-after-text="代码效果演示 End"><style>
+div.a-big-team {
+  border: 2px dashed #74ED78;
+  border-radius: 10px;
+  margin: 10px;
+  padding: 10px;
+}
+</style>
+<div class="page-box-show">
+  <h3>● ←这个圆点就是小老鼠签售的摊位</h3>
+  <div class="page-box-row">
+    <span class="people-for-show">1</span>
+    <span class="people-for-show">2</span>
+    <span class="people-for-show">3</span>
+    <span class="people-for-show">4</span>
+    <span class="people-for-show">5</span>
+    <span class="people-for-show">6</span>
+    <span class="people-for-show">7</span>
+    <span class="people-for-show">8</span>
+    <span class="people-for-show">9</span>
+    <span class="people-for-show">10</span>
+    <span class="people-for-show">11</span>
+    <span class="people-for-show">12</span>
+    <span class="people-for-show">13</span>
+    <span class="people-for-show">14</span>
+    <span class="people-for-show">15</span>
+    <span class="people-for-show">16</span>
+    <span class="people-for-show">17</span>
+    <span class="people-for-show">18</span>
+    <span class="people-in-team">
+    <span class="people-for-show">队长</span>
+    <span class="people-for-show">20</span>
+    <span class="people-for-show">21</span>
+    <span class="people-for-show">22</span>
+    <span class="people-for-show">23</span>
+    <span class="people-for-show">24</span>
+    <span class="people-for-show">副队</span>
+    </span>
+    <span class="people-for-show">26</span>
+    <span class="people-for-show">27</span>
+    <span class="people-for-show">28</span>
+    <div class="a-big-team">
+      这里是一个公司，他们没有插队。但是为了和其他人区分，所以前后并没有和队伍进行衔接。这就是一个块元素，努力的和前后区分开，独自占据整个宽度。
+    </div>
+    <span class="people-for-show">n</span>
+    <span class="people-for-show">n+1</span>
+    <span class="people-for-show">n+2</span>
+    ……这些是排队的人群
+  </div>
+</div></div>
+<p>换句话说，他们很遵守秩序。只是把自己的前后和其他人进行一个分隔，避免混乱。</p>
+<p>在公司的内部，还分有许多的部门，虽然每个部门都集中在一起，但是同属于一个公司，就没必要像和外人那样分隔的那么明显，所以他们也连贯的排在一起。</p>
+<div class="code-show" data-before-text="代码效果演示 Start" data-after-text="代码效果演示 End"><style>
+span.people-in-team-a {
+  background: #CCFF98;
+}
+span.people-in-team-b {
+  background: #CCFFEE;
+}
+span.people-in-team-c {
+  background: #FFEECC;
+}
+</style>
+<div class="page-box-show">
+  <h3>● ←这个圆点就是小老鼠签售的摊位</h3>
+  <div class="page-box-row">
+    <span class="people-for-show">1</span>
+    <span class="people-for-show">2</span>
+    <span class="people-for-show">3</span>
+    <span class="people-for-show">4</span>
+    <span class="people-for-show">5</span>
+    <span class="people-for-show">6</span>
+    <span class="people-for-show">7</span>
+    <span class="people-for-show">8</span>
+    <span class="people-for-show">9</span>
+    <span class="people-for-show">10</span>
+    <span class="people-for-show">11</span>
+    <span class="people-for-show">12</span>
+    <span class="people-for-show">13</span>
+    <span class="people-for-show">14</span>
+    <span class="people-for-show">15</span>
+    <span class="people-for-show">16</span>
+    <span class="people-for-show">17</span>
+    <span class="people-for-show">18</span>
+    <span class="people-in-team">
+    <span class="people-for-show">队长</span>
+    <span class="people-for-show">20</span>
+    <span class="people-for-show">21</span>
+    <span class="people-for-show">22</span>
+    <span class="people-for-show">23</span>
+    <span class="people-for-show">24</span>
+    <span class="people-for-show">副队</span>
+    </span>
+    <span class="people-for-show">26</span>
+    <span class="people-for-show">27</span>
+    <span class="people-for-show">28</span>
+    <div class="a-big-team">
+      <span class="people-in-team-a">
+      <span class="people-for-show">队长</span>
+      <span class="people-for-show">1</span>
+      <span class="people-for-show">2</span>
+      <span class="people-for-show">3</span>
+      <span class="people-for-show">4</span>
+      <span class="people-for-show">5</span>
+      <span class="people-for-show">副队</span>
+      </span>
+      <span class="people-in-team-b">
+      <span class="people-for-show">队长</span>
+      <span class="people-for-show">1</span>
+      <span class="people-for-show">2</span>
+      <span class="people-for-show">3</span>
+      <span class="people-for-show">4</span>
+      <span class="people-for-show">5</span>
+      <span class="people-for-show">副队</span>
+      </span>
+      <span class="people-in-team-c">
+      <span class="people-for-show">队长</span>
+      <span class="people-for-show">1</span>
+      <span class="people-for-show">2</span>
+      <span class="people-for-show">3</span>
+      <span class="people-for-show">4</span>
+      <span class="people-for-show">5</span>
+      <span class="people-for-show">副队</span>
+      </span>
+      企业内部的三个部门，按照顺序排队。可以说这个企业，就是这个巨大队伍中独立出来的一个小的队伍。
+    </div>
+    <span class="people-for-show">n</span>
+    <span class="people-for-show">n+1</span>
+    <span class="people-for-show">n+2</span>
+    ……这些是排队的人群
+  </div>
+</div></div>
+<p>再说一遍，其中每个小团队，他们整体上是一个行内元素；这个公司在整体上，是一个块级元素。</p>
+<p>那么块级元素中可以放行内元素，而行内元素中不可以放块级元素（放不下的呀。</p>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0045/" title="卡片 for 第四十五章">卡片 for 第四十五章</a>】</p>
+
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0044/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0046/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

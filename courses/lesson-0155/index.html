@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第一百五十五章 第一个 | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="jQuery 从合集中选出特定元素。">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第一百五十五章 第一个
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2019-06-14 | Update: 2019-06-17">
+    <p>
+      jQuery 从合集中选出特定元素。
+    </p>
+  </div>
+  <div class="post-content">
+    <p>如果我们只是想取出这个合集中的第一个元素，当然可以这么写 <code>$(&#39;a&#39;)[0]</code>，但是我们前面说了无数次，这样取出来的元素不能直接应用 jQuery 方法，还需要再包装一下，这就比较麻烦。</p>
+<p>程序员很懒，所以直接设定了一个简单的操作，<code>$(&#39;a&#39;).first()</code>。这样就取出了这个合辑中的第一个元素，而且是可以直接使用 jQuery 方法的。</p>
+<pre><code class="js">console.log( $(&#39;a&#39;).first().text() )
+</code></pre>
+<p>就像这个样子，这个方法让我们省去了包装的这一步。而且我们看上面的代码，jQuery 的方法是支持串联的，这可以让我们大幅度的简化代码。但也不要为了简化，而去刻意的使用。我们应该把代码控制在自己可以理解，可以准确控制的复杂度内。最开始先要以能够搞明白为主，随着对代码的熟悉再逐渐简练。</p>
+<p>然后，我们要明确一点：这里所说的第一个，是整个合集中的第一个。而合集中的元素并不一定是具有相同父元素的，这和 <code>:first-child</code> 就有了区别。</p>
+<p>那么讲到第一个，就出现了顺序的问题，这个顺序是怎样形成的呢？其实就是 jQuery 在网页代码中进行查找，如果元素匹配，就被加入这个合集。而查找的顺序是由外向内，由上向下（代码中的上下，而不是元素的显示位置）。像这种，我们可以自己设计一个案例，来试验一下，看看效果，这样更加有助于理解。</p>
+<p>相应的，有了取出第一个元素的方法，当然也有取出最后一个元素的方法。<code>$(&#39;a&#39;).last()</code>。这都没啥好说的，反正把方法和选择器中的伪类区分一下就行。</p>
+<p>两端的问题解决了，那么中间的元素如何取出呢？应该说如何方便的取出呢？于是又一个 <code>$(&#39;a&#39;).eq(12)</code> 方法，来取出指定序号的元素，这个要给一个参数，就是说我们要取出的是第几个元素，其他的用法和上面是一样的。有一个细节的问题，就是序号是从 0 开始的。这也很容易理解，因为这个合集类似于一个数组，而数组的序号就是从 0 开始的。记不住也没有什么关系，用的时候稍微试一下就可以了。</p>
+<p>甚至我们可以给它设置负数，表示从后向前数。因为 0 已经是第一个元素的序号了，所以 -1 对应最后一个元素，-2 是倒数第二个元素，以此类推。</p>
+<p>这是一个很方便的方法，省去了我们写遍历并判断序号的繁琐。但是我们怎么知道一个元素在这个合辑中的序号呢？</p>
+<p>这是一个有趣的问题，jQuery 也为我们提供了一个方便的方法，就是 <code>index()</code>。但是这个方法有着许多的用法，并不容易记住，我们只通过例子来讲两种最简单的用法：</p>
+<pre><code class="html">&lt;ul&gt;
+  &lt;li&gt;喵&lt;/li&gt;
+  &lt;li&gt;喵&lt;/li&gt;
+  &lt;li&gt;喵&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ul&gt;
+  &lt;li&gt;喵&lt;/li&gt;
+  &lt;li id=&quot;miao&quot;&gt;喵&lt;/li&gt;
+  &lt;li&gt;喵&lt;/li&gt;
+&lt;/ul&gt;
+</code></pre>
+<p>首先我们有上面的这样一个结构，现在我们要找到其中最特殊的那只喵，它在 <code>$(&#39;li&#39;)</code> 合集中的序号。写法有两种：</p>
+<pre><code class="js">const miao = $(&#39;#miao&#39;);
+const i = $(&#39;li&#39;).index(miao);
+</code></pre>
+<p>首先获取我们要查找的这个元素对象，然后我们在这个合集里去查找这个对象的索引值。注意现在的参数是一个元素对象，嗯，包装好的。</p>
+<pre><code class="js">const i = $(&#39;#miao&#39;).index(&#39;li&#39;);
+</code></pre>
+<p>或者反过来说，我们现在这个元素对象，它在后面这个选择器所选择的元素中排第几？现在的参数是一个选择器。</p>
+<p>那么大家动手去看一下实际的效果，想一想为什么会获得这样的序号。</p>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0155/" title="卡片 for 第一百五十五章">卡片 for 第一百五十五章</a>】</p>
+
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0154/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0156/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

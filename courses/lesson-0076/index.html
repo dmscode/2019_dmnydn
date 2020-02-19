@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第七十六章 一些共性 | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="弹性布局方法和网格布局方法的一些共性特征和 CSS 属性。">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第七十六章 一些共性
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2019-01-17 | Update: 2019-05-09">
+    <p>
+      弹性布局方法和网格布局方法的一些共性特征和 CSS 属性。
+    </p>
+  </div>
+  <div class="post-content">
+    <p>因为我们已经有了一套布局方法，虽然有很多缺点，但是目前，论兼容性，这是最好的，所以这一套不能丢。就算是在过渡时期吧，也可以两者结合着用。</p>
+<p>然后我们这里有两套系统：弹性（Flex）和网格（Grid）。你看这两个单词，都只有四个字母，背一下用不了五分钟吧，毕竟后面也要用，在这里就把他们区分开会很清楚。</p>
+<p>诶？！说到哪里来着，对，我们有两套系统，他们是可以共存的。所以也就是说在同一个页面内可以同时使用这三套系统，我们面临一个问题：区分。</p>
+<p>前面的布局方法不用说了，拿起来就用，那是使用的网页元素的基本特性实现的。另外两种怎么区分？要注意，我们讲到布局，就不是一个元素的事情，而是一组元素的事情。所以，事实上，我们要做的是，给元素分组。</p>
+<p>最简单的方法，A 元素里面的所有元素使用弹性（Flex）布局，B 元素里面的所有元素使用网格（Grid）布局。就是给一组元素套上一个父元素，算是打包出售了。因为这时候父元素的对内表现是块元素，我们可以继续排队的比喻，这个单位内部，有自己独特的排队规则。</p>
+<p>好，我们引出了最基本的一个属性定义。</p>
+<pre><code class="css">#a {
+  display: flex;
+}
+#a {
+  display: grid;
+}
+</code></pre>
+<p>通过 <code>dispaly</code> 属性来定义这个元素中的子元素使用哪种布局规则，这很合理。毕竟我们的块元素（<code>block</code>，竖排）和行内元素（<code>inline</code>，横排）也是通过这个属性来定义的。</p>
+<p>现在发现一个异类 <code>inline-block</code>。我们说他的意思是什么呢？对外表现为行内，而对外表现为块。上面我刚刚说了一句——“父元素对内表现为块”。所以其实我们也有如下两种写法：</p>
+<pre><code class="css">#a {
+  display: inline-flex;
+}
+#a {
+  display: inline-grid;
+}
+</code></pre>
+<p>第一种，对外当作块元素看待，第二种对外当作行内元素看待。这和 <code>block</code> 或者 <code>inline-block</code> 没区别。所以它真正影响的，是子元素。即规定了内部的布局规则。</p>
+<p>然后我们要先进行一个划分。我们制定这个规则的时候会考虑两个方面，一个是整体上的，一个是个体上的。如果某个属性一旦发生变化，必然的，所有相关元素都会受到影响，这影响就是整体上的；相反，属性一变化，只有一个元素受到影响，那就是个体上的。</p>
+<p>整体属性（没有这个名词，仅为方便讲解，临时用一下，下同），我们放在父元素里，因为它会影响到每一个子元素。父亲一制定规则，儿子们就乖乖按着规则去干活了。</p>
+<p>个体属性只影响到某一个元素，所以它要写在相应的元素上，也就是布局中的子元素。</p>
+<p>有了这个区分，我们就把属性先做了一个归类。后面看到属性，先想一想它属于哪一类，你对它就先有了一个大概的定位。</p>
+<p>我们说过文档流，是驱动文档布局的最原始力量。这就是一种布局的规则，那么文档流的英文怎么写呢？Normal flow，怎么样，没想到吧，正常流，普通流，基本流，默认流。要是这么说，估计大家就容易理解的多了。好啦，这个翻译并不是我们的重点。所以 flow 的意思是“流”，有了默认的、基本的，我们很容易想到，我们后面的就是不默认，不基本的了。</p>
+<p>对，所以我们用这两种方式布局的第一步其实都是定义流……的基本设置。因为我们在选择了布局方式的时候就已经规定了流的规则，但是它还需要一些具体的参数来规范当前的元素。</p>
+<p>一些具体的参数就是说……这两种方式的流都是复合属性（快捷属性，简写属性，怎么叫都可以，反正你明白是什么就好）。那么下一章我们开始展开。</p>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0076/" title="卡片 for 第七十六章">卡片 for 第七十六章</a>】</p>
+
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0075/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0077/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

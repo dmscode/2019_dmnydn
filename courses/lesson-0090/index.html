@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第九十章 引入和注释 | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="如何在 Web 页面文件中插入 JavaScript，或者引入 JavaScript 文件。以及如何在 JavaScript 代码中书写注释内容。">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第九十章 引入和注释
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2019-03-12 | Update: 2019-05-09">
+    <p>
+      如何在 Web 页面文件中插入 JavaScript，或者引入 JavaScript 文件。以及如何在 JavaScript 代码中书写注释内容。
+    </p>
+  </div>
+  <div class="post-content">
+    <h3 id="如何引入"><a href="#如何引入" class="headerlink" title="如何引入"></a>如何引入</h3><p>我们说的很厉害的样子，让人不禁想要赶紧开始了，那么怎么把这么厉害东东放进我们的页面呢？和 CSS 类似的，也有三种方法：</p>
+<h3 id="外部文件"><a href="#外部文件" class="headerlink" title="外部文件"></a>外部文件</h3><p>CSS 怎么引入来着？</p>
+<pre><code class="html">&lt;link rel=&quot;stylesheet&quot; href=&quot;style.css&quot;&gt;
+</code></pre>
+<p>JS 呢，不一样：</p>
+<pre><code class="html">&lt;script type=&quot;text/javascript&quot; src=&quot;javascript.js&quot;&gt;
+</code></pre>
+<p>我也不逐单词解释了，大家应该看得懂了。可能你觉得这个写法挺复杂的（并没有吧，不过我懒，我还真觉得复杂，就一直都没记住过……</p>
+<p>HTML5 的写法：</p>
+<pre><code class="html">&lt;script src=&quot;javascript.js&quot;&gt;&lt;/script&gt;
+</code></pre>
+<p>好像终于就记得住了呢。反正代码复杂了用外部文件很正常，十分正常，所以，我觉得这是常用方式。</p>
+<h3 id="内部嵌入"><a href="#内部嵌入" class="headerlink" title="内部嵌入"></a>内部嵌入</h3><p>CSS 也可以直接放在页面里边，是不是？</p>
+<pre><code class="html">&lt;style&gt;
+* {
+  width: 100%
+}
+&lt;/style&gt;
+</code></pre>
+<p>像这样，我们一般要求把 <code>style</code> 标签放在 <code>head</code> 标签里。不过其实你放在页面的任何部位都可以正常的起作用，但是……会很混乱啊。</p>
+<p>那 js 怎么写呢？</p>
+<pre><code class="html">&lt;script&gt;
+  alert(&#39;Hello world!&#39;)
+&lt;/script&gt;
+</code></pre>
+<p>很像，对不对？</p>
+<p>但是对于脚本，我们一般把它们放在 <code>&lt;/body&gt;</code> 这个标签之前。因为这时候页面元素加载完了，我们才可以操作。如果放在 <code>head</code> 里面，就有可能在代码执行的时候，被操作的元素还没加载出来。就是你想分配工作，但是员工还没到齐，就会出问题。</p>
+<p>你说前面引用外部文件的情况，也和这个一样的。但是一些基础的可以放在前面，比如某些库（后面会讲到），但是先加载又用不到，还占用加载时间的，就不如放在后面。这个以后记得区分就行，现在就都放在 <code>&lt;/body&gt;</code> 这个标签之前就对了（不容易出问题。</p>
+<h3 id="元素内"><a href="#元素内" class="headerlink" title="元素内"></a>元素内</h3><p>这个我们用到的不多，这里只是说一下。反正不是某些特别限制的情况，我不喜欢也不推荐使用。</p>
+<pre><code class="html">&lt;button onclick=&quot;alert(&#39;喵喵喵&#39;)&quot;&gt;点击按钮触发&lt;/button&gt;
+</code></pre>
+<p>但是别说用不到，后期还是有类似用法的。</p>
+<h2 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h2><p>注释分为两种：</p>
+<h3 id="多行注释"><a href="#多行注释" class="headerlink" title="多行注释"></a>多行注释</h3><p>这个和 CSS 一样 <code>/* 这里面是注释内容，可以换行 */</code>。</p>
+<p>不过程序员大多同时强迫症，所以可能写的很好看。以及也会用多行注释来写对文档的说明、对函数的说明等等，都有了固定的格式，被称为 <code>JSDoc</code>，这个我们不多说，不过如果你想深入学习 JS ，非常建议认真学习一下各种相关规范。</p>
+<h3 id="单行注释"><a href="#单行注释" class="headerlink" title="单行注释"></a>单行注释</h3><pre><code class="js">// 这样就是单行注释，仅双斜线至行尾的内容被注释
+</code></pre>
+<p>用来临时让某一句不起作用就很方便。</p>
+<p>我是不是还没和你们说过，一般编辑器里都有注释的快捷键，比如在 VS Code 里面是：<kbd>Ctrl</kbd>+<kbd>/</kbd>。可以迅速将选中部分（或者选中行，或者当前行）进行注释/取消注释。</p>
+<p>就这样吧，虽然这一章有点短，但是都是很有用的基础呀（强行找理由……</p>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0090/" title="卡片 for 第九十章">卡片 for 第九十章</a>】</p>
+
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0089/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0091/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

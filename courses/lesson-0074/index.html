@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第七十四章 实践？！ | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="学习前端的捷径就是多动手实践，同时多思考。">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第七十四章 实践？！
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2019-01-12 | Update: 2019-05-09">
+    <p>
+      学习前端的捷径就是多动手实践，同时多思考。
+    </p>
+  </div>
+  <div class="post-content">
+    <p>这一章应该是自适应和响应式的实践，但是老鼠很懒，就不想写了。</p>
+<p>因为这很尴尬，设计一个优雅的案例会搞得很复杂，一章怕是放不下。而一通繁琐操作下来，你会发现我就是把前面的东西再说一遍。这就很没必要。</p>
+<p>这些东西就是窗户纸，你不找到有这些东西的时候感觉一切千难万难，而了解到之后基本马上就能形成生产力，因为没有什么复杂的地方，都是明摆着的理论知识。</p>
+<p>关键在什么，你首先要有相应的基础，所以前面我反复恳求大家动手多写几个页面。如果你做了，那么现在我讲的每一句话，在你看来都有一种拨云见日的感觉。如果你还没做，那现在一定觉得我叨叨叨的像个老太太，面目可憎，味同嚼蜡，要不是偶尔皮一下还有点趣味，早就不看这只大耗子了。</p>
+<p>话都说到这份上了，还没做练习的，求求你们，轻舒玉爪，尝试自己写一下吧。</p>
+<p>你大概以为这一章我又打算这么糊弄过去了，然而并不是。这一章我们依旧聊聊对多种设备的适配这件事。</p>
+<p>上一章说媒体查询的条件多达 32 种，这还仅仅是一些媒体特征，如果算上设备等条件的话……这很厉害了，但是它也有它的局限性。比如对于取值需要做一定的计算它就无法完成。所以有时候我们需要用 JS 对这部分进行补充。</p>
+<p>道理很简单，我们先获取我们要观察的某个数据，比如 <code>Viewport</code> 的宽度吧，然后看看这个数据是否符合我们的情况，然后进行相应的处理，计算，什么什么的，生成我们需要的结果，把某个元素给设置成为相应的值。</p>
+<p>然和这套操作要在什么时候执行呢？当窗口发生尺寸变化的时候，就叫着套操作来上一便。这就很好了，每次尺寸一变，元素跟着发生变化，而且灵活度非常大（可以进行复杂的计算和处理）。</p>
+<p>但是，这里还丢了一个情况，就是我们打开页面的时候。页面刚打开，但是现在并没有发生窗口尺寸改变这件事，页面就傻了。就好像你告诉我闹钟响了就看看外面，天亮呢就起床工作，天黑呢就倒头睡觉。仿佛一切都很完美的安排。但是现在是中午，我走进了房间。这时候闹钟没响，所以我不会进行后面的操作，那我现在该做什么？</p>
+<p>你肯定说我笨，进了房间先看看天亮天黑决定当前做什么啊。那么我们再总结一次，我应该什么时候看时间，决定做什么？当我走进这个房间的时候或者闹钟响起的时候。对吧？</p>
+<p>现在也是一样，我们设定了闹钟，但是忘记说刚进入房间时的事情了。所以，当刚进入页面的时候，根据当前数据计算一次元素的属性值；以后每次窗口尺寸发生变化，我们就再进行一次计算。</p>
+<p>你可能好奇，我们目前又不能用代码来实现这些功能，我还讲这些干嘛。一方面是让大家有一个相应的逻辑模型，也对这种逻辑操作有一定的认识和了解。这会方便你思考想在遇到的问题，也会分担我们以后学习 JS 时的压力。</p>
+<p>还有一点，编程不止是一种技能，它也会影响你对事情的思考方法和逻辑能力。退一步说，即便没能学好写代码，也可能借此提高了自己逻辑思维和分析解决问题的能力，说人话就是能够变聪明。</p>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0074/" title="卡片 for 第七十四章">卡片 for 第七十四章</a>】</p>
+
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0073/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0075/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

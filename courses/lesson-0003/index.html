@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第三章 代码难吗？ | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="学习写代码困难吗？稻米鼠自己说了不算的，我们先讲一个小故事吧，听完了故事，大家自己来判断，写代码到底难不难。代码能有多难？（反问">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第三章 代码难吗？
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2018-11-01 | Update: 2019-05-08">
+    <p>
+      学习写代码困难吗？稻米鼠自己说了不算的，我们先讲一个小故事吧，听完了故事，大家自己来判断，写代码到底难不难。代码能有多难？（反问
+    </p>
+  </div>
+  <div class="post-content">
+    <p>总会有同学问我，学代码难吗？是不是英文不好就不能学？或者数学不好就不能学？</p>
+<p>其实说代码难都是借口，本质上只有一个问题——你真的想学吗？</p>
+<p>如果你真的想学，那还有什么可以称作困难的呢？背一两百个单词吗，反正写代码常用的单词差不多也就这个数量，而且只要求认识，能写出每个单词开始的几个字母，好多单词都很短，可能也就三四个字母。就算一天背三个吧，每次吃饭背一个就好……（别问我为什么又长胖了，我这月学习有点刻苦</p>
+<p>如果不追求什么特别高大上的东西，数学知道加减乘除小括号也就差不多了，而且又不用自己去计算结果。差不多就是日常使用计算器的水平，你非说自己不会我也没办法，但我估计你绝对不肯承认这一点。</p>
+<p>所以只有一个问题，你真的想学吗？</p>
+<p>——听说代码可难了……</p>
+<p>那就讲个小故事吧，就是一个设计师，刚入职的时候的一点小事情。为了方便叙述，我们就叫他小白吧。小白刚进单位，负责做海报的设计，当然说是设计，工作也特别的简单，就是给大的照片上加上标题，然后标题中个别字需要突出一下。对，就和你想的一样，就是加粗。</p>
+<p>这个工作很简单，几乎不会出什么岔子，不过小白的上司老王，是个非常和善的油腻大叔（咳咳，不是油腻老鼠，你们闭嘴！），对小白特别照顾。所有工作交代得非常细致。就比如刚刚老王，在邮件里给小白发来了工作要求。</p>
+<blockquote>
+<p>这张人物海报上面，加上标题：</p>
+<p>稻米鼠是个大帅哥！</p>
+<p>其中“稻米鼠”三个字要加粗。</p>
+</blockquote>
+<p>这个要求很简单，所以小白也很快就做好了。不过这样的工作还有很多，老王又不可能为每一张图都这样写一遍，所以既然小白对这个工作也熟悉了，老王就作了一些简化，后来的邮件就是这个样子，</p>
+<blockquote>
+<p>稻米鼠（加粗）玉树临风（结束加粗），英气逼人~</p>
+</blockquote>
+<p>因为有了前面的工作经验，虽然写的简单了一些，但是小白还是很容易就看懂了，就是给“玉树临风”四个字加粗就对了。这种写法有一个好处，就是一段文字，里边有多处需要加粗，小白也不会搞错，毕竟标记的已经非常清楚了。</p>
+<p>本来这也就没什么了，结果那一天恰好老王有事，就由另外一个同事小张，来给小白写要求。小张人也很 nice，只是刚从国外留学回来，说话写字忍不住中英掺杂。所以小白收到了这样的邮件——</p>
+<blockquote>
+<p>稻米鼠同学（strong）英气逼人（/strong）~</p>
+</blockquote>
+<p>看到这两对小括号，小白觉得这次要求跟以往并没有什么两样，何况凭着自己初中的英文水平，还是能够记得 <code>strong</code> 是粗壮强大的意思、到这里就很容易理解了，小张一定是用斜（<code>/</code>）线来表示结束。所以，这对小白并没有造成什么困扰。 <a href="#footnote-1" class="footnote-link"><sup>[1]</sup></a></p>
+<p>那现在我有一个问题考大家，你能看懂下面这个要求是什么意思吗？</p>
+<pre><code class="html">稻米鼠&lt;strong&gt;超级无敌&lt;/strong&gt;萌萌哒~
+</code></pre>
+<p>乖，答应我，放下你手中的板砖，咱们有话好好说。你说我把括号换一下就又问你一次，实在太侮辱你的智商了？哇，你居然能够看懂这一句话的意思，实在是相当厉害的，毕竟这就是我们后面要学的 HTML 代码了呀……</p>
+<p>所以写代码难吗？</p>
+<p>现在只有一个问题，就是你真的想去学吗？</p>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0003/" title="卡片 for 第三章">卡片 for 第三章</a>】</p>
+<div class="foot-notes"><p><strong id="footnote-1" class="footnote">&gt;注释 1:</strong> 说明一下：<code>&lt;strong&gt;&lt;/strong&gt;</code> 标签表示被标记的文本十分重要，而加粗只是他的表现形式而已，所以它其实并不必须是加粗，也可能是其他的样子。其实，HTML 标签中没有哪个标签真正表示加粗这个意思，即便 <code>&lt;b&gt;&lt;/b&gt;</code> 也不是的。HTML 重要的是表达这是什么，而什么样子则由 CSS 负责。</p></div>
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0002/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0004/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

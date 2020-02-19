@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第七十三章 响应式 | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="通过媒体查询，获得当前设备、浏览器等环境参数和尺寸，来决定网页元素当前应用的 CSS 样式，产生不同的表现。更加精准的适配不同的展示情况。">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第七十三章 响应式
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2019-01-12 | Update: 2019-05-09">
+    <p>
+      通过媒体查询，获得当前设备、浏览器等环境参数和尺寸，来决定网页元素当前应用的 CSS 样式，产生不同的表现。更加精准的适配不同的展示情况。
+    </p>
+  </div>
+  <div class="post-content">
+    <p>老有人把响应式和自适应搞混，是因为老有人想要把它们分清。</p>
+<p>哪有那么清晰的界限可言，采用方法实现目的就好了啊。为了某个效果，我组合使用怎么算？我不知道答案，我还是努力实现我希望的效果去了。</p>
+<p>上一章所讲的方法已经可以解决很多问题了，如果设置得当，产生的变化也是很大的。但还是具有局限性，比如我想在宽屏下显示红色，手机下显示绿色……虽然这个要求好无聊，但是我们想想，好多网站不就是在电脑上一副模样，手机上又是一副模样吗。如果说这是两个不同的页面，可是模块划分，还有里面的内容，都一毛一样。要是写两个页面也有够无聊的。</p>
+<p>HTML 是负责页面结构和内容的，也就是说，上面例子中 HTML 部分是不用变化的。如果我可以根据不同的情况切换 CSS 的话，那就可以实现这个效果了。</p>
+<p>好，我们来讲讲 CSS 规则间的覆盖问题……这哪跟哪，好像不挨着啊。因为这个知识是解决这个问题的前提。</p>
+<p>一般的，我们对于一个元素进行一次 CSS 定义就 OK 了。这时候没什么问题。但是上面可以看出，我希望对一个元素进行多次定义。这就有一个我用谁不用谁的问题了。</p>
+<p>如果我们对同一个元素的某个属性进行了多次定义，那么写在后面的，会覆盖前面的。同理，后面引入的 CSS 文件，会覆盖全面引入的 CSS 文件（中重复的属性）。这很好理解，就是我们平时说的讲究先来后到。</p>
+<p>但是如果是内联样式表，就是直接写在元素里的，那么它的优先级大于所有非内联的样式。</p>
+<p>不过也不是完全拿上面这种没办法了，如果在属性值后面写上 <code>!important</code>，那就获得了“王炸”级别的优先级，甚至可以覆盖内联样式表。</p>
+<p>如果再定义一次，也写上 <code>!important</code>，就以后面定义的这次为准。</p>
+<p>如果内联样式表还写上 <code>!important</code> 就……有病！凡事留一线，不要做得那么没有余地好不好？</p>
+<p>这个理解了吧，就是后面覆盖前面，内联覆盖外部，<code>!important</code> 王炸。</p>
+<p>现在说响应式，响应式就是我们先定义一遍样式，比如让页面完美适应桌面设备的样式；然后再在后面进行覆盖定义，使它可以完美适应移动设备。</p>
+<p>这也可以理解，但是，覆盖就是覆盖了，现在再回到桌面设备就不好使了。而我们期望什么？</p>
+<p>如果这家伙聪明一点，知道桌面设备的时候不覆盖，而移动设备的时候覆盖，是不是就……</p>
+<p>真幸运，它做得到，但是我们要把条件说明白，直接看实例：</p>
+<div class="code-show" data-before-text="代码效果演示 Start" data-after-text="代码效果演示 End"><pre data-file-name="style.css"><code class="css">&#10;&#35;&#109;&#105;&#97;&#111;&#98;&#111;&#120;&#32;&#123;&#10;&#32;&#32;&#119;&#105;&#100;&#116;&#104;&#58;&#32;&#49;&#48;&#48;&#112;&#120;&#59;&#10;&#32;&#32;&#104;&#101;&#105;&#103;&#104;&#116;&#58;&#32;&#49;&#48;&#48;&#112;&#120;&#59;&#10;&#32;&#32;&#109;&#97;&#114;&#103;&#105;&#110;&#58;&#32;&#49;&#48;&#112;&#120;&#32;&#97;&#117;&#116;&#111;&#59;&#10;&#32;&#32;&#98;&#97;&#99;&#107;&#103;&#114;&#111;&#117;&#110;&#100;&#45;&#99;&#111;&#108;&#111;&#114;&#58;&#32;&#114;&#101;&#100;&#59;&#10;&#125;&#10;&#10;&#64;&#109;&#101;&#100;&#105;&#97;&#32;&#115;&#99;&#114;&#101;&#101;&#110;&#32;&#97;&#110;&#100;&#32;&#40;&#109;&#97;&#120;&#45;&#119;&#105;&#100;&#116;&#104;&#58;&#32;&#54;&#48;&#48;&#112;&#120;&#41;&#32;&#123;&#10;&#32;&#32;&#35;&#109;&#105;&#97;&#111;&#98;&#111;&#120;&#32;&#123;&#10;&#32;&#32;&#32;&#32;&#98;&#97;&#99;&#107;&#103;&#114;&#111;&#117;&#110;&#100;&#45;&#99;&#111;&#108;&#111;&#114;&#58;&#32;&#103;&#114;&#101;&#101;&#110;&#59;&#10;&#32;&#32;&#125;&#10;&#125;&#10;</code></pre>
+<div id="miaobox"></div>
+<style>
+#miaobox {
+  width: 100px;
+  height: 100px;
+  margin: 10px auto;
+  background-color: red;
+}
+
+@media screen and (max-width: 600px) {
+  #miaobox {
+    background-color: green;
+  }
+}
+</style>
+</div>
+<p>这里的“喵盒”就实现了我们开始所要求的效果。代码也很简单，我们来解读一下：</p>
+<p><code>@media</code> 表示开始媒体查询，想想我们前面也学过 <code>@</code> 开头的 CSS 哦，这是说这个东东不是选择器。</p>
+<p>后面先是条件，<code>screen</code> 表示在屏幕显示的时候，别以为这个没有意义哦，虽然是网页，仿佛就是显示在电脑或者手机的显示器上而已。但事实上还有打印的时候，屏幕阅读器的时候。据此可以进行区分设置。</p>
+<p>用 <code>and</code> 可以连接多个条件，表示这些条件必须同时满足。</p>
+<p>后面小括号里又是一个条件，是说 <code>Viewport</code> 的最大宽度是 <code>600px</code>。也就是当 <code>Viewport</code> 的宽度小于等于 <code>600px</code> 的时候条件成立。一定要注意这个逻辑关系！</p>
+<p>后面的大括号里是当前面的条件（们）被满足的时候，要应用的样式。因为前面已经对这个元素进行了定义，这里我们只需要写发生改变的属性就可以了。在媒体查询的大括号里可以放大量内容，不只是一个元素一个属性，而是可以把符合这个查询的所有内容都放在里面。</p>
+<p>好，完整的解释一下，对于这个媒体查询，必须是显示在屏幕上，并且 <code>Viewport</code> 的最大宽度没有超过 <code>600px</code> 的时候，后面大括号里的内容才会起作用。</p>
+<p>媒体查询可以用的条件非常多，请大家自行参阅手册，实在是太多写不过来了（大概 32 个吧）。一般常用的就是 <code>min-width</code> 和 <code>max-width</code>，相当于大于等于号和小于等于号，而宽度指的是 <code>Viewport</code> 的宽度，这个逻辑关系一定要理清楚。</p>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0073/" title="卡片 for 第七十三章">卡片 for 第七十三章</a>】</p>
+
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0072/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0074/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

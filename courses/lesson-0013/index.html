@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第十三章 一个标签 | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="HTML 的标签并不总是成对出现的，当标记的只是一个点，而不是一段内容的时候，我们只需要一个标签就够了。">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第十三章 一个标签
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2018-11-12 | Update: 2019-05-09">
+    <p>
+      HTML 的标签并不总是成对出现的，当标记的只是一个点，而不是一段内容的时候，我们只需要一个标签就够了。
+    </p>
+  </div>
+  <div class="post-content">
+    <p>我们已经认识了一些标签，他们都是成对出现的，因为要一前一后，标记中间的内容。这就是有始有终的意思吧~</p>
+<p>但是有些情况我们需要标记的并不是一个内容，而是一个位置。比如说，我想在某一个地方进行换行。不过我们要先说清楚，换行就是换行，换行不等于段落。我们写东西的时候用换行来表示分段，但是只是表示，而不是等于。在编程中我们经常会遇到，像这样和我们日常想法有些区别的情况，要注意哦。在网页中，<code>&lt;p&gt;&lt;\p&gt;</code> 标签里面的内容才是一个完整的段落，换行只是格式上的，和段落没有关系。</p>
+<p>道理上讲，段落表示这一段内容是一个整体，要和前面、后面都分开，独立出来。我们标记一个整体，当然要用一对标签来标记它的开始和结束了。</p>
+<p>换行就不一样了，他就是一个点，有准确的位置，把这个点前后的内容分开。写作文的时候，老师会和我们讲，你从这里到那里应该算作一个段落；而在某个地方又应该换行。所以听出区别来了吧，如果反过来说，马上就觉得浑身不得劲儿了（听的体育老师都想打人。</p>
+<p>那么我们怎么表示在某一个位置进行换行呢？</p>
+<pre><code class="html">注意哦，我要开始换行了&lt;br&gt;你看这里就是新的一行了。
+</code></pre>
+<p>大家自己动手试试效果吧。这次我们的标签不是成对出现的，因为标记的不是范围，而是位置。明明一个标签能做的事情，我们又何必写两个标签呢？（毕竟老鼠这么的懒，哼~</p>
+<p>不过也有些人理解为，这种写法是把开始标签和结束标签合并成了一个。如果按照这样的理解，那么上面的写法就有些奇怪了，毕竟这里只有一个开始标签。所以我们也会看到如下的写法：</p>
+<pre><code class="html">注意哦，我要开始换行了&lt;br /&gt;你看这里就是新的一行了。
+</code></pre>
+<p>标签中的空格有或者没有都可以。这两种写法，在我们目前接触到的范围内，是没有区别的，所以我们也就不深入进行讨论了。毕竟在入门课程中，讨论这样偏僻的问题会显得很奇怪，咳咳。</p>
+<p>那么这个标签，应该说比我们前面所学的东西都简单，表示的意思也是超级简单的。</p>
+<p>和他类似的，还有一个表示水平线的标签。就是在当前位置插入一条水平线，用来分隔上下的内容。</p>
+<pre><code class="html">&lt;p&gt;在这里，我喵喵的说了一大堆内容。&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;在这里，我又说了一大堆和上面毫不相干的内容，&lt;/p&gt;
+</code></pre>
+<p>这个非常容易理解，当然也存在上面两种写法，<code>&lt;hr&gt;</code> 和 <code>&lt;hr /&gt;</code>。</p>
+<p>对于换行，一般来说，我们不会对它的样式进行深入的定义。毕竟换行这种行为，似乎也没有太多值得改善的地方，就是这一行到此为止，后面的文本从下一行开始写。</p>
+<p>但是水平线就涉及到一个表现的样式的问题，一根线它是宽还是窄，是胖还是瘦，是什么颜色的，靠左还是靠右……所以这个标签是具有这些属性可以进行设置的，但是现在这些属性都已经是不建议（甚至不能）使用了。这个原因前面其实我说过，就是 HTML 主要负责表达这个东西是什么，而他长什么样，则由 CSS 负责描述。这就是明确的分工，大家各司其职。至于为什么他还有这些属性，那是因为以前人手少，HTML 得一个人负责为所有的工作嘛。</p>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0013/" title="卡片 for 第十三章">卡片 for 第十三章</a>】</p>
+
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0012/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0014/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第八十一章 网格布局 | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="CSS3 网格排版方法的介绍。">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第八十一章 网格布局
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2019-01-22 | Update: 2019-05-09">
+    <p>
+      CSS3 网格排版方法的介绍。
+    </p>
+  </div>
+  <div class="post-content">
+    <p>网格布局比弹性布局涉及的属性多了好多。然而其实更简单了。</p>
+<p>弹性布局是一维布局，侧轴方向的延伸属于被动技能。网格布局就厉害了，是二维布局，两个轴同等重要。说白了吧，就是在容器里面划上格子，然后把子元素往里面摆。这个子元素在哪个格子里，哪个在哪个里……</p>
+<p>然后子元素可以占据不止一个格子，比较大，那多占几个，没问题！</p>
+<p>一个格子也可以同时被几个子元素占据，就是叠在了一起。我们可以用 <code>z-index</code> 来控制它们之间的堆叠顺序。</p>
+<p>这就好像父元素是一张网格纸，我往里面粘贴子元素的感觉。那么用起来也类似于用坐标定位，当然这是原理上，书写的格式并不类似。</p>
+<p>这么说就非常的简单，因为归根结底一句话——你让子元素在哪里就在哪里。这绝对是初学者最喜欢的一句。</p>
+<p>道理是明白了，下面是怎么用。那第一点就是网格的划分，但是这个涉及到两层规则，显式网格和隐式网格。我跟你们说，就这翻译，看起来好像能明白啥意思，其实一点也搞不懂。不如我给你画个图，一下子就明白了：</p>
+<div class="image-box"><img src="/assets/lesson-0081/grid-paper-33bc3e04187f463b32b4b403245a2f2c.png" alt="网格纸"></div>
+<p>这是一张网格纸，就是上面本身印刷着不明显的网格，稍微对笔记本了解多一点的朋友应该都知道这种东西。我又在上面画了一个表格，很普通的一件事情。</p>
+<p>我们现在往里面填内容，那么内容如果要放在我画的表格所在的区域，肯定以表格划分的区域为参考，要不然我还画格子干嘛用啊；如果到了下半部分，我没画格子，那为了整齐，肯定就以纸上自带的网格为参考了。这就是一个很简单的优先级问题，如果我画了格子，以我的格子为准；如果我没画格子，以纸上隐约可见的格子为准。</p>
+<p>那么我画的格子，对应的就是显式网格；而纸上自带的格子，对应的是隐式网格。首先我们必须有网格，但是并不要求两者都具备。我没画格子，那就完全以纸上的网格为参考。或者我把纸上完全画好了格子，那纸上本身有没有格子也都没所谓了。</p>
+<p>不过么，无论显式网格，还是隐式网格，都需要我们自己去定义的，根据自己的需求去定义就好了。一般来说我们优先使用显式网格，只有当显示网格没有覆盖整个容器，且可能会用到其余的区域时，才需要定义隐式网格。</p>
+<p>如果你听明白了我说的这些，其实你就已经学会了大部分。然后我们就是去规定这些网格，然后把子元素放进去，虽然属性很多，但是，终究还是这点事情而已。</p>
+<p>来规定几个名词吧，这样后面讨论着方便，我也不画示意图了，大家就看着上面的表格跟着想就行了，因为这几个概念非常简单，只是先确定一下，方便讨论。</p>
+<ul>
+<li>网格中的每一条线，是网格线；</li>
+<li>网格中的每一个单元格，是网格单元格；</li>
+<li>几个单元格组成的矩形，是网格区域；</li>
+<li>两个相邻网格线之间的空间（其实就是某一行或者某一列，但是不能这么说，你可以体味一下里面的区别），是网格轨道；</li>
+<li>我们要放在里面的子元素，叫做网格项。</li>
+</ul>
+<p>这么简单的约定，一下子就能记住吧？如果记不住，就多看两遍喽~好歹是没有理解难度的。</p>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0081/" title="卡片 for 第八十一章">卡片 for 第八十一章</a>】</p>
+
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0080/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0082/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

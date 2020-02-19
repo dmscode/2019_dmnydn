@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第十九章 表单（二） | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="表单如何使用，如何工作的呢？里面的数据如何被提交，我们通过一个实际的例子来了解一下。依旧是了解了它的格式，就掌握了其中的关键，可以举一反三了。">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第十九章 表单（二）
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2018-11-16 | Update: 2019-05-09">
+    <p>
+      表单如何使用，如何工作的呢？里面的数据如何被提交，我们通过一个实际的例子来了解一下。依旧是了解了它的格式，就掌握了其中的关键，可以举一反三了。
+    </p>
+  </div>
+  <div class="post-content">
+    <p>上一章，我们对表单有了一个简单的认识。不过，代码还差一句没有讲完，这一章我们来继续聊。</p>
+<p><code>input</code> 就是输入的意思，那么这个标签表示的就是输入框。这又是一个单打独斗的标签，因为他只要说明在哪里插入这个输入框就可以了。</p>
+<p>然后里面写了两个属性，一个是类型（<code>type</code>），一个是名字（<code>name</code>）。因为我们要做搜索，所以现在它的类型是 <code>search</code>，这个类型是 HTML5 新增加的，如果是在以前，这种情况我们只能把它的类型设置为 <code>text</code>，就是文本。而 <code>name</code> 说的是这个输入框所接收到的数据叫做什么名字。因为我们一个表单，可能收集的不只是一项数据，那么我们要对它进行一个区分。就好像上一章中我们所举的例子，要填写的调查表中，可能有姓名，性别，职业，爱好……那么这些都是数据的名字，而你填入的内容才是要获得的数据。有了名字以后，我们就可以很方便的进行交流了。比如说把调查表中所有人的性别统计一下，我们来看一下性别比例。这里就用“性别”来指代了调查表中所有填入的男女的数据。</p>
+<p>别怪我讲得这么细致，因为我们用中文描述很容易理解，但是把它换成英文之后，有的同学可能就要思考一下，那么我给你讲一个小故事，就是为了让你能够往里面进行对应的。</p>
+<p>现在我们收集到了一个数据，给它取的名字叫做 <code>wd</code>。按下回车，表单就进行提交，因为搜索这个事情，需要提交的数据非常简单，而且也不需要多么机密，所以我们上面也写了，使用的是 <code>get</code> 方法。说到这里你就忍不住了，上一章说 <code>get</code> 方法就仿佛口头汇报，路过的人也都能够听到其中的内容，所以我们也很想听听他都说了哪些内容，这个怎么听呢？</p>
+<p>很简单的，<code>get</code> 方法的数据其实就是通过网址进行传输，那我们就来研究一下网址。打开百度，搜索 <code>AAAAAA</code>，然后回车，发现地址产生了一些变化，我们把这个地址复制回来研究一下：</p>
+<pre><code>https://www.baidu.com/s?wd=AAAAAA&amp;rsv_spt=1&amp;rsv_iqid=0xb2b7499900039d9a&amp;issp=1&amp;f=8&amp;rsv_bp=0&amp;rsv_idx=2&amp;ie=utf-8&amp;tn=baiduhome_pg&amp;rsv_enter=1&amp;rsv_sug3=6&amp;rsv_sug1=6&amp;rsv_sug7=100&amp;rsv_t=2c5e0RYs42YhNJaQe7KRO8LJp2xkjnvsQrMXWkJdSN%2F5htkCq0g2JEPukERgxhb7XCSz&amp;rsv_sug2=0&amp;inputT=2958&amp;rsv_sug4=2959
+</code></pre><p>我知道这么多东西，大家一看就懵了，别说你，我看他一眼也想睡觉。不过刚才我们为什么要搜索 <code>AAAAAA</code> 呢？真相只有一个，就是辨识度比较高，说白了就是好找。那我们就来找找吧。你说太长了不好找？那就把这个网址粘贴到编辑器里，按下 <kbd>Ctrl</kbd>+<kbd>F</kbd>，进行查找吧~</p>
+<div class="image-box"><img src="/assets/lesson-0019/find-4566f91ec1fe6ec8e3bc95b85507ccb2.png" alt></div>
+<p>这里就是我们要搜索的内容，所以如果我们改变这里的文字，是不是就可以搜索其他内容呢？那么你可以把它改成 <code>BBBBBB</code> 来试试看。结果获得了成功，这个发现让我们欣喜不已。这时候如果你再往前面多看几个字，就很容易发现这样一个结构：<code>wd=AAAAAA</code>。于是一下子就明白了，<code>get</code> 的数据通过网址传递，传递时的结构是 <code>数据名（name）=数据值</code>，就好像 <code>性别=小仙女</code>。</p>
+<p>那既然了解了这个结构，我们就可以把这个网址进行一下整理了：</p>
+<pre><code>https://www.baidu.com/s?
+wd=AAAAAA
+&amp;
+rsv_spt=1&amp;rsv_iqid=0xb2b7499900039d9a
+&amp;
+issp=1
+&lt;!-- 网址太长，我就不继续往下写了 --&gt;
+</code></pre><p>一番整理之后，虽然我们看不懂这些内容，但是我们懂得一个问题，就是这个网址传递了许多数据。而数据与数据之间，用 <code>&amp;</code> 来进行分隔。现在这个网址看起来就不那么复杂了。那么还有一个地方需要说一下，就是上面第一行最后的问号 <code>?</code>。在问号的前面，是实际处理这些数据的网址，也就是我们这些数据要发送给谁。所以你就要明白了表单中 <code>action</code> 属性的内容是怎么来的了。而问号后面，是我们要发送过去的数据。</p>
+<p>那么网址的基本结构，我们就先解析到这里，大家可以根据我们所学到的内容试着把上一章那个非常简单的搜索的搜索引擎改为必应搜索（ <a href="https://cn.bing.com/" target="_blank" rel="noopener">https://cn.bing.com/</a> ）。最后一张图简单总结一下网址的结构<a href="#footnote-1" class="footnote-link"><sup>[1]</sup></a>：</p>
+<div class="image-box"><img src="/assets/lesson-0019/url-298d7b3b5fa4e10fb76318a14525bb4d.png" alt></div>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0019/" title="卡片 for 第十九章">卡片 for 第十九章</a>】</p>
+<div class="foot-notes"><p><strong id="footnote-1" class="footnote">&gt;注释 1:</strong> 有网址并不一定有图中所有的结构，有一些结构也可能反复出现多次，比如目录和参数。这张图并不是完整的网址结构，只是根据我们当前课程做的一个简略的说明。完整的网址结构也是比较复杂的，后面我们还会涉及到一些，如果有兴趣，大家也可以自己查阅文档。</p></div>
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0018/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0020/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

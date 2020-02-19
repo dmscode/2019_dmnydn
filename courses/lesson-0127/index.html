@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第一百二十七章 显示和隐藏 | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="jQuery 中最基础的动画效果，显示和隐藏网页中的元素。">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第一百二十七章 显示和隐藏
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2019-05-10 | Update: 2019-05-10">
+    <p>
+      jQuery 中最基础的动画效果，显示和隐藏网页中的元素。
+    </p>
+  </div>
+  <div class="post-content">
+    <p>想想我们已经学过的各种方法，要做到显示和隐藏一个元素应该不难，只要去操作这个元素的 CSS 属性就可以了。具体一点，修改 <code>display</code> 属性的值，从默认值修改到 <code>none</code> 就能隐藏元素。</p>
+<p>这样效果是达到了，但是过程很粗暴，在两个状态之间非常生硬的切换。你说对了，我们希望在显示和隐藏之间增加一些过渡效果。所以今天介绍的显示和隐藏方法，就是带有过渡效果的显示和隐藏。</p>
+<p>首先我们当然是要有一个元素，这个元素的初始状态，可以是显示的，也可以是隐藏的。如果是显示的状态，当然就是默认情况就可以了，如果需要在初始状态下隐藏这个元素，就在它的 CSS 属性中增加 <code>display: none;</code> 就好了.</p>
+<pre><code class="html">&lt;style&gt;
+  #a {
+    width: 100px;
+    height: 100px;
+    background: red;
+  }
+  #b {
+    display: none;
+    width: 100px;
+    height: 100px;
+    background: blue;
+  }
+&lt;/style&gt;
+……
+&lt;div id=&quot;a&quot;&gt;&lt;/div&gt;
+&lt;div id=&quot;b&quot;&gt;&lt;/div&gt;
+</code></pre>
+<p>就像上面这个样子。显示和隐藏的方法也非常简单，就是它们对应的英文单词。</p>
+<pre><code class="js">$(&#39;#a&#39;).hide();
+$(&#39;#b&#39;).show();
+</code></pre>
+<p>仔细观察的话，你可以看到他们的过渡效果，但可能觉得不是很明显，怎么才能够更明显的观察到这个效果呢？这两个方法都是可以给出更多的参数的，用来控制动画的效果，以及其他的一些功能。我们目前不把问题搞得很复杂，只讲一个最基础的参数。</p>
+<p>在小括号中我们可以给出一个数值，用来控制过渡动画的时长。只是数值就好，不需要给出单位。但是我们要知道这个数值所使用的单位是毫秒（ms），而 1000 毫秒等于 1 秒。</p>
+<p>现在我们想更明显的看到其中的过渡过程，可以给出一个稍微大一些的数值，以便观察。比如：3000。</p>
+<pre><code class="js">$(&#39;#a&#39;).hide(3000);
+$(&#39;#b&#39;).show(3000);
+</code></pre>
+<p>默认的动画时长是 400 毫秒。我很喜欢使用数值去控制过渡的时长，不过这里也可以使用一些关键字去描述：</p>
+<pre><code class="js">$(&#39;#a&#39;).hide(&#39;slow&#39;);
+$(&#39;#a&#39;).hide(&#39;fast&#39;);
+</code></pre>
+<p>觉得不够精确，还要查看文档才能想起来他们代表的时间究竟是多少，而且书写起来也并没有更方便，就不爱用。</p>
+<p>其他还有一些参数，比如控制使用哪种效果的动画，甚至自定义具体的动画效果。还有当动画完成以后再去执行哪些操作。不过我们不说了，因为现在一起说内容会很多，就不容易记住。作为初学者，我们先知道都有哪些东西，在使用的时候，再去查阅文档，看它的具体功能。</p>
+<p>听懂啦？想要深入学习，先在已经掌握我所讲的内容的基础上，再去自行查阅文档。</p>
+<p>然后再讲一个切换，又是我不关注它当前的状态是什么，反正如果现在是显示的，就把它隐藏起来；如果现在是隐藏的，就把它显示出来。这是对它显示和隐藏状态的一个切换。</p>
+<p>所以这个方法很简单粗暴的就叫做切换（<code>toggle</code>）。用法和上面两个一样，它的参数其实要更复杂，但是在初期，我们也像上面一样去使用就可以了。</p>
+<p>演示我就不做了，也没有几句代码，大家自己动手尝试一下用不了两三分钟，不会耽误看动感超人的。</p>
+<p>补充说明一下，这个方法并不仅仅是增加了过渡的效果，如果你仔细观察，会发现它还智能的适配了块元素和行内元素，在显示的时候给出对应的属性。</p>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0127/" title="卡片 for 第一百二十七章">卡片 for 第一百二十七章</a>】</p>
+
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0126/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0128/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

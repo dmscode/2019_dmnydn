@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第二章 HTML5 和 CSS3 | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="前端开发中常说的 HTML5（H5）和 CSS3 到底都是个啥东西，和 HTML 、 CSS 有啥区别，到底应该学哪个？这是我们学习前端最常遇到的疑惑，这一章，我们就来把它们解释一下。">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第二章 HTML5 和 CSS3
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2018-11-01 | Update: 2019-05-08">
+    <p>
+      前端开发中常说的 HTML5（H5）和 CSS3 到底都是个啥东西，和 HTML 、 CSS 有啥区别，到底应该学哪个？这是我们学习前端最常遇到的疑惑，这一章，我们就来把它们解释一下。
+    </p>
+  </div>
+  <div class="post-content">
+    <p>曾经，我一度想把这个标题，作为我教程的第一章。毕竟这个标题，会为我吸引更多读者的目光。</p>
+<p>但是现在我希望把一切从头说起，上一章我们聊了什么是前端，我想大家可能多少有了一些感觉，但是又抓不住这些感觉，毕竟我还只是讲了一些比喻而已。</p>
+<p>说得大一点，前端是面向用户的，所以必须了解用户，从用户出发……我打住，但我真心希望你在读完整个教程之后，再回来看一眼这句话。</p>
+<p>服务用户的基础，是你有相应的技术。那么我们需要什么技术呢？简单通俗的讲，就是写网页的技术。</p>
+<p>“嗨，说那么费劲，不就是写网页么。现在写网页没前途，老板们都要求 H5 页面啦”</p>
+<p>写网页主要用的语言就是 HTML、CSS、JavaScript，哦，最后一个单词太长了，所以外行们提起他来的次数还比较少。前面两个被说的很多，但一般都是说——HTML5 和 CSS3。</p>
+<p>所以本着学就要学最新最潮的东西的原则，很多小白一心向往着去学习 HTML5 和 CSS3，甚至干脆是 H5。这让我想到了一个笑话——“PS 不专业，要用 Photoshop 做！”</p>
+<p>无论 5 还是 3，都只是一个版本号，它代表了新的特性，这些新的特性确实让人感到惊艳。但并不意味着我们可以抛弃基础，只是学习这些新特性，这和空中楼阁是一个意思。每年的新手机，都会增加新的功能，让我们感到欣喜，但是学用手机，总是要学习开机关机，接打电话，收发短信，你可以对此不屑，但是你不得不承认，这些是必须掌握的基础。</p>
+<p>然后，老实说，那些看起来很绚丽的所谓的 H5，也有一大部分是 JavaScript  的功劳。</p>
+<p>好了，这就是一个写给小白们的教程，所以会从最基础的讲起，努力带大家去认识，去产生兴趣。不会为了追新而追新，也不会墨守成陈规，讲过时的东西。入门，兴趣，努力保证读得懂，学得会。</p>
+<p><strong>别再问我看完这个教程以后能不能做什么样的页面。我告诉你，不能。</strong></p>
+<p>如果你真的想学一个东西，你会很自然的愿意从头学起；如果你对一件事情有兴趣，你自然会坚持做下去。肯循序渐进持之以恒，大部分事情，都可以顺利做得到。单纯为了某个目的，想追求速成，不是不可以，但是想比别人学得快，就要比别人付出更多的辛苦，急功近利的时候，问一问自己的毅力，先。</p>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0002/" title="卡片 for 第二章">卡片 for 第二章</a>】</p>
+
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0001/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0003/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

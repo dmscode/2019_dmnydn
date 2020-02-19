@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第一百六十章 是否，有吗？ | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="jQuery 中对元素进行过滤筛选和判断的一些方法。">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第一百六十章 是否，有吗？
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2019-06-30 | Update: 2019-06-30">
+    <p>
+      jQuery 中对元素进行过滤筛选和判断的一些方法。
+    </p>
+  </div>
+  <div class="post-content">
+    <p>过滤器，是将合集中符合条件的元素保存下来。如果我们想反过来，将合集中符合条件的元素排除，可以使用 <code>not</code> 方法。用起来和过滤器各种一样，只是效果相反。</p>
+<p>然后，又没有然后了。</p>
+<hr>
+<p>不过有一个小问题，在我们的印象中，not 和 is 算是相对的。那么 <code>is</code> 这个方法是做什么的？然后一看文档，发现这还是一个需要注意的点，看起来相对的两个单词，对应的功能却并不相干。</p>
+<p><code>is</code> 方法用来判断合集中至少有一个元素符合后面的条件，只要有一个符合，就会返回 <code>true</code>，否则为 <code>false</code>。发现区别了，我们最近几章所讲的方法，都是对元素的查找，或者对元素合集的筛选，最后获得的都是一个新的合集。但现在这里出现了布尔型，也就意味着这个方法和我们现在在学的内容，不是同一类的。因为在名字上很相关，于是就拿过来了。</p>
+<p>不过很好，<code>is</code> 后面小括号里的条件，和 <code>filter</code> 或者 <code>not</code> 都是一样的。但它重在判断，而不是筛选。虽然合集中，有一个元素符合，就会返回为真，但常常我们会把它用在合集的遍历之中，用来对合集中的元素进行逐个判断，比如：</p>
+<pre><code class="js">$(&#39;a&#39;).each(function(){
+  if($(this).is(&#39;.miao&#39;)){
+    console.log(&#39;当前元素的 Class 是 miao&#39;)
+  }
+})
+</code></pre>
+<p>所以这就是一个判断元素<strong>是不是</strong>的方法。</p>
+<hr>
+<p>还有一个用来筛选元素的方法，叫作 <code>has</code>，说的是当前元素是否具有符合条件的后代元素，如果有，则保留当前元素，否则排除。</p>
+<p>这个方法使用 <code>filter</code> 是完全可以替代的，只是写起来会比较麻烦，我们要使用函数条件，去对每一个元素进行 <code>find</code>，就是在它的后代元素中进行查找，如果查找的结果不为空，那么条件成立。这样写起来就很麻烦，但是这种筛选的方法应该也很常用，所以就有了这个更加简便的 <code>has</code>。</p>
+<pre><code class="js">$(&#39;a&#39;).has(&#39;span&#39;)
+</code></pre>
+<p>这样就是查找所有里面有 <code>span</code> 元素的链接。小括号中的条件，可以是选择器，可以是元素，也可以是 jQuery 对象。</p>
+<p>所以这就是一个让我们能够比较偷懒的办法，偷懒这种事情还是很好理解的。</p>
+<hr>
+<p>在看文档的时候，会发现一个挺类似的方法，只是名字上类似，叫作 <code>hasClass</code>。但是这个方法并不是用作筛选，而是判断。诶，和 <code>is</code> 很像的。</p>
+<p>它用来判断合集中是否有至少一个元素具有对应的类。所以返回的也是一个布尔值，通常我们也会像 <code>is</code> 一样将它放在遍历中，去对元素进行逐个判断。</p>
+<pre><code class="js">$(&#39;a&#39;).each(function(){
+  if($(this).hasClass(&#39;miao&#39;)){
+    console.log(&#39;当前元素的 Class 是 miao&#39;)
+  }
+})
+</code></pre>
+<p>这里有几个细节需要注意，<code>hasClass</code> 的参数是类的名字，而不是选择器，所以不需要用 <code>.</code>。你会发现我举的例子，<code>hasClass</code> 和 <code>is</code> 用起来十分像，但它们是有很大区别的，<code>hasClass</code> 可以认为是 <code>is</code> 中一个最常用功能的简化。而 <code>is</code> 则十分强大，可以用于判别各种情况，各种条件。</p>
+<hr>
+<p>到这里，可以说我们已经把 jQuery 的基础部分讲完了。我们可以随心所欲的去选择元素，对它们进行筛选，判别。获取它们的各种属性、内容，并且可以对它们的属性和内容进行设置。可以让它们按照我们的需求去发生变化，而且还可以是动态的变化……</p>
+<p>其实我们现在可以做好多好多有趣的事情，只是可能你自己还并没有觉得。所以多动动手吧~</p>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0160/" title="卡片 for 第一百六十章">卡片 for 第一百六十章</a>】</p>
+
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0159/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0161/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

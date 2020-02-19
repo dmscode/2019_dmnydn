@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第二十九章 引入方式续谈 | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="如何在一个网页文件中引入 CSS 文件，来为 HTML 代码添加样式表，使页面变得丰富多彩。">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第二十九章 引入方式续谈
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2018-11-22 | Update: 2019-05-09">
+    <p>
+      如何在一个网页文件中引入 CSS 文件，来为 HTML 代码添加样式表，使页面变得丰富多彩。
+    </p>
+  </div>
+  <div class="post-content">
+    <h3 id="写在元素里"><a href="#写在元素里" class="headerlink" title="写在元素里"></a>写在元素里</h3><p>在某些特殊的情况下，我们可能并不方便使用上面两种方式；或者非常临时的，局部的需要进行一些样式的定义。这时候我们可以把 CSS 直接写在元素上面，这种方式叫做内联样式表：</p>
+<pre><code class="html">&lt;p style=&quot;color: red;&quot;&gt;内联样式表&lt;/p&gt;
+</code></pre>
+<p>我们看到，就是把 CSS 当作一个属性（<code>style</code>），把 CSS 的内容当作这个属性的值。这里有几个点需要注意：</p>
+<ul>
+<li>首先是不需要写选择器了，因为你写在哪个元素里，就是在描述哪个元素，所以完全没有必要再指定选择器；</li>
+<li>也不需要大括号了，因为不需要和其他元素的样式表进行分隔了；</li>
+</ul>
+<p>在开始的时候，这种方式可能让新人觉得最直观，最容易理解。不过他的缺点也是非常明显的：</p>
+<p>我们现在只描述了一个属性（<code>color</code>），代码看起来还是可以阅读的，那如果我为他定义许多属性之后呢？就有些混乱了。</p>
+<p>每次只能定义一个元素，许多个元素需要相同的样式，就只能重复去写。这样浪费生命的事情，想必谁也不会喜欢。</p>
+<p>还有 CSS 中一些特殊的东西，它是没有办法使用的，这个局限性让人十分难受。</p>
+<hr>
+<p>到这里三种引入方式我们就介绍完了，他们各有特点，有优势也有缺陷。我们都要熟悉掌握，然后根据实际情况，进行灵活的运用。反正也并没有复杂的东西嘛。</p>
+<p>然后再说一些格式上的细节，你也可以认为我是在凑篇幅……</p>
+<p>看一下我们上一章所写的代码：</p>
+<pre><code class="css">p {
+  color: red;
+}
+</code></pre>
+<p>一般的，我们会在选择器和大括号之间加上一个空格，这个没有特别的原因，就是看着舒服。如果你觉得不加空格看起来更舒服，当然也可以不加（好像是废话……</p>
+<p>但是你要加就全加了，要么就全别加，有的加有的不加……程序员大部分都是强迫症，看了会想打人的。其实这说的是一个态度的问题，技术水平是一方面，如果你做这个事情的时候，连一个认真严谨的态度都没有，就不用看技术怎么样了，可以直接判断你做不好这件事情。</p>
+<p>然后大括号中的属性前面，加一个缩进，这样层级就很清楚。冒号后面最好加一个空格，不写当然没问题，但是不太好看，也不太好读，还不太好选择……（反正用多了你自然就知道了。</p>
+<p>最后的分号不要省略，虽然有的情况可以省略，但是作为一个新人，还是都写上，免得出现问题，自己还要查错。</p>
+<p>我们这里只写了一条属性，那么有许多属性的时候，就一行一条，整齐的往下写。后面我演示的代码，基本都是使用这种格式，因为十分便于阅读。</p>
+<p>但是也有一点小问题，在 <a href="/courses/lesson-0009/" title="第九章 一些细节（一）">第九章 一些细节（一）</a> 中我也提到过。我们为了让代码容易阅读而添加的空白，虽然不会影响代码的实际效果，但是会增加文件的体积，进而影响文件下载的速度。这是影响网页使用体验的细节，在优化的时候，我们就要去考虑了。</p>
+<p>我比较推荐的方法就是，我喜欢怎么写就怎么写，等真正发布到网络之前，在对代码进行一下压缩。这个压缩不是我们说的打压缩包，而是通过工具，将我们代码中没必要的空白和注释全部都去掉，来减少这个文件的体积。毕竟发布上去的代码不是给我们阅读的，而是让浏览器去解析的。所以依旧保留代码格式的必要性并不大。当然，我们自己写的这份，还是要作为源文件保存好的，以后无论是阅读还是修改，都是这份文件更加好用一些。</p>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0029/" title="卡片 for 第二十九章">卡片 for 第二十九章</a>】</p>
+
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0028/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0030/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

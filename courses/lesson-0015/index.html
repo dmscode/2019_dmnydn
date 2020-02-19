@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第十五章 列表 | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="列表在网页中十分常用，许多表示网页元素并列关系的地方都会用到。分为无序列表和有序列表，代码十分相似，而且自带样式。">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第十五章 列表
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2018-11-13 | Update: 2019-05-09">
+    <p>
+      列表在网页中十分常用，许多表示网页元素并列关系的地方都会用到。分为无序列表和有序列表，代码十分相似，而且自带样式。
+    </p>
+  </div>
+  <div class="post-content">
+    <p>在日常中，我们经常会写各种列表，但是很少意识到他是一个单独的类型。在网页里，毕竟它不是一个段落，我们要用我们的标记来把它说清楚。</p>
+<p>早晨起来，妈妈叫我帮她去买菜，那我得把要买的东西记下来，这叫做购物清单：</p>
+<ul>
+<li>土豆</li>
+<li>胡萝卜</li>
+<li>牛肉</li>
+</ul>
+<p>看起来晚饭是要吃咖喱了（假装自己是蜡笔小新，这很美味~不过我们也别光顾着吃，来说一下怎么写列表吧。</p>
+<p>第一步，先要标记从哪里到哪里，是一个列表。</p>
+<pre><code class="html">&lt;ul&gt;
+&lt;!-- 我宣布这里面就是列表的内容了 --&gt;
+&lt;/ul&gt;
+</code></pre>
+<p>这样做标记我们已经非常熟悉了，现在我们来写里面的项目：</p>
+<pre><code class="html">&lt;ul&gt;
+  &lt;li&gt;土豆&lt;/li&gt;
+  &lt;li&gt;胡萝卜&lt;/li&gt;
+  &lt;li&gt;牛肉&lt;/li&gt;
+&lt;/ul&gt;
+</code></pre>
+<p>这样我们就写出了文章最开始的那种列表。不用解释，你也可以知道，用 <code>&lt;li&gt;&lt;/li&gt;</code> 标签标记起来的内容就是列表的一个项目，我们叫做列表项。可能有的同学会说，不就一行一个吗，无论是用换行还是用段落都可以做到的事情，为什么又要新弄出来一个标签呢？</p>
+<p>因为我们现在演示，是用的最简单的情况，其实列表项里面可以放比较复杂的内容，比如多个段落，虽然这么写不太好看吧。那么我来说一种非常常用的情况，就是列表的嵌套。关于嵌套的问题，我们在 <a href="/courses/lesson-0010/" title="第十章  一些细节（二）">第十章  一些细节（二）</a> 中提到过一些，总之就是像俄罗斯套娃一样，一层一层套下去，事实上，到现在我们也写了很多次。列表的嵌套呢，也是一样的，列表中的某一个项目还细分为许多小项，那我们就在这个项目里再放上一个列表好了，来看一下下面的例子：</p>
+<pre><code class="html">&lt;ul&gt;
+  &lt;li&gt;土豆&lt;/li&gt;
+  &lt;li&gt;胡萝卜&lt;/li&gt;
+  &lt;li&gt;牛肉&lt;/li&gt;
+  &lt;li&gt;
+    调味料
+    &lt;ul&gt;
+      &lt;li&gt;咖喱粉&lt;/li&gt;
+      &lt;li&gt;盐&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</code></pre>
+<p>我们对调味料部分进行了细分，其实就是在里面又放入了一个列表。显示效果如下：</p>
+<div class="code-show" data-before-text="代码效果演示 Start" data-after-text="代码效果演示 End"><ul>
+  <li>土豆</li>
+  <li>胡萝卜</li>
+  <li>牛肉</li>
+  <li>
+    调味料
+    <ul>
+      <li>咖喱粉</li>
+      <li>盐</li>
+    </ul>
+  </li>
+</ul></div>
+<p>让人感到十分舒适，容易理解。而代码中，你只要理解一层套一层的层级关系，就没有问题。注意写好代码的缩进，这让你更方便对应代码间的层级关系；在必要的时候，我们还可以加上一定的注释，方便自己对代码的阅读。</p>
+<p>大家思考一下，我们上面的列表，对于顺序有要求吗？购物的时候，并不一定按照这个列表的顺序进行购买，而是进入超市之后，先看到哪一个就买哪一个。所以这个列表的顺序并不重要，我们叫它<strong>无序列表</strong>。还有一种情况，我们的列表的顺序要求非常高，比如现在食材已经买回来了，我们要开始做饭了（并不会做……），做饭的操作就讲先后顺序了，随意乱放就成了黑暗料理，所以菜谱里边的列表，都是标着 123 的，这样的列表又怎么写呢？特别简单，只要把上面的列表改一个字母（其实是两处）就可以：</p>
+<pre><code class="html">&lt;ol&gt;
+  &lt;li&gt;把锅放在灶上&lt;/li&gt;
+  &lt;li&gt;锅里放上油&lt;/li&gt;
+  &lt;li&gt;把油烧热&lt;/li&gt;
+  &lt;li&gt;放入葱花&lt;/li&gt;
+  &lt;li&gt;……&lt;/li&gt;
+&lt;ol/&gt;
+</code></pre>
+<p>所以只要把 <code>ul</code> 换成 <code>ol</code>，就从无序列表变成了<strong>有序列表</strong>，效果如下：</p>
+<div class="code-show" data-before-text="代码效果演示 Start" data-after-text="代码效果演示 End"><ol>
+  <li>把锅放在灶上</li>
+  <li>锅里放上油</li>
+  <li>把油烧热</li>
+  <li>放入葱花</li>
+  <li>……</li>
+</ol></div>
+<p>所以今天我们只是用到了三个只有两个字母长的单词，请问哪位同学记不住？</p>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0015/" title="卡片 for 第十五章">卡片 for 第十五章</a>】</p>
+
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0014/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0016/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

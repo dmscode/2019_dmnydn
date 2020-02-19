@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第四十一章 链接的样式 | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="网页中的超链接也有一些样式可以进行设置，使得网页中的链接地址变得不一样，变的更好看，或者交互效果很舒适。">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第四十一章 链接的样式
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2018-11-27 | Update: 2019-05-09">
+    <p>
+      网页中的超链接也有一些样式可以进行设置，使得网页中的链接地址变得不一样，变的更好看，或者交互效果很舒适。
+    </p>
+  </div>
+  <div class="post-content">
+    <p>链接我们已经学习过了，不过我们写出来的链接十分具有年代感，因为它的样子还和20年前一样，蓝色的文字加个下划线。</p>
+<p>我们现在已经学了许多关于文字的样式，那么对链接做一些修改，也是挺方便的。换一换颜色，总比那浓郁的化不开的蓝色要舒服。</p>
+<pre><code class="css">a {
+  color: #2683F5;
+}
+</code></pre>
+<p>就是选择器发生了一点变化，因为我们现在要选择的是所有链接标签（<code>a</code>）。这样程度的修改，想必大家都已经做到了。然后链接的下划线如何去掉呢？</p>
+<p>我们来认识一个新的属性：<code>text-decoration</code>，它说的是文字上的装饰物，主要的就是一些线<a href="#footnote-1" class="footnote-link"><sup>[1]</sup></a>。</p>
+<p>来介绍一下它的取值：</p>
+<ul>
+<li><strong>none</strong>:    默认。没有装饰物，普通文本。</li>
+<li><strong>underline</strong>:    文字底部有一条横线，即下划线。</li>
+<li><strong>overline</strong>:    文字顶部有一条横线，这个我们很少遇到。</li>
+<li><strong>line-through</strong>:    文字中间有一条横线，即贯穿线或者删除线。</li>
+</ul>
+<p>那么我们知道，链接默认情况下是有下划线的，就是浏览器给这种元素默认设置了一个 <code>underline</code> 的取值。现在我们想把它去掉，就把这个值改为 <code>none</code> 就可以了。</p>
+<p>如果只是这样，就太普通了，所以我们来玩一些复杂的。上面都是给某一些文字设置一种装饰，而事实上，我们可以给同一段文字加上多种装饰：</p>
+<pre><code class="css">p {
+  text-decoration: underline overline;
+}
+</code></pre>
+<div class="code-show" data-before-text="代码效果演示 Start" data-after-text="代码效果演示 End"><p style="text-decoration: underline overline;">这些文字同时具有上划线和下划线。</p></div>
+<p>我们可以使用空格分隔多个值，虽然事实上这种用法很少遇到，但这确实很有意思。</p>
+<p>然后再来说一些稍微前卫一点的。这个属性本身就是一个简写属性，或者说复合属性。不过它不是一开始就是这个样子的，而是 CSS3 中新增加的定义。以前呢，它只是能够像上面这样定一下装饰。到了 CSS3，我们可以对这些装饰进行更加细致的定义了：</p>
+<h3 id="text-decoration-color-装饰线的颜色"><a href="#text-decoration-color-装饰线的颜色" class="headerlink" title="text-decoration-color 装饰线的颜色"></a><code>text-decoration-color</code> 装饰线的颜色</h3><p>以前装饰线的颜色都是和文字颜色相同的，但有的时候，比如删除线就会很不明显。现在我们可以单独设置它的颜色了。这很好，然而浏览器们才刚刚开始支持这个属性……所以稍微老一点的浏览器，或者 IE 都是不支持的，说到这里，我们也只能是望梅止渴。</p>
+<h3 id="text-decoration-style-装饰线的样式"><a href="#text-decoration-style-装饰线的样式" class="headerlink" title="text-decoration-style 装饰线的样式"></a><code>text-decoration-style</code> 装饰线的样式</h3><p>可以有实线、双实线、点划线，虚线，波浪线。这些线型我们会在后面讲边框的时候进行介绍。现在的问题在于这个属性和上面颜色一样，还只有部分比较新的浏览器才能够支持。所以，一起来继续望梅止渴吧。</p>
+<h3 id="text-decoration-line-装饰线的类型"><a href="#text-decoration-line-装饰线的类型" class="headerlink" title="text-decoration-line 装饰线的类型"></a><code>text-decoration-line</code> 装饰线的类型</h3><p>这个和我们上面所介绍的 <code>text-decoration</code> 取值是一样的。兼容性么，也只有部分比较新的浏览器认识它。</p>
+<hr>
+<p>我们认真的讲了一些 CSS3 属性，然而，除非你能保证你的读者使用的都是最新的浏览器，而且不能是 IE(Edge)，这样才可以使用这些属性。</p>
+<p>所以，前景很美好，现实很骨感。我说过，前端技术是为用户体验服务的，如果你的网页不能够兼容大部分的用户浏览器，无论效果做得多么梦幻，那么它的用户体验都是打折的。你可以有你的坚持，但是你写网页的用途是什么呢？让大部分用户都无法正常访问吗？</p>
+<p>所以我们要学习掌握新技术，也要了解现实状况，知道我们在什么情况下可以应用哪些技术。一味的追新，就是闭着眼睛撞南墙。</p>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0041/" title="卡片 for 第四十一章">卡片 for 第四十一章</a>】</p>
+<div class="foot-notes"><p><strong id="footnote-1" class="footnote">&gt;注释 1:</strong> 值 <code>blink</code> 说的是文本闪烁，但是大部分浏览器并不支持。</p></div>
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0040/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0042/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

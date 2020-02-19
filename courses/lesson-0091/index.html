@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第九十一章 初体验 | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="JavaScript 的初步尝试，来体验一下它的功能，以及网页交互的感觉。">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第九十一章 初体验
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2019-03-13 | Update: 2019-05-09">
+    <p>
+      JavaScript 的初步尝试，来体验一下它的功能，以及网页交互的感觉。
+    </p>
+  </div>
+  <div class="post-content">
+    <p>我们知道了如何在网页中引入 JS，下面就该实际写一下了。不过别说复杂的，就是基础的我们也还不会写呀，否则我们还看教程做什么呢？虽然如此，可我们还是希望能够写一点，立刻就看到效果的东西。</p>
+<p>那我们就写个输出语句吧，简单的说就是把一定的内容显示出来，这很简单：</p>
+<pre><code class="js">alert(&#39;Hello World!&#39;);
+</code></pre>
+<p>差不多是每一个 JS 教程的第一个程序了。大家按照上节课的引入方法去试着写一下，看看能否成功，预期的效果就是打开页面的时候会弹出一个提示框，像下面这样：</p>
+<div class="image-box"><img src="/assets/lesson-0091/alert-0eac98668d7b5e096706cdac09847f83.png" alt="提示框"></div>
+<p>这是一个最简单直观的输出，太明显了，明显到我们不确认一下就不能对页面进行其他交互了。嗯，这种霸道的东东叫做“模态框”。</p>
+<p>那现在有几个问题我们要解释一下：</p>
+<h3 id="语句"><a href="#语句" class="headerlink" title="语句"></a>语句</h3><p>语句是代码的一个基本单位。差不多进行一个基本操作就是一个语句，这和我们自然语言中的一句话很类似，具体的我们慢慢体会。</p>
+<p>然后每一个语句后面用分号分隔，并不一定要换行，不过我们会用换行来使代码变得容易阅读。</p>
+<p>按着最新标准，如果进行了换行，那么分号是可以省略的。但是，我觉得作为初学者，最好还是先写上。等你真的理解了，再省略掉分号，这很容易做到。但是如果上来就不写，等到自己搞混乱了再想理清楚，就比较麻烦了。</p>
+<h3 id="控制台（Console）"><a href="#控制台（Console）" class="headerlink" title="控制台（Console）"></a>控制台（Console）</h3><p>这么一句 JS，我们想看看效果，还要写个网页（哪怕是空白网页），真让人觉得十分麻烦。（我就是这么懒，而且理直气壮！</p>
+<p>那我们来学习一个简单的方法，这对于我们前期的一些测试还是很方便的。就是在开发者工具里，切换到 Console （控制台）选项卡，在那个 <code>&gt;</code> 图标后面就可以输入你的 JS 代码了，回车即可运行，如果需要换行，则使用 <kbd>Shift</kbd>+<kbd>Enter</kbd>。</p>
+<p>如果我们真的随便使用一个网页，也许控制台里面乱七八糟的已经有了一些东西，而且网页的某些设置，也有可能影响到我们代码的结果，这就不方便我们探索了。所以你可以打开这个地址：<code>about:blank</code>，一般的，浏览器里这个页面就是一个空白页，啥都没有那种。</p>
+<p>那么我们试着在里面运行一下刚刚学过的语句吧~</p>
+<div class="image-box"><img src="/assets/lesson-0091/console-86c44d6dbc3a56f6b5c145d2facc9737.png" alt="控制台"></div>
+<h3 id="日志"><a href="#日志" class="headerlink" title="日志"></a>日志</h3><p>很多新人喜欢使用 <code>alert</code> 进行输出，因为这很直观。但是这个方法无论是在体验上，还是对于程序的运行，都是“打断式”的，但是我们多数时间并不需要如此（需要的时候也还有更好的方法），所以我们再来学习一个控制台输出：</p>
+<pre><code class="js">console.log(&#39;Hello World!&#39;);
+</code></pre>
+<p>我们知道 <code>console</code> 是控制台了，那么 <code>log</code> 在这里是日志的意思。连起来就是在控制台输出日志。大家去控制台测试一下效果吧~</p>
+<div class="image-box"><img src="/assets/lesson-0091/console-log-9dd5e4de38d4e824a073bcef8fe7498f.png" alt="控制台输出"></div>
+<p>这次页面没有任何的反应，只是在控制台里显示出了一行字：<code>Hello world!</code>。这就很安静，无打扰，静悄悄的躲在这里，只有当你需要的时候，来这里看，才会找到它。</p>
+<h3 id="引号"><a href="#引号" class="headerlink" title="引号"></a>引号</h3><p>引号表示把某些内容标记为一个整体，我们主要是对字符串（就是一串文字）使用。然后可以嵌套，外面使用双引号，里面使用单引号。这些在后面我们也会遇到，现在先知道有这么回事，用的时候我们再慢慢理解。</p>
+<p>按着我们的正常习惯，那么第一次使用（最外层），肯定会先选择双引号，这样是没有任何问题的；但是你可能注意到了，我选用的是单引号，这也没有什么问题，可以认为单纯的习惯。不过，在某些情况下，你会发现最外层使用单引号会减少好多麻烦。这个习惯似乎也就对 JS 有用，因为它要操作页面中的内容，而页面代码里似乎有很多双引号了……所以用起来就知道方便了。</p>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0091/" title="卡片 for 第九十一章">卡片 for 第九十一章</a>】</p>
+
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0090/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0092/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

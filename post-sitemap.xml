@@ -1,0 +1,1363 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type="text/xsl" href="sitemap.xsl"?>
+<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+    <url>
+        <loc>https://dmnydn.com</loc>
+        <changefreq>daily</changefreq>
+        <priority>1</priority>
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0165/</loc>
+        <lastmod>2019-07-04T11:59:53.533Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0164/</loc>
+        <lastmod>2019-07-04T11:55:46.061Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0162/</loc>
+        <lastmod>2019-07-04T11:48:17.483Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0161/</loc>
+        <lastmod>2019-07-04T11:45:01.055Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0163/</loc>
+        <lastmod>2019-07-04T11:37:25.029Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0166/</loc>
+        <lastmod>2019-07-04T11:36:40.460Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0159/</loc>
+        <lastmod>2019-06-30T10:14:54.778Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0160/</loc>
+        <lastmod>2019-06-30T10:14:50.453Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0158/</loc>
+        <lastmod>2019-06-30T10:13:56.879Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0156/</loc>
+        <lastmod>2019-06-30T10:13:30.447Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0157/</loc>
+        <lastmod>2019-06-30T10:13:24.013Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0155/</loc>
+        <lastmod>2019-06-17T00:57:01.658Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0154/</loc>
+        <lastmod>2019-06-17T00:56:47.414Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0153/</loc>
+        <lastmod>2019-06-17T00:56:38.150Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0152/</loc>
+        <lastmod>2019-06-17T00:56:25.967Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0151/</loc>
+        <lastmod>2019-06-17T00:56:15.224Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0150/</loc>
+        <lastmod>2019-06-10T04:24:07.031Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0149/</loc>
+        <lastmod>2019-06-10T04:23:55.248Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0148/</loc>
+        <lastmod>2019-06-10T04:23:44.302Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0147/</loc>
+        <lastmod>2019-06-10T04:23:35.159Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0146/</loc>
+        <lastmod>2019-06-10T04:23:24.886Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0145/</loc>
+        <lastmod>2019-06-04T00:05:38.662Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0144/</loc>
+        <lastmod>2019-06-04T00:05:09.647Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0143/</loc>
+        <lastmod>2019-06-03T09:15:06.298Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0142/</loc>
+        <lastmod>2019-06-03T09:14:57.209Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0141/</loc>
+        <lastmod>2019-05-25T00:33:26.039Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0140/</loc>
+        <lastmod>2019-05-25T00:33:17.814Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0036/</loc>
+        <lastmod>2019-05-15T09:19:02.009Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0138/</loc>
+        <lastmod>2019-05-14T08:13:57.081Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0137/</loc>
+        <lastmod>2019-05-14T08:05:34.726Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0136/</loc>
+        <lastmod>2019-05-14T07:38:41.058Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0139/</loc>
+        <lastmod>2019-05-14T07:31:05.132Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0135/</loc>
+        <lastmod>2019-05-13T06:40:58.373Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0134/</loc>
+        <lastmod>2019-05-13T06:40:53.279Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0133/</loc>
+        <lastmod>2019-05-13T06:40:49.203Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0132/</loc>
+        <lastmod>2019-05-13T06:40:43.300Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0131/</loc>
+        <lastmod>2019-05-13T06:40:39.073Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0130/</loc>
+        <lastmod>2019-05-13T06:40:34.504Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0128/</loc>
+        <lastmod>2019-05-10T08:51:25.574Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0127/</loc>
+        <lastmod>2019-05-10T08:51:24.523Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0129/</loc>
+        <lastmod>2019-05-10T08:51:13.966Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0123/</loc>
+        <lastmod>2019-05-10T02:41:35.333Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0055/</loc>
+        <lastmod>2019-05-09T07:28:53.862Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0087/</loc>
+        <lastmod>2019-05-09T07:28:50.998Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0126/</loc>
+        <lastmod>2019-05-09T07:27:44.783Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0125/</loc>
+        <lastmod>2019-05-09T07:27:00.663Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0124/</loc>
+        <lastmod>2019-05-09T07:26:04.027Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0122/</loc>
+        <lastmod>2019-05-09T07:24:28.992Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0121/</loc>
+        <lastmod>2019-05-09T07:24:01.870Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0120/</loc>
+        <lastmod>2019-05-09T07:23:43.551Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0119/</loc>
+        <lastmod>2019-05-09T07:23:19.616Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0118/</loc>
+        <lastmod>2019-05-09T07:22:55.971Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0117/</loc>
+        <lastmod>2019-05-09T07:22:15.334Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0116/</loc>
+        <lastmod>2019-05-09T07:20:55.797Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0115/</loc>
+        <lastmod>2019-05-09T07:19:40.882Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0114/</loc>
+        <lastmod>2019-05-09T07:18:57.376Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0113/</loc>
+        <lastmod>2019-05-09T07:18:33.975Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0112/</loc>
+        <lastmod>2019-05-09T07:17:10.711Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0110/</loc>
+        <lastmod>2019-05-09T07:16:02.420Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0111/</loc>
+        <lastmod>2019-05-09T07:15:47.063Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0108/</loc>
+        <lastmod>2019-05-09T07:15:13.070Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0109/</loc>
+        <lastmod>2019-05-09T07:11:11.903Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0107/</loc>
+        <lastmod>2019-05-09T07:09:33.603Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0106/</loc>
+        <lastmod>2019-05-09T07:08:55.129Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0105/</loc>
+        <lastmod>2019-05-09T07:08:30.457Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0104/</loc>
+        <lastmod>2019-05-09T07:06:43.791Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0103/</loc>
+        <lastmod>2019-05-09T07:06:16.585Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0102/</loc>
+        <lastmod>2019-05-09T07:05:18.814Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0101/</loc>
+        <lastmod>2019-05-09T07:04:18.699Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0100/</loc>
+        <lastmod>2019-05-09T07:03:43.794Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0099/</loc>
+        <lastmod>2019-05-09T07:03:24.556Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0098/</loc>
+        <lastmod>2019-05-09T07:02:41.200Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0097/</loc>
+        <lastmod>2019-05-09T07:01:54.896Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0096/</loc>
+        <lastmod>2019-05-09T07:01:23.801Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0095/</loc>
+        <lastmod>2019-05-09T07:00:42.547Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0094/</loc>
+        <lastmod>2019-05-09T06:59:48.463Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0093/</loc>
+        <lastmod>2019-05-09T06:59:08.565Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0092/</loc>
+        <lastmod>2019-05-09T06:56:14.837Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0091/</loc>
+        <lastmod>2019-05-09T06:54:36.055Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0090/</loc>
+        <lastmod>2019-05-09T06:53:55.755Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0089/</loc>
+        <lastmod>2019-05-09T06:52:56.174Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0088/</loc>
+        <lastmod>2019-05-09T06:52:11.640Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0086/</loc>
+        <lastmod>2019-05-09T06:49:22.065Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0085/</loc>
+        <lastmod>2019-05-09T06:48:47.859Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0084/</loc>
+        <lastmod>2019-05-09T06:48:23.581Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0083/</loc>
+        <lastmod>2019-05-09T06:47:56.623Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0082/</loc>
+        <lastmod>2019-05-09T06:46:19.557Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0081/</loc>
+        <lastmod>2019-05-09T06:45:32.216Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0080/</loc>
+        <lastmod>2019-05-09T06:45:06.987Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0077/</loc>
+        <lastmod>2019-05-09T06:44:21.608Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0079/</loc>
+        <lastmod>2019-05-09T06:44:11.136Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0078/</loc>
+        <lastmod>2019-05-09T06:43:19.380Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0076/</loc>
+        <lastmod>2019-05-09T06:41:14.520Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0075/</loc>
+        <lastmod>2019-05-09T06:40:45.880Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0074/</loc>
+        <lastmod>2019-05-09T06:39:20.110Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0073/</loc>
+        <lastmod>2019-05-09T06:34:30.847Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0072/</loc>
+        <lastmod>2019-05-09T06:33:17.078Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0071/</loc>
+        <lastmod>2019-05-09T06:07:56.896Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0070/</loc>
+        <lastmod>2019-05-09T06:07:20.075Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0069/</loc>
+        <lastmod>2019-05-09T06:06:38.481Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0068/</loc>
+        <lastmod>2019-05-09T06:05:31.786Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0067/</loc>
+        <lastmod>2019-05-09T06:04:54.681Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0066/</loc>
+        <lastmod>2019-05-09T06:04:19.659Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0065/</loc>
+        <lastmod>2019-05-09T06:03:45.429Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0064/</loc>
+        <lastmod>2019-05-09T06:03:11.834Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0063/</loc>
+        <lastmod>2019-05-09T06:02:01.559Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0062/</loc>
+        <lastmod>2019-05-09T06:00:51.368Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0061/</loc>
+        <lastmod>2019-05-09T06:00:09.652Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0060/</loc>
+        <lastmod>2019-05-09T05:59:16.157Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0059/</loc>
+        <lastmod>2019-05-09T05:58:10.715Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0058/</loc>
+        <lastmod>2019-05-09T05:57:34.402Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0057/</loc>
+        <lastmod>2019-05-09T05:57:05.589Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0056/</loc>
+        <lastmod>2019-05-09T05:56:23.510Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0054/</loc>
+        <lastmod>2019-05-09T05:42:17.295Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0053/</loc>
+        <lastmod>2019-05-09T05:41:05.253Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0052/</loc>
+        <lastmod>2019-05-09T05:40:21.445Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0051/</loc>
+        <lastmod>2019-05-09T05:39:09.655Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0050/</loc>
+        <lastmod>2019-05-09T05:34:02.564Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0049/</loc>
+        <lastmod>2019-05-09T05:31:48.521Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0048/</loc>
+        <lastmod>2019-05-09T05:30:03.661Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0044/</loc>
+        <lastmod>2019-05-09T05:28:24.417Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0047/</loc>
+        <lastmod>2019-05-09T05:28:21.195Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0046/</loc>
+        <lastmod>2019-05-09T05:27:21.719Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0045/</loc>
+        <lastmod>2019-05-09T05:24:32.708Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0043/</loc>
+        <lastmod>2019-05-09T05:20:40.237Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0042/</loc>
+        <lastmod>2019-05-09T05:18:50.404Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0041/</loc>
+        <lastmod>2019-05-09T05:16:55.793Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0040/</loc>
+        <lastmod>2019-05-09T05:15:53.339Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0039/</loc>
+        <lastmod>2019-05-09T05:14:34.896Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0038/</loc>
+        <lastmod>2019-05-09T05:13:35.908Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0037/</loc>
+        <lastmod>2019-05-09T05:12:28.428Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0035/</loc>
+        <lastmod>2019-05-09T05:08:56.141Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0034/</loc>
+        <lastmod>2019-05-09T05:07:41.850Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0033/</loc>
+        <lastmod>2019-05-09T05:06:41.316Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0032/</loc>
+        <lastmod>2019-05-09T04:54:36.257Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0031/</loc>
+        <lastmod>2019-05-09T04:53:44.639Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0030/</loc>
+        <lastmod>2019-05-09T04:52:42.297Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0029/</loc>
+        <lastmod>2019-05-09T04:51:12.351Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0028/</loc>
+        <lastmod>2019-05-09T04:50:20.474Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0027/</loc>
+        <lastmod>2019-05-09T04:49:34.145Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0026/</loc>
+        <lastmod>2019-05-09T04:48:40.353Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0025/</loc>
+        <lastmod>2019-05-09T04:47:16.860Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0024/</loc>
+        <lastmod>2019-05-09T04:45:37.307Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0023/</loc>
+        <lastmod>2019-05-09T04:44:41.565Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0022/</loc>
+        <lastmod>2019-05-09T04:42:26.090Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0021/</loc>
+        <lastmod>2019-05-09T04:41:26.640Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0020/</loc>
+        <lastmod>2019-05-09T04:40:17.770Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0019/</loc>
+        <lastmod>2019-05-09T04:38:35.659Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0018/</loc>
+        <lastmod>2019-05-09T02:10:23.775Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0017/</loc>
+        <lastmod>2019-05-09T02:09:04.019Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0016/</loc>
+        <lastmod>2019-05-09T02:03:20.188Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0015/</loc>
+        <lastmod>2019-05-09T02:01:52.269Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0014/</loc>
+        <lastmod>2019-05-09T00:32:07.358Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0013/</loc>
+        <lastmod>2019-05-09T00:30:32.071Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0012/</loc>
+        <lastmod>2019-05-09T00:18:21.124Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0011/</loc>
+        <lastmod>2019-05-08T23:50:09.362Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0010/</loc>
+        <lastmod>2019-05-08T23:40:16.541Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0009/</loc>
+        <lastmod>2019-05-08T23:25:56.557Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0008/</loc>
+        <lastmod>2019-05-08T23:23:29.363Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0007/</loc>
+        <lastmod>2019-05-08T11:36:41.280Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0006/</loc>
+        <lastmod>2019-05-08T11:34:10.526Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0005/</loc>
+        <lastmod>2019-05-08T11:32:15.068Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0004/</loc>
+        <lastmod>2019-05-08T11:30:03.030Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0003/</loc>
+        <lastmod>2019-05-08T09:49:50.773Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0001/</loc>
+        <lastmod>2019-05-08T08:35:17.845Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0002/</loc>
+        <lastmod>2019-05-08T07:43:14.944Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/courses/lesson-0000/</loc>
+        <lastmod>2019-05-08T07:21:25.523Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/uncategorized/hello-world/</loc>
+        <lastmod>2019-04-29T12:24:27.614Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://dmnydn.com/questions-and-answers/qa-0000/</loc>
+        <lastmod>2019-03-26T00:45:01.514Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+</urlset>
+<!-- XML Sitemap generated by Hexo SEO Friendly Sitemap Generator -->

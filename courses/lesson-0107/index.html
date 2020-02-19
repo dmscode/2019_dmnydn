@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第一百零七章 数组（二） | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="JavaScript 中数组的建立、修改、增加和删除。">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第一百零七章 数组（二）
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2019-03-27 | Update: 2019-05-09">
+    <p>
+      JavaScript 中数组的建立、修改、增加和删除。
+    </p>
+  </div>
+  <div class="post-content">
+    <p>上一章认识了数组，这一章补充一些细节。</p>
+<h3 id="怎么创建数组"><a href="#怎么创建数组" class="headerlink" title="怎么创建数组"></a>怎么创建数组</h3><pre><code class="js">const a = [];
+const b = [1, 2, 3];
+const c = [3];
+const d = new Array();
+const e = new Array(1, 2, 3);
+const f = new Array(3);
+</code></pre>
+<p>这是几种常见的创建数组的方法。其中：</p>
+<ul>
+<li><code>b</code> 和 <code>e</code> 创建的数组是一样的；</li>
+<li><code>a</code> 和 <code>d</code> 创建的数组是一样的，都是一个空数组；</li>
+<li><code>c</code> 是一个只有一个元素的数组；</li>
+<li><code>f</code> 很特殊，当 <code>new Array()</code> 的小括号里只有一个值，并且是数字的时候，这个值设置了这个数组的长度。所以这是一个长度为 3 的数组。<a href="#footnote-1" class="footnote-link"><sup>[1]</sup></a></li>
+</ul>
+<h3 id="如何设置（修改）数组项的值"><a href="#如何设置（修改）数组项的值" class="headerlink" title="如何设置（修改）数组项的值"></a>如何设置（修改）数组项的值</h3><p>把每个数组项当做一般变量来操作就可以了。</p>
+<pre><code class="js">const a = [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;];
+a[1] = 2;
+console.log(a);
+</code></pre>
+<p>大家可以试一试上面的代码。引出一个问题：<code>const</code> 设置的是常量，无法修改，这里怎么发生了变化？</p>
+<p>这里如果你写 <code>a = 2</code>，就会报错，因为你试图修改一个常量 <code>a</code>，但是，修改 <code>a</code> 对应的数组中的项目却是没问题的。包括增加、删除项目，也都可以。这是不是很矛盾？其实这很讲道理：</p>
+<p>数组（包括我们后面要讲的对象）可能是一个很大的数据（的集合），也就意味着可能占据大量的内存空间。你知道了，性能！</p>
+<p>如果我们在赋值的时候，真的把一个数组赋值给了变量，那么对于程序的性能就很难控制了。毕竟赋值给多少个变量，就意味着把这个数组重复创建了多少遍，也就是在内存中占用的空间等比例增加。如果恰好这个数组比较大，可能一个操作不慎，比如在循环的时候被重复创建几千遍……内存就哭了。</p>
+<p>所以，对于数组和对象这种数据集合，我们只创建一次，变量也不是真的被赋值为这个数组或者对象，而是指向了这个数据。</p>
+<p>换言之，这时候变量真正代表的不是这个数据，而是这个数据在哪里。那么我们修改数组中的项目对于常量来说并没有影响，因为它指向了这个数组，而这个指向一直没有发生变化，所以常量没变，只是指向的数据在发生变化。</p>
+<p>这就如同我们在电商网站填写了自家的地址，这是一个指向信息，快递凭着地址找到你家，给你送快递。后来你把家里的车库改成了工作室（房子发生了变化），但是你的地址并不会因此而改变，所以，快递依旧能凭着以前的地址找到你家。</p>
+<p>写一个小案例，验证一下：</p>
+<pre><code class="js">const a = [1, 2, 3];
+const b = a;
+const c = a;
+b[1] = 5;
+console.log(c);
+let d = 5;
+let e = d;
+let f = d;
+e = 6;
+console.log(f);
+</code></pre>
+<p>这个和 <code>const</code> 或者 <code>let</code> 没啥关系，你也可以都改成 <code>let</code>，结果是一样的，但是都改成 <code>const</code>，那么后半部分会报错，因为试图修改常量。</p>
+<h3 id="如何增加数组项"><a href="#如何增加数组项" class="headerlink" title="如何增加数组项"></a>如何增加数组项</h3><pre><code class="js">const a = [];
+a.push(1);
+console.log(a);
+a.push(2, 3);
+console.log(a);
+</code></pre>
+<p>用 <code>push</code> 方法就可以了，后面的小括号里可以是一项，也可以是多项（逗号分隔）。<code>push</code> 进来的项目追加在数组的最后面。</p>
+<h3 id="如何删除数组项"><a href="#如何删除数组项" class="headerlink" title="如何删除数组项"></a>如何删除数组项</h3><p>显然 <code>push</code> 是有很大局限性的。所以我们再讲一种方法：</p>
+<pre><code class="js">const a = [1, 2, 3];
+a.splice(1, 1, 22);
+console.log(a);
+</code></pre>
+<p><code>splice</code> 方法稍微复杂一些，但也更加强大。它后面小括号里可以有多个数据，其中第一个值表示从数组中序号为几的元素开始，第二个值表示往后面删除几个数组项，再后面是在这个位置要添加项目，可以多个。</p>
+<p>如果不需要删除，那么第二个值写 0 就对了。不需要加入新的项目，不写后面的值就好了。</p>
+<hr>
+<p>操作数组的方法非常多，我们先理解和熟悉数组是个什么东西，再慢慢去学习这些方法，这样就不容易混乱。我这里无法一一介绍，希望大家在把基础知识掌握好之后，自己去查阅文档，扩展学习。</p>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0107/" title="卡片 for 第一百零七章">卡片 for 第一百零七章</a>】</p>
+<div class="foot-notes"><p><strong id="footnote-1" class="footnote">&gt;注释 1:</strong> 这里很有趣，长度为 3，但是不意味着现在数组里面就有三个元素。这里设置的只是这个数组对象的长度属性。</p></div>
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0106/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0108/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第四十六章 两个标签 | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="div 和 span 是网页布局中最常用的两个标签，没有任何实际意义，就是空白的容器。">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第四十六章 两个标签
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2018-12-03 | Update: 2019-05-09">
+    <p>
+      div 和 span 是网页布局中最常用的两个标签，没有任何实际意义，就是空白的容器。
+    </p>
+  </div>
+  <div class="post-content">
+    <p>上一章说的就是一个排队的问题，因为一切比喻都是蹩脚的，所以也不要太较真。在我们还不了解这些东西的时候，能够快速的给我们一个初步的感受，对于后面的理解，多少是有帮助的。</p>
+<p>我们可以看出来，块元素，好像就是一个方块。这倒是真的，不过这个方块里面还可以盛纳东西……那这不就是个盒子吗？</p>
+<p>对啊，这就是个盒子。你就把他们当成盒子就好，这就是我们在 CSS 中的盒模型。用盒子来作为模型，去讲述这些（块级）元素。</p>
+<p>但是如果你多想一点，你会发现块元素非常适合网页排版，这就像是砖块，快速搭建页面。又像是书架，可以摆放各种东西。但是目前我们所学的标签都有具体的意义，好像不能随心所欲的去使用。所以在这里我们要讲一个没有什么意义的标签——<code>&lt;div&gt;</code>。</p>
+<p>反正它就是一个块元素，空白的，没有其他特征的，也没有什么意义的。有的时候我们称它为一个容器。</p>
+<p>有那么一段，在招聘网站招聘前端的时候，都要写上这么一条要求：熟悉 div+css 布局。有人说这个叫法很不专业，但是 H5 这么不专业到无法解释的词汇也流行过了，就不想多解释这些了。等我们学完之后，你再自己去下结论吧。</p>
+<p>反正就是这么个东西，因为它没有意义，那我们多用它几次也没所谓，这就很方便。当然也不要一味的滥用，在什么时候，适度都是一个最好的选择。</p>
+<p>那么块元素用来布局很方便，行内元素呢？行内元素主要是用来对类似文字的东西进行修饰。不过我们学过的各种行内元素，也都是带有意义的。如果有一些修饰并不是这些意义，或者它纯粹就是装饰，毫无意义。怎么办呢？</p>
+<p>像上面一样，我们也有一个空白的，没有其他特征的，也没有什么意义的，行内元素标签——<code>&lt;span&gt;</code>。</p>
+<hr>
+<p>这两个标签都很干净，本身没有什么默认样式，除了一个默认是块级元素，一个默认是行内元素。简直就像一张白纸一样，让我们可以自由的发挥，这个感觉特别好。</p>
+<p>不过感觉虽好，可不要上瘾哦。如果有标签可以表达出这个元素的含义，那么优先选用合适的标签。在没有合适标签的时候，再考虑使用这些空白标签。</p>
+<p>这几章我们要讲到的理论比较多，这是一种准备工作。我们先把理论讲清楚，有了这个基础，我们才可以做后面的讨论。理论准备好了，我们就拿理论去进行实战，在练习中体会它究竟是怎样的。那时候出了问题，我们也可以以这些理论为基础进行思考，分析到底是哪里出了差错。</p>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0046/" title="卡片 for 第四十六章">卡片 for 第四十六章</a>】</p>
+
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0045/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0047/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

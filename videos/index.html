@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>视频演示 | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="page">
+  <h1 class="title">
+    视频演示
+  </h1>
+  <div class="page-content">
+    <p>视频暂时停更，因为对质量不够满意，我在努力做得更好。</p>
+<hr>
+<p><strong>播放列表</strong> 【<a href="https://space.bilibili.com/10865120/channel/detail?cid=69721" target="_blank" rel="noopener">Bilibili</a> | <a href="https://www.youtube.com/watch?v=XNzGrqR6160&amp;list=PLTL__Uzievp5FaaDDe85duU5NGe-1Etae" target="_blank" rel="noopener">YouTube</a>】 包含以下全部视频</p>
+<hr>
+<ul>
+<li><strong>0000</strong> 【<a href="https://www.bilibili.com/video/av46664725" target="_blank" rel="noopener">Bilibili</a> | <a href="https://www.youtube.com/watch?v=XNzGrqR6160&amp;list=PLTL__Uzievp5FaaDDe85duU5NGe-1Etae" target="_blank" rel="noopener">YouTube</a>】 我是谁，前端是什么</li>
+<li><strong>0001</strong> 【<a href="https://www.bilibili.com/video/av46888160" target="_blank" rel="noopener">Bilibili</a> | <a href="https://www.youtube.com/watch?v=CZdSapvh_Go&amp;list=PLTL__Uzievp5FaaDDe85duU5NGe-1Etae" target="_blank" rel="noopener">YouTube</a>】 写代码的第一步</li>
+<li><strong>0002</strong> 【<a href="https://www.bilibili.com/video/av47291228" target="_blank" rel="noopener">Bilibili</a> | <a href="https://www.youtube.com/watch?v=gGMWP3FGTdk&amp;list=PLTL__Uzievp5FaaDDe85duU5NGe-1Etae" target="_blank" rel="noopener">YouTube</a>】 认识 HTML 标签</li>
+<li><strong>0003</strong> 【<a href="https://www.bilibili.com/video/av47947862" target="_blank" rel="noopener">Bilibili</a> | <a href="https://www.youtube.com/watch?v=A8-EOv19avs&amp;list=PLTL__Uzievp5FaaDDe85duU5NGe-1Etae" target="_blank" rel="noopener">YouTube</a>】 表单实战小练习</li>
+<li><strong>0004</strong> 【<a href="https://www.bilibili.com/video/av49392692" target="_blank" rel="noopener">Bilibili</a> | <a href="https://www.youtube.com/watch?v=Tm1lgXxOTG8&amp;list=PLTL__Uzievp5FaaDDe85duU5NGe-1Etae" target="_blank" rel="noopener">YouTube</a>】 细节演示</li>
+<li><strong>0005</strong> 【<a href="https://www.bilibili.com/video/av50156841" target="_blank" rel="noopener">Bilibili</a> | <a href="https://www.youtube.com/watch?v=xBOzWRIKxes&amp;list=PLTL__Uzievp5FaaDDe85duU5NGe-1Etae" target="_blank" rel="noopener">YouTube</a>】 初识 CSS</li>
+<li><strong>0006</strong> 【<a href="https://www.bilibili.com/video/av50815035" target="_blank" rel="noopener">Bilibili</a> | <a href="https://www.youtube.com/watch?v=n2dHWU1BLjU&amp;list=PLTL__Uzievp5FaaDDe85duU5NGe-1Etae" target="_blank" rel="noopener">YouTube</a>】 一个拐杖</li>
+<li><strong>0007</strong> 【<a href="https://www.bilibili.com/video/av51595882" target="_blank" rel="noopener">Bilibili</a> | <a href="https://www.youtube.com/watch?v=LQ-rLAycVYY&amp;list=PLTL__Uzievp5FaaDDe85duU5NGe-1Etae" target="_blank" rel="noopener">YouTube</a>】 编辑器技巧</li>
+<li><strong>0008</strong> 【<a href="https://www.bilibili.com/video/av52279656" target="_blank" rel="noopener">Bilibili</a> | <a href="https://www.youtube.com/watch?v=foKL0E5g68E&amp;list=PLTL__Uzievp5FaaDDe85duU5NGe-1Etae" target="_blank" rel="noopener">YouTube</a>】 小游戏？！</li>
+<li><strong>0008</strong> 【<a href="https://www.bilibili.com/video/av53340831" target="_blank" rel="noopener">Bilibili</a> | <a href="https://www.youtube.com/watch?v=vLLtK1vJlZE&amp;list=PLTL__Uzievp5FaaDDe85duU5NGe-1Etae" target="_blank" rel="noopener">YouTube</a>】 CSS 基础排版方法</li>
+</ul>
+
+  </div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第十一章 链接（一） | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="超链接是构成互联网的重要元素，因为有了它，才让网络世界相互联系。这么重要的链接，用代码写起来却十分简单，总之，把你要表达的信息清楚地告诉程序就好啦~">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第十一章 链接（一）
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2018-11-10 | Update: 2019-05-09">
+    <p>
+      超链接是构成互联网的重要元素，因为有了它，才让网络世界相互联系。这么重要的链接，用代码写起来却十分简单，总之，把你要表达的信息清楚地告诉程序就好啦~
+    </p>
+  </div>
+  <div class="post-content">
+    <p>已经过去了十章，我们知道了一些基础知识，然后用代码写了……一篇作文。除了标题大小不一样，剩下和用记事本写也没有多大区别，不对，有区别，更麻烦！</p>
+<p>仿佛就是这个样子，但是从今天开始就不一样，因为要学习一个很伟大的东西——超链接。我们之所以可以从一个网页跳转到另外一个网页，全都是靠着它。可以说是超链接，让互联网上的各种资源相互连接起来，让我们可以从中随意的跳转。这是一个很神奇的东西，但是现在我们已经习以为常。</p>
+<p>好啦，毕竟不是说万维网的那个时代了，现在也几乎没有人叫他超链接了，那么我们开始说说链接吧。</p>
+<p>首先要做什么呢？当然是写好我们的模板了。然后我们写下本书的标题 <code>《代码能有多难？》</code>，你一定想到下一步我们要做什么了？就是给这个文字加上链接，链接到我们这个网站来。这样，如果有人看到这个标题，觉得很好奇，可能就会点击一下，然后来到我们这个网站，说不定就产生了兴趣，坚持学了下去来……（就不说是在骗取微薄的点击量</p>
+<p>我们要给这段文字加上链接，当然就要对它进行标记，那么链接的标签是什么呢？这个特别好记，因为这么重要的功能，必然要分配一个最好的标签，那就把他排在第一位吧，所以链接的标签是 <code>a</code>。于是有的同学马上就写好了：</p>
+<pre><code class="html">&lt;a&gt;《代码能有多难？》&lt;/a&gt;
+</code></pre>
+<p>很好，我们给谁加链接就对谁进行标记。但是你会发现在这个链接并不能用，稍微思考一下，很容易知道原因：链接虽然加上了，但是还有一个非常重要的事情没有说：我们要把它链接到哪里？</p>
+<p>说到这，你就发现它和我们前面所学的标签不太一样了。我们前面所学的标签，只是简单的表达一个意思——被标记的内容是什么？可是现在我们表达完这个意思之后，还不够，还要再附加上一些其他的信息才行。这时候我们就要学习 HTML 标签中非常重要的一个组成部分——“属性”了。</p>
+<p>属性这个东西很好理解，就是对当前元素的进一步描述。如果你觉得这么说很抽象，那么我们来举一下例子：</p>
+<p>如果你玩游戏，你会知道游戏的装备或许有很多属性，虽然他们都是剑，或者都是刀，但是属性不同，造成了这些武器之间的差异。不过我不玩游戏（因为实在太渣了），所以换个说法，你看我口袋里掏出来这个，和你口袋里掏出来那个……都叫做手机，但是你那个的品牌是苹果，我这个品牌是小米，不过你那个两 G 内存，我这个 8G……那么这些也是属性。</p>
+<p>同样的，相同的 HTML 元素也可以设定不同的属性，然后产生差别。那么我们再来看链接，很显然的，我们要给他加一个属性，来说明这个链接是链接到哪里的。</p>
+<pre><code class="html">&lt;a href=&quot;https://dmnydn.com/&quot;&gt;《代码能有多难？》&lt;/a&gt;
+</code></pre>
+<p>对照上面发现，我们增加了一个 <code>href</code> 的属性，这个属性表示我们要链接到哪里（等号后面的网址）。那么我们对于怎么写属性，也可以进行一个初步的总结了。</p>
+<ul>
+<li>首先属性和标签名之间，要有空格，要不然把他们连在一起，结束标签就该生气了，因为找不到自己的另一半了。</li>
+<li>然后属性都是写在开始标签中</li>
+<li>格式上就是“属性=属性值”</li>
+<li>属性值用引号包裹起来，表示这是一个整体</li>
+</ul>
+<p>于是，我们的链接便可以用了。</p>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0011/" title="卡片 for 第十一章">卡片 for 第十一章</a>】</p>
+
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0010/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0012/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

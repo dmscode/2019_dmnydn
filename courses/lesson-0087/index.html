@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第八十七章 坐标系（二） | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="网页中，描述方向和位置的坐标系归纳总结。">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第八十七章 坐标系（二）
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2019-01-27 | Update: 2019-05-09">
+    <p>
+      网页中，描述方向和位置的坐标系归纳总结。
+    </p>
+  </div>
+  <div class="post-content">
+    <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>背景定位其实和前面这些定位很相似，它是背景图片相对于当前元素的定位关系。这里面复杂的是图片上的某个点相对于元素的某个点的偏移，而这两个点在各种情况下是不同的。</p>
+<h3 id="基本情况"><a href="#基本情况" class="headerlink" title="基本情况"></a>基本情况</h3><p>默认图片左上角和元素左上角对齐。</p>
+<p>给出长度，比如 <code>background-position: 50px 80px</code>，就是按着默认坐标系（上面文档流中讲到的默认方向），进行相应的偏移，第一个值是横向，第二个值是纵向。就和我们初中学的坐标系很类似。</p>
+<h3 id="关键词"><a href="#关键词" class="headerlink" title="关键词"></a>关键词</h3><p>五个关键词，其中是四个方向，表示背景图片这个方向的边和元素这个方向的边对齐。比如 <code>bottom</code> 就是底边对齐。</p>
+<p>如果只给出了一个关键词。在另一个方向（交叉方向），则取 <code>center</code>。</p>
+<p><code>center</code> 又是怎样？<code>center</code> 就是 <code>50%</code>。</p>
+<h3 id="百分比"><a href="#百分比" class="headerlink" title="百分比"></a>百分比</h3><p>这里的百分比就比较复杂，这不只是元素的百分比，也是图片的百分比。</p>
+<p><code>background-position: 50% 50%</code> 是什么效果呢？这会让背景图片在元素中居中。也就是图片的中线点和元素的中心点对齐。那我也可以认为是元素的 50% 和图片 50% 的点对齐（横纵都是）。都是 0% 就是左上角对齐，都是 100% 就是右下角对齐……</p>
+<p>所以百分比的意思是：……我不描述了，挺拗口的，写了你们也不看。反正这个百分比同时作用在元素和图片两者之上，具体的最好自己动手验证一下，会比较容易理解。</p>
+<h3 id="关键字-值"><a href="#关键字-值" class="headerlink" title="关键字 + 值"></a>关键字 + 值</h3><p>还有一个更复杂的写法：<code>background-position: left 50% bottom 50px</code>。这样就改变了所在轴（横轴或者纵轴）上面的正方向，原点也被指定为了相应的边。</p>
+<h2 id="布局方法"><a href="#布局方法" class="headerlink" title="布局方法"></a>布局方法</h2><p>率先注意与“流”（<code>flow</code>）相关的属性，这些属性从根本上影响元素的排列方式。</p>
+<h3 id="弹性布局"><a href="#弹性布局" class="headerlink" title="弹性布局"></a>弹性布局</h3><p>根据主轴和侧轴的设定来确定方向，需要注意的是，横向上的正反与文字书写方向相关，而不是绝对的左右。</p>
+<p>对齐中的 <code>start</code> 和 <code>end</code> 也一样，受到文字方向的影响。</p>
+<h3 id="网格布局"><a href="#网格布局" class="headerlink" title="网格布局"></a>网格布局</h3><p>两个轴固定，和文档流坐标系类似。但是元素排列方向和方法由 <code>grid-auto-flow</code> 属性决定。</p>
+<hr>
+<p>以上是我们目前为止遇到的方向和起点相关的一些问题的汇总。这些本应该自己总结归纳的，我都帮你们做了，所以大家能不能亲自完成一下相关的练习呢？乖，就当哄小老鼠开心，做一下练习好不好？</p>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0087/" title="卡片 for 第八十七章">卡片 for 第八十七章</a>】</p>
+
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0086/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0088/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

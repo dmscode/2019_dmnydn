@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第四章 啥是 HTML？ | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="HTML 是个缩写，全称是：`HyperText Markup Language`。这个名字很重要，认真理解这个名字，你便可以很快的掌握 HTML 了。这个名字准确的涵盖了 HTML 语言的核心特点。">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第四章 啥是 HTML？
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2018-11-02 | Update: 2019-05-08">
+    <p>
+      HTML 是个缩写，全称是：`HyperText Markup Language`。这个名字很重要，认真理解这个名字，你便可以很快的掌握 HTML 了。这个名字准确的涵盖了 HTML 语言的核心特点。
+    </p>
+  </div>
+  <div class="post-content">
+    <p>上一章我们发现了一个问题，就是代码，可能没有我们想象的那么难。这节课我们来试着理解一个名词——HTML。</p>
+<p>HTML 是个缩写，全称是：<code>HyperText Markup Language</code>。说到这里，可能有人会说，哇噻，好长一串单词，不行，我困了，我要去睡觉了。先别急着走，咱们把这串单词拆吧拆吧，看看你认识多少。</p>
+<ul>
+<li><code>Hyper</code>：不认识</li>
+<li><code>Text</code>：你敢说不认识？</li>
+<li><code>Mark</code>：每天用马克笔，别和我说不知道是这个 <code>Mark</code></li>
+<li><code>Up</code>：不认识……吗？</li>
+<li><code>Language</code>：就算是英文再不好，这个单词也得认识吧，玩游戏的时候都是找这个单词切换成中文的</li>
+</ul>
+<p>所以乍一看挺长，但别害怕，把它打碎了，说不定你还认识一半以上呢！感觉自己十分厉害的样子！（骄傲</p>
+<p>我就不带大家查字典了，这个名称呢，知道一下就行，我们又不打算拿它去应付考试，不过写简历的时候写上全称，还是很装[哔~~]的（并不。</p>
+<p>那么说一下，他的中文名字，或者说翻译过来的样子——<strong>超文本标记语言</strong>。不过这个名称也很少被人提及，现在的人都喜欢用缩写，缩写成了 HTML 还不够，又缩成了 H5 ……你马上会说，原来这个名字和上面一样，也是了解一下就行了。嘿嘿，并不是，<strong>这个名字很重要，认真理解这个名字，你便可以很快的掌握 HTML 了</strong>。</p>
+<p>首先，<code>文本</code> ，就是纯文字呗，代码可不全是字么（其实我们偶尔也输入表情ヾ(=ﾟ･ﾟ=)ﾉ喵♪，皮这一下表示很开森~。那什么是<code>超文本</code>呢，就是在文本的基础上进行增强和扩展。那如何进行增强呢？答案就是<code>标记</code>。原本，我们在文本里写什么就是什么，现在，我们用文本中的一些内容去标记另一些内容。就比如上一章里我们说到的：</p>
+<pre><code class="html">稻米鼠&lt;strong&gt;超级无敌&lt;/strong&gt;萌萌哒~
+</code></pre>
+<p>其中的 <code>&lt;strong&gt;</code> 和 <code>&lt;/strong&gt;</code> 并不会被显示出来，而是用来标记<code>超级无敌</code>这四个字，表示要被突出。</p>
+<p>至于<code>语言</code>，我们知道，无论是汉语，还是英语，都属于语言，是我们人类间用来相互沟通的工具。而我们编程用到的语言呢，是我们人类和电脑之间沟通的工具。不过，这可比学一门外语简单多了，毕竟，需要用到的单词没有几个，语法也十分简单，关键问题，只是逻辑清晰的把你的想法描述出来。</p>
+<p>好了，那么我们回头再来念一遍这个名字：<code>超文本标记语言</code>，是不是觉得不是那么的陌生了呢？</p>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0004/" title="卡片 for 第四章">卡片 for 第四章</a>】</p>
+
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0003/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0005/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

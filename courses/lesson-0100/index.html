@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第一百章 与、或、非 | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="JavaScript 中的逻辑判断。">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第一百章 与、或、非
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2019-03-20 | Update: 2019-05-09">
+    <p>
+      JavaScript 中的逻辑判断。
+    </p>
+  </div>
+  <div class="post-content">
+    <p>这是一个很复杂的概念……（并没有。</p>
+<p>如果换个叫法就特别明白了。与，就是并且的意思，符号是 <code>&amp;&amp;</code>，那我们来举个例子：</p>
+<pre><code class="js">if(3&gt;2 &amp;&amp; 5&gt;4){
+  ……
+}
+</code></pre>
+<p>条件里要求 <code>3&gt;2</code> 成立，<strong>并且</strong> <code>5&gt;4</code> 也成立。两边都成立那么条件为真，有一个不成立就为假，都不成立自然也为假。（这就是初中学的真值表，老鼠怕大家回忆不起来觉得尴尬，所以带着大家做复习，嘤嘤嘤，把你们初中的学费要回来给老鼠买咖啡好不好~~~</p>
+<p>这个可以多个条件连在一起，并不只限于两个哦：</p>
+<pre><code class="js">if(3&gt;2 &amp;&amp; 5&gt;4 &amp;&amp; 6&gt;2){
+  ……
+}
+</code></pre>
+<p>反正就是要都成立才为真，否则就为假。多好记~（你别和下面搞混了就行</p>
+<p>“或”就是或者，符号 <code>||</code>。</p>
+<pre><code class="js">if(3&gt;2 || 5&gt;4 || 6&gt;2){
+  ……
+}
+</code></pre>
+<p>读成或者就好理解了，很显然，这些条件里有一个成立就为真，全不成立才为假。</p>
+<p>最后“非”，就是取反，就是“不是”，非真就是不是真的，所以就是假。符号 <code>!</code>.</p>
+<pre><code class="js">if( !false ){
+  console.log(&#39;非假，即不是假的，所以是真的，条件成立，所以这条会输出。&#39;)
+}
+</code></pre>
+<p>其实是一个非常简单的小概念啦，只是讲的越多越迷糊，所以，为了让你们不迷糊，我不到三百字就讲完了，喵叽~（听不懂就记住，反正字数不多，好记！</p>
+<p>但是好像这章字数不够啊，发愁ing，怎么办？在线等，挺急的。</p>
+<p>讲一讲 JS 里面唯一的一个三元运算符吧。</p>
+<p>条件判断语句虽然容易理解，但是并不是什么情况都好用，比如下面的情况：</p>
+<pre><code class="js">let a = true;
+let b;
+if(a){
+  b = 1;
+}else{
+  b = 2;
+}
+</code></pre>
+<p>如果 <code>a</code> 为真，则 <code>b</code> 等于 1，否则等于 2。简单吧？事情很简单，代码很繁琐。所以我们有一个更简单的写法：</p>
+<pre><code class="js">let a = true;
+let b = a ? 1 : 2;
+</code></pre>
+<p>上下两段代码是等效的，明显下面的更加简洁明了。那么说一下语法：</p>
+<p><code>首先是一个条件</code> ? <code>如果条件成立就使用这一段的计算结果</code> : <code>如果条件不成立则使用这一段的计算结果</code></p>
+<p>所以我们也可以这么写：</p>
+<pre><code class="js">let a = 12&gt;5 ? 36*8-5 : 22+5*3;
+</code></pre>
+<p>但它只能放入三个计算式（三元），再复杂就不行了，而且遇到多重嵌套的情况，也变得难以阅读（虽然代码简短），所以过分复杂的情况不推荐使用哦。</p>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0100/" title="卡片 for 第一百章">卡片 for 第一百章</a>】</p>
+
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0099/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0101/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

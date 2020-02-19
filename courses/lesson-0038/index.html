@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第三十八章 对齐方式 | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="网页元素中文字的对齐方式，比我们想象中的要略多一点，注意它们细节上的区别，合理的选用。">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第三十八章 对齐方式
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2018-11-24 | Update: 2019-05-09">
+    <p>
+      网页元素中文字的对齐方式，比我们想象中的要略多一点，注意它们细节上的区别，合理的选用。
+    </p>
+  </div>
+  <div class="post-content">
+    <p>我们前面所说的这些，都是文字的属性，而现在要说的是文本的属性。它们有什么区别呢？Font 主要是说文字本身，即便你只拿出一个文字来，只盯着这个文字看，它也是具有这些属性的。而 Text 是说一个群体的表现，或者文字周边的一些东西。这句话你先大概记住，看完这些文本相关的属性，再回来读这句话，就能有一个概念了。</p>
+<p>那么先来举一个最简单的例子，文字的对齐方式（<code>text-align</code>），它有三个常用属性值可选<a href="#footnote-1" class="footnote-link"><sup>[1]</sup></a>，很容易就猜到，左对齐，右对齐和居中对齐。单词你也都认识，所以我们就直接来看看效果好了：</p>
+<pre><code class="html">&lt;p style=&quot;text-align: left;&quot;&gt;这段文字采用了左对齐的方式&lt;/p&gt;
+&lt;p style=&quot;text-align: center;&quot;&gt;这段文字采用了居中对齐的方式&lt;/p&gt;
+&lt;p style=&quot;text-align: right;&quot;&gt;这段文字采用了右对齐的方式&lt;/p&gt;
+</code></pre>
+<div class="code-show" data-before-text="代码效果演示 Start" data-after-text="代码效果演示 End"><p style="text-align: left;">这段文字采用了左对齐的方式</p>
+<p style="text-align: center;">这段文字采用了居中对齐的方式</p>
+<p style="text-align: right;">这段文字采用了右对齐的方式</p></div>
+<p>有没有发现我们现在已经变得很厉害了，学一个属性并不需要很长时间，只要抓住几个关键点就可以了。</p>
+<ul>
+<li>这个属性用的名字是什么？</li>
+<li>它用来描述什么特征？</li>
+<li>它有几个值可供选择？或者可以设置怎样范围的值？</li>
+<li>每个值代表的是什么意思？</li>
+</ul>
+<p>所以其实我们可以列一个表格，来记录这些内容，方便我们回忆，或者在使用的时候查阅。想想都觉着是一件非常美妙的事情，因为自己整理出来的东西肯定最适合自己，拿着这份东西，以后写代码的时候，虽然算不上手持秘籍，但起码也有一份相当不错的参考攻略了。这么想想，你就不觉得我们现在的内容枯燥无味了。恨不能让我把每一个属性和它所有的值都讲一下，这样你就可以整理出一份更加完整的攻略。</p>
+<p>哈哈，这种攻略不就是 CSS 的说明文档吗？一份自己整理过的，更加熟悉的说明文档。</p>
+<p>如果你在抱怨这个表格实在是太大了，那么了解一下思维导图（脑图）吧。</p>
+<p>我们再来讲两个不是很常用的属性值：</p>
+<p><code>justify</code> 表示让文字两端对齐，这个在排版中会非常漂亮，因为段落的两边显得很整齐。更妙的是，元素的最后一行，并不受到两端对齐的限制，这样就不会出现段落最后一行才几个字，间距却被拉的非常大的尴尬。</p>
+<p>可能你说我今天的情况就是有些特殊，我希望每一行，都是两端对齐，这样强迫症感受到了极大的满足，那么你可以使用这个值，<code>justify-all</code>。现在我们来试试这两个的效果：</p>
+<pre><code class="html">&lt;p style=&quot;text-align: justify;&quot;&gt;这段文字采用了两端对齐的方式&lt;/p&gt;
+&lt;p style=&quot;text-align: justify-all;&quot;&gt;这段文字采用了两端对齐的方式&lt;/p&gt;
+</code></pre>
+<div class="code-show" data-before-text="代码效果演示 Start" data-after-text="代码效果演示 End"><p style="text-align: justify;">这段文字采用了两端对齐的方式，稍微多写一点，产生换行方便查看效果。可是真的不知道写点什么好啊~~这个还需要多写几行，你才能够真正看到两端对齐的样子，当然，因为中文比较整齐，可能并不很明显，在英文下就非常实用了。或者你的内容中英混合，也需要使到这个属性。不过遇到很长的英文单词，也可能因为断行导致某一行的文字特别少，看起来就有些奇怪了。然后最后一行并没有被两端对齐。</p>
+<p style="text-align: justify-all;">这段文字采用了两端对齐的方式，稍微多写一点，产生换行方便查看效果。最后一行文字虽然少，也被强行两端对齐了，如果你没有看到效果，请继续往下阅读。</p></div>
+<p>因为 <code>justify-all</code> 这个值虽然确实是有的，好像我们也用得到。然而事实上，到目前为止，似乎没有什么浏览器支持它，这就十分尴尬了。</p>
+<p>我是想告诉大家，不要一味的去追新，太新的东西可能在眼下并不实用。适合当前状况的才是最好的。然后也不要一味的相信文档，哪怕最官方的文档也可能写出错误。你的网页终究是要通过浏览器展示给用户的，用浏览器去测试它的实际效果，这才是最根本的标准。</p>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0038/" title="卡片 for 第三十八章">卡片 for 第三十八章</a>】</p>
+<div class="foot-notes"><p><strong id="footnote-1" class="footnote">&gt;注释 1:</strong> 可用的值十个左右吧，咱们先说常用的，全都写清楚就真的是文档而不是入门教程了。</p></div>
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0037/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0039/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

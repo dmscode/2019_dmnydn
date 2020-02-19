@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第六章 编辑器 | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="书写前端代码的一个重要工具就是编辑器，这也是各种编程的基础工具。其实就是一个功能更加强大的文本编辑器，让我们可以更方便，更舒服的书写代码。现在我们来讲一讲编辑器的安装和基础的使用方法。">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第六章 编辑器
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2018-11-06 | Update: 2019-05-08">
+    <p>
+      书写前端代码的一个重要工具就是编辑器，这也是各种编程的基础工具。其实就是一个功能更加强大的文本编辑器，让我们可以更方便，更舒服的书写代码。现在我们来讲一讲编辑器的安装和基础的使用方法。
+    </p>
+  </div>
+  <div class="post-content">
+    <p>从小就被教育，工欲善其事，必先利其器。那我们说了这么久“写”代码，究竟用什么去写呢？</p>
+<p>既然它是文本，就可以用任何文本编辑器进行编辑，包括电脑里最不起眼的记事本。当然，这一点儿都不好用，就好像用 Windows 的画图也能做图，但却远没有 Photoshop 用的舒适。所以我们也需要选择一款足够强大而且舒适的编辑器。在以前这个需求有一些不可兼得，现在感谢微软，我们有了 <a href="https://code.visualstudio.com/" target="_blank" rel="noopener">VSCode</a>（<a href="https://code.visualstudio.com/" target="_blank" rel="noopener">https://code.visualstudio.com/</a>），很漂亮，很简单易用，又很强大的编辑器。</p>
+<p>请大家点击上面链接，从官方网站进行下载。安装过程中，如果不懂，就按默认设置，放心安装吧，一点也不流氓的。</p>
+<p>正常情况下，安装后会直接显示为中文。如果不是，也没什么，点击左侧这个图标，在里面搜索 <code>Chinese</code>，第一个就是中文语言包，安装就可以了。</p>
+<div class="image-box"><img src="/assets/lesson-0006/change-language-566c6443a3a97d8af5b706e4f70b4af9.png" alt="修改语言"></div>
+<p>安装完成之后需要点击 <code>Reload</code> 进行重新载入，总之点击之后就是中文了。<a href="#footnote-1" class="footnote-link"><sup>[1]</sup></a></p>
+<div class="image-box"><img src="/assets/lesson-0006/reload-ea0b0925e052ecb8d4918804fadc2ed0.png" alt="重新载入"></div>
+<p>在初期，我们不需要进行什么设置，直接使用就可以。你可以把它理解为长得好看的一些的记事本。事实上，这款编辑器十分强大，多积累一些对他的使用技巧，在日后也能够极大的提高自己的工作效率。</p>
+<p>编辑器安装好了，也许你已经迫不及待的把我们前面所学的代码写了进去，但你发现一点儿也不好看，并不像我文章里的这些代码，花花绿绿的，看起来就那么杀马特。那么现在我来教大家如何设置代码高亮。</p>
+<p>你没猜错，这种让代码看起来花花绿绿的效果就叫做<code>代码高亮</code>，他把代码中不同的东西，用不同的颜色进行标示，方便我们快速的进行分辨，使代码变得更加容易理解。这就好像家里的老人们在蒸豆包的时候，喜欢在上面放一个枣，于是馋嘴的你，很容易就找到了豆包。</p>
+<p>首先我们新建一个文档，每次从菜单栏新建太麻烦了，所以记一下快捷键，反正新建文档这个快捷键基本上在所有软件中都是通用的：<kbd>Ctrl</kbd>+<kbd>N</kbd>。之后便是把我们前面所学的代码写进去，注意标签的尖括号（<code>&lt;&gt;</code>），以及尖括号里面的标点，都要用英文。</p>
+<p>你可能说：骗人，刚才就是这么操作的，并没有代码高亮啊？</p>
+<p>那么现在我们再按一下保存文件的快捷键：<kbd>Ctrl</kbd>+<kbd>S</kbd>，首先选择一个你能找得到的位置，然后记得文件名的扩展名<a href="#footnote-2" class="footnote-link"><sup>[2]</sup></a>写成 <code>htm</code>，或者 <code>html</code>，比如就叫：<code>index.html</code>。保存之后再回来看编辑器里面，是不是代码就已经高亮了呢？</p>
+<p>这是什么道理呢？你最初写下一段文字，但编辑器并不知道你用的是什么语言，所以，它默认的当作纯文本进行处理，当然就没有高亮了。你保存的时候因为设定了扩展名，编辑器便知道了这个文件所使用的语言，就可以正确的对代码进行高亮了。</p>
+<p>既然告诉编辑器当前所使用的语言，它便可以正确的进行高亮，那么我们还有一种方法可以使用。比如说，我只是临时想查看一段代码，并没有保存的需求，但是既然是查看代码，自然是进行高亮之后看起来更舒服。我们新建文档、粘入代码。然后注意编辑器的右下角，有一个“纯文本”<a href="#footnote-3" class="footnote-link"><sup>[3]</sup></a>字样。如下图：</p>
+<div class="image-box"><img src="/assets/lesson-0006/plain-text-f03bd4fd55b49799acdefa9c925dbc33.png" alt="纯文本"></div>
+<p>点击它，会看到编辑器中央上部弹出一个菜单（黄色框内的部分）：</p>
+<div class="image-box"><img src="/assets/lesson-0006/language-selecter-ce1e943944ff45c53349b05bf3ee1572.png" alt="语言选择器"></div>
+<p>它顶部是一个搜索框，下面列出来编辑器支持的各种语言，我们现在当然用不到那么多，所以只要搜索：<code>html</code>，然后在下面的列表中选中即可（当然，你也可以不进行搜索，直接在列表中选择）：</p>
+<div class="image-box"><img src="/assets/lesson-0006/html-5391dc6255f4487299392de59c9c02d5.png" alt="HTML"></div>
+<p>我们通过这种方式，十分直接的告诉编辑器，当前这个文档使用的语言是 HTML，所以他也能够正确的对代码进行高亮。</p>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0006/" title="卡片 for 第六章">卡片 for 第六章</a>】</p>
+<div class="foot-notes"><p><strong id="footnote-1" class="footnote">&gt;注释 1:</strong> 正常情况下，这时候一定是中文界面了，如果不是，尝试以下操作：退出编辑器在打开，依旧不行则按下 <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>P</kbd> 或者 <kbd>F1</kbd>，在弹出的输入框内搜索 <code>language</code> ，找到 <code>Configure Display Language</code>，点击进去，背心打开的文件内容替换为：</p><p><code>{
+  &quot;locale&quot;: &quot;zh-CN&quot;
+}</code><br><br>然后退出再重新打开编辑器。<br><br><strong id="footnote-2" class="footnote">&gt;注释 2:</strong> 文件的扩展名是指在文件名最后一个点后面的内容，如果你在文件夹中看到的文件，只有文件名，而没有扩展名，可以在文件夹“查看”选项卡中，勾选“文件扩展名”选项。<br><br><strong id="footnote-3" class="footnote">&gt;注释 3:</strong> 如果编辑器的语言是英文，那么显示的可能是：<code>Plain Text</code>。</p></div>
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0005/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0007/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

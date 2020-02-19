@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第一百三十六章 事件浅述 | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="关于网页中事件的进一步讲解。">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第一百三十六章 事件浅述
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2019-05-14 | Update: 2019-05-14">
+    <p>
+      关于网页中事件的进一步讲解。
+    </p>
+  </div>
+  <div class="post-content">
+    <p>前面我们为了让一些事情得到触发，所以讲了一个事件——<code>click</code>。但当时只是为了满足需求，所以讲的十分简略。今天我们就来把这件事情展开说一说。</p>
+<p>其实到现在，我们已经学习的，或者说已经在应用的事件有两个。<code>ready</code> 和 <code>click</code>。回头看它们的语法，十分的相似，表达的意思也都是当某一件事情发生之后，去执行后面函数中的操作。</p>
+<p>这也是我们对事件的一个初步认识，我们可以将一些操作绑定在这个事件上，然后当这个事件发生了这些操作也就会被执行。或者说，在这里事件表达的就是一个执行的时机。</p>
+<p>这里需要注意的一个点，我们给出的那个函数，其实是一个函数的定义，而不是函数的调用。所以这里需要的参数，是一个函数对象。如果你给出一个函数的调用，事实上给的是这个函数的返回值，那么这个参数的数据类型就不对了。</p>
+<p>说的又抽象了，就是我们按照前面的格式去写，或者，我们把要进行的操作定义成一个函数，在和事件绑定的时候只使用这个函数的函数名，后面不要加小括号。如果需要向函数传入参数，我们需要采取另外的办法。</p>
+<p>像这样细节的地方还挺多，所以大家在使用各种方法的时候<strong>要注意它们所需要的参数的类型</strong>。</p>
+<p>我们要注意这个事件，当然方法或者属性也是一样的，它是属于哪个对象的。我们有几个特殊的对象，<code>window</code> 注意不加 s，这是窗口对象，就是我们浏览器的窗口，或者说就是浏览器对象。这是一个非常基础的对象，因为我们的程序就是运行在它之中，可以认为它是基石，剩下的一切都在它之上建立。</p>
+<p>文档对象，<code>document</code>，说的是我们当前这个网页。而我们经常用的，是各种网页元素。我们首先要确认的就是事件发生在<strong>谁</strong>上面，这很重要。</p>
+<p>然后是事件的冒泡，就是当子元素发生某个事件的时候，它的父元素会不会同时发生这个事件。一个人中了大奖，觉得很开心。因为他中了大奖，他的父亲跟着也很开心；他的爷爷，太爷爷，所有祖先，也跟着很开心……虽然中奖的人只有一个，但是他和他的祖先们都很开心。这差不多就是事件的冒泡。</p>
+<p>有很多事件会产生冒泡的行为，但也有一些事件不会。这很重要，因为这确定了一个事件的影响范围；这也不太重要，我们只监听我们所关注的那个元素就可以了，其他的元素是否发生事件，我们可以不关心（但是会不会因此产生其他影响，我们还是要考虑）。</p>
+<p>最后，有些事情是不受我们控制的，说准确一些是不受我们程序控制的，我们只能被动的等待它们的发生。比如文档加载完成，它究竟何时完成，这会受到很多因素的影响，我们只能在它开始加载之后默默的等待，而不能在某一刻强行说这个文档加载完成了。就算我们非这么说，在效果上它依旧是没有完成。就好像，我可以说等我有了钱就如何如何，但我只能等待这个事件的发生，我不能现在立刻说：我有钱了。就算强行这么说，我的钱包并不会因此鼓起来，所以并没有改变事实。</p>
+<p>不过有些事情并没有那么客观，而是我们可以主观控制。一个按钮，它的作用就是被点击之后触发相关的事件。我们等待用户手动点击，和我们强行让它以为自己被点击了，产生的效果都是给程序一个信号去执行相关的事件。这问题就不太大。</p>
+<p>所以我在说什么呢？有一些事件，我们只能在它发生的时候去执行些什么；而有一些事件，我们不光可以等待它的发生，还可以用程序去控制它的发生。</p>
+<p>这是很理论性的一章，其实讲的非常肤浅啦。大家读读就好，后面用起来自然就开始理解了。</p>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0136/" title="卡片 for 第一百三十六章">卡片 for 第一百三十六章</a>】</p>
+
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0135/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0137/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

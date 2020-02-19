@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第一百二十八章 滑动和显隐 | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="jQuery 中的两种基础动画效果，通过滑动（卷动）或者改变透明度来显示和隐藏元素。">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第一百二十八章 滑动和显隐
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2019-05-10 | Update: 2019-05-10">
+    <p>
+      jQuery 中的两种基础动画效果，通过滑动（卷动）或者改变透明度来显示和隐藏元素。
+    </p>
+  </div>
+  <div class="post-content">
+    <p>上一章所讲的元素显示和隐藏的效果，大家都仔细观察过了吗？</p>
+<p>可以认为这是两个效果的叠加，一个是以元素的左上角为基准进行缩放，另一个是元素透明度的变化。</p>
+<p>左上角没有什么大问题，毕竟在文档流中，许多的东西就是相对于左上角而言，或者说是从左上向右下发展。但是在设计中讲道理没意思，高级的设计是理性的，但设计的最终效果都是感性的。因为大部分用户都不会理性的去思考你的设计，只是感性的去说这个东西好或者不好，舒服或者不舒服。</p>
+<p>用户并不知道什么左上角，他觉得页面是上下滚动的，垂直方向的发展是可以接受的，加上左右多少有些莫名其妙。好吧，这个事情确实要分情况讨论，但是现在，如果我们只是想让这个元素上下发展呢？</p>
+<p>这就是我们这一章所讲的滑动效果，这么直接翻译，其实并不是很好理解，我换一个很俗的说法吧，就是卷帘门效果。</p>
+<p>为什么说这么多呢？因为这个方法太简单了呀，我不叨叨一通，这一章的篇幅实在太短了。</p>
+<pre><code class="js">$(&#39;#a&#39;).slideUp();
+$(&#39;#a&#39;).slideDown();
+$(&#39;#a&#39;).slideToggle();
+</code></pre>
+<p>向下滑就是显示出来，或者说将这个元素展开。向上滑就是隐藏，或者说将这个元素收起。最后一个是切换，我不说你也明白的，就是在上述两种状态之间变化。</p>
+<p>参数呢？也和上一章一样。就是它可以有很多很复杂的参数，但是我们先学会用数字去控制它动画的时长就可以了。</p>
+<hr>
+<p>然后发现这个卷帘门的效果实在是太简单了（在有前面基础的前提下）。所以我们再讲一种效果——褪色（fade）。</p>
+<p>对英文单词直译什么的，是最容易给新人设置障碍的方法了。当你学过之后，会觉得确实是这么回事儿，但是在你学会之前，总会觉得这个翻译莫名其妙。好吧，这上面的翻译也是我用翻译工具随便翻译的。不管翻译的问题，直接解释一下，就是通过改变元素的透明度，这样一下子就明白了。</p>
+<pre><code class="js">$(&#39;#a&#39;).fadeIn();
+$(&#39;#a&#39;).fadeOut();
+$(&#39;#a&#39;).fadeToggle();
+</code></pre>
+<p>In 就是进来，就是显示出来。Out 是出去，就是隐藏起来。没什么不好理解的，就算是记不住，在使用的时候写一下，试一下它的实际效果，然后再用就可以了。</p>
+<p>关于参数，依旧和上面一样。</p>
+<p>讲到这里，你肯定在想，关于动画效果部分，这个套路我已经掌握了，一个显示，一个隐藏，一个切换，小括号里面可以写过渡的时间。</p>
+<p>我怎么可能让你那么轻易抓到我的套路呢？于是对于改变透明度这个事情，还有一个方法：</p>
+<pre><code class="js">$(&#39;#a&#39;).fadeTo(400, 0.6);
+</code></pre>
+<p>To 表示到什么程度。就是说，用这个方法可以让指定的元素将透明度改变到某一个值。这个方法，需要至少两个参数，第一个参数，指定过渡动画的时长，和前面的方法都不一样，这个动画时长必须指定。第二个参数，是要变化到的透明度，取值范围0~1，包含 0 和 1。</p>
+<p>方法很强，只用这一个方法，就可以实现上面三个方法所做的事情。还能够做到他们做不到的事情。</p>
+<p>还是那句话，根据实际情况，实际需求选择合适的方法。</p>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0128/" title="卡片 for 第一百二十八章">卡片 for 第一百二十八章</a>】</p>
+
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0127/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0129/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

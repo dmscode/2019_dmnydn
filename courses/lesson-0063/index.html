@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第六十三章 页头 | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="如何书写一个基础的网页页头。通过合理利用前面所学的知识，实现一个简单美观的效果。">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第六十三章 页头
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2019-01-06 | Update: 2019-05-09">
+    <p>
+      如何书写一个基础的网页页头。通过合理利用前面所学的知识，实现一个简单美观的效果。
+    </p>
+  </div>
+  <div class="post-content">
+    <p>啊？！上一章写的就是页头，对对，不过这么空白着不好看啊，不是说还有个海报么，索性也写在这里好了，对，用图片作为页头的背景，诶呀，你们都会了啊，那我还讲什么呢？</p>
+<p>也是，前面我们讲背景的时候讲过这个情况的。把背景图片和网页文件放在一起，然后修改 CSS，我这里把 CSS 都放在这里，大家看一下格式，以及这些已有的元素我是如何排列的，从最开始就注意，后面才不会乱哦~</p>
+<pre><code class="css">* {
+  font-family: -apple-system, &quot;Noto Sans&quot;, &quot;Helvetica Neue&quot;, Helvetica, &quot;Nimbus Sans L&quot;, Arial, &quot;Liberation Sans&quot;, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Noto Sans CJK SC&quot;, &quot;Source Han Sans SC&quot;, &quot;Source Han Sans CN&quot;, &quot;Microsoft YaHei&quot;, &quot;Wenquanyi Micro Hei&quot;, &quot;WenQuanYi Zen Hei&quot;, &quot;ST Heiti&quot;, SimHei, &quot;WenQuanYi Zen Hei Sharp&quot;, sans-serif;
+}
+header {
+  background-image: url(background.jpg);
+  background-size: cover;
+  background-position: center;
+}
+header&gt;h1 {
+  text-align: center;
+  font-weight: 400;
+}
+header&gt;h2 {
+  text-align: center;
+  font-weight: 200;
+}
+</code></pre>
+<p>到目前为止，很简单，简直就是照着前面的章节抄过来而已，然而……</p>
+<div class="image-box"><img src="/assets/lesson-0063/demo-1-e7fd717337553b5c24a28ef94b7a1817.png" alt="当前效果"></div>
+<p>这不好看啊！问题很多，首先我看不见字，还有高度上太压抑了，然后如果你自己动手做了会发现四周有白边，这都是些什么鬼，我要自暴自弃了。</p>
+<p>一个一个来，我们按着倒序来解决，首先说四周的白边，这个其实最简单了。因为 <code>body</code> 元素默认会有一个外补，避免内容过于接近浏览器边框，难以阅读（这个理由是我猜的）。反正，我不需要，就把它设置为 0 好了。有的时候记不清楚，懒得思考，为了防止万一……就把 <code>html</code> 元素一起设置了。</p>
+<pre><code class="css">html,
+body {
+  margin: 0;
+}
+</code></pre>
+<p>简单吧，这个设置几乎每次必写，想想还有字体设置什么的也是几乎每次必写，好麻烦。于是有的人会在网上找一个 CSS 重置的样式表，先引入进来。就是把这些每次都写的东西写在一个文件里，每次先把它引入进来。不过我比较推荐自己写一个，这样知道都有什么，也可以按着自己的需求删减。</p>
+<p>然后左右的空白没了，但是顶部的空白还有。猜猜这是为啥？猜不出来就用开发者工具看呀~很快就能发现，这是标题顶部的外补溢出了（和 <code>header</code> 元素的外补叠加）。想想现在页头高度也不够，我们给页头加上一定的内补，这两个问题就都解决了。</p>
+<pre><code class="css">header {
+  /* …… 省略一些，节省篇幅 */
+  padding: 60px 0;
+}
+</code></pre>
+<p>一下子范就出来了！然后文字看不见就修改文字颜色：</p>
+<pre><code class="css">header {
+  /* …… 省略一些，节省篇幅 */
+  color: rgba(255, 255, 255, 0.8);
+}
+</code></pre>
+<p>背景有点花，也看不太清，但是比黑色文字好一点。但我们能就此满足么？不，我要是对这个效果敷衍，你们就该不看我的教程了。所以想想我们要的是什么吧：</p>
+<p>文字清晰，但是背景很花，不容易做到，所以给文字加一个背景比较合理。</p>
+<pre><code class="css">header&gt;h1 {
+  background-color: rgba(0, 0, 0, 0.4);
+  text-align: center;
+  font-weight: 400;
+}
+header&gt;h2 {
+  background-color: rgba(0, 0, 0, 0.4);
+  text-align: center;
+  font-weight: 200;
+}
+</code></pre>
+<p>别的先不说，你会发现这两个元素中很多相似的地方，我都要写两遍，不爽，不如把相同的地方合并一下：</p>
+<pre><code class="css">header&gt;h1,
+header&gt;h2 {
+  background-color: rgba(0, 0, 0, 0.4);
+  text-align: center;
+}
+header&gt;h1 {
+  font-weight: 400;
+}
+header&gt;h2 {
+  font-weight: 200;
+}
+</code></pre>
+<p>效果上，文字是看的清了，但是两个黑条贯通左右，难看！</p>
+<div class="image-box"><img src="/assets/lesson-0063/demo-2-f93f3a1f22feed5d7ced5e0c7fcef673.png" alt="当前效果"></div>
+<p>为什么会如此呢？因为标题元素默认宽度 100%，这是块元素。那修改宽度就行了，比如让宽度为 300px，结果宽度确实是降低了，但是元素在最左边，不居中了。</p>
+<p>回想一下，块元素确实总是靠着左边，默认占用一行。现在怎么让这个宽度不够一行的元素居中呢？答案是用外补，<strong>将元素左右的外补设置为 <code>auto</code>，这个有确定宽度的块元素就居中了</strong>。注意哦：<strong>有确定宽度</strong>是必须的哦！</p>
+<pre><code class="css">header&gt;h1,
+header&gt;h2 {
+  width: 300px;
+  margin: 5px auto;
+  background-color: rgba(0, 0, 0, 0.6);
+  text-align: center;
+}
+</code></pre>
+<p>这就看得过去了，想想上下外补影响到了什么，自己修改试试看哦。然后<strong>这种方法只能实现水平居中，不能进行垂直居中</strong>。</p>
+<p>再加一些细节，比如圆角什么的，就可以算是完成了。效果如下：</p>
+<div class="image-box"><img src="/assets/lesson-0063/demo-3-1e1bfc3379277bf412c7055516c2176c.png" alt="当前效果"></div>
+<p>完整 CSS 代码：</p>
+<pre><code class="css">* {
+  font-family: -apple-system, &quot;Noto Sans&quot;, &quot;Helvetica Neue&quot;, Helvetica, &quot;Nimbus Sans L&quot;, Arial, &quot;Liberation Sans&quot;, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Noto Sans CJK SC&quot;, &quot;Source Han Sans SC&quot;, &quot;Source Han Sans CN&quot;, &quot;Microsoft YaHei&quot;, &quot;Wenquanyi Micro Hei&quot;, &quot;WenQuanYi Zen Hei&quot;, &quot;ST Heiti&quot;, SimHei, &quot;WenQuanYi Zen Hei Sharp&quot;, sans-serif;
+}
+
+html,
+body {
+  margin: 0;
+}
+
+header {
+  background-image: url(background.jpg);
+  background-size: cover;
+  background-position: center;
+  padding: 60px 0;
+  color: rgba(255, 255, 255, 0.8)
+}
+
+header&gt;h1,
+header&gt;h2 {
+  width: 300px;
+  margin: 5px auto;
+  background-color: rgba(0, 0, 0, 0.6);
+  text-align: center;
+  border-radius: 6px;
+}
+
+header&gt;h1 {
+  font-weight: 400;
+}
+
+header&gt;h2 {
+  font-weight: 200;
+}
+</code></pre>
+<p>不过这里我们只是给出了固定的宽度，如果标题文字发生变化，也需要对宽度进行相应的修改。那么能不能让它根据内容的多少自动变化呢？答案是可以的，我们下一章再聊。</p>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0063/" title="卡片 for 第六十三章">卡片 for 第六十三章</a>】</p>
+
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0062/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0064/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

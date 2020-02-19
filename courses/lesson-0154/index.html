@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第一百五十四章 投桃报李 | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="jQuery 带有返回值的遍历方法。">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第一百五十四章 投桃报李
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2019-06-14 | Update: 2019-06-17">
+    <p>
+      jQuery 带有返回值的遍历方法。
+    </p>
+  </div>
+  <div class="post-content">
+    <p><code>each</code> 是对每一个元素都做一件这个事情，这个方法很方便，它可以帮我们做太多有趣的东西，而且它还很乖巧，没有什么索取，安静的做着自己的事情。</p>
+<p>不过还是回到最初的问题，现在我有一个元素的合集，就比如是 <code>$(&#39;a&#39;)</code>。然后我想获取其中每一个元素的文本内容，因为是多个元素，最终的结果应该是个数组。当然这难不倒我们：</p>
+<pre><code class="js">const textArray = [];
+$(&#39;a&#39;).each(function(){
+  textArray.push( $(this).text() )
+})
+</code></pre>
+<p>我们先定义一个数组。然后对于这个合集中的每一个元素，都去获取它的文本内容，然后追加进这个数组。这是一个很基本的操作，但是我们比这个更懒，所以要讲一个完成这个操作方法，<code>map()</code>。</p>
+<p>专门一个方法，当然有懒的原因，但也说明了这个操作可能比较频繁。想想嘛，我们获取了一些元素，总要做些什么，无非就是设置它们的值，或者获取它们的值。那么 <code>map()</code> 就是为了更方便的获取它们的值，或者类似的需求。</p>
+<p>如果反过来讲呢？我们没有获取其中值的需求，或者说我们不需要返回一些值，而只是进行一些操作的话，就没有必要使用 <code>map()</code>，只用 <code>each()</code> 就好。</p>
+<p>稍微对它们做了一些区分，我们来看实际的例子，上面的需求就可以被写成：</p>
+<pre><code class="js">const textArray = $(&#39;a&#39;).map(function(){
+  return $(this).text()
+})
+</code></pre>
+<p>这样写起来就更简单一些了，理解起来也很容易，对于合集中的每一个元素，执行后面的函数，获得一个返回值。将所有的返回值组成一个数组，存入等号左边的变量之中。</p>
+<p>所以 <code>map()</code> 后面的函数是必须要有一个返回值的，而 <code>each()</code> 无欲无求，就不需要返回值。</p>
+<p>那如果我们不管返回值的问题，用 <code>map()</code> 替代 <code>each()</code> 不也是完全可以的吗？在效果上确实是可以，但是，即便你不使用变量去储存它所生成的数组，这个数组实际还是会被生成的，就浪费资源，进而影响效率。</p>
+<p>因为并没有规定返回值必须是怎样的，所以这种方法并不一定只是用来获取元素的某些属性值，还可以开发出更多有趣的玩法。</p>
+<p>在 JS 的数组上，也有一个同名的方法，用来实现的效果也是类似的。可以说它们非常非常非常像，名字是一样的，效果也是一样。<strong>但是它们不是相同的</strong>。</p>
+<p>今天我们所讲到的这个方法，是应用在 jQuery 对象上的，是这个对象的一个方法，和其他对象上的同名方法自然不能划等号。而且 jQuery 所获得的元素合集，只是类似于数组，可并不是数组。所以，它上面的方法，只是在模仿数组的方法，方便我们学习和使用。而绝不是把数组的方法直接应用在了它的上面。</p>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0153/" title="卡片 for 第一百五十三章">卡片 for 第一百五十三章</a>】</p>
+
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0153/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0155/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

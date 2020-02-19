@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第五十二章 变换的背景 | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="网页重元素的背景图片的相关 CSS 属性和一些使用技巧。">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第五十二章 变换的背景
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2019-01-01 | Update: 2019-05-09">
+    <p>
+      网页重元素的背景图片的相关 CSS 属性和一些使用技巧。
+    </p>
+  </div>
+  <div class="post-content">
+    <p>上一章我们说了背景相关的属性，但是不直观啊，所以这一章我们来做一个小小的练习，来使用一下这些属性，搞明白他们都是怎么回事。</p>
+<p>首先写一个元素：</p>
+<pre><code class="html">&lt;div id=&quot;bg-change&quot;&gt;&lt;/div&gt;
+</code></pre>
+<p>然后其余的东东就全靠 CSS 去设置了。</p>
+<pre><code class="css">#bg-change {
+  width: 50px;
+  height: 50px;
+}
+</code></pre>
+<p>设置宽高，就是一个小小的正方形。接着给它设置背景。那我们需要先有一个图片：</p>
+<div class="image-box"><img src="/assets/lesson-0052/bg-5051918f938aa314deda8a4d7b50b56b.png" alt="背景图片"></div>
+<p>这是一个 50×100 的图片，上下颜色不一样（大家都看到了）。</p>
+<pre><code class="css">#bg-change {
+  width: 50px;
+  height: 50px;
+  background-image: url(&quot;/assets/lesson-0052/bg.png&quot;)
+}
+</code></pre>
+<p>现在添加了背景，会是什么样子呢？</p>
+<div class="code-show" data-before-text="代码效果演示 Start" data-after-text="代码效果演示 End"><div id="bg-change"></div>
+<style>
+#bg-change {
+  width: 50px;
+  height: 50px;
+  background-image: url("/assets/lesson-0052/bg.png")
+}
+</style></div>
+<p>那么发生了什么？因为默认情况下，背景图片的左上角和元素的左上角对齐。而元素只有 50×50 像素大小。正好只能显示出背景图片的上半部分，于是就是只有橙红色部分被显示了出来。你可以尝试修改宽高查看效果。</p>
+<p>如果你把宽高都改成了 100px 的话：</p>
+<div class="code-show" data-before-text="代码效果演示 Start" data-after-text="代码效果演示 End"><div id="bg-change-1"></div>
+<style>
+#bg-change-1 {
+  width: 100px;
+  height: 100px;
+  background-image: url("/assets/lesson-0052/bg.png")
+}
+</style></div>
+<p>高度上，整个图片都可以显示出来了，于是达成了红配绿的成就。宽度上，一张背景已经不足以满足日益膨胀的元素了。于是，再来一张啊，这是平铺的效果，如果加上不平铺，那就只显示一个背景，能不能填满就先不管了。</p>
+<p>不过现在我们先玩的简单一丢丢，这些干扰暂时不去管它。然后对样式做一点修改：</p>
+<pre><code class="css">#bg-change {
+  width: 50px;
+  height: 50px;
+  background-image: url(&quot;/assets/lesson-0052/bg.png&quot;)
+}
+#bg-change:hover {
+  background-position: 0 -50px;
+}
+</code></pre>
+<p>增加了一段，<code>hover</code> 描述了一种状态，就是当鼠标悬停在这个元素上面的时候，这个我们在前面讲链接相关的样式的时候说过，不过普通元素也是可以用这个伪类的。</p>
+<p>鼠标悬停的时候怎样呢，就是又增加了一个属性。让背景的位置，纵向偏移 50px，<strong>注意是负的</strong>。你可能要问，怎么算正，怎么算负？后面我们会有把各种方向上的问题放在一起总结，现在么……其实就两个方向的事情，试试就行了，丝毫无需消耗脑细胞去记忆。来看看效果，记得把鼠标放上去看哦~</p>
+<div class="code-show" data-before-text="代码效果演示 Start" data-after-text="代码效果演示 End"><div id="bg-change-2"></div>
+<style>
+#bg-change-2 {
+  width: 50px;
+  height: 50px;
+  background-image: url("/assets/lesson-0052/bg.png")
+}
+#bg-change-2:hover {
+  background-position: 0 -50px;
+}
+</style></div>
+<p>如果没有变化，请确认你是在本教程的官方网站（<a href="https://dmnydn.com/">https://dmnydn.com/</a>）阅读哦。</p>
+<p>那么发生了什么呢？当鼠标悬停在元素上面，元素的背景发生偏移，正好把绿色部分放在元素中显示。这就做出了一个十分简单的动态交互效果。</p>
+<p>这个原理我们经常用到，因为网页中很多装饰的图片非常小，如果每个图片都要向网站发起一次请求，这会很慢，也会浪费各种资源。所以，就把它们都放在一张图片中。然后再在元素中通过背景偏移，只显示需要的部分。这种技术叫做 CSS Sprites，国内一般称作 CSS 精灵。</p>
+<p>这个练习灰常简单，一共没有几行，大家动手写一写吧。</p>
+<p>写完之后修改里面的参数看看效果，想想为什么，出现问题又该如何解决呢？这样一个小练习就成了好多个小练习，事半功倍，多好！（老鼠是这么为懒惰的你们着想，所以你们就真的不动手练习么？哼╭(╯^╰)╮，生气气哦~</p>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0052/" title="卡片 for 第五十二章">卡片 for 第五十二章</a>】</p>
+
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0051/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0053/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第一百四十六章 伪类选择器（一） | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="认识一下什么是伪类，以及和伪元素的区别。">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第一百四十六章 伪类选择器（一）
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2019-06-04 | Update: 2019-06-10">
+    <p>
+      认识一下什么是伪类，以及和伪元素的区别。
+    </p>
+  </div>
+  <div class="post-content">
+    <p>在讲伪类选择器之前，我们要先搞清楚伪类和伪元素的区别。</p>
+<p>其实从名称上也就说得差不多了。伪类是通过元素不同的状态或者属性或者特点什么的，是对元素进行一个筛选。所以筛选出来的结果依旧是元素，这就好像给其中具有相同特征的元素，加上了一个类。当然实际上并没有这个类，这一切只不过是我们虚拟出来的，所以叫做伪类。这只是对元素的一种选择和筛选的方法，选出来的结果依旧是普通的网页元素。</p>
+<p>伪元素就厉害了，这里原本没有这个元素，它却假装这里存在一个元素，而且就真的显示出来这么一个元素，还能起到各种作用。但是实际上这个元素是不存在，所以它才是伪元素。虽然我们可以通过 CSS 的设置去规定伪元素的各种样式，但是因为这个元素是不存在的，所以我们通过 JS并不能够对它进行选择，也就无法进行进一步的操作。</p>
+<p>伪类的前面是一个冒号，就比如：<code>a:hover</code>；而伪元素的前面是两个冒号，就比如 <code>a::before</code>。这也从另外一个角度（我猜的，毫无说服力，但是方便记忆）说明了两者伪装程度的不同。</p>
+<p>伪元素，我们是无法进行选择和操作的<a href="#footnote-1" class="footnote-link"><sup>[1]</sup></a>。而伪类只是对元素的进一步筛选，这在我们使用 jQuery 的时候是非常有用的。</p>
+<p>这样区分起来比较复杂，我们换一个角度，比较简单的去理解。前面我们讲使用 jQuery 去设置元素的 CSS 的时候，实际上是修改这个元素的行内样式。而对于伪元素，因为这个元素本身就不存在，我们更没有办法对它进行行内样式的设置，包括那些写在 HTML 标签里面的属性，也无从设置，自然就拿它没辙了。</p>
+<p>这里我们就先讲一些我们能够用的到的，并且在 CSS 和 jQuery 里面都有的伪类。注意哦，我们讲的只是在两者中都可以使用的一些而已。那么还有一些，是 CSS 本身实现不了的，但是 jQuery 靠着 JS 的强大就硬生生给实现了，让我们可以更加方便的伪类。但是呢，因为小老鼠很懒惰啊，所以这些不同的地方我们都不去讲，也免得大家给搞混了。（名正言顺的偷懒，嗯，计划通！</p>
+<p>然后看了看数量好像还是有点多，我可不想花好几章的时间就讲这些内容，也免得我这部教程影响到安眠药的销量。所以再精简一下，只讲最常用的一些。</p>
+<p>啊，说到这里，好像这一章的篇幅又差不多了，于是又开心的水过去了一章。</p>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0146/" title="卡片 for 第一百四十六章">卡片 for 第一百四十六章</a>】</p>
+<div class="foot-notes"><p><strong id="footnote-1" class="footnote">&gt;注释 1:</strong> 实在有需要的时候也可以变通，但是这里就不展开去讲述了。</p></div>
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0145/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0147/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

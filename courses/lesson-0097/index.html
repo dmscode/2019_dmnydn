@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第九十七章 字符串 | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="JavaScript 中的一个数据类型，表示一系列的字符所组成的数据。">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第九十七章 字符串
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2019-03-20 | Update: 2019-05-09">
+    <p>
+      JavaScript 中的一个数据类型，表示一系列的字符所组成的数据。
+    </p>
+  </div>
+  <div class="post-content">
+    <p>这个概念我们在前面讲到过，所谓字符串就是一串字符。在这里我们就进一步的去了解一些相关的细节。</p>
+<pre><code class="js">let what_I_think = &#39;DMS is a lovely mouse.&#39;;
+</code></pre>
+<p>现在我们声明了一个变量 <code>what_I_think</code>，来代表一个字符串。那么变量和字符串之间，一个很重要的区别就是有没有引号。我们可以这样证明：</p>
+<pre><code class="js">let a = 1;
+let b = a;
+let c = &#39;a&#39;;
+console.log(b); // 输出 1
+console.log(c); // 输出 a
+</code></pre>
+<p>那么没有引号的 <code>a</code> 就是变量的名称，加上引号就是字符串，说明这里要当做字符看待。</p>
+<p>同时，我们可以看出，字符串可以是一个字符，虽然它叫“串”。甚至可以没有字符，<code>&#39;&#39;</code> 就是一个空字符串。</p>
+<p>字符串可以进行运算吗？</p>
+<pre><code class="js">let a = &#39;My name is &#39;+&#39;Daomishu.&#39;；
+console.log(a); // 输出 My name is Daomishu.
+</code></pre>
+<p>这里的加号就不再是加号，而是连接操作符，用来连接前后两个字符串。当然也可以前后两个代表字符串的变量。</p>
+<pre><code class="js">let a = &#39;My name is &#39;;
+let b = &#39;Daomishu.&#39;；
+let c = a+b;
+console.log(c); // 输出 My name is Daomishu.
+</code></pre>
+<p>那么我们就要搞事情了，如果让数字和字符串相加的话会怎样？</p>
+<pre><code class="js">let a = 1;
+let b = &#39;2&#39;;
+let c = a+b;
+let d = b+a;
+console.log(&#39;c is &#39;+c+&#39;; d is &#39;+d);
+</code></pre>
+<p>结果是这样的：</p>
+<div class="image-box"><img src="/assets/lesson-0097/number-and-string-fad79309030c26a23ad401a2d22af923.png" alt="数字和字符串"></div>
+<p>很明显，这只是把数字也当成字符串，然后拼接了起来。可能这并不是需要的结果，我们希望他们真的进行计算，怎么办呢？先把字符串转换为数字类型（可能的前提下！），然后再计算就好了。</p>
+<pre><code class="js">let a = 1;
+let b = &#39;2&#39;;
+let c = a+(+b);
+console.log(&#39;c is &#39;+c);
+</code></pre>
+<div class="image-box"><img src="/assets/lesson-0097/string-to-number-b3eab7efe2f9748007d1d5f1c33ca0cb.png" alt="字符串转化为数字"></div>
+<p>现在就如愿的相加了。因为我们先给 <code>b</code> 加了一个正号，正号是不会改变一个数的值的，但是它会让这个值在可能的情况下转换为数字。</p>
+<p>这时候我们就接触到了数据的类型，不同类型放在一起运算，会先转换为相同的类型，然后再计算。或者我们也可以先进行手动转换，然后再计算。</p>
+<p>数据类型是一个重点，虽然 JS 不强调这一点，但绝不意味着它不重要，只是前期可以暂时不被这些内容困扰而已。</p>
+<p>依旧是上面的例子，如果我不加小括号呢？就变成了 <code>a++b</code>，注意 <code>++</code> 也是一个运算符，那么结果就又是一个样子了。</p>
+<p>这些也是我们自己尝试，去探索问题答案的方法，设计一个小的案例，去猜想，去验证，再去思考为什么。那么方法都放在这里了，以后遇到问题，是不是要自己先尝试一下，然后才可以提问呢？</p>
+<p>还是上面的例子，大家看到，我的输出中增加了一些格式，让输出的结果看起来更舒服，就是很简单的连接字符串的方法，这挺好理解的，只是写很多加号让人觉得麻烦。其实还有一个技巧： <code>console.log</code> 可以输出多个值，它们之间用逗号分隔就行了。但是这不是连接字符串，只是按顺序逐个进行输出。</p>
+<pre><code class="js">let a = &#39;Hello&#39;;
+let b = &#39;world!&#39;;
+console.log(a, b);
+</code></pre>
+<div class="image-box"><img src="/assets/lesson-0097/hello-world-a4216266788954d741085d9cfdf17635.png" alt="多个输出"></div>
+<p>可以看到我并没有加空格，输出的中间却是有空格的，就这样，但是要知道，它是逐个输出，并没有连接成一个整体。</p>
+<p>再说说引号。引号是可以相互嵌套的，比如这样：</p>
+<pre><code class="js">let a = &#39;单引号里面可以放&quot;双&quot;引号&#39;;
+let b = &quot;双引号里面可以放&#39;单&#39;引号&quot;;
+console.log(a);
+console.log(b);
+</code></pre>
+<p>注意，这里面我是用的都是英文标点。</p>
+<div class="image-box"><img src="/assets/lesson-0097/quotation-339a468c2def38fe2007addc0d038b62.png" alt="使用引号"></div>
+<p>因为 HTML 和 CSS 里面大量存在双引号，所以我们在写 JS 的时候优先使用单引号会相对方便一些。</p>
+<p>但是如果我们的嵌套非常复杂，不止两层引号，这时候好像就怎么都不好弄呢，那么我们来认识一下转义符 <code>\</code>。</p>
+<pre><code class="js">let a = &#39;这是单引号里面的单引号 \&#39;&#39;;
+console.log(a); // 输出 这是单引号里面的单引号 &#39;
+</code></pre>
+<p>通过转义，让程序知道这个反斜线后面的单引号不是符号，而是字符，那么就不像其他符号一样起作用，而是当做字符处理。</p>
+<p>但是你会发现你无法输出反斜线：</p>
+<pre><code class="js">let a = &#39;这是反斜线 \&#39;;
+console.log(a); // 这里会报错，因为它把最后的引号给转义了，导致字符串最后缺少引号。
+</code></pre>
+<p>那么我们要如何输出反斜线呢？答案是对它自己进行转义。</p>
+<pre><code class="js">let a = &#39;这是反斜线 \\&#39;;
+console.log(a); // 输出 这是反斜线 \
+</code></pre>
+<p>好啦，这些细节希望大家都能记住，我们下一章再见~</p>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0097/" title="卡片 for 第九十七章">卡片 for 第九十七章</a>】</p>
+
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0096/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0098/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

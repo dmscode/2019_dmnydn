@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第七十七章 弹性布局 Flex | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="CSS3 弹性布局，一个很智能的布局方法，通过几个基础属性的搭配就可以让大量网页元素合理排布，并自动适应多种设备的不同情况。">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第七十七章 弹性布局 Flex
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2019-01-17 | Update: 2019-05-09">
+    <p>
+      CSS3 弹性布局，一个很智能的布局方法，通过几个基础属性的搭配就可以让大量网页元素合理排布，并自动适应多种设备的不同情况。
+    </p>
+  </div>
+  <div class="post-content">
+    <p>我们以前的布局方法，虽然可以完成三个维度，但是每个维度都是各自为政的，一个混乱的体系。</p>
+<p>而弹性布局则是一维布局，它有两个轴，优先关心主轴，然后用侧轴辅助。这有点像什么？我们写字，说起来就是从左往右写，这是我们优先关注的方向，但是事实上，我们一行写不下的时候，会写到下一行，这里就有一个从上往下的规则（但是很少被提及）作为辅助。</p>
+<p>虽然我们还什么都不了解，但是说到这里应该很容易猜到，这两个轴的方向绝对是弹性布局中的一个基础。因为轴的方向一变，肯定所有元素的排列都不一样了。这简直是规定流水的方向一样的关键。</p>
+<p>嗯，弹性布局里的流（flex-flow）就描述这两个问题。在展开之前，说明一下：在前期不建议大家使用任何复合属性（简写形式），因为有些简写十分复杂，所以一律展开书写，我也不会对于简写格式进行任何说明。</p>
+<p>展开为两个属性 <code>flex-direction</code>（主轴方向），和 <code>flex-wrap</code>（是否换行）。继续按着写字理解：主轴方向说的就是我们书写的方向，是否换行说的是我们在侧轴方向是否进行发展。来，对应从左往右书写，从上往下换行来理解一下。</p>
+<p><code>flex-direction</code>（主轴方向）取值如下：</p>
+<ul>
+<li><strong>row</strong>： flex 容器的主轴被定义为与文本方向相同（对于我们就是从左往右）。这是默认值；</li>
+<li><strong>row-reverse</strong>： 和上面相反；</li>
+<li><strong>column</strong>： flex 容器的主轴和块轴相同（对于我们就是从上到下）；</li>
+<li><strong>column-reverse</strong>： 和上面相反。</li>
+</ul>
+<p>于是我们发现，加上 <code>reverse</code> 就表示相反方向。这样四个值，其实只是两个方向，和两个反方向。<code>row</code> 是横向，<code>column</code> 是纵向。后一个单词可能我们没见过，但是 <code>row</code> 我们学过，而且前面表格的 <code>tr</code> 就是 table row 的缩写，表示表格中的行。</p>
+<p><code>flex-wrap</code>（是否换行）取值如下：</p>
+<ul>
+<li><strong>nowrap</strong>： 不换行，打死不换行，溢出都不换行，这是默认值；</li>
+<li><strong>wrap</strong>： 有需要就换行；</li>
+<li><strong>wrap-reverse</strong>： 有需要就换行，反向换行。</li>
+</ul>
+<p>如果主轴是左右方向，正常的换行方向就是从上往下，反向你懂得。不换行就是不在侧轴方向发展，那就没所谓了。</p>
+<p>如果主轴是上下方向，那么换行方向就是从左往右，反向你依旧懂得。</p>
+<hr>
+<p>我知道，你们又拿起了板砖。说我讲了一章弹性布局，哪一句都听懂了，就是完全不知道怎么用，什么破课程，退钱退钱……</p>
+<p>我就说两点：第一、没交钱先把钱交一下，然后才能排队退钱；第二、你现在给父元素应用上前面所学的三个属性，那么里面的子元素就像一个个文字一样乖乖排列好了呀~</p>
+<p>这，难么？</p>
+<p>代码能有多难？</p>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0077/" title="卡片 for 第七十七章">卡片 for 第七十七章</a>】</p>
+
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0076/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0078/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

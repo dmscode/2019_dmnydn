@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第一百一十六章 更进一步 | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="jQuery 对于网页中元素代码和内容的获取与设置方法。">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第一百一十六章 更进一步
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2019-04-26 | Update: 2019-05-09">
+    <p>
+      jQuery 对于网页中元素代码和内容的获取与设置方法。
+    </p>
+  </div>
+  <div class="post-content">
+    <p>上一章，我们知道了如何用 JQ 设置一个输入框的值。抛开基础结构，就只是一个简单的语句，如果肯动手写两次，现在应该已经觉得简单到乏味了。</p>
+<p>很明显，这种方法可以作为程序的一种输出方式，比如说，用这种方式来输出一个计算结果。虽然不是多么完美的方式，但这对于我们来说依旧是一个重要的里程碑，因为这是我们真正的在页面中进行输出。</p>
+<p>可是光有输出还不够用呀，如果能够在有输入，那么就可以制作美好的交互了。输入也很简单啊，我们还用这句话就可以进行输入了。</p>
+<p>首先，我们设定输入框的值是这样写的：</p>
+<pre><code class="js">  $(&#39;#miao&#39;).val(&#39;稻米鼠特别的可爱~&#39;);
+</code></pre>
+<p>而如果我们要获取这个输入框的值，可以这样写：</p>
+<pre><code class="js">  const input_value = $(&#39;#miao&#39;).val();
+</code></pre>
+<p>就是把这个元素的值放在前面所声明的常量之中，诶，要不要这么简单？！</p>
+<p>需要注意的是，最后的小括号里就别再写内容了，否则的话……嘿，动手尝试一下啊，总不能等着我把每一种可能性都讲给你吧~</p>
+<p>因为我们现在还不知道如何在合适的时机去触发程序的执行，所以好像并没有办法用它来做一个计算器。说直白点就是，我们还不知道如何告诉程序，该开始计算了。</p>
+<p>如果只是想看一下效果，那么可以给这个输入框一个初始的值，然后使用 JQ 进行获取，再用各种方式输出，也可以输出到另外一个输入框中。</p>
+<p>但如果你希望让两个输入框进行联动，比如我在 A 输入框中输入什么，就在 B 输入框中显示什么，还是做不到的。这依旧是一个执行时机的问题，我们现在刚刚学会，让代码在文档准备好之后，立刻执行。执行之后，就没什么了。而此时我们再对输入框的内容进行修改，当然不会产生预想中的联动。就好像早晨 8:00 发车，那么在 8:00 以后到来的人肯定是坐不上车的。</p>
+<p>接下来再讲两个非常相似的方法：<code>html</code> 用来获取或者设置元素的 HTML 代码；<code>text</code> 用来获取或者设置元素的文本内容。它们的使用和 <code>val</code> 方法一样。不过要注意非表单元素，并不具有 <code>value</code> 属性，也就没有办法使用 <code>val</code> 方法。</p>
+<p>设置元素中的代码还是很容易理解的，就是把这个元素中的所有代码都换成我们设置的内容。需要注意的就是所有，如果你希望追加或者删减，或者对原有内容进行任何其他的操作，那么可以先获取它原有的代码，进行修改之后再设置回去。</p>
+<p>元素类的文本，这样说起来仿佛能听懂，但仔细思考一下就很复杂了。首先依旧是所有，也就是通过这个方法设置之后，用我们给出的文本替换掉元素中原有的所有内容。如果这个元素中包含有其他元素呢？当然也就被一起替换掉。</p>
+<p>应该已经感觉出来了，这两个方法非常类似，如果我用 <code>html</code> 方法去设置元素的文本不可以么？当然可以，这是一个很合理的操作。那为什么还有一个 <code>text</code>？答案很简单，就是为了省事。</p>
+<p>这里要先讲另外一个概念，不知道大家有没有思考过，如果我希望在网页中显示 <code>&lt;</code> 和 <code>&gt;</code> 应该怎么去写？为什么我们输入连续的空格在网页之中只会显示出来一个？换句话说，我们在网页代码中使用了那么多符号，他们作为代码去执行而不显示出来，可是当我希望在网页中显示这些符号的时候，又该怎么去做？</p>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0116/" title="卡片 for 第一百一十六章">卡片 for 第一百一十六章</a>】</p>
+
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0115/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0117/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

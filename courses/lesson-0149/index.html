@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第一百四十九章 属性选择器 | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="属性选择器。">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第一百四十九章 属性选择器
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2019-06-05 | Update: 2019-06-10">
+    <p>
+      属性选择器。
+    </p>
+  </div>
+  <div class="post-content">
+    <p>伪类选择器是通过元素的一些特征或者元素当前的状态进行选择。而对于元素还有一个非常明显的区分方式，就是它们具有怎样的属性。比如链接，一般的都会具有 <code>href</code> 属性。但是一些用于锚点命名的（现在都直接用 id 命名了），可能就没有这个属性。我们可以通过属性选择器，来对它们进行区分。</p>
+<p>属性选择器的写法是这个样子的，<code>a[href]</code>。这样还是比较容易理解的，就是一个具有 <code>href</code> 属性的链接（<code>a</code>）。</p>
+<p>不过其实这是两个基础的选择器，放在了一起，去共同描述同一个元素，这种方法我们在前面是讲过的。那再看上面的选择器，<code>a</code> 肯定是一个基础的标签选择器；所以 <code>[href]</code> 就是一个基础的属性选择器，表示具有这个属性的元素。</p>
+<p>一般的我们会把属性选择器和其他选择器联合使用，就是在某一类元素中筛选具有相同属性的元素。</p>
+<p>在实际使用中，我们要进行的筛选可能会更加复杂，所以属性选择器，还可以在上面基础上进一步增强。不过这些方法用到的确实不太多，以至于我们现在即便全都学会，也会在使用之前忘掉。所以大概知道有些什么就可以了，用的时候再对着文档查找自己所需要的功能就好。</p>
+<p>首先我们可以选择具有某一个属性，并且这个属性的值为某个确定值的元素。<code>[href=&quot;https//dmnydn.com/&quot;]</code> 这样选择的就是所有链接地址为 <code>https//dmnydn.com/</code> 的元素。</p>
+<p>这很基础，很明确，但是不怎么好用。因为这是一个确切的地址，可能我希望匹配的却是所有链接到我网站的地址。明显的我不可能将所有的地址都列出来，但是它们具有共同的特征，就是所有链接到我网站的地址肯定都是以 <code>https//dmnydn.com/</code> 来开头的。那我们可以这么写，<code>[href^=&quot;https//dmnydn.com/&quot;]</code>，注意到区别在哪里了吗？如果了解正则表达式的话，会发现这个符号是相通的，虽然书写的格式不相同，但是符号所表达的意思是一样的。由此可以猜出，以某个字符串进行结尾的话，应该这么写 <code>[href$=&quot;.html&quot;]</code>。这就是所有网址以 <code>.html</code> 进行结尾的元素。</p>
+<p>如果只是希望这个属性的值里面包含某一个词，可以这样写 <code>[href*=&quot;dmnydn&quot;]</code>。不过这种是在属性的值里面只要出现这个词，就会被匹配。那么比如像 <code>class</code> 这种属性，我想匹配其中的一个类。为了方便说明，我先写一个简单的例子：</p>
+<pre><code class="html">&lt;div class=&#39;miao miaoji mi mimi&#39;&gt; 1 &lt;/div&gt;
+&lt;div class=&#39;miao&#39;&gt; 2 &lt;/div&gt;
+&lt;div class=&#39;miaoji&#39;&gt; 3 &lt;/div&gt;
+&lt;div class=&#39;mi&#39;&gt; 4 &lt;/div&gt;
+&lt;div class=&#39;mimi&#39;&gt; 5 &lt;/div&gt;
+</code></pre>
+<p>这里有 5 个元素，我给他们写上了序号，如果我使用选择器 <code>[class*=&#39;mi&#39;]</code> 这种选择，这 5 个元素都会被选中，因为它们的属性值中都包含有这个字符串。但如果我们想要找的是包含 <code>mi</code> 这个类的元素，上面的方法显然是不行的。即便我们希望通过给这个字符串增加空格来进行更确切的筛选也是做不到的。这时候我们可以使用 <code>[class~=&#39;mi&#39;]</code> 进行选择。这表示这个属性的值，是一个以空格为分隔的列表，而列表中至少有一个值是和后面我们所指出的这个内容（’mi’）一致的。在这里就是这个元素必须具有 <code>mi</code> 这个类，所以被选中的元素只有 1 和 4。</p>
+<p>单独拿出每一个属性选择器来讲，都说不上复杂，但是用到的少，而又有很多细节上的差异，想要彻底记住是比较困难的。不过我们也并没有要求大家记住，只是大概的了解都有些什么，知道我们可以通过元素的属性去选择元素，还可以再进一步通过元素属性的值去进行筛选，这就可以了。偶尔用到就打开文档，对照着去选择自己需要的东西。</p>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0149/" title="卡片 for 第一百四十九章">卡片 for 第一百四十九章</a>】</p>
+
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0148/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0150/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

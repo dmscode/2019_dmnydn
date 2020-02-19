@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第一百二十五章 宽高 | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="jQuery 对于元素宽高的读取和设置。元素内部宽高和外部宽高的获取与设置，以及几种方法之间的异同。">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第一百二十五章 宽高
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2019-05-07 | Update: 2019-05-09">
+    <p>
+      jQuery 对于元素宽高的读取和设置。元素内部宽高和外部宽高的获取与设置，以及几种方法之间的异同。
+    </p>
+  </div>
+  <div class="post-content">
+    <p>有了样式我们就为所欲为了！？</p>
+<p>这个链接元素的宽高是多少呢？用 <code>css</code> 方法是得不到的，因为行内元素没有宽高啊，设置了也不起作用。</p>
+<p>可是一个元素，在页面中，总是要有一个尺寸的，它占用的面积，或者什么的。那它显示出来的尺寸是多少呢？</p>
+<pre><code class="js">const width = $(&#39;a&#39;).width();
+const height = $(&#39;a&#39;).height();
+</code></pre>
+<p>获取的是宽高的尺寸，以像素为单位，但是获得的只有值，不带单位。类型是数字，不用转换，直接可以参与各种计算，十分方便。</p>
+<p>这点还真的要注意，比如我们用 <code>val</code> 获得的数据一般是字符串类型，就算是一个只能输入数字（<code>type=&quot;number&quot;</code>）的输入框，获取的值也是字符串类型。想进行数学计算，一定要先转换类型，否则……<code>&#39;1&#39;+&#39;1&#39;=&#39;11&#39;</code> 就比较尴尬。</p>
+<p>能获取，也能够用来设置：</p>
+<pre><code class="js">$(&#39;a&#39;).width(12);
+$(&#39;a&#39;).height(12);
+</code></pre>
+<p>不过这个设置就弱一点，等效于：</p>
+<pre><code class="js">$(&#39;a&#39;).css(&#39;width&#39;, &#39;12px&#39;);
+$(&#39;a&#39;).css(&#39;height&#39;, &#39;12px&#39;);
+</code></pre>
+<p>就是写起来简单，不用再特别加上单位了而已。你也可以给它指定单位，而不使用默认的像素作为单位。</p>
+<p>宽和高就说完了，是不是觉得我这几章越来越短？！那我们继续……毕竟尺寸这个事情，哪有可能如此简单。</p>
+<p><code>innerWidth</code> 和 <code>innerHeight</code> 就是里面的宽度和高度。什么是里面？一个箱子，里面的尺寸，就是四壁之内的尺寸。所以这个宽高包含内补，不包含边框。</p>
+<p>说到这里惊觉，上面的 <code>width</code> 和 <code>height</code> 说得好像很不明确啊，到底指的是怎样的宽高呢？这不太好说，尤其是考虑了 CSS 中的 <code>box-sizing</code> 属性之后。而且不同的 jQuery 版本，表现还不尽相同……所以，没啥特殊情况就别用它们了。</p>
+<p>有了内部，就有外部：<code>outerWidth</code> 和 <code>outerHeight</code>。这是元素的外部尺寸，那就是边框以外的尺寸，默认不包含外补。但可以在后面的小括号里放一个布尔型的数据，来指定是否包含外补：</p>
+<pre><code class="js">const width = $(&#39;#miao&#39;).outerWidth(true);
+const height = $(&#39;#miao&#39;).outerHeight(true);
+</code></pre>
+<p>这样获取到的值就包含外补。</p>
+<p>但是，这些值都作为参考，不是绝对的准确，可能的影响因素还是很多的，可别说绝对，没有绝对。</p>
+<p>可以获取，也可以用来设置。方法和 <code>width</code> 和 <code>height</code> 是一样的。但是效果上，是将设置的值减去了相应的内补、外补、边框宽度之后，以 CSS 中的 <code>width</code> 和 <code>height</code> 属性设置给元素的。</p>
+<p>最好，自己动手试试，谁指的是哪部分的尺寸，设置出来的是什么效果，就很容易弄明白了。</p>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0125/" title="卡片 for 第一百二十五章">卡片 for 第一百二十五章</a>】</p>
+
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0124/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0126/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

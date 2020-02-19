@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第一百五十七章 追根溯源 | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="jQuery 中对父元素、祖先元素进行遍历、过滤筛选的方法。">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第一百五十七章 追根溯源
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2019-06-30 | Update: 2019-06-30">
+    <p>
+      jQuery 中对父元素、祖先元素进行遍历、过滤筛选的方法。
+    </p>
+  </div>
+  <div class="post-content">
+    <p>找完了孩子，我们开始找祖先。</p>
+<p>找孩子是 CSS 可以去做的事情，但是找祖先这个事儿，CSS 就做不了。</p>
+<pre><code class="js">$(&#39;#miao&#39;).parent()
+</code></pre>
+<p>就是让孩子去叫家长的意思，但是这里 parent 没有加复数，那就是只找他的父元素，而不找祖先元素。</p>
+<p>父元素的话有几个呢？对于每一个元素，它最多只有一个父元素。但是用这个方法获得到的结果仍然可能是一个合集。因为我们在前面所选中的元素，如果是一个合集，那么它们可能具有不同的父元素。就是说每一个孩子只有一个父亲，但是如果是开家长会呢？就是把班里每一个孩子的父亲都叫过来，结果获得了一大群父亲……</p>
+<pre><code class="js">$(&#39;a&#39;).parent()
+</code></pre>
+<p>就像这个样子，虽然每一个链接只有一个父元素，但是页面中所有的链接，它们的父元素可能并不是同一个，所以最后得到的结果依旧是一个合集。</p>
+<p>所以在某些情况下我们需要对这个合集进行一定的过滤，就像在家长会的时候，老师说：“家长中身高超过 1 米 8 的过来一下。”我们也可以通过在后面小括号中，指定选择器来筛选这些父元素。</p>
+<pre><code class="js">$(&#39;a&#39;).parent(&#39;div&#39;)
+</code></pre>
+<p>理解了上面的叫家长，我们再把问题升级一下，来叫一下祖先：</p>
+<pre><code class="js">$(&#39;#miao&#39;).parents()
+</code></pre>
+<p>注意哦，这次加了复数，那就意味着，我们要查找这个元素的所有祖先元素，父亲是祖先，爷爷也是祖先，……一直向上找到，没有祖先为止。这个方法十分凶残，所以，最好还是在后面的小括号中加上选择器进行过滤：</p>
+<pre><code class="js">$(&#39;#miao&#39;).parents(&#39;.box&#39;)
+</code></pre>
+<p>如果，前面是一个合集，那么就对何其中的每一个元素，进行查找祖先的操作。</p>
+<p>这是查找列祖列宗，追根溯源。但一般来说，我们没有必要这么大范围的进行查找，因为这个范围真的是太大了的。可能我们只是想向上查找几代，比如到太爷爷辈为止。</p>
+<p>所以我们又有了一个新的方法：</p>
+<pre><code class="js">$(&#39;#miao&#39;).parentsUntil()
+</code></pre>
+<p>就是查找这个元素的父辈元素，直到……对，就是可以限制一下查找范围了。但是像上面这样，在后面没有给出条件来限制这个查找范围，那么结果还是把列祖列宗全翻出来，就和 <code>parents</code> 方法是一样的了。</p>
+<p>首先非常简单直观的，我们可以给出一个选择器，作为限制的参数，比如：</p>
+<pre><code class="js">$(&#39;#miao&#39;).parentsUntil(&#39;.box&#39;)
+</code></pre>
+<p>就是向上查找，直到符合这个选择器为止，但是要十分注意一点：<strong>并不包含符合选择器的那个元素</strong>。</p>
+<p>这里的限制条件我们也可以使用 jQuery 对象表示：</p>
+<pre><code class="js">$(&#39;#miao&#39;).parentsUntil( $(&#39;.box&#39;) )
+</code></pre>
+<p>和上面的效果是一样的，下面这种方法依旧是作为了解，并不要求掌握使用。因为选择器的方法是通用的，但并不是每种方法都支持 jQuery 对象作为参数。</p>
+<p>这是限定了查找的范围，然后我们还可以对这个范围中的元素进行一下筛选，也就是这个方法可以接收第 2 个参数，依旧是一个选择器。</p>
+<pre><code class="js">$(&#39;#miao&#39;).parentsUntil(&#39;.box&#39;. &#39;.ji&#39;)
+</code></pre>
+<p>我们来把这个事情捋一遍，首先，我们找到了元素 <code>$(&#39;#miao&#39;)</code>（如果这里是一个元素的合集，则是对合集中的每一个元素进行如下操作），然后要在它的父辈元素中进行查找，但是做了一下限定，它父辈元素中的 <code>.box</code> 以及更向上的层级，都不被包含在其中。然后再看所获得的这些元素是否符合选择器 <code>.ji</code>，最终获得我们想要的结果。</p>
+<p>最后还有一个关于父辈元素的方法，<code>offsetParent</code>。首先注意它不是复数，然后它不接受任何参数。</p>
+<p>这个方法用来向上查找与当前元素最接近的定位元素。啥意思？向上查找就是先找父亲，再找爷爷，再找太爷爷……这样的一个顺序，找其中年龄最小的那个定位元素。那么什么是定位元素呢？就是这个元素，不是静态定位（<code>postion: static</code>，默认定位方法）。或者说这个元素是绝对定位（<code>postion: absolute</code>），相对定位（<code>postion: relative</code>），固定定位（<code>postion: fixed</code>）中的一种。</p>
+<p>回想一下我们在 CSS 关于定位方法的内容，你会发现 <code>offsetParent</code> 可以让我们十分方便的找到可供当前元素进行定位的那个元素。这是非常有用的方法。</p>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0157/" title="卡片 for 第一百五十七章">卡片 for 第一百五十七章</a>】</p>
+
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0156/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0158/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

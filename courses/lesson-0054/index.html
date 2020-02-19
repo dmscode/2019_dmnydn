@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第五十四章 边框 | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="通过 CSS 为网页元素设置边框，并通过控制参数产生不同的样式。">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第五十四章 边框
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2019-01-02 | Update: 2019-05-09">
+    <p>
+      通过 CSS 为网页元素设置边框，并通过控制参数产生不同的样式。
+    </p>
+  </div>
+  <div class="post-content">
+    <p>背景就像是盒子的底部，而边框就是盒子的四壁。对的，我们是在顶部俯视这个盒子，妥妥的上帝视角，诶，开森~</p>
+<p>边框属性 <code>border</code> 也是一个复合属性，也叫快捷属性。道理很简单，首先盒子有四个边，然后边框有粗细、样式、颜色等属性需要设置。</p>
+<p>先来个简单一点的：</p>
+<div class="code-show" data-before-text="代码效果演示 Start" data-after-text="代码效果演示 End"><pre data-file-name="index.html"><code class="html">&#10;&#60;&#100;&#105;&#118;&#32;&#105;&#100;&#61;&#34;&#98;&#111;&#114;&#100;&#101;&#114;&#45;&#98;&#111;&#120;&#34;&#62;&#60;&#47;&#100;&#105;&#118;&#62;&#10;</code></pre><pre data-file-name="style.css"><code class="css">&#10;&#35;&#98;&#111;&#114;&#100;&#101;&#114;&#45;&#98;&#111;&#120;&#32;&#123;&#10;&#32;&#32;&#119;&#105;&#100;&#116;&#104;&#58;&#32;&#49;&#48;&#48;&#37;&#59;&#10;&#32;&#32;&#104;&#101;&#105;&#103;&#104;&#116;&#58;&#32;&#49;&#48;&#48;&#112;&#120;&#59;&#10;&#32;&#32;&#98;&#111;&#114;&#100;&#101;&#114;&#58;&#32;&#50;&#112;&#120;&#32;&#115;&#111;&#108;&#105;&#100;&#32;&#98;&#108;&#97;&#99;&#107;&#59;&#10;&#125;&#10;</code></pre>
+<div id="border-box"></div>
+<style>
+#border-box {
+  width: 100%;
+  height: 100px;
+  border: 2px solid black;
+}
+</style>
+</div>
+<p>然后就获得了上面的方框，那么我们也可以猜出 <code>border:</code> 后面的 <code>2px</code> 说的是边框的粗细，<code>black</code> 说的是颜色。那中间的 <code>solid</code> 说的是边框的样式，这个表示实线。这种方式是四个边一起设置，很简单，现在我们只需要了解几种不同的边框样式，就可以应付大多数情况了。</p>
+<h3 id="边框样式-border-style"><a href="#边框样式-border-style" class="headerlink" title="边框样式 border-style"></a>边框样式 <code>border-style</code></h3><p>如果把边框的样式单独出来，就是这个属性。它的取值可以是：</p>
+<ul>
+<li><strong>none</strong>：不显示边框</li>
+<li><strong>hidden</strong>：不显示边框，但是 <code>none</code> 的优先级最低，<code>hidden</code> 的优先级最高</li>
+<li><strong>dotted</strong>：显示为一系列圆点。</li>
+<li><strong>dashed</strong>：显示为一系列短的方形虚线。</li>
+<li><strong>solid</strong>：显示为一条实线。</li>
+<li><strong>double</strong>：显示为一条双实线。</li>
+<li><strong>groove</strong>：显示为有雕刻效果的边框，样式与 ridge 相反。</li>
+<li><strong>ridge</strong>：显示为有浮雕效果的边框，样式与 groove 相反。</li>
+<li><strong>inset</strong>：显示为有陷入效果的边框，样式与 outset 相反。</li>
+<li><strong>outset</strong>：显示为有突出效果的边框，样式与 inset 相反。</li>
+</ul>
+<p>说得多清楚，就是读着跟绕口令似的，所以还是动手试试比较好。不过其实也没必要记住，比如我唯一会写的单词就是 <code>solid</code>，日常够用了，其他需要的时候再查吧。</p>
+<h3 id="边框宽度-border-width"><a href="#边框宽度-border-width" class="headerlink" title="边框宽度 border-width"></a>边框宽度 <code>border-width</code></h3><p>就是边框的粗细。反正前面学过的单位你都可以试试，试试不要钱，嘻嘻。还可以使用下面三个关键词：</p>
+<ul>
+<li><strong>thin</strong>：细边框</li>
+<li><strong>medium</strong>：中等边框</li>
+<li><strong>thick</strong>：粗边框</li>
+</ul>
+<p>然而，<strong>标准中并没有定义这三个关键词具体是多宽</strong>，所以在对粗细要求很宽泛的时候可以使用。反正我们记英文单词都觉得很累，估计就没什么人喜欢去用。</p>
+<h3 id="边框颜色-border-color"><a href="#边框颜色-border-color" class="headerlink" title="边框颜色 border-color"></a>边框颜色 <code>border-color</code></h3><p>这个不讲了，反正你们也知道是怎么回事。</p>
+<hr>
+<p>这都不是重点。</p>
+<p>一个复合属性，展开而已，这有什么呢。但是我们说边框有四个方向呢，我们现在都是四个方向一起说，也就是说……这还是复合属性。再展开：</p>
+<pre><code class="css">* {
+  border-top-width: 2px;
+  border-right-width: 2px;
+  border-bottom-width: 2px;
+  border-left-width: 2px;
+
+  border-top-style: solid;
+  border-right-style: solid;
+  border-bottom-style: solid;
+  border-left-style: solid;
+
+  border-top-style: black;
+  border-right-style: black;
+  border-bottom-style: black;
+  border-left-style: black;
+}
+</code></pre>
+<p>这才是完整的写法，可真的是教人头大。一般没人这么写，除非想要细致的控制某个属性。但是你得知道这事。</p>
+<p>这还不是重点，这些很简单，我一说你就明白了。一点都不难，只是繁琐而已。</p>
+<p>繁琐……程序员可能忍受繁琐么，绝无可能！</p>
+<p><code>border-width: 1px 3px 6px 9px;</code></p>
+<p>一句话，指定四个边，简洁大方，多好！你问我每个值代表哪个方向？试试吧~</p>
+<div class="code-show" data-before-text="代码效果演示 Start" data-after-text="代码效果演示 End"><div id="border-box-1"></div>
+<style>
+#border-box-1 {
+  width: 100%;
+  height: 100px;
+  border: 2px solid black;
+  border-width: 1px 3px 6px 9px;
+}
+</style></div>
+<p>很容易看出，这是上右下左的顺序……可是这不好记忆啊！超简单的，想象一下指针的表，从十二点开始，转一圈，就是这个顺序，这叫做顺时针方向……（别打，我知道是小学的概念，这不是为了证明写代码不难么</p>
+<p>好好，其他两个属性也可以这么写，但是 <code>border</code> 这个属性不行，它只能按本章最前面那样去写。</p>
+<p>简单吧，马上就记住了吧。你看写一个值就代表全部，写四个值就代表四个边分别设置。那我写两个值的话……其实这种东西不应该我讲，动手试试马上就知道了</p>
+<div class="code-show" data-before-text="代码效果演示 Start" data-after-text="代码效果演示 End"><pre data-file-name="style.css"><code class="css">&#10;&#98;&#111;&#114;&#100;&#101;&#114;&#45;&#119;&#105;&#100;&#116;&#104;&#58;&#32;&#49;&#112;&#120;&#32;&#57;&#112;&#120;&#59;&#10;</code></pre>
+<div id="border-box-2"></div>
+<style>
+#border-box-2 {
+  width: 100%;
+  height: 100px;
+  border: 2px solid black;
+  border-width: 1px 9px;
+}
+</style>
+</div>
+<p>哦，第一个值表示上下边，第二个值表示左右边，也挺合理的。那如果三个值呢……</p>
+<div class="code-show" data-before-text="代码效果演示 Start" data-after-text="代码效果演示 End"><pre data-file-name="style.css"><code class="css">&#10;&#98;&#111;&#114;&#100;&#101;&#114;&#45;&#119;&#105;&#100;&#116;&#104;&#58;&#32;&#49;&#112;&#120;&#32;&#57;&#112;&#120;&#32;&#49;&#50;&#112;&#120;&#59;&#10;</code></pre>
+<div id="border-box-3"></div>
+<style>
+#border-box-3 {
+  width: 100%;
+  height: 100px;
+  border: 2px solid black;
+  border-width: 1px 9px 12px;
+}
+</style>
+</div>
+<p>第一个值是上边，第三个值是下边，中间的值是左右。其实有点从上到下意思。</p>
+<p>这种设置方式对于以后涉及四个方向的属性都有用，所以，看两遍，试两遍，好好记住哦~</p>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0054/" title="卡片 for 第五十四章">卡片 for 第五十四章</a>】</p>
+
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0053/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0055/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

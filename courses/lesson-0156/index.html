@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第一百五十六章 孩子们 | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="jQuery 中对后代元素进行遍历、过滤筛选的方法。">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第一百五十六章 孩子们
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2019-06-29 | Update: 2019-06-30">
+    <p>
+      jQuery 中对后代元素进行遍历、过滤筛选的方法。
+    </p>
+  </div>
+  <div class="post-content">
+    <p>标题翻译成英文就是……那个说不会的，麻烦把你的小学毕业证拿粗来。</p>
+<p>对，是 children。在 jQuery 里，我们用这个方法，查找子元素。这里要明确一下，查找的是直接子元素，并不是所有后代元素。</p>
+<p>那么在哪里查找呢？当然是在前面的元素对象之中，如果给出的是一个元素的合集，就在合集中每一个元素之内进行查找。就是把它们每一个人的孩子都叫出来。</p>
+<pre><code class="js">$(&#39;#miao&#39;).children()
+</code></pre>
+<p>像上面这样写，就是找出 <code>#miao</code> 的所有子元素。因为我们只是说要找他的孩子，并没有指定任何条件，所以所有的孩子都来了，扬着可爱的小脸等着叔叔发糖吃。</p>
+<p>我们也可以在后面的小括号中给出一个选择器，用来对子元素进行筛选，比如：</p>
+<pre><code class="js">$(&#39;#miao&#39;).children(&#39;a&#39;)
+</code></pre>
+<p>就是它子元素中所有的链接。</p>
+<p>你会发现你这个方法，我们使用选择器完全可以做到，比如：</p>
+<pre><code class="js">$(&#39;#miao &gt; *&#39;)
+$(&#39;#miao &gt; a&#39;)
+</code></pre>
+<p>这两种写法和上面的效果是一样的。那我们为什么还要有这样的方法呢？因为这样可以让我们在对合集进行遍历操作的时候，更加具有通用性。而不会因为合集中元素的复杂度，影响到每一步操作。</p>
+<p>而且选择器是在整个文档中进行查找，而上述方法，则是先限定一个范围，再在其中进行查找，效率上可能会高一些。</p>
+<p>那么再说一遍，<code>children</code> 方法是在所有的子元素之中进行查找，而不是所有的后代元素。那如果想在了所有的后代元素中进行查找，我们使用 <code>find</code> 方法。</p>
+<p>从单词的本意上去理解，说叫孩子过来，如果不再附加条件，那么所有的孩子都过来就好了。但如果说在后代之中进行查找，就必须要说清楚，找什么样的。所以 <code>find</code> 后面小括号中必须给定搜索的条件，比如像上面一样给出一个选择器：</p>
+<pre><code class="js">$(&#39;#miao&#39;).find(&#39;a&#39;)
+</code></pre>
+<p>这样我们就找出了这个元素之中所有的链接。</p>
+<p>操作都很简单，也很讲道理。那我们来增加一点复杂度，对于查找，参数不止可以使用选择器，还可以像这样写：</p>
+<pre><code class="js">$(&#39;#miao&#39;).find( $(&#39;a&#39;) )
+</code></pre>
+<p>依旧是在这个元素里查找，然后我们找什么呢？这里给的是一个 jQuery 对象，或者说是一个元素的合集，<code>$(&#39;a&#39;)</code>。如果只看这一部分，那么它选择了页面中所有的链接元素。不过现在它作为了搜索的条件。</p>
+<p>搜索嘛，就是我们在指定的范围之内去找符合后面条件的元素。所以就是前面这个元素里面所有的后代元素中，被同时包含在后面这个合集中的元素，说直白了就是两者取交集。</p>
+<p>既然可以接受的条件这么能随便，选择器也行，jQuery 对象也行，不如我们……让它变得更加宽泛一些：</p>
+<pre><code class="js">const el = $(&#39;a&#39;)[0]
+$(&#39;#miao&#39;).find( el )
+</code></pre>
+<p>结合我们前面讲过的内容，想一想这次给出的条件又是怎样一个东西。反正查找呢，就是在符合前后两个条件的元素中找交集。</p>
+<p>日常我们会使用选择器作为条件去进行查找就足够了，其他内容作为了解，见到了能看懂就很好。</p>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0156/" title="卡片 for 第一百五十六章">卡片 for 第一百五十六章</a>】</p>
+
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0155/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0157/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

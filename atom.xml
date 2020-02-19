@@ -1,0 +1,527 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>代码能有多难？</title>
+  
+  <subtitle>写给前端新人的故事书</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="https://dmnydn.com/"/>
+  <updated>2019-07-04T11:36:40.460Z</updated>
+  <id>https://dmnydn.com/</id>
+  
+  <author>
+    <name>稻米鼠</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>结束，或者开始，老套而标准的……</title>
+    <link href="https://dmnydn.com/courses/lesson-0166/"/>
+    <id>https://dmnydn.com/courses/lesson-0166/</id>
+    <published>2019-07-04T08:54:46.000Z</published>
+    <updated>2019-07-04T11:36:40.460Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;这个教程写了很久，这一版是从去年 10 月份开始写的，到现在也八九个月了。如果说《代码能有多难？》系列，到现在都好些年了。&lt;/p&gt;
+&lt;p&gt;计划中还有 Bootstrap
+        
+      
+    
+    </summary>
+    
+      <category term="courses" scheme="https://dmnydn.com/categories/courses/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>卡片 for 第一百六十五章</title>
+    <link href="https://dmnydn.com/wallpaper/wp-0165/"/>
+    <id>https://dmnydn.com/wallpaper/wp-0165/</id>
+    <published>2019-07-04T08:27:42.000Z</published>
+    <updated>2019-07-04T12:11:33.009Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;&lt;strong&gt; 关联文章： &lt;/strong&gt; &lt;a href=&quot;/courses/lesson-0165/&quot; title=&quot;第一百六十五章 数据&quot;&gt;第一百六十五章 数据&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;gt; 元素可以借助属性携带数据
+&amp;gt;
+        
+      
+    
+    </summary>
+    
+      <category term="wallpaper" scheme="https://dmnydn.com/categories/wallpaper/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>第一百六十五章 数据</title>
+    <link href="https://dmnydn.com/courses/lesson-0165/"/>
+    <id>https://dmnydn.com/courses/lesson-0165/</id>
+    <published>2019-07-04T08:27:33.000Z</published>
+    <updated>2019-07-04T11:59:53.533Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;诶，和上一章一样呢！&lt;/p&gt;
+&lt;p&gt;并不是哦~&lt;/p&gt;
+&lt;p&gt;这是一个补充的部分，我不知道怎么去归类，但是确实用得到。就放在这里说一下吧。&lt;/p&gt;
+&lt;p&gt;是我们对 js
+        
+      
+    
+    </summary>
+    
+      <category term="courses" scheme="https://dmnydn.com/categories/courses/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>卡片 for 第一百六十四章</title>
+    <link href="https://dmnydn.com/wallpaper/wp-0164/"/>
+    <id>https://dmnydn.com/wallpaper/wp-0164/</id>
+    <published>2019-07-04T07:54:17.000Z</published>
+    <updated>2019-07-04T12:09:47.441Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;&lt;strong&gt; 关联文章： &lt;/strong&gt; &lt;a href=&quot;/courses/lesson-0164/&quot; title=&quot;第一百六十四章 数据&quot;&gt;第一百六十四章 数据&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;gt; 数据类型决定后续的处理
+&amp;gt;
+        
+      
+    
+    </summary>
+    
+      <category term="wallpaper" scheme="https://dmnydn.com/categories/wallpaper/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>第一百六十四章 数据</title>
+    <link href="https://dmnydn.com/courses/lesson-0164/"/>
+    <id>https://dmnydn.com/courses/lesson-0164/</id>
+    <published>2019-07-04T07:54:09.000Z</published>
+    <updated>2019-07-04T11:55:46.061Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;对于上一章的三种方法，我少讲了一个参数（&lt;code&gt;ajax&lt;/code&gt; 表示，哼，明明少讲了三十多个……&lt;/p&gt;
+&lt;p&gt;是数据的类型，用来告诉程序，从网址获得的数据是什么类型的。支持的类型挺多的：xml, json, script, html
+        
+      
+    
+    </summary>
+    
+      <category term="courses" scheme="https://dmnydn.com/categories/courses/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>卡片 for 第一百六十三章</title>
+    <link href="https://dmnydn.com/wallpaper/wp-0163/"/>
+    <id>https://dmnydn.com/wallpaper/wp-0163/</id>
+    <published>2019-07-04T06:42:58.000Z</published>
+    <updated>2019-07-04T12:08:06.147Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;&lt;strong&gt; 关联文章： &lt;/strong&gt; &lt;a href=&quot;/courses/lesson-0163/&quot; title=&quot;第一百六十三章 获取&quot;&gt;第一百六十三章 获取&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;gt; get、post 用起来和 load
+        
+      
+    
+    </summary>
+    
+      <category term="wallpaper" scheme="https://dmnydn.com/categories/wallpaper/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>第一百六十三章 获取</title>
+    <link href="https://dmnydn.com/courses/lesson-0163/"/>
+    <id>https://dmnydn.com/courses/lesson-0163/</id>
+    <published>2019-07-04T06:42:48.000Z</published>
+    <updated>2019-07-04T11:37:25.029Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;怎么获取数据呢？有两个方法 &lt;code&gt;get&lt;/code&gt; 和
+        
+      
+    
+    </summary>
+    
+      <category term="courses" scheme="https://dmnydn.com/categories/courses/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>卡片 for 第一百六十二章</title>
+    <link href="https://dmnydn.com/wallpaper/wp-0162/"/>
+    <id>https://dmnydn.com/wallpaper/wp-0162/</id>
+    <published>2019-07-02T06:44:52.000Z</published>
+    <updated>2019-07-04T12:07:10.964Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;&lt;strong&gt; 关联文章： &lt;/strong&gt; &lt;a href=&quot;/courses/lesson-0162/&quot; title=&quot;第一百六十二章 变强&quot;&gt;第一百六十二章 变强&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;gt; 以对象形式给出数据会用 post 方法
+&amp;gt;
+        
+      
+    
+    </summary>
+    
+      <category term="wallpaper" scheme="https://dmnydn.com/categories/wallpaper/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>第一百六十二章 变强</title>
+    <link href="https://dmnydn.com/courses/lesson-0162/"/>
+    <id>https://dmnydn.com/courses/lesson-0162/</id>
+    <published>2019-07-02T06:44:45.000Z</published>
+    <updated>2019-07-04T11:48:17.483Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;&lt;code&gt;load&lt;/code&gt;
+        
+      
+    
+    </summary>
+    
+      <category term="courses" scheme="https://dmnydn.com/categories/courses/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>卡片 for 第一百六十一章</title>
+    <link href="https://dmnydn.com/wallpaper/wp-0161/"/>
+    <id>https://dmnydn.com/wallpaper/wp-0161/</id>
+    <published>2019-07-01T23:48:52.000Z</published>
+    <updated>2019-07-04T12:05:41.565Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;&lt;strong&gt; 关联文章： &lt;/strong&gt; &lt;a href=&quot;/courses/lesson-0161/&quot; title=&quot;第一百六十一章 加载&quot;&gt;第一百六十一章 加载&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;gt; Ajax 必须在服务器上才能起作用
+&amp;gt;
+        
+      
+    
+    </summary>
+    
+      <category term="wallpaper" scheme="https://dmnydn.com/categories/wallpaper/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>第一百六十一章 加载</title>
+    <link href="https://dmnydn.com/courses/lesson-0161/"/>
+    <id>https://dmnydn.com/courses/lesson-0161/</id>
+    <published>2019-07-01T23:48:43.000Z</published>
+    <updated>2019-07-04T11:45:01.055Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;我们知道，当点击一个链接或者提交一个表单，都会导致页面的刷新，而这会让一个页面彻底重新开始，正在进行的所有运算，都会被重置。&lt;/p&gt;
+&lt;p&gt;这就很难受了。毕竟有些时候我们并不希望跳转到到别的页面，而在当前页面中还有未完成的操作。可是这时候我们又需要向服务器提交一些数据，获得
+        
+      
+    
+    </summary>
+    
+      <category term="courses" scheme="https://dmnydn.com/categories/courses/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>卡片 for 第一百六十章</title>
+    <link href="https://dmnydn.com/wallpaper/wp-0160/"/>
+    <id>https://dmnydn.com/wallpaper/wp-0160/</id>
+    <published>2019-06-30T02:33:16.000Z</published>
+    <updated>2019-06-30T10:27:58.236Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;&lt;strong&gt; 关联文章： &lt;/strong&gt; &lt;a href=&quot;/courses/lesson-0160/&quot; title=&quot;第一百六十章 是否，有吗？&quot;&gt;第一百六十章 是否，有吗？&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;gt; not 是 filter
+        
+      
+    
+    </summary>
+    
+      <category term="wallpaper" scheme="https://dmnydn.com/categories/wallpaper/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>第一百六十章 是否，有吗？</title>
+    <link href="https://dmnydn.com/courses/lesson-0160/"/>
+    <id>https://dmnydn.com/courses/lesson-0160/</id>
+    <published>2019-06-30T02:33:07.000Z</published>
+    <updated>2019-06-30T10:14:50.453Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;过滤器，是将合集中符合条件的元素保存下来。如果我们想反过来，将合集中符合条件的元素排除，可以使用 &lt;code&gt;not&lt;/code&gt;
+        
+      
+    
+    </summary>
+    
+      <category term="courses" scheme="https://dmnydn.com/categories/courses/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>卡片 for 第一百五十九章</title>
+    <link href="https://dmnydn.com/wallpaper/wp-0159/"/>
+    <id>https://dmnydn.com/wallpaper/wp-0159/</id>
+    <published>2019-06-30T02:04:58.000Z</published>
+    <updated>2019-06-30T10:26:23.236Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;&lt;strong&gt; 关联文章： &lt;/strong&gt; &lt;a href=&quot;/courses/lesson-0159/&quot; title=&quot;第一百五十九章 过滤&quot;&gt;第一百五十九章 过滤&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;gt; filter 对已有元素做筛选
+&amp;gt;
+        
+      
+    
+    </summary>
+    
+      <category term="wallpaper" scheme="https://dmnydn.com/categories/wallpaper/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>第一百五十九章 过滤</title>
+    <link href="https://dmnydn.com/courses/lesson-0159/"/>
+    <id>https://dmnydn.com/courses/lesson-0159/</id>
+    <published>2019-06-30T02:04:48.000Z</published>
+    <updated>2019-06-30T10:14:54.778Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;前面所讲的方法都可以进行过滤，或者说自带过滤的功能。但是呢，那些方法都是基于当前的元素向外进行查找，而并不包含当前的元素。如果我只是想对当前所选中的元素进行一个筛选，应该如何操作呢？&lt;/p&gt;
+&lt;p&gt;那么就是使用过滤器，&lt;code&gt;filter&lt;/code&gt;。它需要有一个参数
+        
+      
+    
+    </summary>
+    
+      <category term="courses" scheme="https://dmnydn.com/categories/courses/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>卡片 for 第一百五十八章</title>
+    <link href="https://dmnydn.com/wallpaper/wp-0158/"/>
+    <id>https://dmnydn.com/wallpaper/wp-0158/</id>
+    <published>2019-06-30T01:19:07.000Z</published>
+    <updated>2019-06-30T10:24:42.947Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;&lt;strong&gt; 关联文章： &lt;/strong&gt; &lt;a href=&quot;/courses/lesson-0158/&quot; title=&quot;第一百五十八章 兄弟&quot;&gt;第一百五十八章 兄弟&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;gt; siblings 是所有兄弟
+&amp;gt; next
+        
+      
+    
+    </summary>
+    
+      <category term="wallpaper" scheme="https://dmnydn.com/categories/wallpaper/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>第一百五十八章 兄弟</title>
+    <link href="https://dmnydn.com/courses/lesson-0158/"/>
+    <id>https://dmnydn.com/courses/lesson-0158/</id>
+    <published>2019-06-30T01:18:59.000Z</published>
+    <updated>2019-06-30T10:13:56.879Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;特别简单，就是当前元素的所有兄弟元素，当然不包括这个元素本身。然后还可以给一个选择器来进行一下筛选，反正和前面的方法都大同小异。主要就是搞明白说的是怎样的一个范围。&lt;/p&gt;
+&lt;pre&gt;&lt;code
+        
+      
+    
+    </summary>
+    
+      <category term="courses" scheme="https://dmnydn.com/categories/courses/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>卡片 for 第一百五十七章</title>
+    <link href="https://dmnydn.com/wallpaper/wp-0157/"/>
+    <id>https://dmnydn.com/wallpaper/wp-0157/</id>
+    <published>2019-06-30T00:18:13.000Z</published>
+    <updated>2019-06-30T10:24:53.821Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;&lt;strong&gt; 关联文章： &lt;/strong&gt; &lt;a href=&quot;/courses/lesson-0157/&quot; title=&quot;第一百五十七章 追根溯源&quot;&gt;第一百五十七章 追根溯源&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;gt; 不加复数只找父元素
+&amp;gt;
+        
+      
+    
+    </summary>
+    
+      <category term="wallpaper" scheme="https://dmnydn.com/categories/wallpaper/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>第一百五十七章 追根溯源</title>
+    <link href="https://dmnydn.com/courses/lesson-0157/"/>
+    <id>https://dmnydn.com/courses/lesson-0157/</id>
+    <published>2019-06-30T00:18:05.000Z</published>
+    <updated>2019-06-30T10:13:24.013Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;找完了孩子，我们开始找祖先。&lt;/p&gt;
+&lt;p&gt;找孩子是 CSS 可以去做的事情，但是找祖先这个事儿，CSS 就做不了。&lt;/p&gt;
+&lt;pre&gt;&lt;code
+        
+      
+    
+    </summary>
+    
+      <category term="courses" scheme="https://dmnydn.com/categories/courses/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>卡片 for 第一百五十六章</title>
+    <link href="https://dmnydn.com/wallpaper/wp-0156/"/>
+    <id>https://dmnydn.com/wallpaper/wp-0156/</id>
+    <published>2019-06-29T00:44:29.000Z</published>
+    <updated>2019-06-30T10:21:18.939Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;&lt;strong&gt; 关联文章： &lt;/strong&gt; &lt;a href=&quot;/courses/lesson-0156/&quot; title=&quot;第一百五十六章 孩子们&quot;&gt;第一百五十六章 孩子们&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;gt; children 只在子元素里找
+&amp;gt;
+        
+      
+    
+    </summary>
+    
+      <category term="wallpaper" scheme="https://dmnydn.com/categories/wallpaper/"/>
+    
+    
+  </entry>
+  
+</feed>

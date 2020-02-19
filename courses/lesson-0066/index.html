@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第六十六章 结束？ | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="基础网页元素排版方法的总结。">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第六十六章 结束？
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2019-01-08 | Update: 2019-05-09">
+    <p>
+      基础网页元素排版方法的总结。
+    </p>
+  </div>
+  <div class="post-content">
+    <p>其实讲到这里啊，我们布局都讲的差不多了呢~</p>
+<p>你也许觉得诧异，然而，竖排的话简单吧，横排我们也学了，也练习了。横竖交错组合就足够应付日常的排版需求了呀。我们继续讲，也只是对上面内容的重复，不信？那我们试试看——</p>
+<p>我们现在有了页头和导航，下面如果只是文章内容的话……</p>
+<pre><code class="html">&lt;content&gt;
+  在这里面放内容
+&lt;/content&gt;
+</code></pre>
+<pre><code class="css">content {
+  width: 800px;
+  margin: 10px auto;
+  padding: 30px 0;
+}
+</code></pre>
+<p>我给内容区域一个确定宽度，把它居中就好啦，下面放页尾，也十分类似。你说里面的内容？不浮动就垂直排列，浮动就排满一行再排下一行，最后记得清除浮动就对了。</p>
+<p>当然我说的很简略，你们最好还是自己动手操作一下，理论就是这么个理论，但是实际使用中的细节问题，还得自己去体验一番才能够真正理解。</p>
+<p>如果一边是内容，另一边是侧边栏，那就先让这两者横排一下。唔，翻来覆去就这么点操作而已，关键在于对区域的合理划分。</p>
+<p>虽然我们理论讲的不算细致，但是大部分东西都是提到了的，动手试试，细致思考一下，现在普通的排版是完全拦不住你的哦~</p>
+<p>但是这一章这么点字是不行的（你们会说我偷懒啊），我们来聊一聊布局这个事情，让大家对后面有一个了解。</p>
+<p>我们现在做的呢，是一个平面上的排版，有点像华容道，或者拼图。什么意思呢？就是同一个位置，有了这个东西，就不能有那个东西，而且我们基本会用各种元素（包含元素的内补、外补），把这个界面填满。做出来类似报纸的效果。</p>
+<p>但这已经很厉害了，比如你随便打开一个电商平台的首页，截图下来，然后尝试一下，你会发现你都能仿的下来（忽略动态和交互的前提下）。所以，现在这些看起来很简单的东西，绝对是基础，还是很重要的基础，真心建议大家试着去排版几个页面，这对于后面的学习会有很大的帮助。千万不要在还没掌握这部分的情况下贸然地学习后面的内容。</p>
+<p>后面呢，我们还会有立体的布局，就是可以层层叠叠的，技术上一点都不难，但是如果你前面的内容没有掌握牢靠，再加上后面的内容，就有些混乱。等到应用的时候，就不是一个细节在起作用，而是所有的细节在相互作用，那时候出现问题就很难找到。所以先多熟悉这部分内容，是学好下一部分内容的前提。</p>
+<p>然后是动态的布局，就是自适应、响应式，总之根据显示区域尺寸的不同，表现出不同的排版。里可以理解为多个排版的叠加。这差不多就是 4D 了。（平面为 2D，层叠以后是 3D，再加上一个变化因素，4D，没毛病）</p>
+<p>到这里，我们才把基础排版讲完。还有一种新的排版方式必须掌握，以及另一种新的排版方式作为了解……</p>
+<p>好了，划重点哦。上面说的你可能并不是很明白，这不重要。记住：<strong>现在必须开始动手练习才能学会，必须熟练掌握当前知识，才能去看下一个知识点，否则会混乱</strong>。</p>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0066/" title="卡片 for 第六十六章">卡片 for 第六十六章</a>】</p>
+
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0065/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0067/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第五十章 使用拐杖 | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="通过实际的案例来演示如何使用网页开发者工具观察元素，查看元素的 CSS 属性，盒模型等信息。">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第五十章 使用拐杖
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2018-12-04 | Update: 2019-05-09">
+    <p>
+      通过实际的案例来演示如何使用网页开发者工具观察元素，查看元素的 CSS 属性，盒模型等信息。
+    </p>
+  </div>
+  <div class="post-content">
+    <p>接着上一章，我们继续看右侧面板：</p>
+<div class="image-box"><img src="/assets/lesson-0050/style-panel-55a1c2fe6180bc986c1ee30ee78067e5.png" alt></div>
+<p>上面也是三个标签页，目前我们主要使用前两个，第一个表示样式，第二个表示计算以后的属性。</p>
+<p>下面我截取了两条内容，简单的看一下，<code>element.style</code> 的意思是元素的样式，其实是说这个元素的行内样式，就是我们这样书写的 CSS 内容：</p>
+<pre><code class="html">&lt;p style=&quot;color: red;&quot;&gt;就是这种的哦&lt;/p&gt;
+</code></pre>
+<p>下面的就是我们在其他 CSS 中所书写的内容了（内部样式表、外部样式表），如果这是外部 CSS 文件，那么后面会有一个带有下划线的文字写出，这是出自哪一个文件。</p>
+<p>其他的结构就和我们在代码中所写的差不多了，每一条属性前面都有一个复选框，勾选就表示起作用，如果你取消勾选，那么这条属性就不起作用，这很方便我们调试。</p>
+<p>如果某一条属性，被删除线给划掉了，那么说明他并没有起作用，可能被其他设定给覆盖了。</p>
+<p>继续往底下看，会发现有一些定义，仿佛和我们当前的元素并没有关系，之所以显示在这里，是因为它其中的一些设定会影响到当前的元素。比如父元素的文字大小，被当前元素所继承。</p>
+<p>好吧，刚才这些，我们基本还没接触到，就会觉得有些乱。能不能不要这么复杂，你就直接告诉我，当前元素都应用了哪些样式，这多干净利落，让人感到舒适。</p>
+<p>那么来看第二个标签页，<code>computed</code> 表示计算之后的，我们可以先不关注它是如何计算的，我们只要知道，这里显示的全都是最终的结果。</p>
+<div class="image-box"><img src="/assets/lesson-0050/computed-a984ef474b9a2d73b0f11be2062e560a.png" alt></div>
+<p>可以看到底部就直接列出了这个元素最终被应用的样式。如果展开这些属性，就能看到它都受到了哪些定义的影响。</p>
+<p>然后右边有一个 <code>show all</code>，就是显示所有，如果勾选上，下面就会显示出这个元素的所有属性，包括你没有进行设定的属性。不过这样内容会比较长，不是很方便查看。不过其实你也可以在 <code>show all</code> 的左侧直接输入关键词进行搜索。</p>
+<p>这已经十分方便我们去研究一个元素的样式了。不过我们好像还有一个地方没有说，就是上面图片中那个，黄黄绿绿套了几层的盒子。</p>
+<p>这就是当前元素的盒模型，并标注了各方面的尺寸。有好些属性，我们还没有学，所以先知道一下它是什么就可以了。当然即便我不说，你也很快就能够看明白——在最中间蓝色区域，<code>600x69</code> 说的就是元素的尺寸，两个值分别是宽和高。</p>
+<p>这已经非常直观了，但是有的时候会希望更方便一些。那么还有一种极其快速的查看盒模型的方式，本来应该最先发现它的，不过因为我让大家把开发者工具最大化了，可能你没有看到。那么调整一下我们工具的窗口，让它不要遮挡页面的主要内容，然后把鼠标指向某一个元素的代码，不用点击：</p>
+<div class="image-box"><img src="/assets/lesson-0050/quick-show-bcb1eebfdd7deea5500863842ab2500f.png" alt></div>
+<p>我把鼠标的位置标记了一下，因为太不明显了。你会发现鼠标所指向的元素，在页面中被直接标记出了盒模型。并提示了元素的一个基本选择器，方便我们辨别是哪个元素，以及元素的尺寸（宽高）。</p>
+<p>那么有了开发者工具，我们就可以更加直观和准确的去观察元素的样式，方便我们学习和理解，这就十分的开心了。那这么好的工具为什么不早拿出来呢？</p>
+<p>早早告诉你们倒是可以，但我如何向你们描述它的功能呢？那时候你还不知道什么是选择器？不知道什么是盒模型？甚至分不清哪些是 CSS 中一条条的属性。我直接给你这样一个工具，看着复杂的界面，你岂不会立刻抱着枕头开心的睡觉去了？</p>
+<p>到这里，我几乎把 CSS 的初步知识整个给倒过来讲了，但是我觉得这个顺序更便于理解。总之，能够用倒叙的方式来讲 CSS，小老鼠觉得自己帅帅哒~</p>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0050/" title="卡片 for 第五十章">卡片 for 第五十章</a>】</p>
+
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0049/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0051/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

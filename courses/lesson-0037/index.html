@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第三十七章 文字 | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="把前面几个章节中关于网页文字的 CSS 属性综合起来，放在一个属性中去描述。这种简写方式在 CSS 中很常见。我喜欢叫它复合属性，也叫快捷属性。">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第三十七章 文字
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2018-11-24 | Update: 2019-05-09">
+    <p>
+      把前面几个章节中关于网页文字的 CSS 属性综合起来，放在一个属性中去描述。这种简写方式在 CSS 中很常见。我喜欢叫它复合属性，也叫快捷属性。
+    </p>
+  </div>
+  <div class="post-content">
+    <p>前面我们介绍了好多关于文字的属性，因为都是描述文字是什么样式的，所以我们也可以把它们写在一起做一条属性，就是 <code>font</code>，这种把许多调属性综合成为一条去写的方法，被称为复合属性或者快捷属性。</p>
+<p>先来看一个例子：</p>
+<pre><code class="css">p {
+  font: italic 2em &quot;Open Sans&quot;, sans-serif;
+}
+</code></pre>
+<p>那么看内容，我们大概也可以猜到，它等效于下面的写法：</p>
+<pre><code class="css">p {
+  font-style: italic;
+  font-size: 2em;
+  font-family: &quot;Open Sans&quot;, sans-serif;
+}
+</code></pre>
+<p>这样写占的篇幅会比较小，文件体积相应的也能小一些，也算是比较方便阅读吧。当然，如果你想要查找某个特定属性的时候，并不如下面的写法方便。在新手期，我建议大家采用下面的写法，但是要能够读懂上面的写法。</p>
+<p>那么这种复合属性，是不是我们只要把涉及到的属性的值写进去就行了呢？那么首先注意，它是使用空格进行分隔。然后这些属性的顺序还是要遵循一定规则的：</p>
+<ul>
+<li>除了某些特殊情况，在复合属性 <code>font</code> 中必须同时设置 <code>font-size</code> 和 <code>font-family</code>；</li>
+<li><code>font-style</code> 和 <code>font-weight</code> 必须在 <code>font-size</code> 前面；</li>
+<li><code>line-height</code> 必须紧跟在 <code>font-size</code> 后面，并且在 <code>line-height</code> 加上 <code>/</code>；</li>
+<li><code>font-family</code> 必不可少，而且要放在最后；</li>
+<li><code>color</code> 不能放在里面。 </li>
+</ul>
+<p>如果你能认真遵守以上规则，那么你就可以成功的少写几个字符，我们来演示一下：</p>
+<pre><code class="css">p {
+  font: italic bold 24px/1.2 serif;
+}
+</code></pre>
+<p>那么就是这个样子。然后要说的是，关于文字，还有一些其他属性，但是我们在中文中极少用到，所以在这里并没有讲。如果以后看到这个复合属性被写得非常长，里面有些内容自己不认识，也不要太过惊讶。</p>
+<p>关于复合属性，文字的复合属性，因为规则略显复杂，所以很多时候我们更愿意选择分开去写。但是后面我们会遇到很多规则比较简单，十分好用的复合属性，甚至于我们都快以为那才是它的本体。</p>
+<p>关于文字的基本样式，我们就聊出来了这么多东西，CSS 复杂么？其实不算是复杂，只是细致。想一想，我们在 Word 里面写文档，也都要对这些内容进行设置。现在只不过是换成了用代码去描述。既然是手写代码，就要求你知道，我们应该如何去描述。虽然现在的编辑器可以很智能地进行提示，可你也要知道每一个属性的值代表什么意思。</p>
+<p>不过当我们翻山越岭走到现在，回头看一看发现也不过如此。所以呢，我们要读阅读教程，自己动手写一写，用一段时间，再回来看一看教程。某一天就忽然拨云见日，一下子理解了，通透了。</p>
+<p>那么关于文字本身的样式，我们就学得差不多了，下一章开始，我们研究一些和文字有关的样式。</p>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0037/" title="卡片 for 第三十七章">卡片 for 第三十七章</a>】</p>
+
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0036/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0038/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第六十二章 排版练习 | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="通过简单的练习，来温习前面学过的网页排版知识。">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第六十二章 排版练习
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2019-01-05 | Update: 2019-05-09">
+    <p>
+      通过简单的练习，来温习前面学过的网页排版知识。
+    </p>
+  </div>
+  <div class="post-content">
+    <p>也讲了这么多了，我们要做练习了。我知道你们可能还觉得云里雾里，现在说做练习有点不知从何入手啊。其实练习就是拨云见日的过程，做过练习才会真正理解这些理论。（多年学生党表示拒绝相信，23333</p>
+<p>我们就先做一个很简单的首页，别管这页面是干嘛的，反正都是基本的布局，页头、导航、海报、列表、页尾，嗯，差不多就这样吧。嘿，别愣神啦，不懂也跟着我走，原地打转就没机会弄明白了哦。</p>
+<p>刚才列了一堆，那我们先干什么？</p>
+<p>先建立文件啊喂，这是三年级到脑筋急转弯了，要是还能答错……呼呼，还真年轻！</p>
+<p>我们这次的练习十分简单，所以只需要两个文件，一个 <code>index.html</code>，一个 <code>style.css</code>。反正名字你随便取，不过 Html 文件最好还是叫 <code>index</code> 吧，没别的，就是我看着舒服。因为结构太简单，两个文件就放在一起好了，一会可能再给它们身边放几个漂亮的……图片。</p>
+<p>然后写下基本结构，<code>index.html</code> 里面：</p>
+<pre><code class="html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;zh&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;UTF-8&quot;&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+  &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;ie=edge&quot;&gt;
+  &lt;title&gt;排版练习&lt;/title&gt;
+  &lt;link rel=&quot;stylesheet&quot; href=&quot;style.css&quot;&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p>记得引入 CSS 文件，否则定义样式不起作用可别问我是怎么回事哦。CSS 文件建立之后先空着就好，或者这么写：</p>
+<pre><code class="css">/*
+有时候我们会在 CSS 文件的最开始写一些关于这个样式表，或者这个项目的说明，以及作者，写作日期什么的。
+我们这里要求大家都写上下面的 内容，这样可以让你的代码少出 bug，当然，心诚则灵哟~
+我郑重的承诺，这句话是我发自内心的，真诚的，诚恳的，滚烫的，是真的——稻米鼠长得超级帅！天下第一！宇宙无敌！
+*/
+</code></pre>
+<p>好了，这就准备好了。这些部分后面我就不写了，因为太占用篇幅，大家知道我们后面的代码都该放在什么地方就好。</p>
+<p>现在来写页头，想想页头好像有个什么标签来表示的，对，<code>header</code>，这就简单了。页头里面打算放什么内容？标题和副标题（或者描述），这是最基本的结构，就是最俗套的那种。</p>
+<pre><code class="html">&lt;header&gt;
+  &lt;h1&gt;这里是标题&lt;/h1&gt;
+  &lt;h2&gt;这里是副标题&lt;/h2&gt;
+&lt;/header&gt;
+</code></pre>
+<p>结果文字在最左边，不喜欢，让它居中吧，想想我们在讲文字相关的那些属性的时候有没有讲过文字的对齐方式？能想起来就好，那我们开始用吧。写 CSS，就是谁，长什么样，这么两个问题。先写选择器，<code>header</code> 试试：</p>
+<pre><code class="css">header {
+  text-align: center;
+}
+</code></pre>
+<p>刷新一下页面，成功了！点赞哦~这是因为两个标题在对齐方式上都会继承父元素的设置，所以 <code>header</code> 文字居中，里面的标题也就跟着居中了。这叫做继承，写作 <code>inherit</code>，元素的大部分属性默认都会继承父元素。</p>
+<p>当然你把选择器写下面这样也都可以：</p>
+<pre><code class="css">/* 用后代选择器 */
+header h1 {
+  text-align: center;
+}
+header h2 {
+  text-align: center;
+}
+/* 用子元素选择器 */
+header&gt;h1 {
+  text-align: center;
+}
+header&gt;h2 {
+  text-align: center;
+}
+/* 写一起 */
+header&gt;h1,
+header&gt;h2 {
+  text-align: center;
+}
+/* 所有子元素 */
+header&gt;* {
+  text-align: center;
+}
+</code></pre>
+<p>如果排列组合一下，我可以举例满满一页。上面写法虽然意义不同，但是最后都达到了类似的效果，所以，这并不容易出错的喵~你还紧张什么。</p>
+<p>不过我们可能需要进一步定义，比如标题默认又黑又粗就不好看，我希望字大就行了，就别加粗了，甚至可以细一点。这时候我在构思中主标题和副标题是不一样的，那就是分开设置，那我就选择上面比较适合我需求的写法：</p>
+<pre><code class="css">header&gt;h1 {
+  text-align: center;
+  font-weight: 400;
+}
+header&gt;h2 {
+  text-align: center;
+  font-weight: 200;
+}
+</code></pre>
+<p>这就很好看了！简单吧，就是把我们学过的东西组合一下，你先思考想要什么，再想应该如何选择你要描述的元素，然后说清楚这个元素长什么样子就好了。</p>
+<p>但是字体我们可能不太喜欢，那就设置一下字体。不过想想我们这个页面应该都希望用自定义的字体，而不是默认设置。那就别一个元素一个元素去设置了，直接定义所有元素就好。</p>
+<p>像这种全局的、通用的样式定义，我们一般放在 CSS 文件的最开始，所以在最前面写上：</p>
+<pre><code class="css">* {
+  font-family: -apple-system, &quot;Noto Sans&quot;, &quot;Helvetica Neue&quot;, Helvetica, &quot;Nimbus Sans L&quot;, Arial, &quot;Liberation Sans&quot;, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Noto Sans CJK SC&quot;, &quot;Source Han Sans SC&quot;, &quot;Source Han Sans CN&quot;, &quot;Microsoft YaHei&quot;, &quot;Wenquanyi Micro Hei&quot;, &quot;WenQuanYi Zen Hei&quot;, &quot;ST Heiti&quot;, SimHei, &quot;WenQuanYi Zen Hei Sharp&quot;, sans-serif;
+}
+</code></pre>
+<p>啊，怎么这么长？去看 <a href="/courses/lesson-0035/" title="第三十五章 字体">第三十五章 字体</a>，这是我早就给了你们的一个比较舒适的字体设置，没啥特别的需求就照抄就行了。</p>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0062/" title="卡片 for 第六十二章">卡片 for 第六十二章</a>】</p>
+
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0061/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0063/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

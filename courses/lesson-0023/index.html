@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第二十三章 再谈模板细节 | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="HTML5 的网页代码基本结构我们介绍过了，这里是进一步的讲解。随着我们的学习，也会对已知的东西生出进一步理解来。">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第二十三章 再谈模板细节
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2018-11-17 | Update: 2019-05-09">
+    <p>
+      HTML5 的网页代码基本结构我们介绍过了，这里是进一步的讲解。随着我们的学习，也会对已知的东西生出进一步理解来。
+    </p>
+  </div>
+  <div class="post-content">
+    <p>现在我们来回忆一下 <a href="/courses/lesson-0007/" title="第七章 基本模板">第七章 基本模板</a> 中的基础模板，当时我们讲的非常粗略，因为那时候大家对标签的认识还非常少。现在我们对标签已经有了一个初步的了解，那么再回来解释一下这些代码吧：</p>
+<pre><code class="html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;ie=edge&quot;&gt;
+    &lt;title&gt;Document&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p>第一行，<code>&lt;!DOCTYPE html&gt;</code>，这是对当前文档类型的声明。网上很多文档会告诉我们，它不是一个标签。然后下面又告诉我们，它没有结束标签……这种说法让人很尴尬。在我看来，它的结构更像一个注释，只是这个注释更多的是给浏览器去阅读。</p>
+<p>第二行，<code>&lt;html&gt;</code>，这个要和最后一行的 <code>&lt;/html&gt;</code> 放在一起看。我们发现这对标记几乎标记了整个文档的内容，那么就是说，被它所标记的这部分内容，是我们这个 HTML 文档中的所有东西。如果结合第一句，这个结构就很清晰，先说这是什么类型，然后说都有哪些内容。</p>
+<p><code>lang=&quot;en&quot;</code> 我们已经说过了，是用来说明页面主要语言的。事实上，如果页面涉及到多种语言，我们也可以在其它元素上标记语言属性。</p>
+<p>然后 <code>html</code> 标签里面的内容我们可以分为两个部分: <code>head</code> 和 <code>body</code>。这两个单词大家应该都认识，就是“头”和“身体”的意思。我们比较粗略的去说，那么 <code>head</code> 就是用来说明这个页面的一些信息的，这些信息基本不在页面中显示，但我们还是很有必要把它规定出来。与之相对 <code>body</code> 里面放的主要就是用来在页面中显示的内容了。</p>
+<p><code>&lt;title&gt;Document&lt;/title&gt;</code>，我们已经知道了，这个是文档的标题，显示在浏览器的标签页上。当然如果搜索引擎过来查看你的页面，它也会把这个信息当做这个页面的标题。</p>
+<p>然后 <code>head</code> 里面有一种 <code>meta</code> 标签，这个标签是“元数据”，解释起来非常拗口，元数据是用来描述数据的数据。其实你知道这个标签是对页面的一些深入说明就行了。以上面代码中的为例进行说明：</p>
+<p><code>&lt;meta charset=&quot;UTF-8&quot;&gt;</code>，是说页面中的字符（<code>char</code>）的编码得设置（<code>set</code>）是 “UTF-8”。</p>
+<p><code>&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;</code> 这一句有点长，不过现在我们已经知道，去查看标签中的各个属性了。那么它有两个属性，第一个属性是 <code>name</code>，元数据的 <code>name</code> 属性也有很多种选择，用来表示这一条数据说的是什么事情，比如：<code>name=&quot;description&quot;</code> 就是对这个页面的描述；<code>name=&quot;author&quot;</code> 就是这个页面的作者，而后面 <code>content</code> 则是这条数据的具体内容。例如下面的代码：</p>
+<pre><code class="html">＜meta name=&quot;author&quot; content=&quot;稻米鼠&quot;＞
+</code></pre>
+<p>就是在说，页面的作者是稻米鼠。理解这点之后，我们再来看刚才的代码。</p>
+<p><code>viewport</code>，这就是把两个单词连在了一起，翻译过来可能叫做“视口”，一个让人很难望文生义的翻译。其实，就是网页的可视区域。但这不是很绝对化的，我们用浏览器打开一个网页，可以看到的区域有多大，<code>viewport</code> 就有多大？并不一定，我们还可以通过一些设置对 <code>viewport</code> 进行调整。这一点在小屏幕的移动设备上尤其重要。</p>
+<p>这样再说下去就有些复杂了，那么我们来看一下当前的设置，其实一共也没有几个单词，很容易就能够理解它的意思：<code>width=device-width</code> 是说宽度等于设备的宽度，当然第一个指的是 <code>viewport</code> 的宽度了。<code>initial-scale=1.0</code> 是说初始缩放比例是 1.0，就是不进行缩放。</p>
+<p>那么意思理解了，它有什么用呢？这个主要是为我们后面写响应式，或者说自适应网页而准备的。就是我们的网页，可以根据当前显示区域的宽窄，自动进行布局的调整，以达到更好的显示效果，在小屏幕设备上打开也不需要进行缩放了。所以就和浏览器说：设备是多宽，你就给我怎样的宽度，然后不进行任何缩放直接显示，其余的问题，我的网页会处理好的。所以现在我们看到的许多网页，在电脑上显示很好，在手机上显示也很好，再也不会像过去那样，用手机查看一个电脑端的网页，看到的完全是电脑中的那种排版，还需要不断的进行缩放，才能查看全部的内容。</p>
+<p>最后还有一句 <code>&lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;ie=edge&quot;&gt;</code>，这个我们不做深入分析，只是说一下它的意思。这一句就是给 IE 浏览器看的，因为 IE 浏览器版本众多（其实并不，但下一句才是真正的问题），版本间的特性差异又比较大，网络上一些古老的网站，可能只适用于低版本的 IE 浏览器。所以就产生了一系列尴尬的问题，比如为了兼容，IE 的高版本是可以以低版本内核去渲染页面的，这就是所谓的兼容模式。那么现在它遇到你的页面，它应该以何种方式进行渲染，这就是一个问题。而这句代码就是告诉 IE 应该以怎样的方式去渲染当前页面。其中的 <code>ie=edge</code> 是说以最新的内核进行渲染，这样对 HTML5 和 CSS3 中的新特性支持比较好。</p>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0023/" title="卡片 for 第二十三章">卡片 for 第二十三章</a>】</p>
+
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0022/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0024/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

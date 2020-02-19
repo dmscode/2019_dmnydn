@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第一百零五章 switch | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="介绍 JavaScript 中的多分支语句 switch。">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第一百零五章 switch
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2019-03-26 | Update: 2019-05-09">
+    <p>
+      介绍 JavaScript 中的多分支语句 switch。
+    </p>
+  </div>
+  <div class="post-content">
+    <p>今天我们学习 <code>switch</code>，那位闻言掏出了游戏机的同学，麻烦你把游戏机借给我玩十年先。</p>
+<p>嗯，是同一个单词，但是我们这个是全小写，那个游戏机首字母大写。我们说过：JS 对大小写敏感，所以，这两个完全不一样，论证成功，哦耶~</p>
+<p>前面学习了 <code>if……else……</code> 语句，如果把它串联呢，就可以处理多分支的情况了，比如我们前面的例子：</p>
+<pre><code class="js">const val = +prompt(&#39;请输入你的分数：&#39;);
+if(val===100){
+  console.log(&#39;学霸！&#39;);
+}else if(val&gt;95){
+  console.log(&#39;优秀！&#39;);
+}else if(val&gt;80){
+  console.log(&#39;良好！&#39;);
+}else if(val&gt;60){
+  console.log(&#39;尚可！&#39;);
+}else if(val&gt;55){
+  console.log(&#39;加油！&#39;);
+}else if(val&gt;36){
+  console.log(&#39;潜力！&#39;);
+}else{
+  console.log(&#39;头疼！&#39;);
+}
+</code></pre>
+<p>那么想一下，这段代码是如何工作的呢？它是从前往后，逐个条件进行判断，直到条件成立。所以如果输入的分数低于 36，那么它会将所有的条件都判断一遍，这样效率就非常低了。</p>
+<p>我们还会遇到更复杂的情况，增加的运算量也就更多，这是一个显而易见的浪费，所以应该对它进行优化。如果，我们能换一个思路的话，为什么每次判断只有两个分支？如果有多个分支的话，效率岂不更高？</p>
+<p>有的地方对于学生作业的评价采用五分制，那么我们以此为例：</p>
+<pre><code class="js">const val = +prompt(&#39;请输入你的分数（1 - 5）：&#39;);
+switch(val){
+  case 5:
+    console.log(&#39;厉害呢~&#39;);
+    break;
+  case 4:
+    console.log(&#39;不错呢~&#39;);
+    break;
+  case 3:
+    console.log(&#39;还行呢~&#39;);
+    break;
+  case 2:
+    console.log(&#39;哈哈哈~&#39;);
+    break;
+  case 1:
+    console.log(&#39;喵喵喵~&#39;);
+    break;
+  default:
+    console.log(&#39;你怕是搞错了什么呢~&#39;);
+}
+</code></pre>
+<p>格式很简单，我们来讲一下它都做了一些什么：</p>
+<ul>
+<li><code>switch</code> 后面的小括号里是一个算式，计算出一个结果（当然也可以直接就是一个值，一个变量……）；</li>
+<li>然后拿着这个结果往下找，哪个 <code>case</code> 后面的值和这个结果相同（注意，这个比较使用的是全等于 <code>===</code>），就从哪里开始向下执行；</li>
+<li>而执行到 <code>break</code> 就终止（彻底跳出）；</li>
+<li>如果全不符合则执行 <code>default</code> 部分。</li>
+</ul>
+<p>这里要注意，如果你没在每个 <code>case</code> 结束后用 <code>break</code> 进行跳出，则会一直执行到大括号结束为止。</p>
+<p>所以在本质上，<code>switch</code> 是一个跳转（<code>goto</code>），根据算式，跳转到对应的某一行代码开始执行。</p>
+<p>注意：跳转是在编程中很不建议使用的一个方法，因为可能导致代码十分混乱。毕竟我们前面的代码都是线性的，很容易理出执行的顺序，但是如果可以随意跳转，那就完全是另一种情况了。对于 <code>switch</code>，也要慎重使用，避免混乱。</p>
+<p>现在我们就学会了 <code>switch</code> 的用法，但是有的同学可能觉得它局限性很大，毕竟我们第一个例子判断的是范围，而第二个例子是确定的值。如果用 <code>switch</code> 判断范围的话：</p>
+<pre><code class="js">switch(1&gt;2){
+  case true:
+    ……
+    break;
+  case false:
+    ……
+    break;
+}
+</code></pre>
+<p>就剩下两种情况了，成立或者不成立，连写 <code>default</code> 的必要性都没有。这么麻烦，还不如回去用 <code>if……else……</code> 算了。</p>
+<p>如果换个思路呢：</p>
+<pre><code class="js">const val = +prompt(&#39;请输入你的分数（0 - 100）：&#39;);
+switch(true){
+  case val===100:
+    console.log(&#39;厉害呢~&#39;);
+    break;
+  case val&gt;=90:
+    console.log(&#39;不错呢~&#39;);
+    break;
+  case val&gt;=80:
+    console.log(&#39;还行呢~&#39;);
+    break;
+  case val&gt;=60:
+    console.log(&#39;哈哈哈~&#39;);
+    break;
+  case val&gt;= 36:
+    console.log(&#39;喵喵喵~&#39;);
+    break;
+  default:
+    console.log(&#39;你怕是搞错了什么呢~&#39;);
+}
+</code></pre>
+<p>把式子和结果的位置换一下，预期结果 <code>true</code> 放在小括号里，而式子放在 <code>case</code> 里面，这样我们就可以写下多个式子了。那么注意，在上面例子中，可能有多个式子的结果为 <code>true</code>，但只执行第一个为真的 <code>case</code>。</p>
+<p>这就是简单的多分支处理，以及如何进行范围条件的判断。大家应该也看出来了，<code>default</code> 部分在不需要的时候是可以省略的。</p>
+<p>本章内容从原理角度讲解，所以可能和其他教程在说法上有所出入，正常现象，习惯就好~</p>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0105/" title="卡片 for 第一百零五章">卡片 for 第一百零五章</a>】</p>
+
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0104/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0106/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

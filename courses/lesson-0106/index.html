@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第一百零六章 数组（一） | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="JavaScript 数组初步。">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第一百零六章 数组（一）
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2019-03-27 | Update: 2019-05-09">
+    <p>
+      JavaScript 数组初步。
+    </p>
+  </div>
+  <div class="post-content">
+    <p>仿佛有了变量，我们就可以处理大部分数据问题了。但是，这可能不是很方便。比如，在需要处理大量同类型数据的时候，就很乱。</p>
+<p>没听懂？那么举例子，学校有一千个学生，要管理他们的姓名，我们搞一千个变量出来？这简直和给一千个孩子取名一样的可怕！而且以后想找也不容易啊，现在校长急需全校学生名单，而想要输出这个名单，就要先把这一千个变量的名称写出来……算了，还是手抄一份来的便捷。</p>
+<p>所以对于这种情况，就不如把这些数据索性打个包，当做一个整体看待。把同类数据放在一起，就是数组，解释的话差不多就是一组数据的意思。当然，虽然说一组，里面只有一个也可以，一个也没有也可以，这事不要抬杠。</p>
+<p>怎么写呢？</p>
+<pre><code class="js">const names = [&#39;王小明&#39;, &#39;李小二&#39;, &#39;胡大壮&#39;];
+</code></pre>
+<p>就是方括号 <code>[]</code> 里面放上数据，用逗号分隔。这就简单了，我们不用给它们取名了，一个变量代表一组数据，嘿，方便！</p>
+<p>等等，我们想用这些数据又怎么办啊？现在 <code>names</code> 代表的是这一组数据，而需要其中某一个呢？</p>
+<p>这时候我们就要感叹，学号真是个伟大的发明啊！</p>
+<p>喵喵小学，学号为 68 的同学叫做——帅小鼠！我们说过，学号这东西和学生一一对应，凭学号找人，一找一个准。说这些做什么呢？对，数组里面的数据也编上号不就好了么。</p>
+<p>数组里的元素，自带编号，按顺序排列，唯一需要特别注意的点——<strong>序号从 0 开始！！！</strong></p>
+<p>所以，我们眼中的第一个元素序号是 0，而第二个元素序号是 1，以此类推……</p>
+<p>嗯，编程什么的，一般都是从 0 开始计数。</p>
+<p>那现在我们知道了序号，来看一下具体格式怎么去写：</p>
+<pre><code class="js">const names = [&#39;王小明&#39;, &#39;李小二&#39;, &#39;胡大壮&#39;];
+console.log( names[1] );
+</code></pre>
+<p>在数组变量名字后面用方括号 <code>[]</code> 标记出序号来，就是使用这个数组中对应序号的元素了。</p>
+<p>开始思考，假设使用变量来代表这个序号，然后改变变量的值，是不是就可以取出不同的数组项了？于是我们可以用下面的方法，通过循环，逐个取出数组中的值：</p>
+<pre><code class="js">const names = [&#39;王小明&#39;, &#39;李小二&#39;, &#39;胡大壮&#39;];
+for(let i=0; i&lt;3; i++){
+  console.log( names[i] );
+}
+</code></pre>
+<p>这种操作叫做对数组的遍历，就是对数组中的元素都做一遍这个操作。这里是全输出了一遍。你也可以通过修改 <code>i</code> 的初始值和条件的限制，来控制只对数组中的部分元素执行操作。</p>
+<p>有一个问题，比如现在需要全部输出，但是当数组中数据的个数发生增减以后，就需要修改 <code>i&lt;3</code> 这个条件来适应这个变化，这就很不容易。</p>
+<p>好在数组有一个属性，数组的长度，表示数组中元素的个数，我们来试一下：</p>
+<pre><code class="js">const names = [&#39;王小明&#39;, &#39;李小二&#39;, &#39;胡大壮&#39;];
+console.log( names.length );
+</code></pre>
+<p>数组的名字（这里是 <code>name</code>）后面一个点，再后面是 <code>length</code>，注意点的左右不能有空格哦。那么上面数组中一共有三个项目，所以数组的长度是 3，这很好理解。而数组中项目的序号从 0 开始，就是 0、1、2，也就是最后一个数组项的序号肯定是 <code>names.length - 1</code>，就是比这个数组的长度小 1。</p>
+<p>上面的遍历可以写成如下格式，这样数组的长度如何变化，<code>for</code>循环都可以将整个数组中所有元素输出出来。</p>
+<pre><code class="js">const names = [&#39;王小明&#39;, &#39;李小二&#39;, &#39;胡大壮&#39;];
+for(let i=0; i&lt;names.length; i++){
+  console.log( names[i] );
+}
+</code></pre>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0106/" title="卡片 for 第一百零六章">卡片 for 第一百零六章</a>】</p>
+
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0105/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0107/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

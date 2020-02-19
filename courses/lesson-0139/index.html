@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第一百三十九章 鼠标的移动 | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="jQuery 中的鼠标移动事件，以及对事件绑定函数传入的参数的解析。">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第一百三十九章 鼠标的移动
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2019-05-14 | Update: 2019-05-14">
+    <p>
+      jQuery 中的鼠标移动事件，以及对事件绑定函数传入的参数的解析。
+    </p>
+  </div>
+  <div class="post-content">
+    <p>这一章就讲一个事件，<code>mousemove</code> 鼠标的移动。当鼠标在选中对象的上方移动的时候，事件被触发。</p>
+<p>哦，真讨厌，我又一句话，哦，不，两句话，把这个事情给讲完了。</p>
+<p>从上一章开始，大家一定以为已经摸清了这个套路。然而事情怎么可能那么简单，小老鼠怎么可能那么容易被你们猜透。我们只是把复杂的东西略去，先讲最容易理解的地方。</p>
+<p>前面这些事件，都挺好理解的。但是事件的发生，真的就简单到只是一个时间点吗？我们写作文的时候，还要讲究时间，地点，人物，谁？在哪里？什么时候？做了什么……所以事件不简单，就算只是那一个时间点，我也要知道在那个时间点里的许多数据，才能够更好的决定，我们的程序应该去做什么。</p>
+<p>这样一说，好像又很复杂了。难道我们要去想办法获取这么多的数据？</p>
+<p>其实这个数据，程序已经给我们准备好了，并在事件发生的时候主动交给我们。当然如果我们用不到，可以拒收啊。很显然，我们在前面的讲解中都选择了拒收这些数据。</p>
+<p>现在聊到这里了，那我们就把这些数据收下来看看吧。</p>
+<p>在这些事件中，一旦事件被触发，它在调用绑定函数的同时，会向这个函数传递一个参数。我们刚才说那么多数据，现在只有一个参数……所以这个参数是一个对象，它可以包含许多的数据。</p>
+<p>那它都包含哪些数据呢？你可以去查文档啊！反正我是记不住，但是基本上你用得到的数据它都会提供。我说的是相关的数据啊喂，今天中午吃什么之类的，它是不会管的。</p>
+<p>有点跑题了，不过记不住的时候我们试一下就好了。对于一个类型为对象的数据，也没有必要非得进行遍历，直接将它输出到控制台，我们一样可以查看。</p>
+<p>说的不少了，于是写一下代码吧，假装我们这里有一个按钮，这么基础的地方我就不写了：</p>
+<pre><code class="js">$(document).ready(function(){
+  $(&#39;#button&#39;).click(function(event){ console.log( event ) })
+})
+</code></pre>
+<p>我们就是让这个函数接收一个参数，并将它输出出来。然后你会发现它包含了一大堆数据，总之比你想象中的要多得多。它们都是什么意思，用来做什么用的……你可以去搜索呀，反正我是讲不过来了。</p>
+<p>大概的它有当前发生事件的元素是哪个，鼠标的坐标在哪里，发生了什么事件……</p>
+<p>其实，我就是挨个分析一遍，大家也记不住。到实际需要的时候再去研究吧，只要知道有这么个事情，有这么一大堆数据可以供你去利用，就好。</p>
+<p>如果想要做练习的话，但我估计你们都不想，虽然我几乎每一章都说一次，但是我猜一定没有几个人动手（反正也没有几个人读我的教程</p>
+<p>大家可以尝试，在每一次鼠标点击之后，显示出点击位置的坐标。或者在鼠标移动的过程中，实时的显示当前鼠标的坐标……</p>
+<p>就是这样，小老鼠要跑去碎觉觉了，你们乖乖做练习吧，喵叽~</p>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0139/" title="卡片 for 第一百三十九章">卡片 for 第一百三十九章</a>】</p>
+
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0138/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0140/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

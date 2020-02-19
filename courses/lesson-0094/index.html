@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第九十四章 新的声明 | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="JavaScript 对于变量的更好的声明方式，以及新的声明方式的特点和优点。">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第九十四章 新的声明
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2019-03-19 | Update: 2019-05-09">
+    <p>
+      JavaScript 对于变量的更好的声明方式，以及新的声明方式的特点和优点。
+    </p>
+  </div>
+  <div class="post-content">
+    <p>如果不使用 <code>var</code> 又该使用什么呢？两种方式 <code>const</code> 和 <code>let</code>。用起来在语法上是和 <code>var</code> 一样的。但是有几个细节的问题需要注意：</p>
+<h3 id="作用范围"><a href="#作用范围" class="headerlink" title="作用范围"></a>作用范围</h3><p>我们说 <code>var</code> 不好用就是因为一旦声明，全局起作用，太乱了。那么 <code>const</code> 和 <code>let</code> 都是局部声明，简单说就是只在它所在的大括号内起作用，出去了就没这回事了。</p>
+<p>你在你们班是班长，这一点你们班的人都承认。向下到你们班每一个卫生小组，或是每一个学习小组，总之，在你们班的范围内，就都得到承认。但是你跑到我们班来指挥工作就不可以了，我们不认识你。你到老师办公室去指手画脚，就……（别说我没提醒过你。</p>
+<p>不过大括号我们还没用过，我们先理解这个比喻就好。</p>
+<h3 id="重复声明"><a href="#重复声明" class="headerlink" title="重复声明"></a>重复声明</h3><p><code>var</code> 在范围上不讲道理，在声明上却比较随和，你可以反复声明同一个变量（虽然我们不建议），但是也不会报错。</p>
+<p>我们现在各种小测试可能就在 Console 里面简单跑一下，几个例子中的变量名称也是重复的，页面也懒得刷新，但是如果使用的是 <code>var</code> 声明变量可能也没什么错误出现<a href="#footnote-1" class="footnote-link"><sup>[1]</sup></a>。</p>
+<p>但是如果使用了 <code>const</code> 和 <code>let</code>，那么秒报错，敢让我重复工作？老子甩手不干了！</p>
+<div class="image-box"><img src="/assets/lesson-0094/already-been-declared-e067ae44cd22cbe46afa23aba3ac3ab7.png" alt="重复声明"></div>
+<p>这是有好处的，这样<a href="#footnote-1">注释1</a>中的问题就不会出现了。而且在某些特定结构中，用起来也特别便捷（后面会接触到）。</p>
+<h3 id="可变与不可变"><a href="#可变与不可变" class="headerlink" title="可变与不可变"></a>可变与不可变</h3><p>你看我们说的新的声明方式是两个，他们有什么区别呢？<code>let</code> 和你所想象的一样，它声明的变量就是一个变量，比如：</p>
+<pre><code class="js">let a=1;
+a=2;
+console.log(a);
+// 我先给 a 赋值 1，又给 a 赋值为 2，然后输出的值为 2，所以 a 代表的值发生了变化，这也是我们对于变量的基本理解。
+</code></pre>
+<p>那如果换成 <code>const</code> 的话：</p>
+<pre><code class="js">const b=1;
+b=2;
+console.log(b);
+</code></pre>
+<div class="image-box"><img src="/assets/lesson-0094/change-const-cd9f5bb09f1067de7e2655cd2a1b19b7.png" alt="改变 const"></div>
+<p>报错说的什么？——<code>试图给常量赋值（Assignment to constant variable. ）</code>。</p>
+<p>等等，常量？！想想什么是常量，我们知道一个最常用的常量就是 <code>π</code>，对，就是圆周率。反正就是那种值一直不变的东东，和变量相对，毕竟变量的值是可以变化的（就像上面那样）。</p>
+<p>我们用 <code>const</code> 声明出来的是常量（所以在声明的同时就要给它赋值）。而用 <code>let</code>声明出来的是变量，诶，这就很清楚了！</p>
+<h3 id="该去用谁"><a href="#该去用谁" class="headerlink" title="该去用谁"></a>该去用谁</h3><p>有同学说：全用 <code>let</code> 不就没问题了么，想改能改，不需要就不改啊。</p>
+<p>但是程序中的情况往往比我们想象的要复杂，到了多人合作的时候就更复杂了，你的变量能不能依旧保持不变呢？这是一个未知数。</p>
+<p>所以我们能用 <code>const</code> 就不用 <code>let</code>，没有特殊的理由就不用 <code>var</code>。</p>
+<p>可能你说常量什么的局限性太大，那么你真的以为 <code>const</code> 声明的常量就是绝对不变的么？这一点等我们学到面的知识时再讲解。</p>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0094/" title="卡片 for 第九十四章">卡片 for 第九十四章</a>】</p>
+<div class="foot-notes"><p><strong id="footnote-1" class="footnote">&gt;注释 1:</strong> 十分不建议重复声明一个变量，即使没有报错。因为如果你在第一次给变量赋值，而第二次忘记赋值，那么会直接使用第一次的赋值，因为 <code>var</code> 的重复声明，并不覆盖变量的值。</p></div>
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0093/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0095/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

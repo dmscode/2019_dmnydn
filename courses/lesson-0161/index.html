@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第一百六十一章 加载 | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="jQuery 中的 load 方法。">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第一百六十一章 加载
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2019-07-02 | Update: 2019-07-04">
+    <p>
+      jQuery 中的 load 方法。
+    </p>
+  </div>
+  <div class="post-content">
+    <p>我们知道，当点击一个链接或者提交一个表单，都会导致页面的刷新，而这会让一个页面彻底重新开始，正在进行的所有运算，都会被重置。</p>
+<p>这就很难受了。毕竟有些时候我们并不希望跳转到到别的页面，而在当前页面中还有未完成的操作。可是这时候我们又需要向服务器提交一些数据，获得一些反馈。或者更简单一些，就是需要获取服务器上的一些数据。</p>
+<p>整理一下需求，在不发生跳转的情况下，向服务器发送数据和获取服务器返回的数据。这要用到 Ajax。这个概念不深入的解释，反正知道用它就可以实现上面的目的就好了。</p>
+<p>在这一章，我们使用 jQuery 来实现一个最简单的需求。</p>
+<p>但是首先我们要明确几个细节。想使用 Ajax 就要有服务器，本地文件的形式是不行的。难道为了学习这项技术去购买一个服务器吗？当然不是，这里所说的服务器，应该是可以提供 http 服务的软件。这个就很简单了，去网上搜索各种 http 服务器软件，大概也就几百 kb 大小，就足够我们用了。</p>
+<p>我来介绍两个简单的：</p>
+<p><a href="https://chrome.google.com/webstore/detail/ofhbbkphhbklhfoeikjpcbhemlocgigb" target="_blank" rel="noopener">Web Server for Chrome</a>，这是一款浏览器扩展，用起来十分的方便，虽然是全英文的，但其实只要打开以后，选择你网站跟目录的文件夹就可以了。服务会自动启动，也会把访问地址显示出来，可以说十分的新人友好了。高级的设置它也有，也就是说还可以满足我们复杂的需求。</p>
+<p><a href="https://marketplace.visualstudio.com/items?itemName=Compulim.vscode-express" target="_blank" rel="noopener">Express</a>，这是 VS Code 的一个插件，我们通过打开文件夹的方式打开项目的时候，可以用 F1 唤出命令，输入 <code>Express</code>，然后选择 <code>Express: Host Current Workspace and Open in Browser</code> 就行了。这会以当前文件夹为网站根目录启动一个 http 服务器，并在浏览器中打开。</p>
+<p>这样和我们以前直接访问文件会有好多区别，比如协议不同了（<code>//</code> 前面的部分），比如根目录位置不同……反正这样就可以用 Ajax 了，就可以更帅了。</p>
+<p>然后讲一下跨域。跨域就是跨域名<a href="#footnote-1" class="footnote-link"><sup>[1]</sup></a>。就是不能够用 js 请求与当前域名不同的网址下的资源。这就好像你京东不能从我淘宝的库房拿东西给你的消费者一样。对，这是出于安全考虑做的设定。这个是可以绕过去的，但是我们不讲。</p>
+<p>这一章篇幅快用完了，咱们得做点啥开心一下啊。于是我先有一个页面：</p>
+<pre><code class="html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;zh&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;UTF-8&quot;&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+  &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;ie=edge&quot;&gt;
+  &lt;title&gt;这个页面假装是数据&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  这里是数据的内容
+  &lt;div id=&quot;zy&quot;&gt;重要数据！&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p>保存为 <code>data.html</code></p>
+<p>然后再来一个页面，是用来被我们访问的：</p>
+<pre><code class="html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;zh&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;UTF-8&quot;&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+  &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;ie=edge&quot;&gt;
+  &lt;title&gt;我们来访问这个页面&lt;/title&gt;
+  &lt;script src=&quot;https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js&quot;&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  这是页面中原有的数据
+  &lt;div id=&quot;box&quot;&gt;&lt;/div&gt;
+  &lt;script&gt;
+    $(document).ready(function(){
+      $(&#39;#box&#39;).load(&#39;data.html&#39;)
+    })
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p>代码好像有点长，其实真正新内容就一句：<code>$(&#39;#box&#39;).load(&#39;data.html&#39;)</code>，就是把后面这个网址中的内容，放进前面这个选择器对应的元素里。大家可以自己动手看看效果哦。</p>
+<p>但是可能我们并不需要载入一个页面的所有数据，怎么办？<code>$(&#39;#box&#39;).load(&#39;data.html #zy&#39;)</code> 注意空格哦~这样就可以载入指定元素中的内容了。那么是否支持使用其他选择器呢？大家动手试试看吧。</p>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0161/" title="卡片 for 第一百六十一章">卡片 for 第一百六十一章</a>】</p>
+<div class="foot-notes"><p><strong id="footnote-1" class="footnote">&gt;注释 1:</strong> 这么说不严谨，但是初期够用的，而且好理解，先马马虎虎理解一下。</p></div>
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0160/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0162/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

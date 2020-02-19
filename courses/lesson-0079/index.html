@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第七十九章 对齐 | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="CSS3 弹性布局和网格布局在元素对齐方式上的一些属性介绍">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第七十九章 对齐
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2019-01-17 | Update: 2019-05-09">
+    <p>
+      CSS3 弹性布局和网格布局在元素对齐方式上的一些属性介绍
+    </p>
+  </div>
+  <div class="post-content">
+    <p>前面我们从来没在对齐这个问题上犯过难。</p>
+<p>这次么，也还行，反正就是三个情况，每个情况分两个方向（主轴方向和侧轴方向），结合之后六个属性而已。这些属性的取值都差不多，反正相似的地方很多，所以就是学习一个取值多点的属性，然后区分应用的意思。</p>
+<p>那我们先来学几个单词哦：<code>justify</code>，别问我这个单词啥意思，我就知道在描述对齐的时候，有它就是主轴方向，默认横向，左右方向上。与之对应的是 <code>align</code>，这是侧轴上，默认纵向，就是上下方向。这一点和我们前面的 <code>text-align</code> 相反，相反啊！这就很吐艳！！不容易记忆啊！！！不过还好，这次是被当做前缀，所以，在前后这件事情上也相反，这就好记忆了。</p>
+<p>这是两个前缀，能记住了吧。</p>
+<p>三个后缀：</p>
+<ul>
+<li><strong>content</strong> 是说把所有子元素看做一个整体，然后再父元素中如何摆放；</li>
+<li><strong>items</strong> 是说一行或者一列在相应方向上如何对齐；</li>
+<li><strong>self</strong> 是说某一个元素在相应方向上如何对齐，即对于上一个属性的个别修正；</li>
+</ul>
+<p>所以，前两个是整体属性，最后一个是个体属性。</p>
+<p>你把这些区分开以后，其他已经不重要了。因为问题的关键已经在手里了，还能翻出什么花样呢？</p>
+<p>开始解释取值，注意以下只是一些常见的单词解释，并不是每个属性都可以使用这些值。我只是先把一些有共通点的东西整理在一起解释，便于大家理解。后面会附上详细说明的。</p>
+<ul>
+<li><strong>stretch</strong>： 拉伸，拉伸到填充满（也可能是和在同一个轴上的元素一样高或者宽），所以对于弹性布局，在主轴方向上肯定不能使用这个值；</li>
+<li><strong>center</strong>： 就是中间，某个方向上的中间，不解释；</li>
+<li><strong>start、end</strong>： 有这俩单词就是开始或者结束，注意轴的方向，再确定哪里是开始，哪里是结束；</li>
+<li><strong>baseline</strong>： 基于基线对齐，但是什么是基线呢？我们在当前元素中写一个 X，注意这个 X 没有被嵌套在其他元素之中，就是当前元素里面去写，好了，这个 X 的底边位置就是基线；</li>
+<li><strong>space-between</strong>： 首先 space 是空白，所以有这个单词的属性值都是在说我们怎么把余下的空白进行合理分配，而分配空白这个事情，是一个很<del>全聚德</del>全局的事情，所以只有带 <code>content</code> 的属性可以才用。between 是在什么之间，这里就是在两个子元素之间，所以子元素和父元素之间没有空白。即两端顶边，中间平均分配空白；</li>
+<li><strong>space-around</strong>： around 是环绕，所以在每个元素上环绕空白的话，两个子元素之间就是两倍空白，而子元素和父元素之间是一倍空白。请自行画图理解，喵唧~；</li>
+<li><strong>space-evenly</strong>： evenly 平均分配，管他什么父元素与子元素之间，还是子元素与子元素之间，统统相等。</li>
+</ul>
+<p>其实说到这里，对齐这个问题就已经说完了，但是好像很不直观，所以我们需要用图片来说明一下。（我最讨厌的环节，做图片太麻烦了）</p>
+<p>那么，我们为什么不用代码呢？</p>
+<div class="code-show" data-before-text="代码效果演示 Start" data-after-text="代码效果演示 End"><pre data-file-name="index.html"><code class="html">&#10;&#60;&#100;&#105;&#118;&#32;&#99;&#108;&#97;&#115;&#115;&#61;&#34;&#102;&#108;&#101;&#120;&#45;&#98;&#111;&#120;&#34;&#62;&#10;&#32;&#32;&#60;&#100;&#105;&#118;&#32;&#99;&#108;&#97;&#115;&#115;&#61;&#34;&#102;&#108;&#101;&#120;&#45;&#105;&#116;&#101;&#109;&#34;&#62;&#60;&#47;&#100;&#105;&#118;&#62;&#10;&#32;&#32;&#60;&#100;&#105;&#118;&#32;&#99;&#108;&#97;&#115;&#115;&#61;&#34;&#102;&#108;&#101;&#120;&#45;&#105;&#116;&#101;&#109;&#34;&#62;&#60;&#47;&#100;&#105;&#118;&#62;&#10;&#32;&#32;&#60;&#100;&#105;&#118;&#32;&#99;&#108;&#97;&#115;&#115;&#61;&#34;&#102;&#108;&#101;&#120;&#45;&#105;&#116;&#101;&#109;&#34;&#62;&#60;&#47;&#100;&#105;&#118;&#62;&#10;&#32;&#32;&#60;&#100;&#105;&#118;&#32;&#99;&#108;&#97;&#115;&#115;&#61;&#34;&#102;&#108;&#101;&#120;&#45;&#105;&#116;&#101;&#109;&#34;&#62;&#60;&#47;&#100;&#105;&#118;&#62;&#10;&#32;&#32;&#60;&#100;&#105;&#118;&#32;&#99;&#108;&#97;&#115;&#115;&#61;&#34;&#102;&#108;&#101;&#120;&#45;&#105;&#116;&#101;&#109;&#34;&#62;&#60;&#47;&#100;&#105;&#118;&#62;&#10;&#32;&#32;&#60;&#100;&#105;&#118;&#32;&#99;&#108;&#97;&#115;&#115;&#61;&#34;&#102;&#108;&#101;&#120;&#45;&#105;&#116;&#101;&#109;&#34;&#62;&#60;&#47;&#100;&#105;&#118;&#62;&#10;&#32;&#32;&#60;&#100;&#105;&#118;&#32;&#99;&#108;&#97;&#115;&#115;&#61;&#34;&#102;&#108;&#101;&#120;&#45;&#105;&#116;&#101;&#109;&#34;&#62;&#60;&#47;&#100;&#105;&#118;&#62;&#10;&#32;&#32;&#60;&#100;&#105;&#118;&#32;&#99;&#108;&#97;&#115;&#115;&#61;&#34;&#102;&#108;&#101;&#120;&#45;&#105;&#116;&#101;&#109;&#34;&#62;&#60;&#47;&#100;&#105;&#118;&#62;&#10;&#32;&#32;&#60;&#100;&#105;&#118;&#32;&#99;&#108;&#97;&#115;&#115;&#61;&#34;&#102;&#108;&#101;&#120;&#45;&#105;&#116;&#101;&#109;&#34;&#62;&#60;&#47;&#100;&#105;&#118;&#62;&#10;&#60;&#47;&#100;&#105;&#118;&#62;&#10;</code></pre><pre data-file-name="style.css"><code class="css">&#10;&#46;&#102;&#108;&#101;&#120;&#45;&#98;&#111;&#120;&#32;&#123;&#10;&#32;&#32;&#100;&#105;&#115;&#112;&#108;&#97;&#121;&#58;&#32;&#102;&#108;&#101;&#120;&#59;&#10;&#32;&#32;&#102;&#108;&#101;&#120;&#45;&#119;&#114;&#97;&#112;&#58;&#32;&#119;&#114;&#97;&#112;&#59;&#10;&#32;&#32;&#98;&#111;&#114;&#100;&#101;&#114;&#58;&#32;&#53;&#112;&#120;&#32;&#115;&#111;&#108;&#105;&#100;&#32;&#35;&#68;&#69;&#68;&#69;&#68;&#69;&#59;&#10;&#125;&#10;&#46;&#102;&#108;&#101;&#120;&#45;&#105;&#116;&#101;&#109;&#32;&#123;&#10;&#32;&#32;&#109;&#105;&#110;&#45;&#119;&#105;&#100;&#116;&#104;&#58;&#32;&#49;&#48;&#48;&#112;&#120;&#59;&#10;&#32;&#32;&#109;&#105;&#110;&#45;&#104;&#101;&#105;&#103;&#104;&#116;&#58;&#32;&#49;&#48;&#48;&#112;&#120;&#59;&#10;&#32;&#32;&#98;&#97;&#99;&#107;&#103;&#114;&#111;&#117;&#110;&#100;&#58;&#32;&#35;&#68;&#69;&#68;&#69;&#68;&#69;&#59;&#10;&#32;&#32;&#98;&#111;&#114;&#100;&#101;&#114;&#58;&#32;&#50;&#112;&#120;&#32;&#115;&#111;&#108;&#105;&#100;&#32;&#119;&#104;&#105;&#116;&#101;&#59;&#10;&#125;&#10;</code></pre>
+<div class="flex-box">
+  <div class="flex-item"></div>
+  <div class="flex-item"></div>
+  <div class="flex-item"></div>
+  <div class="flex-item"></div>
+  <div class="flex-item"></div>
+  <div class="flex-item"></div>
+  <div class="flex-item"></div>
+  <div class="flex-item"></div>
+  <div class="flex-item"></div>
+</div>
+<style>
+.flex-box {
+  display: flex;
+  flex-wrap: wrap;
+  border: 5px solid #DEDEDE;
+}
+.flex-item {
+  min-width: 100px;
+  min-height: 100px;
+  background: #DEDEDE;
+  border: 2px solid white;
+}
+</style>
+</div>
+<p>这是除了自动换行就没加任何调整的默认状态，用起来特别简单，就这样还有人敢说不会，小耗子要不是身材太好，早打死你了。</p>
+<p>你说横向上没填满啊，那你可以拉伸子元素啊，设置子元素的拉伸就好了，我就不演示了。我们只是修改某一个属性，来对比各个值之间的差异，所以代码我也不写了（因为都一样，就一个属性的值在变化）。然后，这一章字数也不少了，下一章开始演示吧。</p>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0079/" title="卡片 for 第七十九章">卡片 for 第七十九章</a>】</p>
+
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0078/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0080/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

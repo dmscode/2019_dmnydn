@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第六十八章 继续折腾导航 | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="通过新学的网页元素定位方法来进一步优化前面练习中的页面导航效果。">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第六十八章 继续折腾导航
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2019-01-10 | Update: 2019-05-09">
+    <p>
+      通过新学的网页元素定位方法来进一步优化前面练习中的页面导航效果。
+    </p>
+  </div>
+  <div class="post-content">
+    <p>导航，好多时候需要有二级导航，就是鼠标滑过去会自己弹出来的那种，这个大家肯定都知道的。</p>
+<p>咱们先别管弹不弹出来的，就让它一直显示出来，我们先完成这个效果。</p>
+<p>那我们分析，弹出来的导航是不是在其他元素上面？是，那就要用到上一章的定位方法了，那么用哪一种？</p>
+<p>它是相对于浏览器窗口进行定位吗？显然不是，排除固定定位（<code>fixed</code>）和粘性定位（<code>sticky</code>），那是绝对定位（<code>absolute</code>）还是相对定位（<code>relative</code>）？</p>
+<p>那么我们在文档流中能找到一个弹出菜单占用的位置吗？是没有的，文档流中没有保留位置的是——绝对定位（<code>absolute</code>）。</p>
+<p>很好，我们开始写代码：</p>
+<pre><code class="html">  &lt;nav&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#&quot;&gt;首页&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#&quot;&gt;老鼠&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#&quot;&gt;特别&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;
+        &lt;a href=&quot;#&quot;&gt;帅气&lt;/a&gt;
+        &lt;ul&gt;
+          &lt;li&gt;玉树临风&lt;/li&gt;
+          &lt;li&gt;风流倜傥&lt;/li&gt;
+          &lt;li&gt;堂堂正正&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#&quot;&gt;超萌&lt;/a&gt;&lt;/li&gt;
+      &lt;li class=&quot;clear&quot;&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/nav&gt;
+</code></pre>
+<p>我们在列表项中再放一个列表，就是二级菜单了。这很好理解，在意思上也完全说得通。这时候我们就要注意区分子元素和后代元素了，弄明白在 CSS 中的定义对应一级菜单还是二级菜单，或者它们两个。</p>
+<p>二级菜单有横排有纵排，为了提升难度，我们来个纵向排列吧，我们先看一下以前写的 CSS：</p>
+<pre><code class="css">nav {
+  text-align: center;
+  background-color: #DDDDEE;
+}
+nav&gt;ul {
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+}
+nav&gt;ul li {
+  list-style: none;
+  float: left;
+}
+nav&gt;ul li&gt;a {
+  display: block;
+  color: #333366;
+  text-decoration: none;
+  padding: 10px;
+}
+</code></pre>
+<p>这时候你应该能够明白，最后两项中使用后代选择器是为了让整个导航中所有列表项和列表项中的链接都具有这些样式。链接没问题，但对于列表项，因为我们不打算继续横排，所以就不能让所有的列表项都 <code>float</code> 了，这里需要小幅修改一下：</p>
+<pre><code class="css">nav {
+  text-align: center;
+  background-color: #DDDDEE;
+}
+nav&gt;ul {
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+}
+nav&gt;ul&gt;li {
+  float: left;
+}
+nav&gt;ul&gt;li&gt;ul {
+  position: absolute;
+  padding: 10px;
+  margin: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: #DDDDEE;
+}
+nav&gt;ul li {
+  list-style: none;
+}
+nav&gt;ul li&gt;a {
+  display: block;
+  color: #333366;
+  text-decoration: none;
+  padding: 10px;
+}
+</code></pre>
+<p>这样就可以了~看看效果也说的过去，但是位置呢，我希望有一些变化。于是首先回想，绝对定位元素，相对于谁定位？<strong>第一个不是静态定位的祖先元素</strong>。是谁？不知道，因为我们就没用过其他定位方式还。这就麻烦了，这不好确定位置啊！</p>
+<p>解决的方法是：把它的父元素设置为相对定位（<code>relative</code>），但不进行任何偏移。那就是还在原来的位置，看不出什么变化，但是可以被作为定位的参照了。相对于父元素进行定位也就比较方便计算了。</p>
+<p>所以我们这样写：</p>
+<pre><code class="css">nav&gt;ul&gt;li {
+  position: relative;
+  float: left;
+}
+</code></pre>
+<p>然后对菜单进行定位，比如：</p>
+<pre><code class="css">nav&gt;ul&gt;li&gt;ul {
+  position: absolute;
+  top: 0;
+  left: 100%;
+  padding: 10px;
+  margin: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: #DDDDEE;
+}
+</code></pre>
+<p>顶部偏移是 0，就是顶部对齐，齐头并进。左侧偏移 100%，那么首先要弄明白是谁的 100%。一般这种比例都是和父元素比，所以是父元素宽度的 100%。为什么是宽度？因为左右说的是横向的问题，就是宽度，如果是纵向，那就是高度了。</p>
+<p>那这个位置就是和父元素顶部对齐，然后在父元素的后面了。</p>
+<div class="image-box"><img src="/assets/lesson-0068/demo-1-0db731ea704abeb7064dbf581213486d.png" alt="当前效果"></div>
+<p>检查元素观察得知，位置是正确的，只是这个效果……我的二级菜单被人压扁了！我要为它主持公道，给它申明权益——所以定义它的宽度为：120px！</p>
+<p>你会发现定义宽度之后就正常了，但是似乎，仿佛某些文字混在了一起。虽然我的背景有透明度，但是后面的文字也不应该这么明显：</p>
+<div class="image-box"><img src="/assets/lesson-0068/demo-2-d6042a85d2359f0c73966c4f81789a08.png" alt="当前效果"></div>
+<p>这里呢，如果我们给第一级菜单的 li 元素设置了背景色的话可能就比较明显了。我们的二级菜单被别的项目挡住了，这时候我们需要通过设置 <code>z-index</code> 来提升一下二级菜单的层叠顺序。这个数值可以说是随便写的，不过建议整十递增，好处就是容易管理，也方便在其中插入其他数值。</p>
+<pre><code class="css">nav&gt;ul&gt;li&gt;ul {
+  position: absolute;
+  top: 0;
+  left: 100%;
+  z-index: 10;
+  width: 120px;
+  padding: 10px;
+  margin: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: #DDDDEE;
+}
+</code></pre>
+<p>这样就获得了一个符合预期的效果。</p>
+<div class="image-box"><img src="/assets/lesson-0068/demo-3-453ed6886a562a4b2b06f74bd0df0a16.png" alt="当前效果"></div>
+<p>大家也可以修改定位参数，尝试将元素定位到其他位置。不一定合理或者美观，主要是在练习中观察参数变化造成的影响，了解这些属性的特性。</p>
+<p>至于如何让菜单弹出和收回，我们下一章再聊。</p>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0068/" title="卡片 for 第六十八章">卡片 for 第六十八章</a>】</p>
+
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0067/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0069/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

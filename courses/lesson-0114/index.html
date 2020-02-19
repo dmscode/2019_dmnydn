@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第一百一十四章 如何引入 jQuery | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="如何在网页文件中引入 jQuery 这个 JavaScript 库。">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第一百一十四章 如何引入 jQuery
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2019-04-24 | Update: 2019-05-09">
+    <p>
+      如何在网页文件中引入 jQuery 这个 JavaScript 库。
+    </p>
+  </div>
+  <div class="post-content">
+    <p>引入的方法十分简单，因为本质上 jQuery 就是一个 JS 文件。这和我们引入普通的 JS 文件没有什么不同。</p>
+<p>需要注意两点：</p>
+<ol>
+<li>一般我们在页面的最后进行引入，避免影响页面主要内容的加载速度；</li>
+<li>要在引入之后才可以使用，先准备好工具箱再开始工作。</li>
+</ol>
+<p>然后方式上也有两种：</p>
+<p>一种是本地文件，就是把 jQuery 这个库的文件下载下来，和你的网页文件放在一起，将来一起上传到自己的网站空间里。这样你使用的就是自己的文件，只要保证你的网站空间可以被访问，就不会出什么问题。或者我们在本地使用，即便断开网络，也没有问题。</p>
+<p>还有一种是 CDN。一些大公司会把这些常用的库，或者其他的什么东西，总之就是这些常用的文件，放在各地的服务器上，当用户请求这个文件的时候，他会从最近的服务器，传送过来，这样速度可能会更快一些，而且因为文件是从其他服务器上读取，也就不用耗费你网站空间的流量了。</p>
+<p>两种方法各有优劣，根据实际的情况进行选择。但是在我们的引入代码上，其实区别并不大，只是选哪一个网址的问题。</p>
+<p>如果你要下载 jQuery，并把它放到自己的网站中，请务必到它的官方网站（<a href="https://jQuery.com/" target="_blank" rel="noopener">jQuery 官方网站</a>）进行下载。一方面，这样可以保证你下载到最新的版本；另一方面，永远也猜不到第三方所给出的文件是否会有其他问题。</p>
+<p>CDN 的话选择国内大厂的即可，网上随便搜一搜很多的。当然网站要是面对国外用户，自然要选择国外的 CDN 服务。</p>
+<p>然后说一下版本的选择，因为当你点击了官方网站那个大大的下载按钮之后，并不是直接开始下载，而是让你选择你要下载的内容，而且全是英文的，这让新手们觉得很头疼。所以我就加上了翻译：</p>
+<div class="image-box"><img src="/assets/lesson-0114/jQuery-download.png" alt="jQuery 下载"></div>
+<p>代码的压缩，就是去掉代码中的注释，毕竟这对于代码的运行并没有什么帮助，以及仅仅是为了阅读舒适而增加的各种空白。这样就可以缩小代码文件的体积，使得我们请求这个文件的时候速度可以更快一些。</p>
+<p>生产环境，指的是网站上线以后提供给用户使用的那个场景；而开发环境，是指我们在开发这个网站时的场景。所以我们可以使用用于开发环境的版本，进行网站的开发，这样如果有问题，可能更便于我们查找，而在发布的时候替换为用于生产环境的版本。当然如果不是搞特别复杂的问题，下载第一个就都够用了。非常刻苦的乖宝宝，也可以考虑在自己闲暇的时候下载未压缩的版本，去阅读它的代码，这确实是一个非常复杂而艰巨的任务，不过阅读高手的代码也是能够给自己带来许多启迪的。（我知道有好处，但是我自己做不来……</p>
+<p>然后还有一个版本号的问题，我们看到当前最新的版本是 3.4.0，但是在有一些网站，它使用的是 1.x.x 版。这并不是说这个网站非常陈旧，而是因为浏览器的兼容性问题，导致了不同的选择。我们这里只简单的说一下，如果希望对早期浏览器有更好的兼容性，就选择 1 开始的版本。如果只考虑现代浏览器，并希望获得更好的性能，请使用最新版本。</p>
+<p>如果想要深入的，认真的学习 jQuery。请以官方的文档为基准，就是在官方网站中导航上的第二项（API Documentation）。难道还有谁能够比作者更了解它吗？</p>
+<p>应该有同学在抱怨了，这是纯英文的文档，怎么看？网上那么多翻译好的，为什么不去看？</p>
+<p>纯英文的，可是现在的翻译工具也很方便啊。而且我们也不是说就一定要全都看懂，都有固定的语法，即便按图索骥，也能够找到个大概。而且只需要认识百十来个关键单词，勉勉强强查文档还是可以的。网上确实有很多翻译好的，但是肯定不如官方文档更新，而且每一个版本，都不是单纯的增加功能，对于原有的功能也有修改甚至删减。想学最新的知识，想学 HTML5 和 CSS3，那为什么到这里反倒要去看陈旧的文档呢？</p>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0114/" title="卡片 for 第一百一十四章">卡片 for 第一百一十四章</a>】</p>
+
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0113/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0115/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

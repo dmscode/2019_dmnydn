@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第一百零九章 遍历（迭代） | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="JavaScript 中对于对象的遍历输出。">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第一百零九章 遍历（迭代）
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2019-03-28 | Update: 2019-05-09">
+    <p>
+      JavaScript 中对于对象的遍历输出。
+    </p>
+  </div>
+  <div class="post-content">
+    <p>我们有了一个对象（流口水），现在想要输出它所有的属性，怎么做呢？</p>
+<p>显然不能像数组那样了，毕竟没有序号，属性名也没什么规律，我们也没办法特别直接便捷的获取数组中属性的数量。</p>
+<p>这里先讲一个简单常用的方法，嗯，方法是很多的，但是我们一次掌握那么多会很累，所以先学一个，用起来再说：</p>
+<pre><code class="js">const he = {
+  name: &#39;诸葛大牛&#39;,
+  age: 24,
+  male: true,
+  hobby: [&#39;eat&#39;, &#39;sleep&#39;]
+}
+for(let key in he){
+  console.log(&#39;Key is &#39;+key+&#39;, and value is &#39;+he[key]);
+}
+</code></pre>
+<p>这个 <code>for</code> 和我们前面的学的不太一样，这是 <code>for……in……</code> 循环，让变量 <code>key</code>（你也可以随意取名字，反正就是一个新的变量，只在后面的大括号中起作用），逐个代替对象 <code>he</code> 中的属性名。那么 <code>he[key]</code> 自然就是对应的属性值了，注意，这里没用引号，因为 <code>key</code> 就是变量。</p>
+<p>这个用两遍也就明白了，比以前的循环简单多了，贼爽！</p>
+<p>那……贪心一点，数组能不能也这么方便的进行遍历呢？可以，但是方法有点区别。毕竟数组没有属性名，所以我们要用 <code>for……of……</code> 方法。</p>
+<pre><code class="js">const arr = [1, 2, 3, 4];
+for(let val of arr){
+  console.log(val);
+}
+</code></pre>
+<p>这里变量 <code>val</code> 用来逐个替代数组中的每一项。</p>
+<p>这两个方法很像，但是不能混用，这就不好记忆了。教给大家一个方法，首先学习两个单词，总是要用到的，<code>Array</code> 是数组，这个我前们面遇到过了，<code>Object</code> 是对象。这两个单词一个有 <code>o</code>，一个没有。为了公平，<code>for……of……</code> 这个 <code>o</code> 多的就给 <code>Array</code> 用；而 <code>for……in……</code> 则给那个自己带 <code>o</code> 的 <code>Object</code> 用，这样大家的 <code>o</code> 就一样多了。</p>
+<hr>
+<p>来说一个细节，上面小括号里的 <code>let</code> 都可以换成 <code>const</code>，当然就成了不能修改的常量，不过一般来说，我们也不需要修改。</p>
+<p>那么既然是循环，就可能执行多次，我们这不是对一个变量声明了很多次么，为什么没出错？</p>
+<p>因为 <code>let</code> 和 <code>const</code> 的声明仅在自己所在的大括号内起作用，出了这个大括号，就没它什么事了。</p>
+<p>就好像你们班有个班长，在你们班得到公认，一喊班长，全都知道是在叫他，这很好用。但是到了我们班，喊班长，出来就是的另外的人了，你们班的那个任命，作用不到我们班来。</p>
+<p>在循环中，这个大括号是被反复执行的，但是每一遍都是“进入——执行所有代码——出来”的过程，所以虽然执行了多次，但每一次都是一个独立的大括号，虽然行为一样，但是互相并没有深刻的影响。</p>
+<p>这里每一次声明的变量，也仅在那一次循环中的大括号里起作用，下一轮，又是一回事了。</p>
+<p>教务处要找各班班长开会，让你去叫。于是你走到一班门口大喊：“班长出来，到教务处开会啦~”；到二班门口，还是这句话；三班门口……</p>
+<p>但是没有冲突，因为每一次说的班长都是指你当前所在的这个班的班长。现在也一样，声明的变量名（就是个代号）都一样，但都是在那一轮里使用的代号。</p>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0109/" title="卡片 for 第一百零九章">卡片 for 第一百零九章</a>】</p>
+
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0108/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0110/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

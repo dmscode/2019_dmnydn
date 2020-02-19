@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第一百零三章 跳出和跳过 | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="如何从当前循环中跳出，和如何跳过本次循环。这些方法适用于 JavaScript 的多种循环方式。">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第一百零三章 跳出和跳过
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2019-03-22 | Update: 2019-05-09">
+    <p>
+      如何从当前循环中跳出，和如何跳过本次循环。这些方法适用于 JavaScript 的多种循环方式。
+    </p>
+  </div>
+  <div class="post-content">
+    <p>上一章最后的例子写起来稍微有点复杂，所以我们换个写法。首先既然想让它一直循环下去，还弄个变量干嘛（上一章设置变量是为了可以修改）？我们直接把条件设置为 <code>true</code> 不就好了，对，这个写起来麻烦，那就用 1，这个就简单了。</p>
+<pre><code class="js">let i = 1;
+while(1){
+  i = i*2;
+  if(i&gt;1000){
+    console.log(i);
+    break;
+  }
+}
+</code></pre>
+<p>当然，条件永远为真（现在这个条件没法修改了），这肯定是个死循环，怎么办呢？大家也看到了，我写了一个 <code>break</code>，这是什么意思呢？就是当执行到它，那么无条件终止循环，管你什么条件不条件，后面还有没有语句，到此为止，跳出去，这轱辘掐了，不继续执行了。</p>
+<p>这是很厉害的事情，你看，死循环都被它轻松地搞定了。不过，你要明确的知道它什么时候会跳出，就像知道循环什么时候会终止一样（这好像是一个意思）。</p>
+<p>好，这也没有什么复杂的嘛~但是有些情况我们希望跳过本次循环，而不是完全终止循环。举个例子：</p>
+<p>我现在想输出 10 以内的奇数，我可以这么写：</p>
+<pre><code class="js">let i = 1;
+while(i&lt;=10){
+  if(i%2===1){
+    console.log(i);
+  }
+  i++;
+}
+</code></pre>
+<p>如果 <code>i</code> 除以 2 的余数是 1，那么它就是奇数，就输出它。这样写完全没有问题，不过我们也可以换一种思路：依旧是 <code>i</code> 自增的循环，输出 <code>i</code>，但是如果 <code>i</code> 是偶数，我们就跳过当前这里一轮循环，不做输出了，直接进行下一轮：</p>
+<pre><code class="js">let i = 1;
+while(i&lt;=10){
+  if(i%2===0){
+    continue;
+  }
+  console.log(i);
+  i++;
+}
+</code></pre>
+<p><code>continue</code> 是继续的意思，就是这一轮虽然不继续执行了，但是下一轮继续。也是一个很好理解的东东。但要注意的是，一旦执行到它，就立刻开始下一轮。这一轮还有代码？谁管它们啊~</p>
+<p>那我们上面的代码里，一旦执行到 <code>continue</code>，后面的 <code>i++</code> 就不会被执行了，和输出一样被跳了过去，所以到了下一轮，<code>i</code> 没有变化，那不就和前一轮一样的结果了么？结果陷入死循环中，无法自拔。这是我们必须注意的问题：究竟会跳过哪些代码。</p>
+<p>这个有几种方式修改，我只举例一种，剩下的大家自己思考哦~</p>
+<pre><code class="js">let i = 1;
+while(i&lt;=10){
+  if(i%2===0){
+    i++;
+    continue;
+  }
+  console.log(i);
+  i++;
+}
+</code></pre>
+<p>虽然这个例子里并不是必须用 <code>continue</code> 才能实现效果，不过还是足够让我们了解它的用法。代码并没有绝对标准的写法，不同的理解写出不同的代码，很正常。关键还是掌握基本方法，这样你怎么理解都能写出来相应的代码，就很爽！</p>
+<p>这一章就学习了两个单词，一个彻底跳出（<code>break</code>），一个就跳过一轱辘(<code>continue</code>)。挺重要的，因为它们可以把某些复杂情况迅速简化。</p>
+<p>要注意：一个操作如果能让代码迅速简化，就要慎用，因为这一般伴随着容易让代码混乱的潜质！！！</p>
+<p>所以除非你明确知道自己在做什么，并且真的需要这样做，否则不建议随便使用它们。</p>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0102/" title="卡片 for 第一百零二章">卡片 for 第一百零二章</a>】</p>
+
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0102/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0104/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

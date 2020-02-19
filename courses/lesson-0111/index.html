@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第一百一十一章 函数（二） | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="JavaScript 中函数的返回值。">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第一百一十一章 函数（二）
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2019-03-28 | Update: 2019-05-09">
+    <p>
+      JavaScript 中函数的返回值。
+    </p>
+  </div>
+  <div class="post-content">
+    <p>上次定义的函数不光使用起来方便，修改起来也方便，比如我在每次输出的时候都做一次 <code>+1</code>：</p>
+<pre><code class="js">const to_show_all_items = function(arr){
+  for(const item of arr){
+    console.log(item+1)
+  }
+}
+const a = [1, 2, 3];
+const b = [&#39;hello&#39;, &#39;world&#39;];
+to_show_all_items(a);
+to_show_all_items(b);
+</code></pre>
+<p>那么对每一个数组的输出都发生了相应变化。</p>
+<p>现在我们觉得它真的很方便了，但是还可以更好玩么？</p>
+<p>前面只是让它做一个操作，操作完成，不需要给出什么反馈。有点你去做吧，做完不用和我汇报的意思。</p>
+<p>但是有些事情，不是“你办事，我放心”就可以解决得了的。我给你一个数，你就把这个数加上 10，然后告诉我结果。这样的操作就必须有一个汇报了，因为我等着这个结果去做别的事情呢。</p>
+<pre><code class="js">const add_ten = function(a){
+  const result = a+10;
+  return result;
+}
+</code></pre>
+<p><code>return</code> 的意思是返回，返回什么呢？返回一个值，我们这里是 <code>result</code> 的值。这就是这个函数的返回值。我交给它一个任务，它做完后给我一个回馈，让我知道结果。是这么个意思。</p>
+<p>可以这样调用：</p>
+<pre><code class="js">const return_val = add_ten(223);
+console.log(return_val);
+</code></pre>
+<p>调用这个函数的时候就在期待着它的返回值，所以就准备了一个变量，告诉函数，你完成之后把结果放在这个变量里，我就可以用啦~</p>
+<hr>
+<p>函数的基本概念就讲这么多，这些东西十分基础，甚至简陋，后面还有无数深层的东西我们没有去说。但是，目前这些东西差不多够我们解决日常的基础问题了，那就先用起来，用熟悉了，再去扩展，就不痛苦。</p>
+<p>还有几个细节：</p>
+<p>首先，虽然在 JS 里有些情况中不这样做也不报错，但是还是要求大家<strong>一定要先定义函数，再去使用它</strong>。</p>
+<p>函数的参数可以有多个，它们在小括号里的顺序很重要，因为传入参数的时候凭顺序对应形参和实参。</p>
+<p>而返回值只能有一个，可以没有，但不能有更多。</p>
+<p>如果需要多个返回值，可以返回数组、对象。或者对作用域更广（在函数内外都起作用）的变量进行修改、赋值。</p>
+<p>循环中，大括号的内容如果太长，也可以定义为一个函数，然后在循环中调用。这样循环部分的结构就变得很清晰易读。</p>
+<p>其实无论数组，还是函数，它们都属于一种对象。</p>
+<p>而数组的项目，或者对象的属性值，也可以是一个函数。（这个后面会用到，不懂也没关系）</p>
+<p>现在理解了这些基础概念之后，我们就可以很容易理解一些常用方法了。为了方便，JS 把某些操作定义为了函数。既然定义好了，我们就直接使用就可以了，很方便：</p>
+<p>比如 <code>Number(a)</code> 可以把变量 <code>a</code> 的数据类型转换为数字，类似的还有 <code>String(a)</code> 把变量 <code>a</code> 的数据类型转换为字符串。</p>
+<p><code>typeof(a)</code> 返回 <code>a</code> 的数据类型，这就很方便我们去观察数据，不过对于数组，它会告诉你这是个对象，以及许多类似的问题……</p>
+<p>这样实用的内置函数还有好多，大家可以慢慢扩展，别着急哦，稳扎稳打的。</p>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0111/" title="卡片 for 第一百一十一章">卡片 for 第一百一十一章</a>】</p>
+
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0110/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0112/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

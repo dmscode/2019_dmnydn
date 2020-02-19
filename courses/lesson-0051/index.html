@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第五十一章 背景 | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="网页中的元素可以通过 CSS 来设置背景，既可以使用背景色，也可以使用背景图片。">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第五十一章 背景
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2018-12-13 | Update: 2019-05-09">
+    <p>
+      网页中的元素可以通过 CSS 来设置背景，既可以使用背景色，也可以使用背景图片。
+    </p>
+  </div>
+  <div class="post-content">
+    <p>背景是一个比较有助于我们，观察元素所占用面积的属性。但这依旧不是绝对的，因为在后面的章节，我们马上就会看到例外的情况。</p>
+<p>背景（<code>background</code>）本身是一个复合属性，那么我们展开来讲解：</p>
+<h3 id="背景色-background-color"><a href="#背景色-background-color" class="headerlink" title="背景色 background-color"></a>背景色 <code>background-color</code></h3><p>这个很容易理解，后面的取值可以是颜色的名称，也可以是颜色值，那么这些我们都讲过，所以也就不详细说明了。</p>
+<pre><code class="css">#box {
+  background-color: red;
+}
+</code></pre>
+<h3 id="背景图-background-image"><a href="#背景图-background-image" class="headerlink" title="背景图 background-image"></a>背景图 <code>background-image</code></h3><p>就是使用图片当做元素的背景，所以我们需要给出图片的地址，不过这里需要注意一下格式：</p>
+<pre><code class="css">#box {
+  background-image: url(&quot;miao.jpg&quot;);
+}
+</code></pre>
+<p>需要使用 <code>url(&quot;&quot;)</code> 的结构来标记一下。如果你打算清除元素已有的背景图片，也就是把元素的背景图片设置为无，那么可以这样写：</p>
+<pre><code class="css">#box {
+  background-image: none;
+}
+</code></pre>
+<p>因为没有图片地址，所以就不用使用上面那种结构了。</p>
+<p>不过用到了图片以后，就要比纯色的情况复杂一些，所以我们有了如下属性：</p>
+<h3 id="图像重复-background-repeat"><a href="#图像重复-background-repeat" class="headerlink" title="图像重复 background-repeat"></a>图像重复 <code>background-repeat</code></h3><p>当图像的面积不足以覆盖整个元素的时候，默认会重复此图片，以将元素彻底覆盖。这就好像我们作图的时候用图案填充，又或者我们在铺地板上瓷砖的时候那种状态。</p>
+<p>但有的时候，我们只需要在一个方向上进行重复，或者彻底不需要再进行重复，这时候就需要做一些设置：</p>
+<pre><code class="css">#box {
+  background-repeat: repeat; /* 两个方向上都重复，默认如此 */
+  background-repeat: repeat repeat; /* 把两个方向分开写，第一个是横向（x 轴方向），第二个是纵向（y 轴方向） */
+  background-repeat: no-repeat no-repeat; /* 不重复 */
+  background-repeat: no-repeat; /* 与上面效果相同 */
+  background-repeat: repeat-x; /* 在 x 轴方向（横向）重复 */
+  background-repeat: repeat-y; /* 在 y 轴方向（纵向）重复 */
+}
+</code></pre>
+<h3 id="图像位置-background-position"><a href="#图像位置-background-position" class="headerlink" title="图像位置 background-position"></a>图像位置 <code>background-position</code></h3><p>图像和元素如何对齐，比如放在元素中间，放在左上角……</p>
+<pre><code class="css">#box {
+  background-position: 120px 160px; /* 横向距离左侧 120px，纵向距离顶部 160px */
+  background-position: 10% 15%; /* 用百分比也一样，第一个是横向，第二个是纵向 */
+  background-position: top; /* top bottom left right 代表四个边，现在只写了一个边，就是值确定了横方向或者纵方向，那么另一个方向默认为 50%，就是中间 */
+  background-position: center; /* 居中，或者写两个 center，表示两个方向都居中，不过因为像上面一样默认另一边 50%，所以一个也可以 */
+  background-position: bottom 10px right 20px; /* 指定在某一边的偏移量，也可单独指定一边，或者和上面写法配合 */
+}
+</code></pre>
+<p>就那么几种取值，但是横向、纵向，一个值、两个值，一排列组合就很多了。找一个边界明显的图片设置一下看看效果，才是最快理解的方式。</p>
+<h3 id="图像尺寸-background-size"><a href="#图像尺寸-background-size" class="headerlink" title="图像尺寸 background-size"></a>图像尺寸 <code>background-size</code></h3><p>背景图片显示的尺寸，也是涉及到横纵两个方向。依旧可以用尺寸和百分比。然后由几个特殊值：</p>
+<ul>
+<li><code>auto</code>：自动大小，如果两个值都是 <code>auto</code>，那就是图片原始尺寸。如果只有一个 <code>auto</code>，则是确定一边之后，<code>auto</code> 这一边等比例缩放；</li>
+<li><code>contain</code>：保持图片比例，保证图片完整显示的情况下，尽可能大；</li>
+<li><code>cover</code>：保持图片比例，保证图片把元素完全覆盖的情况下，尽可能的小。</li>
+</ul>
+<hr>
+<p>有点复杂，那就先读一遍好了，下一章我们稍微使用一下，才能更直观的去理解。而且后面我们也要用到的。理解是一个过程，不要追求看到就懂，都是在使用中不断理解的。我们看到别人用锤子，就是抡么，懂了，但是自己用，却因为不熟练砸到了手，很正常。经验是技能中很重要的一部分。</p>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0051/" title="卡片 for 第五十一章">卡片 for 第五十一章</a>】</p>
+
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0050/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0052/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

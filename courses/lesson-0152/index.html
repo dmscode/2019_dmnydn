@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第一百五十二章 遍历（二） | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="jQuery 如何遍历。">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第一百五十二章 遍历（二）
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2019-06-13 | Update: 2019-06-17">
+    <p>
+      jQuery 如何遍历。
+    </p>
+  </div>
+  <div class="post-content">
+    <p>仿佛理解了这个意思，那么我们如何去操作一个元素呢？</p>
+<p>如果没有元素被选中，那也就没有什么可以操作的；如果只有一个元素被选中，那么直接操作就可以了，我们前面也都是这样做的；如果有多个元素被选中，仅仅对它们进行一些设置的话，一就是直接操作就可以了……</p>
+<p>嘿，这些以前好像已经说过了，我们现在要说的是另外的情况呀。比如我想获取每个元素中的文字，如果不只有一个元素，那就不能直接去操作了。我们应该对其中的每一个元素单独进行一次获取。</p>
+<p>哦，合集像是数组，数组遍历我们学过了，反正有序号，有长度，可以的，但是取出来的数组项是元素，没包装的，我们不会操作……所以，快点讲重点啊喂！</p>
+<p>元素没有被包装，那我就包装一下呀：</p>
+<pre><code class="js">const el = $(&#39;a&#39;)[0];
+const text = $(el).text();
+console.log(text);
+</code></pre>
+<p>其实可以直接写成一句，但是我尽量展开了，方便大家理解。首先取出这个合集中的一个元素放进常量 el 中。第二句对于 el 这个元素进行包装，并通过 <code>text()</code> 方法获取其中的文字。注意，这时候 <code>$(el)</code> 这里没有引号，因为 el 是常量，而不是字符串（选择器）。</p>
+<p>哦，原来就是包装一下就好了，解释之后再看上面的代码，忽然觉得它们变得面目清秀起来，这也不难理解嘛~</p>
+<p>但是如果我真的把它们写成一句的话：</p>
+<pre><code class="js">console.log( $( $(&#39;a&#39;)[0] ).text() );
+</code></pre>
+<p>还是完全一样的意思，只是不那么容易阅读了。如果不考虑重复使用的话，因为省掉了几个变量，也许第二种写法在性能上会更好一点（然而这种细微的差别谁在乎呢……</p>
+<p>到这里我们就明白了呢，当我们选中了多个元素，我们可以对这个合集进行遍历；通过遍历，获取其中的每一个元素；然后将这个元素进行包装，以便使用我们熟悉的 jQuery 提供的方法进行操作。这样下来大部分问题就都迎刃而解了。</p>
+<p>道理就是这样，而我们都是讲道理的人，所以要把这一切说的清清楚楚的，也要搞得明明白白的。（废话还真的是多呢……</p>
+<p>希望大家能够停下来，再仔细的阅读一下这两章，然后从各个角度去实际操作测试一下，试着去理解这其中的关系。前面我们一直在讲 jQuery 具有哪些方法，我们该如何去用。那都是最表面的东西，就仿佛我们知道如何使用冰箱，但并不一定知道冰箱制冷的原理。而这两章，我们就有那么一点点去探究它如何工作的意味了。确实这仍旧是很皮毛的东西，但这其中却折射出了一些作者的思维方式。</p>
+<p>这里讲的其实是一些学习方法，通过观察高手如何去思考，来开拓自己的视野。而理解作者如何去思考，也有助于你更好的把握这个工具。仅就当前的内容来看，仿佛并不能够带来什么实际的提升，但它也许会为我们将来面对某些情况时，带来更多变通的可能性。</p>
+<p>目前我们没有学习原生 js 操作元素的方法，但是那并不难。所谓一通百通，我们沿着任何一条路线，先把这条路走通一遍，再去学习其他方法，都会变得很顺理成章，水到渠成。而如果我们现在会使用原生的方法，那你会发现上面合集中的元素，虽然无法直接用 jQuery 的方法操作，却可以用原生方法操作。这其中又有许多趣味可以品读。</p>
+<p>啊，我这样啰里吧嗦的一定很令人生厌吧，何况这种遍历的方法用起来也挺麻烦的。幸好程序员都是懒惰的，所以，jQuery 提供了大量简单的遍历方法可供使用。</p>
+<p>那为什么还要有这一课呢？什么是原生的，什么是 JQ 提供的，现在要开始分清楚了。要不然以后学习会混乱的哦。</p>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0152/" title="卡片 for 第一百五十二章">卡片 for 第一百五十二章</a>】</p>
+
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0151/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0153/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

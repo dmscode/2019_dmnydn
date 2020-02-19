@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第一百三十三章 CSS 动画的进化 | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="CSS3 动画效果其他属性的进一步讲解。">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第一百三十三章 CSS 动画的进化
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2019-05-13 | Update: 2019-05-13">
+    <p>
+      CSS3 动画效果其他属性的进一步讲解。
+    </p>
+  </div>
+  <div class="post-content">
+    <p>现在动画效果是有的，但是他并没有表现出和前面过渡效果的明显区别，因为我们只讲了仅仅是能让它动起来的核心内容。</p>
+<p>大家应该可以看出，无论是过渡属性还是动画属性，其实都是复合属性，叫做快捷属性，总之就是把许多相关属性简写到一个属性之中。因为目前我们的目标就是初步的了解和基础的使用，所以也没有必要刻意地展开。</p>
+<p>下面我把我们初步会用到的参数都写出来<a href="#footnote-1" class="footnote-link"><sup>[1]</sup></a>，然后逐一讲解一下。其中的一些参数可以省略，但是一定要注意这些参数的先后顺序：</p>
+<pre><code class="css">#miao {
+  animation: 3s 1s 2 reverse move_it;
+}
+</code></pre>
+<p>前面两个时间，这是动画执行的时间，和延迟执行的时间，这个顺序和我们前面写过渡的时候不一样。它们的单位都是秒，而且很明显都已经自带单位（<code>s</code>）了，这一点和我们写 jQuery 的时候不一样。</p>
+<p>第 3 个数字是执行的次数，默认执行一次就停止了，次数肯定不能为负数，不过很神奇的，它可以用小数。也可以使用关键字 <code>infinite</code> 让动画无限循环下去。</p>
+<p>第 4 个值是动画执行的方向：</p>
+<ul>
+<li><strong>normal</strong>： （默认值）就是正向执行，从 from 到 to；</li>
+<li><strong>reverse</strong>： 反向执行，从 to 到 from；</li>
+<li><strong>alternate</strong>： 交替执行，先从 from 到 to，再从 to 到 from，如此往复；</li>
+<li><strong>alternate-reverse</strong>： 反向交替执行，先从 to 到 from，再从 from 到 to，如此往复</li>
+</ul>
+<p>挺好理解的，也就两个生词，但是我记不住，我知道它们可以设置方向，然后需要的时候我会去查文档。</p>
+<p>最后一个是我们要执行的动画的名字。</p>
+<p>关于动画还有很多其他属性，关于过渡也是。这部分我们讲的只是很基础的，能让它动起来了，我们也可以去使用了。但如果你觉得这些内容没有办法满足你现在的需求，一定记得去查看文档，进行进一步的学习。</p>
+<p>动画把关键帧单独出来进行定义，是因为它可以一次去定义多个关键帧，并不一定只是两个，这就非常的厉害了。我们的过渡效果，只能是从一个状态到另外一个状态，而动画效果，可以从一个状态到另外一个状态，这个过程中，又经过许多我们指定的状态。</p>
+<p>这样描述，不够直观，所以举个简单的例子：我们从黑色过渡到白色，这个过程中，颜色是不同程度的灰色，他可能是红色吗？可能是绿色吗？过渡只能直接的走向目标。但是动画就可以，我们可以让从黑色到白色的动画中，先变到红色再变到绿色，最后变成白色。让他按照我们所指定的路线，去完成这个过程。</p>
+<p>这时候 from、to 两个命名就不够用了，还好，我们可以使用百分比：</p>
+<pre><code class="css">@keyframes change_color {
+    0% {background: black;}
+    33% {background: red;}
+    66% {background: green;}
+    100% {background: white;}
+}
+</code></pre>
+<p>所以其实 from 和 to 这两个关键字就相当于 0% 和 100% 。然后，如果我们让动画进行循环播放，请注意关键帧的前后衔接问题。</p>
+<p>至此，CSS 的动画效果我们就讲完了。道理上是很简单的，但如何去应用，却值得我们深入思考和反复实践。</p>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0133/" title="卡片 for 第一百三十三章">卡片 for 第一百三十三章</a>】</p>
+<div class="foot-notes"><p><strong id="footnote-1" class="footnote">&gt;注释 1:</strong> 这并不是全部参数，我刻意的省略了一些。一方面现在已经可以达到我们基本的需求了，另一方面一起全讲了会很热闹，反倒容易记不住。如果想深入的学习，可以自己去查阅文档。这里只是带着大家入门，而不是去复述文档。</p></div>
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0132/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0134/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

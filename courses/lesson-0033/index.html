@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第三十三章 行高和样式 | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="网页中每一行文字占据的高度是可以进行设置的，达到的效果和 Word 文档里的行间距类似。文字的斜体等样式也可以通过 CSS 进行规定。">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第三十三章 行高和样式
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2018-11-23 | Update: 2019-05-09">
+    <p>
+      网页中每一行文字占据的高度是可以进行设置的，达到的效果和 Word 文档里的行间距类似。文字的斜体等样式也可以通过 CSS 进行规定。
+    </p>
+  </div>
+  <div class="post-content">
+    <p>行高这个属性可能是我们平常没有在意过的，它表示一行文字所占用的高度。我们写一段内容，两行文字之间会有一些空白，这样看起来很舒服。而之所以会有这些空白，是因为每一行文字所占用的高度都要比文字本身的高度更大。</p>
+<p>你也许会说，为什么两段文字之间的空白要更大一些？这里的空白不只与行高有关，还受到了一些其他属性的影响，我们在后面会讲到。所以现在我们想测试行高的时候，请在一个段落内写足够多的文字，让它自动折行。</p>
+<p>这个属性的名字也非常的简单，<code>line-height</code>，是多么的简单直白啊。</p>
+<p>它的值也有多种的表达方式，默认是 <code>normal</code>，就是浏览器的默认值，大约是 1.2，和所选用的字体有关。</p>
+<p>但是默认值是不需要我们进行设置的，而我们对它进行设置的时候，推荐使用没有单位的数字，比如：</p>
+<pre><code class="css">p {
+  line-height: 1.6;
+}
+</code></pre>
+<p>它表示行高是当前文字大小的多少倍。听起来好像和 em 相似。但这里指的是相对于这个元素本身字号的倍数；em 则是相对于父元素。</p>
+<p>同样的，行高也可以使用 <code>px</code>、<code>em</code>、<code>rem</code> 和百分比，所代表的意义和我们前面所讲的是一样的。但是因为这些表示相对尺寸的单位，相对的是其他元素，这样可能引起一些混乱。所以没有特别的需求，推荐使用无单位数字。</p>
+<hr>
+<p>我们认识这些单位之后，行高就显得非常简单了。为了凑字数，我们再讲一个非常简单的属性：<code>font-style</code>。字面上看，它就是文字的样式。它的设置本身就不复杂，而我们日常用到的就更简单了，一般就只有下面这种用法:</p>
+<pre><code class="css">p {
+  font-style: italic;
+}
+</code></pre>
+<p>就是把当前元素的文字设置为斜体，你也可以把它的值设置为 <code>normal</code>，这是我们正常看到不倾斜的样式，当然这是默认的，所以一般情况下，我们也不会用到这个设置。（除非你是想在一堆倾斜的文字中偶尔正常一下）</p>
+<p>不过因为中文的斜体并不怎么好看，而且好多字体也并没有特意的给出它的斜体样式。觉得大部分中国人并不怎么喜欢这个设置，反正我是会在中文情况下，适当回避它（毕竟老鼠眼神不好，斜体字太不好读了。</p>
+<hr>
+<p>到这里我们就学习了四个简单的属性，现在一起来把它们综合运用一下：</p>
+<pre><code class="css">p {
+  color: #0084FF;
+  font-size: 22px;
+  line-height: 2.6;
+  font-style: italic;
+}
+</code></pre>
+<div class="code-show" data-before-text="代码效果演示 Start" data-after-text="代码效果演示 End"><p style="color: #0084FF; font-size: 22px; line-height: 2.6; font-style: italic;">这里是许多的文字，为了能够明确查看效果，所以我故意把字号和行高的值都设置得大了一些。</p></div>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0033/" title="卡片 for 第三十三章">卡片 for 第三十三章</a>】</p>
+
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0032/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0034/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

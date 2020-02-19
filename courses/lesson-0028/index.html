@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第二十八章 啥是 CSS | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="CSS 是什么，能用来做些什么，为什么我们对它很重视，究竟有着怎样的优势。">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第二十八章 啥是 CSS
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2018-11-22 | Update: 2019-05-09">
+    <p>
+      CSS 是什么，能用来做些什么，为什么我们对它很重视，究竟有着怎样的优势。
+    </p>
+  </div>
+  <div class="post-content">
+    <p>Cascading Style Sheets 缩写为 CSS，翻译为：层叠样式表。</p>
+<p>以上是用来装[哔~~]的内容，不过后面你会发现，这个翻译还是很贴切的。</p>
+<p>那么究竟这是个啥？其实我们在前面已经说了很多次了，他负责描述网页中元素应该长什么样子。</p>
+<p>这么说，当然不够直观，那我们来举个例子：</p>
+<pre><code class="html">&lt;p&gt;首先这里有一个段落。&lt;/p&gt;
+</code></pre>
+<p>这很普通，接着我们要对它进行一些描述。不过网页中肯定有许多的元素，我们需要分别进行描述，这时候要涉及到第一个问题：描述的是谁？当然就是段落了，于是我们这样写下：</p>
+<pre><code class="css">p {
+  /* 这里是描述的内容 */
+}
+</code></pre>
+<p>先写出来我们描述的是谁，然后在后面的大扩号里写对它的描述。这并不难理解，不过遇到了一个新的内容，<code>/* 这里是描述的内容 */</code> 这是在做什么？</p>
+<p>从文字上看，这应该是一个注释，是的，他确实是一个注释。用 <code>/*</code> 标记注释的开始，<code>*/</code> 来标记结束。一般我们在标记和注释内容之间，都会加上空格进行分隔。</p>
+<p>然后描述一点什么呢，先来一个最简单直观的：颜色。颜色的英文大家都会写吧，那么我们让它的颜色成为非常醒目的红色。</p>
+<pre><code class="css">p {
+  color: red;
+}
+</code></pre>
+<p>颜色，冒号，红色。除了写得相对简单一些，你按照我们日常写文章的语法，都能够理解它。</p>
+<p>为了方便以后的交流，我们要定义几个名词了。最开始的 <code>p</code> 表达的是我们在对谁进行描述，这个部分叫做“<strong>选择器</strong>”，用来选择页面中的元素。大括号里面，基础格式就是：<strong>属性: 属性的值;</strong>。那么颜色，是我们当前元素的一个属性，属性的值，被设置为了红色。我这么说，你都能听得懂吧？</p>
+<p>对于一个段落来说，它的颜色怎么表现呢？其实这里表达的有些简单，<code>color</code> 事实上说的是里面文字的颜色，我们来看一下效果：</p>
+<div class="code-show" data-before-text="代码效果演示 Start" data-after-text="代码效果演示 End"><p style="color: red;">首先这里有一个段落。</p></div>
+<p>接下来的问题就是我们应该把这些代码写在哪里？</p>
+<p>茴香豆有四种写法，CSS 有三种引入方式。</p>
+<h3 id="引入文件"><a href="#引入文件" class="headerlink" title="引入文件"></a>引入文件</h3><p>把上面的 CSS 代码，单独写在一个文件里，保存，记得后缀是 CSS。然后在 HTML 文件的 <code>head</code> 部分，用如下代码进行引用：</p>
+<pre><code class="html">&lt;link rel=&quot;stylesheet&quot; href=&quot;style.css&quot;&gt;
+</code></pre>
+<p>就是说我们要链接（<code>link</code>）进来一个样式表（<code>stylesheet</code>），它的路径（<code>href</code>）是：<code>style.css</code>。</p>
+<p>最后文件的路径，根据你的实际情况，进行修改就行了。我们在 <a href="/courses/lesson-0026/" title="第二十六章 相对路径如何写">第二十六章 相对路径如何写</a> 中已经学习过了相对路径的写法，在这里就不进行重复了。</p>
+<p>这种方法被称作外部样式表，因为是另外一个样式表文件嘛。这是我们最常用的方式，单独分成一个文件，会让我们书写和维护起来更清晰方便。</p>
+<p>当然，它也有一点缺点，就是在网页加载的时候会增加一次网络请求。因为浏览器首先读取这个网页的代码进行分析，然后发现还需要一个 CSS 文件，那它就要再向网站请求这个文件。这个过程需要一点点的时间，自然也就影响到了网页的加载速度。不过在网络越来越快的今天，这点影响微不足道，只要不是引入大量的文件，一般不需要进行考虑。</p>
+<h3 id="写在里面"><a href="#写在里面" class="headerlink" title="写在里面"></a>写在里面</h3><p>说完了外部样式表，我们来说说内部样式表。很容易理解，就直接写在 HTML 文档里面。所以减少了网络请求，提高了速度。但是可能有一些不便于书写和维护，而且我们这个网页文件也会相应的变长。</p>
+<p>书写的方法非常简单，在 HTML 文件的 <code>head</code> 部分加入 <code>style</code> 标签，标签里面写 CSS 代码就行了。</p>
+<pre><code class="css">&lt;style&gt;
+  p {
+    color: red;
+  }
+&lt;/style&gt;
+</code></pre>
+<p>这里大家可以想象一下，使用外部样式表的时候，我们可以在屏幕左边打开 HTML 文档，右边打开 CSS 文档，相互对照着写，就非常方便。但是使用内部样式表，它们都在同一个文档里，上下滚动着去相互对应，就很不方便了。</p>
+<p>不过我推荐大家用的编辑器 VSCode 可以把同一个文档分屏在左右两侧，就也可以以左右对照的方式进行编辑了，非常的方便。</p>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0028/" title="卡片 for 第二十八章">卡片 for 第二十八章</a>】</p>
+
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0027/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0029/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

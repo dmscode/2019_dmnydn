@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第九十九章 如果 | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="JavaScript 中通过 if 进行条件判断，决定是否执行相关代码。">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第九十九章 如果
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2019-03-20 | Update: 2019-05-09">
+    <p>
+      JavaScript 中通过 if 进行条件判断，决定是否执行相关代码。
+    </p>
+  </div>
+  <div class="post-content">
+    <p>上一章，我们说了一些知识，但却不知道如何去用它们。那么这一章就来介绍其中的一种用法。</p>
+<p>我们做一些事情的时候需要进行条件的判断：如果是星期四，那么我就要做值日；如果我钱包里有五十块钱，我就可以去喝一杯热乎乎的咖啡，开心一整天……</p>
+<p>我们写程序也经常需要做判断，这一章我们要学习的就是一个最基本的条件语句：</p>
+<pre><code class="js">if(这里写用来判断的条件){
+  如果条件成立就执行这个大括号里的内容，否则不执行
+}
+</code></pre>
+<p>就这个么个意思，挺简单的。那么小括号里的条件呢，就是判断这个条件的真假，这样就和我们上节课的内容结合起来了。</p>
+<pre><code class="js">if(12&gt;5){
+  console.log(&#39;如果你看到了这个输出，则证明条件成立了&#39;);
+}
+</code></pre>
+<p>执行结果如下：</p>
+<div class="image-box"><img src="/assets/lesson-0099/is-true-68c1d7f81d34e9d20ea9e31b3d4eeb10.png" alt="条件语句"></div>
+<p>这很好理解，而我们上一节课的好多东西也可以在这里得到验证：</p>
+<pre><code class="js">if(12){
+  console.log(&#39;如果你看到了这个输出，则证明 12 为真。&#39;);
+}
+</code></pre>
+<p>那么怎么设计这些实验，就是留给大家的作业了哦。讲到这里似乎也没什么，但是如果告诉了你们如何对接网页进行输入输出的话，就已经可以做很多好玩的东西了。</p>
+<p>不过么，我们还是要先打好基础。本来这个教程就是基础中的骨头版，如果再不弄清楚可就说不过去了，而且大家想要深入学习，一定要在这个基础上自己去翻阅文档才行哦。</p>
+<p>这里可以联系上许多前面所说的东西，比如：</p>
+<pre><code class="js">if(12&gt;5){
+  let a=6;
+}
+console.log(a);
+</code></pre>
+<p>又会报错，说 <code>a</code> 没有被定义（<code>a is not defined</code>）。可是 <code>12&gt;5</code> 确实成立啊？！</p>
+<p>那么我们讲声明的时候说 <code>const</code> 和 <code>let</code> 所声明的变量只在它们所在的大括号内起作用，你看看，我们的输出是不是已经在大括号外面了。那么进一步验证：</p>
+<pre><code class="js">if(12&gt;5){
+  let a=6;
+  console.log(a);
+}
+console.log(a);
+</code></pre>
+<div class="image-box"><img src="/assets/lesson-0099/in-and-out-545854fe87685c96ccde041314bccab3.png" alt="括号内外"></div>
+<p>第一次（括号内），正常输出；第二次（括号外），报错。</p>
+<p>如果有需要，我们可以在合适的位置进行声明，而在条件语句中进行修改：</p>
+<pre><code class="js">let a;
+if(12&gt;5){
+  a=6;
+  console.log(a);
+}
+console.log(a);
+</code></pre>
+<div class="image-box"><img src="/assets/lesson-0099/all-right-ab34d7752731fc07979c5311f121aae0.png" alt="正确的方法"></div>
+<p>好，那么对于这个基本的条件语句我们就比较了解了。但是情况往往会更复杂：如果今天是周四，我要做值日，如果不是，那我就去打游戏。</p>
+<pre><code class="js">let a=5, b=6;
+if(a===b){
+  console.log(&#39;a、b 相等。&#39;);
+}else{
+  console.log(&#39;a、b 不相等。&#39;);
+}
+</code></pre>
+<p>这就增加了一个转折，只要把 <code>if</code> 读作“如果”，把 <code>else</code> 读作“否则”，直接读基本就能明白它的意思了。那么大家修改 <code>a</code>、<code>b</code> 的值看看结果是否和你的预期相同。</p>
+<p>这里注意，两个大括号只会执行其中一个，也必然会执行一个（不会都不执行），因为一个条件只有成立合不成立两种情况，条件成立，执行第一个大括号的；条件不成立，执行 <code>else</code> 后面的。</p>
+<p>但是情况可能更加复杂，比如上面的例子，等于和不等于，而不等于还分为大于和小于。这时候我们可以把 <code>if</code> 语句串联起来：</p>
+<pre><code class="js">let a=5, b=6;
+if(a===b){
+  console.log(&#39;a、b 相等。&#39;);
+}else if(a&gt;b){
+  console.log(&#39;a 大于 b&#39;);
+}else{
+  console.log(&#39;a 小于 b&#39;);
+}
+</code></pre>
+<p>这个我们要分段理解。</p>
+<p>首先判断最开始的 <code>a===b</code>，如果成立，执行后面的大括号。<code>else</code> 后面的内容就都不执行了（条件成立，就没必要管否则了）。</p>
+<p>如果第一个条件不成立，我们就要看 <code>else</code> 后面的内容。结果一看，嘿，和前面例子很像，就是一个基本的 <code>if……else……</code> 结构。</p>
+<p>这些条件的设置也是存在着相互影响的。先判断是否相等，如果不相等（这个作为后面判断的前提），就判断是否大于；如果不大于，再加上前面的前提（不相等），那么就可以得出结论，这是小于关系。</p>
+<p>这些都是最简单的用法实例，大家别着急，慢一点，一定要看懂，理解，然后动手尝试，看看和自己的理解是否一致。再给自己设计案例，反复练习。</p>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0099/" title="卡片 for 第九十九章">卡片 for 第九十九章</a>】</p>
+
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0098/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0100/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第四十四章 两种元素 | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="网页中两种基本类型的元素，它们的区别重点在排版的表现上。这不是仅有的两种类型，但是是最常见最基础的两种类型。">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第四十四章 两种元素
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2018-12-03 | Update: 2019-05-09">
+    <p>
+      网页中两种基本类型的元素，它们的区别重点在排版的表现上。这不是仅有的两种类型，但是是最常见最基础的两种类型。
+    </p>
+  </div>
+  <div class="post-content">
+    <p>知识是一种网状的结构，甚至是立体的网状。它们相互解释，最后形成循环。</p>
+<p>比如在完全不懂英文的时候，给你一本英英词典，它就是解释的再浅白，再通俗易懂，你还是看不懂。于是我们开始背单词，但是最开始是不求甚解的。就这么迷迷糊糊的学着，忽然就开始开窍了，发现了单词之间的联系，发现了语法的规律，发现了单词的拼写和读音之间的相关性……渐渐的，这些独立的知识在脑海中，形成了一个体系。</p>
+<p>为什么要说这个呢？前面我们所讲的内容结构相对简单，单独拿出一条来，记住，使用，问题就不大了。但是接下来的内容，它们会有相互之间的作用，所以你不要着急，也许开始的时候，你并不是十分明白，那是因为我还没有把它们都讲完。尽力去理解，先记住，多动手操作一下。等我们把后面的内容联系起来，再在练习中实际运用几次，才到了你将这些知识融会贯通的时候。</p>
+<p>别着急哦~</p>
+<hr>
+<h3 id="行内元素"><a href="#行内元素" class="headerlink" title="行内元素"></a>行内元素</h3><p>我们写出来的文字就是行内元素。啊，这么说非常不严谨，因为文字是内容，而不是元素，毕竟还没有标签。</p>
+<p>不过这描述就非常容易理解，因为行内元素的许多特性和文字都是相同的。如果我不加任何控制，那么我写出来的下一个字，就是在当前文字的后面，确切的说是右面……</p>
+<p>好吧，描述起来非常长，但事实上，这些现象我们已经习以为常到无感了。写字嘛，从左往右写，这一行装不下折到下一行。对吧？</p>
+<p>那么我们把文字都看作一个行内元素，它们的特征是类似的：</p>
+<ul>
+<li>很老实，需要多大空间占多大空间，不浪费；</li>
+<li>不霸道，自己右边的空间，可以给其他行内元素使用；</li>
+<li>能屈能伸，这一行装不下自己，把多余的部分放在下一行开始（当然实在没有办法拆分另说）。</li>
+</ul>
+<p>比如我们前面所学的 <code>a</code> 和 <code>strong</code>，这都是行内元素。</p>
+<h3 id="块级元素"><a href="#块级元素" class="headerlink" title="块级元素"></a>块级元素</h3><p>刚才说到文字，肯定有同学第一个想到的就是段落。然而段落却是典型的块级元素。</p>
+<p>大家可以想一下，它符合上面的特征吗？段落末尾有空白，会给下一行使用吗？</p>
+<p>明显是不会的，如果真的那样，我们就分不清段落了。老师也要数落我们，这么大人了，居然连分段都不会，2333</p>
+<p>那么什么是块级元素呢？首先一个重要特征，就是在默认状态下，它会另起一行。不需要你添加回车，以及换行标签。反正大块头的它，上来就想自己独占一行。</p>
+<p>而且自己身后的，管它是什么元素，也要新起一行，不能和块级元素并排。</p>
+<p>就好像我们某一段只写了一个字，甚至只是一个标点。它也单独占据了整整一行。</p>
+<ul>
+<li>多吃多占。在需要的时候，占据的空间并不只是内容所需要的空间；</li>
+<li>不与人并排，希望独占一行（其实就是自己占满整个宽度）。</li>
+</ul>
+<p>但是这些特征并不绝对，等我们设置其他属性之后，这些特征是可以改变的。</p>
+<p>如果这样说就让人很头大，是又不是，让我们如何去理解，如何去记忆呢？那么且听下回分解……（表打，我马上写下一章</p>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0044/" title="卡片 for 第四十四章">卡片 for 第四十四章</a>】</p>
+
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0043/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0045/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

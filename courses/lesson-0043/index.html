@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第四十三章 选择器 | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="在 CSS 中我们通过选择器来选择我们要描述的元素是哪一个，或者哪一些。">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第四十三章 选择器
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2018-12-03 | Update: 2019-05-09">
+    <p>
+      在 CSS 中我们通过选择器来选择我们要描述的元素是哪一个，或者哪一些。
+    </p>
+  </div>
+  <div class="post-content">
+    <p>我想大家一定发现了，我们目前所掌握的选择器局限性太大。每一次选择，页面中所有相同的元素全都跟着变化。显然我们需要更灵活的选择方式，那么从这一章开始，我们来认识一些选择器。</p>
+<pre><code class="css">a {
+  /* 这是我们学过的，通过标签名，选择元素 */
+}
+</code></pre>
+<p>除了用来辅助说明的伪类，我们目前只学了上面一种选择器。不过，我们增加一些组合变换的话，也能够玩出好多花样来：</p>
+<h3 id="后代选择器"><a href="#后代选择器" class="headerlink" title="后代选择器"></a>后代选择器</h3><pre><code class="css">p a {
+  /* 两个选择器，中间空格 */
+}
+</code></pre>
+<p>现在我把两个选择器按顺序写下来，中间用空格分隔，它表示什么呢？所有在段落中的链接。如果这个链接不在段落中，那它就不符合这个选择器。</p>
+<p>所以说这种方法选择的是 ，<code>p</code> 元素的所有后代元素中，符合 <code>a</code> 选择器的元素。那么什么是后代元素，这个我们在<a href="/courses/lesson-0024/" title="第二十四章 论论辈分">第二十四章 论论辈分</a>已经讲过了。</p>
+<h3 id="子元素选择器"><a href="#子元素选择器" class="headerlink" title="子元素选择器"></a>子元素选择器</h3><p>上面的后代选择器，包含的是所有后代，不管是孙子还是重孙子，全都算上了。而子元素选择器，则被限制为只在子元素中查找，不是直接子元素，就不看了。</p>
+<pre><code class="css">p&gt;a {
+  /* 两个选择器，中间 &gt; */
+}
+</code></pre>
+<p>这时候 <code>&gt;</code> 前后的空格可以有也可以没有。</p>
+<h3 id="多个选择器"><a href="#多个选择器" class="headerlink" title="多个选择器"></a>多个选择器</h3><p>有时候我们几种元素需要设定的样式是一样的，如果为每一种元素都写一遍这些代码，就会比较麻烦，而且以后需要修改，也会变得非常痛苦，所以我们可以像下面这样写：</p>
+<pre><code class="css">p,
+a {
+  /* 两个选择器，中间逗号 */
+}
+</code></pre>
+<p>这表示两个选择器是并列关系，比如上面，它既对段落应用这些样式，又对链接应用这些样式，于是就避免了把相同的样式写两遍的尴尬。逗号后面可以是空格，也可以换行，当然也可以不加空白。不过一般情况下，我们都用空白来分隔一下，这样便于阅读。</p>
+<p>后代的选择我们会了，那么父辈元素如何选择呢？CSS 无法做到父辈元素的选择<a href="#footnote-1" class="footnote-link"><sup>[1]</sup></a>，因为一般情况下也不需要。</p>
+<h3 id="选择所有元素"><a href="#选择所有元素" class="headerlink" title="选择所有元素"></a>选择所有元素</h3><p><code>*</code> 代表任何元素。这就是一个通配符，有点代表一切的感觉。</p>
+<pre><code class="css">* {
+  /* 这就是文档内的所有元素 */
+}
+p * {
+  /* 段落的所有后代元素 */
+}
+p&gt;* {
+  /* 段落的所有直接子元素 */
+}
+</code></pre>
+<hr>
+<p>到这里我们就算完成了对 CSS 的初步认识。我们会了一些属性，了解了一些基本的概念，更重要的，对于 CSS 有了一个比较直观的印象。</p>
+<p>但是仅凭我们现在所学这些，好像并不能做什么复杂的事情，可能最多也就是把一篇文章的格式弄得好看一些吧。这距离书写漂亮页面的目标还有很大一段距离，不过不要着急，从下一章开始，我们就要逐渐接触 CSS 强大的一面了。</p>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0043/" title="卡片 for 第四十三章">卡片 for 第四十三章</a>】</p>
+<div class="foot-notes"><p><strong id="footnote-1" class="footnote">&gt;注释 1:</strong> CSS 的渲染顺序和文档加载顺序相同，由前到后，从外到里，这样可以随着内容的加载同步渲染。如果支持父元素选择器，那么里面的内容会反过来影响外面，也就是让已渲染内容发生变化，就重复劳动，降低效率了。</p><p>正常情况几乎不会有这种需要，或者可以通过变通来实现。JavaScript 可以实现父元素的选择，但是一般 JavaScript 都要在文档加载完成之后再运行。</p></div>
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0042/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0044/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第一百二十三章 CSS 的操作 | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="使用 jQuery 对网页中元素的 CSS 属性获取和设置，以及批量设置 CSS 属性。">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第一百二十三章 CSS 的操作
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2019-05-07 | Update: 2019-05-10">
+    <p>
+      使用 jQuery 对网页中元素的 CSS 属性获取和设置，以及批量设置 CSS 属性。
+    </p>
+  </div>
+  <div class="post-content">
+    <p>上一章我们知道了，使用 <code>$().attr(&#39;style&#39;)</code> 的方法可以操作行内样式表。但是这种方法，让人觉得泯然大众矣，有点对不起我们神奇的 CSS。</p>
+<p>其实就是 CSS 是个比较复杂的属性，我们得给它弄个专属的方法，这样好用、稳定、效率高。</p>
+<p>但是，我脑仁小啊，记不住啊，幸好 jQuery 很简单，操作 CSS 就用 <code>css</code> 方法就行了（多好记。</p>
+<p>差不多和 <code>attr</code> 一样的用法，不过已经是针对 CSS 了，所以后面小括号里要说清楚的是哪一条 CSS 属性。</p>
+<pre><code class="js">const font_color = $(&#39;#miao&#39;).css(&#39;color&#39;);
+$(&#39;#miao&#39;).css(&#39;color&#39;, &#39;red&#39;);
+</code></pre>
+<p>获取到的值是最终应用在这个元素上的样式，也就是不管外部样式表、内部样式表、内联样式表……反正获取的是计算后的最终结果。</p>
+<p>但是设置，就只是内联样式表，行内样式表，嵌入式……反正就是在元素标签里写 <code>style</code> 属性那种，我居然在网上看到好多种名字了。</p>
+<p>因为这样优先级高，一般都可以稳定起作用，又不用我们去写，去读，乱不乱的就完全不管了。</p>
+<p>不过相比于 HTML 元素中的属性，CSS 属性就很多很热闹了，这样单独的设置，明显不能满足我们的需求，一条属性写一句什么的，我懒啊！</p>
+<p>CSS 的写法很类似我们学过的对象，无论是书写格式，还是内容，结构……其实就是一个对象了啦，只是每条数据后面用的是分号，换成逗号就彻底一样了。</p>
+<p>所以我们可以给某个元素直接塞一个对象，来实现批量设置：</p>
+<pre><code class="js">$(&#39;#miao&#39;).css({&#39;color&#39;: &#39;red&#39;, &#39;font-size&#39;: &#39;16px&#39;});
+</code></pre>
+<p>可以整理一下格式，方便阅读：</p>
+<pre><code class="js">$(&#39;#miao&#39;).css({
+  &#39;color&#39;: &#39;red&#39;,
+  &#39;font-size&#39;: &#39;16px&#39;
+});
+</code></pre>
+<p>小括号里放了一个对象，像 <code>color</code> 这种属性名，不写引号也可以。但是 <code>font-size</code> 这种里面有特殊符号的，就必须写，我喜欢索性都写上（仅限这个方法中，奇怪的习惯呢~</p>
+<p>有的同学可能觉得写引号很麻烦，就是不想写，就是不喜欢写，那也是可以的，嗯，就是这么的随和。但是减号肯定会引起误会，所以我们要把含有减号的属性名称，改为小驼峰的写法，就像：<code>fontSize</code> 这样。</p>
+<p>当然一个属性也可以用对象的格式进行设置，这样记住一种用法就可以通行各种情况。我就是懒（今天说了好几遍），想少打几个字符。</p>
+<p>至于获取，没什么批量的方法，老老实实一个属性一个属性的获取好了，不过真的有需要大量获取的情况，应该考虑一下，是不是有其他方式进行变通。</p>
+<p>很重要的一个方法，这么快讲完了，篇幅都不够，算了，不凑了，今天懒……</p>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0123/" title="卡片 for 第一百二十三章">卡片 for 第一百二十三章</a>】</p>
+
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0122/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0124/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

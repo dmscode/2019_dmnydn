@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第一百一十五章 第一次体验 | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="体验一下 jQuery 的使用，感受它简单的语法，和快速实现的效果。">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第一百一十五章 第一次体验
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2019-04-24 | Update: 2019-05-09">
+    <p>
+      体验一下 jQuery 的使用，感受它简单的语法，和快速实现的效果。
+    </p>
+  </div>
+  <div class="post-content">
+    <p>连续讲了两章废话，不如我们动手使用一下吧。这很激动人心，可是好像我们还没讲什么，怎么去用呢？</p>
+<p>安啦安啦，这东西可简单了，一句话语法从头用到尾。简单点总结，就是：</p>
+<blockquote>
+<p>谁，在什么时候/什么情况/的什么属性，怎么样</p>
+</blockquote>
+<p>我知道，你现在并不是很明白，不过你先记住这句话，然后在后面我们学习一句新的 jQuery 用法，你就和这句话对照一下，你会发现终究反反复复就是这一个事情。</p>
+<p>那么我们来操作一番~</p>
+<p>首先肯定是要准备一个网页文件了，我这里就不写那么完整了，这样凑篇幅下来，除了让大家的鼠标滚轮都滚动两下，也没有什么意义。</p>
+<pre><code class="html">&lt;body&gt;
+  &lt;input id=&quot;miao&quot;&gt;
+  &lt;!-- 这里是各种网页元素，我不写了，你知道下面的代码是在努力贴近 /body 标签就好 --&gt;
+  &lt;script src=&quot;https://cdn.bootcss.com/jQuery/3.4.0/jQuery.min.js&quot;&gt;&lt;/script&gt;
+  &lt;script&gt;
+    // 一会我们在这里写代码哦
+  &lt;/script&gt;
+&lt;/body&gt;
+</code></pre>
+<p>这个结构很简单，结合我们前面所讲的内容，大家应该一下就能够看明白，这里我使用的是 CDN，这样大家直接复制代码就可以测试。（小老鼠已经这么努力的为大家考虑每一个细节了，是不是应该奖励他一杯咖啡呢？</p>
+<p>我就不婆婆妈妈的反复嘱咐大家了，如果有问题，先看一看前两章中是不是有自己疏漏的内容哦。我们来继续写：</p>
+<pre><code class="js">$(&#39;document&#39;).ready(function(){
+
+})
+</code></pre>
+<p>这个代码大家知道放在哪里吧？前一段代码中我已经用注释标明了。这是一个几乎算是固定结构了，反正目前我们使用 jQuery，都是要写它的。那么开始解释：</p>
+<ul>
+<li><code>$</code> 是 jQuery 的一个起手式，每次都用，记得一切向钱看；</li>
+<li>第一个小括号里面，描述是谁。这里有一些特殊的名称可用，剩下的，我们使用 CSS 的元素选择器去描述就可以；</li>
+<li>第一个小括号后面要有一个点（<code>.</code>），理解为谁“的”也可以，但是并不是在每种情况都能讲通，好在大方向没错；</li>
+<li><code>ready</code> 是准备好的意思，现在联系前面的内容，差不多可以猜到了，就是当这个文档准备好的时候；</li>
+<li>第二个小括号里面是在这个时候怎么样，就是我们要做什么。我们在里面放了一个函数，表示当文档准备好之后去执行这个函数。</li>
+</ul>
+<p>这个结构拆开解析一下就很简单了。为什么这是一个几乎固定的结构呢？因为如果我们要操作这个页面中的元素，那么首先要等这个元素加载出来之后，否则会遇到找不到这个元素的问题。他还没来你就叫他干活，这不可以的。如果把 JS 放在 <code>head</code> 中也可能遇到这种情况。所以我们要等这个页面加载完成之后再去执行我们的操作。</p>
+<p>而操作起来也是类似的语法，我们在上面第一段代码中写了一个输入框，现在就来操作一下它。</p>
+<pre><code class="js">$(&#39;document&#39;).ready(function(){
+  $(&#39;#miao&#39;).val(&#39;小老鼠超帅的哦~&#39;);
+})
+</code></pre>
+<p>前面说的是哪个元素，就是 <code>id</code> 为 <code>miao</code> 的这个元素。它的 <code>val</code>，就是 value，就是这个输入框的值。这个值是什么呢？后面小括号中的内容，字符串、数字、或者变量、常量，都是可以的。</p>
+<p>大家整理一下这些代码，然后去尝试一下效果.看看上面的输入框是不是出来了这些文字。</p>
+<p>这个操作不复杂吧？如果结合我们前面所学的内容，用刚才的方法作为一个最后的输出，也是挺不错的。</p>
+<p>到目前，我们应该能够稍微感受到一些，jQuery 用起来还是挺简单的。而下一章，我们要见识它更惊艳的一面。</p>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0115/" title="卡片 for 第一百一十五章">卡片 for 第一百一十五章</a>】</p>
+
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0114/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0116/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

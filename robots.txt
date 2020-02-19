@@ -1,0 +1,16 @@
+# Rule 1
+User-agent: *
+Disallow: /categories/
+Disallow: /images/
+Disallow: /uncategorized/
+Disallow: /wallpaper/
+Allow: /
+Allow: /page/
+Allow: /courses/
+Allow: /about/
+Allow: /videos/
+Allow: /how-to-learn/
+
+
+Sitemap: https://dmnydn.com/sitemap.xml
+Sitemap: https://www.dmnydn.com/sitemap.xml

@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第一百一十章 函数（一） | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="JavaScript 函数初步认识，为什么要使用函数，它的优势。带参数的函数，什么是实参和形参。">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第一百一十章 函数（一）
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2019-03-28 | Update: 2019-05-09">
+    <p>
+      JavaScript 函数初步认识，为什么要使用函数，它的优势。带参数的函数，什么是实参和形参。
+    </p>
+  </div>
+  <div class="post-content">
+    <p>上一章学习了遍历，挺简单的，就是 <code>for</code> 循环。</p>
+<p>如果现在要操作一个数组，对其中的某些数值进行修改，然后输出整个数组，看变化，过一会，又操作另一个数组，修改数值，时不时的输出出来查看变化……</p>
+<p>这里反复进行了很多类似的操作，但是又没有足够的规律进行循环。难道要平铺直叙的把这个过程写出来？虽然遍历一个数组不麻烦，但是遍历很多次还是让人很烦躁啊！</p>
+<p>就算好不容易写出来了，那如果我我想进行修改怎么办？每一处都去改一下，要累死小老鼠的。这种操作一点都不科学，嗯，想都不要去想，脑壳疼！</p>
+<p>如果我把这些重复性的工作写一遍，作为一个整体，取个名字，需要的时候凭这个名字执行它所代表的这一系列操作，岂不很清爽？</p>
+<p>这个概念怎么有点像变量？对，我们就是可以把这一系列操作用一个变量（常量）来替代。</p>
+<pre><code class="js">const a = function(){
+  console.log(&#39;这个函数被执行了&#39;);
+}
+a();
+</code></pre>
+<p>我们用 <code>a</code> 来代表后面的函数，对，后面是一个函数，<code>a</code> 算是这个函数的名字，就是函数名。</p>
+<ul>
+<li><code>function</code> 是函数的意思；</li>
+<li>小括号里面是参数，但是这个例子里不需要参数，所以是空的；</li>
+<li>大括号里是这个函数的语句，就是这个函数用来做那些事情；</li>
+</ul>
+<p>显然这个函数就是用来输出一段话。怎么使用这个函数呢？<code>a()</code> 这样，函数名后面加上小括号，小括号里可以写参数，对，这次不需要，所以没写。我们以后每次需要输出的时候，就直接调用这个函数就行了。调用，就是把它叫过来，让它干活。</p>
+<p>上面这个例子并没让我们觉得用函数就很简单，那么我们看下面的：</p>
+<pre><code class="js">const to_show_all_items = function(arr){
+  for(const item of arr){
+    console.log(item)
+  }
+}
+</code></pre>
+<p>先讲一下，这个函数一看就是用来遍历输出一个数组的，但是输出哪个数组呢？我们可能用它输出任何一个，需要进行输出的数组。这就有点说不清楚了，所以需要一个变量，来指代这个用来输出的数组。这就是小括号里的 <code>arr</code>。它在这个大括号范围内用来替代将来要输出的数组，这样我们后面的代码就可以进行描述了，对数组 <code>arr</code> 进行遍历，输出……</p>
+<p>前面说了，小括号里的这叫做参数。而 <code>arr</code> 并不是实际参加运算的参数，只是为了我们可以进行描述，而假定的一个“代词”。即：不是实际参数，只是形式上的参数。所以这个叫做“形参”。</p>
+<p>现在函数定义出来了，该使用了：</p>
+<pre><code class="js">const a = [1, 2, 3];
+const b = [&#39;hello&#39;, &#39;world&#39;];
+to_show_all_items(a);
+to_show_all_items(b);
+</code></pre>
+<p>定义了 <code>a</code> 和 <code>b</code> 这两个数组，然后开始使用函数，于是我就叫来了 <code>to_show_all_items</code>，嘿，伙计，你该干活了！</p>
+<p>它就说啦，我的工作是输出一个数组，你得告诉我输出谁才行啊！</p>
+<p>我说，那你先输出数组 <code>a</code> 吧~于是我把 <code>a</code> 作为参数，传递给了它。参数放在小括号里。在实际执行的时候，传递给函数的，用来实际计算用的参数，叫做“实参”。</p>
+<p>它拿到数组，说，好嘞！按着预定计划开始执行~数组 <code>a</code> 就被输出出来了。</p>
+<p>接着我让它在输出数组 <code>b</code>，依旧把 <code>b</code> 作为参数，传递给它，他按着同样的方法输出了 <code>b</code> 中的项目。你看，现在我想输出一个数组，就不用再去重复的写循环了，只要调用一下这个函数就好，是不是十分美妙~</p>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0110/" title="卡片 for 第一百一十章">卡片 for 第一百一十章</a>】</p>
+
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0109/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0111/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

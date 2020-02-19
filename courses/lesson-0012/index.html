@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第十二章 链接（二） | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="链接可以设置在什么地方打开，比如当前标签页中，或者新标签页内，以及设置提示文字等等。方法也很简单，只要在代码中添加对应的属性即可。">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第十二章 链接（二）
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2018-11-10 | Update: 2019-05-09">
+    <p>
+      链接可以设置在什么地方打开，比如当前标签页中，或者新标签页内，以及设置提示文字等等。方法也很简单，只要在代码中添加对应的属性即可。
+    </p>
+  </div>
+  <div class="post-content">
+    <p>你会发现上一章的链接是在当前页面中打开的，那我们能不能让这个链接在新的标签页中打开呢？当然可以了，这时候我们又要增加一个新的属性（<code>target</code>）,来告诉浏览器，我们这个链接，要用何种方式进行打开。比如在新标签页中打开（<code>_blank</code>）。</p>
+<p>那我们按着上面所做的总结，试着添加一下这个属性：</p>
+<pre><code class="html">&lt;a href=&quot;https://dmnydn.com/&quot; target=&quot;_blank&quot;&gt;《代码能有多难？》&lt;/a&gt;
+</code></pre>
+<p>完全一样的结构，一样的前面加一个空格进行分隔，免得乱了。现在我们只要记住每一个属性表达的是什么意思，然后它的值又可以有哪些，就可以很好的自己去写这些代码了。<code>href</code> 是说这个链接要链接到哪里，所以他可以用的值，就是各种网址<a href="#footnote-1" class="footnote-link"><sup>[1]</sup></a>；<code>target</code> 是说页面在哪里打开，设置为 <code>_blank</code> 是在新标签页中，最常用到的也只有这一个值。因为如果你需要在当前页面中打开，那就不用写这个属性了（默认就是在当前页面中打开的）。</p>
+<p>关于属性怎么写，大家应该已经了解了。接着我们来介绍链接所具有的第三个属性：<code>title</code>，这个是什么作用呢？先不说，咱们写一下试试看：</p>
+<pre><code class="html">&lt;a href=&quot;https://dmnydn.com/&quot; target=&quot;_blank&quot; title=&quot;这是个啥呀？&quot;&gt;《代码能有多难？》&lt;/a&gt;
+</code></pre>
+<p>我们保存以后，看一下效果：<a href="https://dmnydn.com/" target="_blank" title="这是个啥呀？">《代码能有多难？》</a>，好像并没有发生任何的变化。现在你把鼠标移动到这个链接上，不要点击也不要移动，等一小会儿，会发现有一个小小的提示：</p>
+<div class="image-box"><img src="/assets/lesson-0012/link-title-bba0fde93aa332fdfcd3b5318fc15c8c.png" alt></div>
+<p>原来这个属性就是我们最常见的链接提示。当然它的显示效果，因为浏览器的不同而有所区别。这个属性虽然效果不是那么直白，但他还是十分重要的，它可以让读者在点击链接之前，了解自己要访问的内容是些什么。现在我们来把这个描述认真的写一下吧，~</p>
+<pre><code class="html">&lt;a href=&quot;https://dmnydn.com/&quot; target=&quot;_blank&quot; title=&quot;这是一本写给前端小白的故事书，带大家认识前端代码，并培养兴趣。&quot;&gt;《代码能有多难？》&lt;/a&gt;
+</code></pre>
+<p>差不多就是这个样子，那么我们来试一下效果：<a href="https://dmnydn.com/" target="_blank" title="这是一本写给前端小白的故事书，带大家认识前端代码，并培养兴趣。">《代码能有多难？》</a>。效果完全符合预期。</p>
+<p>这里有一个细节，就是我们的描述中用的标点，是中文标点。因为虽然它写在标签之中，但是它是一个属性的值，而这个属性的值，要的是一段描述，明显这是一个我们可以自由发挥的地方，你可以理解为，这也是一种内容，而不是代码。</p>
+<p>但并不是说自由发挥就可以写任何内容。我们看到每一个属性的值，都用引号包含起来，表示这是一个整体。那如果你在其中再写引号，这就开始冲突了，因为电脑搞不清楚哪两个引号才是一对。同样的，在网页内容中，你也不能随意的去写尖括号，因为这会和网页标签的尖括号产生冲突。而如何处理这些问题，我们后面慢慢再聊。</p>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0012/" title="卡片 for 第十二章">卡片 for 第十二章</a>】</p>
+<div class="foot-notes"><p><strong id="footnote-1" class="footnote">&gt;注释 1:</strong> 虽然链接的地址以网址居多，但是实际上它可以填写的类型也非常复杂。后面我们会涉及到一部分，如果有兴趣也可以自己查阅资料，了解一下。</p></div>
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0011/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0013/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

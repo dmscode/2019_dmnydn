@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第八十六章 坐标系（一） | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="网页中，描述方向和位置的坐标系归纳总结。">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第八十六章 坐标系（一）
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2019-01-26 | Update: 2019-05-09">
+    <p>
+      网页中，描述方向和位置的坐标系归纳总结。
+    </p>
+  </div>
+  <div class="post-content">
+    <p>在我心目中，都是用坐标系来描述这些问题，然而想到要写这一章内容，进行归纳总结的时候发现，说坐标系有点不确切。很多都是单独的坐标轴，即一维问题，每一个维度都是单独考虑，即便涉及两个维度，也可以分开考虑。</p>
+<p>然后归纳一下吧，顺便补充某些我们前面没有展开讨论的东西。</p>
+<h2 id="文档流"><a href="#文档流" class="headerlink" title="文档流"></a>文档流</h2><p>文档流里面主要有三个方向，并没有一定的原点，一般可以认为是所在元素的左上角。或者整个页面的左上角</p>
+<h3 id="文本方向"><a href="#文本方向" class="headerlink" title="文本方向"></a>文本方向</h3><p>一般指横向中文字排列的方向，和所使用的语言相关，我们常接触的语言都是从左往右，所以初期按着从左往右理解也没什么大问题。</p>
+<p>X 轴（横向），一般是从左往右为正方向。但其实是以文字书写方向为正方向</p>
+<h3 id="块元素方向"><a href="#块元素方向" class="headerlink" title="块元素方向"></a>块元素方向</h3><p>块元素默认的排列方向，是从上往下。这本来挺简单，也符合我们对页面的预期。但是需要注意：<strong>页面坐标系中 Y 轴和我们日常见到的二维坐标系是相反的！！！</strong></p>
+<p>Y 轴（纵向），朝下才是正方向。</p>
+<h3 id="堆叠方向"><a href="#堆叠方向" class="headerlink" title="堆叠方向"></a>堆叠方向</h3><p>这是 Z 轴。从电脑屏幕到观看者的方向为正方向。取值越大越叠在上层，也就距离观看者越近，越不容易被挡到。</p>
+<p>堆叠反倒最简单，因为在这个方向上，就这一个属性（<code>z-index</code>）负责。</p>
+<h2 id="元素周边"><a href="#元素周边" class="headerlink" title="元素周边"></a>元素周边</h2><p>四个边要分别说，但这样就很费事，不如我们总结一下它的规则。</p>
+<h3 id="外补"><a href="#外补" class="headerlink" title="外补"></a>外补</h3><p>以每个方向的边为这个方向的原点，垂直于这个边向外的方向为正方向。</p>
+<p>比如 <code>margin-left</code> 就是以元素的左边为原点，向外（更左边）为正方向。</p>
+<p>注意：<strong>外补可以取负数</strong>，这一点很有用。</p>
+<h3 id="内补"><a href="#内补" class="headerlink" title="内补"></a>内补</h3><p>和外补类似，方向相反（向元素内部为正方向），不能取负数。</p>
+<h3 id="边框"><a href="#边框" class="headerlink" title="边框"></a>边框</h3><p>这个取决于 <code>box-sizing</code> 属性的取值。也就是我们设定的元素尺寸是否包含了边框。</p>
+<p>如果没有包含（<code>content-box</code>，默认值），那么它和外补一样。而外补的起点其实在边框之外。</p>
+<p>如果包含边框（<code>border-box</code>），那么它和内补一样。而内补的起点其实在边框之内。</p>
+<h2 id="定位"><a href="#定位" class="headerlink" title="定位"></a>定位</h2><p>就是和 <code>position</code> 属性相关的位置确定。这是要确定两个点东西，谁（被定位元素）相对于谁（定位基准）进行定位。但这样还不够，因为两个元素都是有面积的，具体到哪一点相对于哪一点，这是要弄清楚的。</p>
+<p>好像很复杂的样子呀？还好，也有十分简单的规则：</p>
+<p>每个方向都是以被定位元素这个方向的边界和定位基准元素在这个方向上的边界为基准，两边重合为原点，向内（对于两个元素来说都是向元素内部）的方向为正方向。然后都可以取负值。</p>
+<h3 id="相对定位（relative）"><a href="#相对定位（relative）" class="headerlink" title="相对定位（relative）"></a>相对定位（<code>relative</code>）</h3><p>相对于自己在定位之前的位置进行定位，因为两者面积完全相同，所以原点不重要，主要是确定了方向。</p>
+<h3 id="绝对定位（absolute）"><a href="#绝对定位（absolute）" class="headerlink" title="绝对定位（absolute）"></a>绝对定位（<code>absolute</code>）</h3><p>相对于祖先元素中第一个不是静态定位（<code>static</code>）的元素进行定位，为了定位方便，一般会把父元素设置为相对定位（<code>relative</code>），但不做偏移，这样就可以相对父元素进行定位了。</p>
+<h3 id="固定定位（fixed）"><a href="#固定定位（fixed）" class="headerlink" title="固定定位（fixed）"></a>固定定位（<code>fixed</code>）</h3><p>就是相对于浏览器窗口的内边界定位。不过对于滚动条应该进行考虑。</p>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0086/" title="卡片 for 第八十六章">卡片 for 第八十六章</a>】</p>
+
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0085/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0087/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

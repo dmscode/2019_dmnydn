@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第九十三章 声明 | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="JavaScript 中变量的声明方式，以及我们为什么要对变量进行声明。">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第九十三章 声明
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2019-03-13 | Update: 2019-05-09">
+    <p>
+      JavaScript 中变量的声明方式，以及我们为什么要对变量进行声明。
+    </p>
+  </div>
+  <div class="post-content">
+    <p>上一章我们说我们的写法是不完善的，为什么呢？因为我们在使用一个变量之前，应该首先对变量进行声明。就好像我们在希望某个人去做某件事情之前，要先明确他是我们的员工。</p>
+<p>可是前面没有做声明，为什么没出问题呢？因为 JS 的语法并不严格，变量可以拿来就用。既然如此，又为什么还是要进行声明呢？因为不声明会很混乱。（这样好像什么都没说，因为解释不清楚啊，一解释就涉及到很多没讲到的名词，再展开，这一章都不够用，那就很枯燥了，不如我们讲个故事吧。</p>
+<p>因为我做前端，所以单位里大家都叫我前端，约定俗成，心知肚明……反正一说起来大家都明白。但是和其他单位的一起开会，讨论起来就很混乱，因为他们那边做前端的同学也被大家亲切地称呼为前端。这个项目谁负责做？前端去做吧。反正我不做，我觉得这说的不是我，我就可以偷懒了。这个奖金给谁？给前端吧，那我肯定去领，你看说的给我嘛……</p>
+<p>这样就混乱了。所以我们要声明一下，方便讨论。类似于我下面所说的前端，都是指我们公司的这位做前端的同志。这样就不乱了。或者，下面项目中，我们公司的部分，都是我们这边的前端同志负责，你们公司那边的，由你们的前端负责。把范围划分清楚再讨论，就没有歧义了。</p>
+<p>那么大概理解了为什么要声明变量，我们来学习怎么声明变量：</p>
+<pre><code class="js">var a;
+</code></pre>
+<p>这样我们就声明了一个变量 <code>a</code>，后面就可以安心的去使用了。不过现在的 <code>a</code> 并没有值，我们也可以在声明的同时进行赋值：</p>
+<pre><code class="js">var a = 5;
+</code></pre>
+<p>如果我们需要声明多个变量，也可以一起来：</p>
+<pre><code class="js">var a, b, c;
+</code></pre>
+<p>声明多个变量，并对其中某些变量进行赋值：</p>
+<pre><code class="js">var a = 5, b =3, c;
+</code></pre>
+<p>挺好理解的，<strong>对于变量，要先声明，后使用，不要重复进行声明</strong>。</p>
+<p>但是，<code>var</code> 有点愣头青，或者说级别太高，很多时候显得并不好用。依旧举例子：</p>
+<p>你是谁？我是厂长！——这时候我们还可以理解。</p>
+<p>你是哪个厂的厂长？我到哪个厂就是哪个厂的厂长。——这就有点不可理喻了。</p>
+<p>差不多就是这个意思，<code>var</code> 声明是全局的，到哪都能用（不绝对，但在范围上是，以后逐步理解），有点钦差见官大三级的意思。</p>
+<p>好像一个变量到哪里都能用是个优点，因为我们会很省心啊。然而并不是，这会搞得非常混乱。两个公司共用一个人来做前端的活，可能两边同时给这个人布置任务，把人累死，活也没做好。可是两边好像都没什么错，很尴尬。</p>
+<p>不过还好，随着新标准的出现，我们有了新的声明方法可用，就很舒服了。所以现在建议没有绝对的必要性就不要使用 <code>var</code> 去声明变量。</p>
+<p>一不小心说了这么多了，嗯，新的方法我们就留在下一章继续吧~</p>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0093/" title="卡片 for 第九十三章">卡片 for 第九十三章</a>】</p>
+
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0092/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0094/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

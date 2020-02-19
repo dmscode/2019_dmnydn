@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第一百零一章 做点练习 | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="JavaScript 基础部分的简单练习，熟悉前面所学的知识。">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第一百零一章 做点练习
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2019-03-20 | Update: 2019-05-09">
+    <p>
+      JavaScript 基础部分的简单练习，熟悉前面所学的知识。
+    </p>
+  </div>
+  <div class="post-content">
+    <p>概念说了那么多，我们要做点练习来放松一下了。</p>
+<p>可能有人觉得做练习算是哪门子放松啊，但这部分好像也不复杂，就没有我带着你们做练习的必要性，但我还是出现了，就意味着……要搞点有意思的事情。</p>
+<p>前面我们学习了 <code>alert</code>，是用来弹出提示的，现在我们再来认识一个弹出输入框的 <code>prompt</code>，这个也不深入去说，先拿起来能用就行，详细的东西大家自己去查阅文档。</p>
+<pre><code class="js">const val = prompt(&#39;请输入你的分数：&#39;);
+</code></pre>
+<p>执行效果如下：</p>
+<div class="image-box"><img src="/assets/lesson-0101/prompt-4bc788a8c6b5dfb4e7cc3515da715e9a.png" alt="输入框"></div>
+<p>输入内容后点击确定，那么输入的内容就被储存在了变量（我这里声明的是常量） <code>val</code> 里。需要注意的是，即便输入的是数字，我们获得到的 <code>val</code> 的数据类型也是字符串，如果需要数字呢，我们需要进行一个类型转换：</p>
+<pre><code class="js">const val = +prompt(&#39;请输入你的分数：&#39;);
+</code></pre>
+<p>区别就是增加了一个正号。这里我们先不考虑用户点击取消以及输入非数字内容（预期以外内容）的情况，按着最理想的状态去做一些判断：</p>
+<pre><code class="js">const val = +prompt(&#39;请输入你的分数：&#39;);
+if(val===100){
+  console.log(&#39;学霸！&#39;);
+}else if(val&gt;95){
+  console.log(&#39;优秀！&#39;);
+}else if(val&gt;80){
+  console.log(&#39;良好！&#39;);
+}else if(val&gt;60){
+  console.log(&#39;尚可！&#39;);
+}else if(val&gt;55){
+  console.log(&#39;加油！&#39;);
+}else if(val&gt;36){
+  console.log(&#39;潜力！&#39;);
+}else{
+  console.log(&#39;头疼！&#39;);
+}
+</code></pre>
+<p>挺简单的，和我们前面讲的一样。如果把 <code>console.log</code> 换成 <code>alert</code> 就可以实用了，挺好的一个小工具，帮助大家认识自己的成绩。</p>
+<p>但是学习什么的就很无趣，学习中还谈论学习，就是无趣的平方。不如我们来做点别的？</p>
+<p>标准体重如何计算来着？我在网上随便找了这么一个计算方法，是否科学先不管，我们当练习还是没问题的：</p>
+<blockquote>
+<p>男性：(身高 cm－80)×70﹪= 标准体重<br>女性：(身高 cm－70)×60﹪= 标准体重<br>标准体重正负 10﹪为正常体重<br>标准体重正负 10﹪~ 20﹪为体重过重或过轻<br>标准体重正负 20﹪以上为肥胖或体重不足</p>
+</blockquote>
+<p>那我们来做一个体重计算器吧：</p>
+<p>首先，男性和女性的计算方法不一样，所以我们要先要求用户输入自己的性别：</p>
+<pre><code class="js">const sex = +prompt(&#39;请输入你性别，男性输入 1，女性输入 0：&#39;);
+</code></pre>
+<p>这里的 0 和 1 一方面是方便输入，另一方面它们两个正好一真一假，方便下面进行判断，然后要求输入当前身高和体重：</p>
+<pre><code class="js">const your_height = +prompt(&#39;请输入你身高，单位是厘米，仅输入数值即可：&#39;);
+const your_weight = +prompt(&#39;请输入你体重，单位是千克，仅输入数值即可：&#39;);
+</code></pre>
+<p>到现在就是三个输入，一样的格式，就没得讲解了吧。</p>
+<pre><code class="js">let standard_weight; // 这个变量是当前身高所对应的标准体重
+if(sex){
+  standard_weight = (your_height-80)*0.7;
+}else{
+  standard_weight = (your_height-70)*0.6;
+}
+</code></pre>
+<p>如果是男生，用男生的公式计算标准体重，否则用女生的公式计算标准体重。</p>
+<p>那么现在有了标准体重，就可以计算体重状态了。</p>
+<pre><code class="js">if(your_weight&lt;=standard_weight){
+  // 当体重小于等于标准体重
+}else{
+  // 当体重大于等于标准体重
+}
+</code></pre>
+<p>这样分开情况进行讨论，我们就知道哪个大哪个小，究竟是偏重，还是偏轻了。</p>
+<p>那么每一种都是去对比体重符合上述的哪一种情况，又是一组连续的 <code>if……else……</code>：</p>
+<pre><code class="js">if(your_weight&lt;=standard_weight){
+  // 当体重小于等于标准体重
+  if(your_weight&gt;=standard_weight*0.9){
+    console.log(&#39;您身高对应的标准体重是：&#39;+standard_weight+&#39;，您现在的体重正常~&#39;);
+  }else if(your_weight&gt;=standard_weight*0.8){
+    console.log(&#39;您身高对应的标准体重是：&#39;+standard_weight+&#39;，您现在的体重过轻~&#39;);
+  }else{
+    console.log(&#39;您身高对应的标准体重是：&#39;+standard_weight+&#39;，您现在体重不足~&#39;);
+  }
+}else{
+  // 当体重大于等于标准体重
+  if(your_weight&lt;=standard_weight*1.1){
+    console.log(&#39;您身高对应的标准体重是：&#39;+standard_weight+&#39;，您现在的体重正常~&#39;);
+  }else if(your_weight&lt;=standard_weight*1.2){
+    console.log(&#39;您身高对应的标准体重是：&#39;+standard_weight+&#39;，您现在的体重过重~&#39;);
+  }else{
+    console.log(&#39;您身高对应的标准体重是：&#39;+standard_weight+&#39;，您……胖砸！~&#39;);
+  }
+}
+</code></pre>
+<p>那么把上面的代码放在一起就可以用了哦，虽然稍微有一丢丢的长，但就是我们前面所学的这点知识的重复组合而已。</p>
+<p>所以多给自己一些假设的小需求，来尝试着做练习是很好玩的事情，而且也可以做出很有用的小工具。</p>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0101/" title="卡片 for 第一百零一章">卡片 for 第一百零一章</a>】</p>
+<h3 id="附录：刚才体重计算代码的完整版"><a href="#附录：刚才体重计算代码的完整版" class="headerlink" title="附录：刚才体重计算代码的完整版"></a>附录：刚才体重计算代码的完整版</h3><p>（就是帮你们整理到了一起，小老鼠是多么的贴心呀~</p>
+<pre><code class="js">const sex = +prompt(&#39;请输入你性别，男性输入 1，女性输入 0：&#39;);
+const your_height = +prompt(&#39;请输入你身高，单位是厘米，仅输入数值即可：&#39;);
+const your_weight = +prompt(&#39;请输入你体重，单位是千克，仅输入数值即可：&#39;);
+let standard_weight; // 这个变量是当前身高所对应的标准体重
+if(sex){
+  standard_weight = (your_height-80)*0.7;
+}else{
+  standard_weight = (your_height-70)*0.6;
+}
+if(your_weight&lt;=standard_weight){
+  // 当体重小于等于标准体重
+  if(your_weight&gt;=standard_weight*0.9){
+    console.log(&#39;您身高对应的标准体重是：&#39;+standard_weight+&#39;，您现在的体重正常~&#39;);
+  }else if(your_weight&gt;=standard_weight*0.8){
+    console.log(&#39;您身高对应的标准体重是：&#39;+standard_weight+&#39;，您现在的体重过轻~&#39;);
+  }else{
+    console.log(&#39;您身高对应的标准体重是：&#39;+standard_weight+&#39;，您现在体重不足~&#39;);
+  }
+}else{
+  // 当体重大于等于标准体重
+  if(your_weight&lt;=standard_weight*1.1){
+    console.log(&#39;您身高对应的标准体重是：&#39;+standard_weight+&#39;，您现在的体重正常~&#39;);
+  }else if(your_weight&lt;=standard_weight*1.2){
+    console.log(&#39;您身高对应的标准体重是：&#39;+standard_weight+&#39;，您现在的体重过重~&#39;);
+  }else{
+    console.log(&#39;您身高对应的标准体重是：&#39;+standard_weight+&#39;，您……胖砸！~&#39;);
+  }
+}
+</code></pre>
+
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0100/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0102/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

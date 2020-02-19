@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第七十二章 自适应 | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="通过对元素 CSS 设置进行一定的优化，使元素尺寸可以自行适应设备和浏览器窗口的尺寸，在不同情况下获得良好的用户体验。">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第七十二章 自适应
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2019-01-12 | Update: 2019-05-09">
+    <p>
+      通过对元素 CSS 设置进行一定的优化，使元素尺寸可以自行适应设备和浏览器窗口的尺寸，在不同情况下获得良好的用户体验。
+    </p>
+  </div>
+  <div class="post-content">
+    <p>我们写了一个网页，在电脑上看起来效果很好。</p>
+<p>但确切的说，是在我们自己的电脑上看起来很好，换一个电脑呢？啊，我说的不是兼容性的问题。只是可能这两个电脑的分辨率不大一样，网页显示出来的效果也就不一样。</p>
+<p>但是我并没有两台电脑，不过我可以调整一下浏览器窗口的尺寸，来看看效果。当然，大于当前显示器的尺寸我们主要还得靠推测，虽然可以借助浏览器的缩放在一定程度上查看效果，但是不够理想。<a href="#footnote-1" class="footnote-link"><sup>[1]</sup></a></p>
+<p>这不是一个美好的世界，因为它不是完美的，我适应了这个尺寸，却对那个尺寸不友好，焦头烂额，要不是鼠标是我自己花钱买的，我早摔出去了！</p>
+<p>这时候我们就要考虑网页的自适应，让它自己学会适应环境，这就美妙了。就好像教会了孩子干活，父母就可以偷懒了，23333。</p>
+<p>那么如果我们把所有的宽度都用百分比来表示的话，是不是可以适应所有的宽度？好像是的，这可以解决好多问题，所以比例虽然不是确定的尺寸，但是它有它存在的意义。但是这就够了么？永远要考虑极限问题，才能更好的保证适应的效果。</p>
+<p>如果超宽屏幕，那么内容区域多宽合适？ 50%，已经和普通屏幕一样宽了，但是为了照顾其他用户，我们就这样了。普通屏幕呢？50% 虽然窄了点，也还可以接受吧。手机用户……表示这个区域用来观看冰糖葫芦正好。</p>
+<p>所以我们需要一些限定，才能让这个事情变得更好。所以有以下四个属性：</p>
+<pre><code class="css">min-width: 50%;
+max-width: 50%;
+min-height: 50%;
+max-height: 50%;
+</code></pre>
+<p><code>min</code> 是最小的意思，<code>max</code> 是最大的意思，可能你们已经知道了，但是我这只农村老鼠在上初中的时候还完全不懂这个，老师写了一黑板，我看的翻白眼。这可是我和前面女生不耻下问得来的知识，现在无私的传授给你们了。</p>
+<p>好了，意思都看懂了，稍微解释一下：就是说这个元素的宽度（或者高度），最大（或者最小）不能超过后面这个值，如果超过怎么办？那就强行设定为后面的值，就相当于指定了固定的宽高。它们的取值和普通宽高一样，不过，和普通宽高配合的时候可能要使用不同的单位（看具体情况），才能达到比较好的效果。比如：</p>
+<pre><code class="css">x {
+  width: 50%;
+  min-width: 360px;
+  max-width: 800px;
+}
+</code></pre>
+<p>那么这个元素的宽度首先取父元素的 50%，然后如果小于 360px 就被设置为 360px；如果大于 800px 就被设置为 800px。再结合我们前面的例子看，这样的宽度设置是不是就比较合理了？</p>
+<p>这就比较严谨了，但是还有一些麻烦。每一个元素都是和父元素相比，这是一个连续的比例。结果是什么？到了深层元素你已经很难准确知道它的宽度是怎样的了。这是一个很大的麻烦，不过也有一个十分直接的解决方法。自适应的话，不就是参照浏览器的尺寸来定位元素尺寸么？那如果我能获得浏览器的尺寸的话……</p>
+<p>但是我们要先明确一个问题：我们需要的究竟是什么尺寸？浏览器窗口的尺寸么？不同浏览器，不同系统，不同的情况下，浏览器窗口的边框粗细是不一样的，上面显示不显示收藏栏……</p>
+<p>这并不是一个好的想法，会导致大量的麻烦。那么我们需要的是什么？浏览器中用来显示网页的区域的尺寸。这个区域叫做：视口（<code>Viewport</code>），一个很难受的翻译，反正就是浏览器中网页的可视范围。你可能联想到了我们在 <a href="/courses/lesson-0007/" title="第七章 基本模板">第七章 基本模板</a> 里的一些东西了。嗯，说的是一个东东，不过我依旧不打算深入解释。</p>
+<p>我们说到哪里了？对，如果相对于视口来定义尺寸的话，就很方便了：</p>
+<pre><code class="css">y {
+  width: 36vw;
+  height: 72vh;
+}
+</code></pre>
+<p>两个单位，<code>vw</code> 表示当前可视区域宽度的 1%；<code>vh</code> 表示当前可视区域高度的 1%。这就很帅气了，而且在各种需要长度的时候都可以用，而且取值可以超过 100。</p>
+<p>这就结束了么？都这么方便了，索性方便到底好了。</p>
+<pre><code class="css">z {
+  width: 36vmax;
+  height: 72vmin;
+}
+</code></pre>
+<p>v 代表视口（<code>Viewport</code>），猜也猜到了，这个最大最小，又没说宽高，该怎么理解呢。<code>vmax</code> 就是 <code>Viewport</code> 的宽高中比较大的那个，而 <code>vmin</code> 就是比较小的那个。</p>
+<p>你说这有什么用？比如我现在想显示一个能够在一屏被完整显示出来的正方形，怎么办？电脑上一般 <code>Viewport</code> 的高度小于宽度，但是以高度为准的话，到了手机上（竖屏情况），情况又相反，就很难判断。而这两个单位就很好的回避了这个问题。</p>
+<p>这一章内容有点多，大家一定要自己动手操作，通过实践去理解它们的效果。老鼠写的这么努力，有咖啡喝的么？</p>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0072/" title="卡片 for 第七十二章">卡片 for 第七十二章</a>】</p>
+<div class="foot-notes"><p><strong id="footnote-1" class="footnote">&gt;注释 1:</strong> 当然是有更专业的方法的，我们后面说。</p></div>
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0071/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0073/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

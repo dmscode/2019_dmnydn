@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第十八章 表单（一） | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="表单就是我们在网页中填写和提交数据的地方，是读者和网页进行交互的重要手段。用来收集数据，上传数据，也可以用来进行查询，甚至一些反馈和数据的展示。">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第十八章 表单（一）
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2018-11-14 | Update: 2019-05-09">
+    <p>
+      表单就是我们在网页中填写和提交数据的地方，是读者和网页进行交互的重要手段。用来收集数据，上传数据，也可以用来进行查询，甚至一些反馈和数据的展示。
+    </p>
+  </div>
+  <div class="post-content">
+    <p>这是我最喜欢讲的一节课了，因为可以非常简单的实现一些让我们觉得惊讶的效果。</p>
+<p>先来解释一下什么是表单，其实它和表格没有什么关系。这是用来收集用户数据，并进行提交的一类元素。是我们和网站之间非常重要的一种交互方式。这么正式的介绍肯定不容易理解，不过我举几个例子，你立刻就明白了，如网站的登录框，当然注册的时候需要填写的表单也是，还有搜索框，需要你输入内容，然后提交给网站的，基本就都是了。不过有的时候也并不一定是输入，各种切换按钮，单选多选，选个日期，颜色，数值，文件……反正你要告诉网站一些数据的时候，背后差不多都有表单的身影。</p>
+<p>这么厉害，一定很复杂吧？是的，表单是一个挺复杂的东西，但并不是说它有多难，只是它相关的元素以及元素的属性，非常多。不过我们也没有必要一下子全都弄懂，先来写一个最简单的应用，认识一下：</p>
+<pre><code class="html">&lt;form action=&quot;https://www.baidu.com/s&quot; method=&quot;get&quot;&gt;
+  &lt;input type=&quot;search&quot; name=&quot;wd&quot;&gt;
+&lt;/form&gt;
+</code></pre>
+<div class="code-show" data-before-text="代码效果演示 Start" data-after-text="代码效果演示 End"><form action="https://www.baidu.com/s" method="get">
+  <input type="search" name="wd">
+</form></div>
+<p>现在你在输入框中输入一些内容，然后按一下回车键……</p>
+<p>好了，估计你刚从百度的搜索页重新回来。没想到我这么简单的三行代码，就可以让你在这个页面里直接进行百度搜索了。抬头再看看这些代码，怎么说也算不上复杂，那还不赶紧背下来，好在小伙伴面前炫耀~~</p>
+<p>其实学代码几乎是不需要去背的，好多东西都可以理解着记忆，而且你记住一些关键词，用的时候还可以查嘛，反正又不是考试，也没有人要求你闭卷答题。那我们来解释一下上面的代码：</p>
+<p><code>form</code> 标签说的是，这里是一个表单。当然，这个单词其实是表格、单子的意思，不过这是一个用来收集信息的表，你可以理解为大街上的调查表，“朋友麻烦你填一下这个调查表好吗？”于是你就在表上添上各种他需要的信息，然后再把表交给他。这是一个非常类似的过程。</p>
+<p>我们这里写了他的两个属性。一个 <code>action</code>，表示这些数据将要被提交到哪里。就好像上面的调查表，填完以后你当然是不需要考虑其他问题，只要交给他就行了。那么负责收集调查表的这个人，也并不是（不一定）自己去处理这些数据，他要把自己拿到的调查表，交给自己的上级，那么交给谁呢？<code>action</code> 属性描述的就是这个问题。一般他后面的属性值是一个地址，就是表示网页会把这些数据发送到这一个地址。那你也就理解了，为什么我们能够在这个页面里进行百度的搜索。是因为我们这个表单只负责收集数据（你要搜索什么），然后把这些数据发送给百度进行处理，然后展示给你搜索结果的页面。</p>
+<p>还有一个属性 <code>method</code>，说的是提交的方法，这个有两种方法，<code>get</code> 和 <code>post</code>。简单说一下两者的区别：<code>get</code> 就相当于，上面例子中到调查表之后，口头的和他的上级进行一下汇报，那么这个特点就是非常公开的，那就每一个在当时路过的人，都能够听到这些个内容；而且只适合比较简短的数据，如果数据量太大……难不成他每次收到调查表之后，都给上级口述一部《三国演义》，怕是会累到口吐白沫。<code>post</code> 这个单词，在我们最开始认识他的时候学到的含义，一般都是邮寄。那么收到调查表之后，我们通过邮寄的方式交给上级，因为内容是封在邮件中的，就不那么容易被周边的人知道里面的内容了，除非他把邮件拆开看一看。然后这种方式可以传递比较大的数据，别说一本《三国演义》了，就是四大名著也可以一起寄过去。</p>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0018/" title="卡片 for 第十八章">卡片 for 第十八章</a>】</p>
+
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0017/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0019/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

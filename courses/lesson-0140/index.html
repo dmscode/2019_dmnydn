@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第一百四十章 进来出去 | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="jQuery 中鼠标事件，移入和移出。">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第一百四十章 进来出去
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2019-05-24 | Update: 2019-05-25">
+    <p>
+      jQuery 中鼠标事件，移入和移出。
+    </p>
+  </div>
+  <div class="post-content">
+    <p>上一章，最后我们讲到了鼠标移动的事件。鼠标，我告诉你，你别动，你一动就是事儿！</p>
+<p>但一般情况下，它动不动和我们关系不大，说直白了就是你爱怎么动怎么动，不碍着我就行了。那什么情况下会碍着我呢？</p>
+<p>把鼠标放在某一个元素上，或者它没在某个元素上，这个事我们可能会关注。但是事件是时间点，不是一个持续的状态。所以事实上我们关注的是，鼠标，进入或者离开某个元素那个瞬间。也就是它在或者不在某一个元素之上，这个状态发生改变的时候。</p>
+<p>这样讲道理总是让人迷糊，所以我们很不讲道理的去描述一下这个事件的发生，啊不，是这一系列事件的发生。</p>
+<p>现在页面中有一个元素，我把鼠标移动到它上面。在鼠标移入这个元素的一瞬间，发生了两个事件。一个事件是：鼠标说，啊，我进来了（mouseenter）！另一个事件是：鼠标说，啊，我在你上面了（mouseover）！</p>
+<p>……总觉得哪里怪怪的，不管了，继续学习新知识。</p>
+<p>然后我把鼠标从元素上移开，又发生了两个事件。一个事件是：鼠标说，啊，我离开了（mouseleave）！另一个事件是：鼠标说，啊，我出去了（mouseout）！</p>
+<p>我应该没写错，嗯，确认没写错。（所以你们在交头接耳些什么……</p>
+<p>进来（mouseenter）和离开（mouseleave）是一对事件。在上面（mouseover）和出去了（mouseout）是另外一对事件。我知道，你们在想，进来和出去居然不是一对儿，搞这么复杂，记不住啊！那就告诉你们一个简单的分辨方法：长的和长的是一对儿，短的和短的是一对儿，这样就能够记住了。</p>
+<p>那么明明只有一个事，就是鼠标进入这个元素和离开这个元素，好吧，这是一对儿事件。但问题是我们这里有两对儿。原因也很简单，进入（mouseenter）和离开（mouseleave）不支持冒泡，而在上面（mouseover）和出去了（mouseout）则支持冒泡。这个知识我也记不住，反正每次用的时候试一下就好了。（我好懒，懒得去记……</p>
+<p>用起来也和前面差不多，也可以用代码去触发这些事件，但是鼠标并不会因此真的移动。</p>
+<p>有没有觉得这些效果似曾相识？对，就是 CSS 里面的 <code>hover</code>。这个我们这里也有，而且也挺类似的。</p>
+<p><code>hover</code> 事件相当于 <code>mouseenter</code> 和 <code>mouseleave</code> 的联合。<code>hover</code> 后面的小括号里可以写两个函数（中间用逗号分隔），分别在鼠标进入和鼠标离开的时候执行。其实就是让我们在某些情况下可以把代码写得更简单一点。</p>
+<p>如果在他后面的小括号中只给了一个函数，则会在鼠标进入和离开的时候都执行这个函数。</p>
+<p>这个事件不支持用程序触发（只是不能直接用 <code>hover</code> 触发），因为他也不知道你究竟想触发哪一种事件。但是可以用 <code>mouseenter</code> 和 <code>mouseleave</code> 去间接的触发。</p>
+<p>啊，东西有点多，记不住。那就记得这么复杂的玩意儿，如果支持冒泡，就一塌糊涂了。所以它所对应的那两个事件是不支持冒泡的那两个。</p>
+<p>还有什么不懂的？不懂就自己设计实验去验证一下吧~</p>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0140/" title="卡片 for 第一百四十章">卡片 for 第一百四十章</a>】</p>
+
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0139/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0141/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

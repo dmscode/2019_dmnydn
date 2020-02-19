@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第五十三章 页头背景和商品图 | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="网页背景图片的尺寸如何通过 CSS 智能的控制。">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第五十三章 页头背景和商品图
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2019-01-01 | Update: 2019-05-09">
+    <p>
+      网页背景图片的尺寸如何通过 CSS 智能的控制。
+    </p>
+  </div>
+  <div class="post-content">
+    <p>这一章我们思考一下图片的大小问题，比如啊，你看网站这个头图，它多大合适呢？毕竟我们的显示器有宽有窄，这要多大的图才合适呢？</p>
+<p>超级带鱼屏，随便横向两三千像素的宽度，结果图片不够宽，这就难受。好的，图片够大了，到了手机里，横向逻辑像素数也就几百，就看到窄窄的一条条……因为设备的差异化，我们需要同时应对许多种情况，这个很难受。不过我们可以试试百分比，因为“比”就需要一个被比的对象，也就是把尺寸和其他元素绑定了。试试吧：</p>
+<div class="code-show" data-before-text="代码效果演示 Start" data-after-text="代码效果演示 End"><pre data-file-name="index.html"><code class="html">&#10;&#60;&#100;&#105;&#118;&#32;&#105;&#100;&#61;&#34;&#104;&#101;&#97;&#100;&#101;&#114;&#34;&#62;&#60;&#47;&#100;&#105;&#118;&#62;&#10;</code></pre><pre data-file-name="style.css"><code class="css">&#10;&#35;&#104;&#101;&#97;&#100;&#101;&#114;&#32;&#123;&#10;&#32;&#32;&#119;&#105;&#100;&#116;&#104;&#58;&#32;&#49;&#48;&#48;&#37;&#59;&#10;&#32;&#32;&#104;&#101;&#105;&#103;&#104;&#116;&#58;&#32;&#49;&#48;&#48;&#112;&#120;&#59;&#10;&#32;&#32;&#98;&#97;&#99;&#107;&#103;&#114;&#111;&#117;&#110;&#100;&#45;&#105;&#109;&#97;&#103;&#101;&#58;&#32;&#117;&#114;&#108;&#40;&#34;&#47;&#105;&#109;&#97;&#103;&#101;&#115;&#47;&#104;&#101;&#97;&#100;&#101;&#114;&#46;&#106;&#112;&#103;&#34;&#41;&#59;&#10;&#32;&#32;&#98;&#97;&#99;&#107;&#103;&#114;&#111;&#117;&#110;&#100;&#45;&#115;&#105;&#122;&#101;&#58;&#32;&#49;&#48;&#48;&#37;&#32;&#97;&#117;&#116;&#111;&#59;&#10;&#125;&#10;</code></pre>
+<div id="header-1"></div>
+<style>
+#header-1 {
+  width: 100%;
+  height: 300px;
+  background-image: url("/images/header.jpg");
+  background-size: 100% auto;
+}
+</style>
+</div>
+<p>这不效果很好么？但是如果是在移动设备下就比较麻烦了，因为这个元素的宽高比会发生变化。在电脑上，把浏览器窗口调整的很窄，你就会看到问题了。</p>
+<p>这时候的问题是，以宽度或者高度进行百分比都不合适，又无法两个都设置为百分比，因为不希望图片比例失调。就很气！</p>
+<p>好在现在我们可以设置为 <code>cover</code>，就是首先图片要把这个元素完全覆盖，然后图片又要尽可能多的显示出来，当然图片比例也要保持。</p>
+<div class="code-show" data-before-text="代码效果演示 Start" data-after-text="代码效果演示 End"><pre data-file-name="index.html"><code class="html">&#10;&#60;&#100;&#105;&#118;&#32;&#105;&#100;&#61;&#34;&#104;&#101;&#97;&#100;&#101;&#114;&#34;&#62;&#60;&#47;&#100;&#105;&#118;&#62;&#10;</code></pre><pre data-file-name="style.css"><code class="css">&#10;&#35;&#104;&#101;&#97;&#100;&#101;&#114;&#32;&#123;&#10;&#32;&#32;&#119;&#105;&#100;&#116;&#104;&#58;&#32;&#49;&#48;&#48;&#37;&#59;&#10;&#32;&#32;&#104;&#101;&#105;&#103;&#104;&#116;&#58;&#32;&#49;&#48;&#48;&#112;&#120;&#59;&#10;&#32;&#32;&#98;&#97;&#99;&#107;&#103;&#114;&#111;&#117;&#110;&#100;&#45;&#105;&#109;&#97;&#103;&#101;&#58;&#32;&#117;&#114;&#108;&#40;&#34;&#47;&#105;&#109;&#97;&#103;&#101;&#115;&#47;&#104;&#101;&#97;&#100;&#101;&#114;&#46;&#106;&#112;&#103;&#34;&#41;&#59;&#10;&#32;&#32;&#98;&#97;&#99;&#107;&#103;&#114;&#111;&#117;&#110;&#100;&#45;&#115;&#105;&#122;&#101;&#58;&#32;&#99;&#111;&#118;&#101;&#114;&#59;&#10;&#125;&#10;</code></pre>
+<div id="header-2"></div>
+<style>
+#header-2 {
+  width: 100%;
+  height: 300px;
+  background-image: url("/images/header.jpg");
+  background-size: cover;
+}
+</style>
+</div>
+<p>现在调整浏览器窗口，就会发现不再有背景被平铺的现象了。着很美好，但是总觉得……哪里不太对的样子。嗯，因为有些情况下，图片无法被完全显示出来，而图片和元素又是左上角对齐，可我们潜意识里期望的是中心对齐，这就很难受。所以我们要增加一个对背景位置的设定：</p>
+<div class="code-show" data-before-text="代码效果演示 Start" data-after-text="代码效果演示 End"><pre data-file-name="index.html"><code class="html">&#10;&#60;&#100;&#105;&#118;&#32;&#105;&#100;&#61;&#34;&#104;&#101;&#97;&#100;&#101;&#114;&#34;&#62;&#60;&#47;&#100;&#105;&#118;&#62;&#10;</code></pre><pre data-file-name="style.css"><code class="css">&#10;&#35;&#104;&#101;&#97;&#100;&#101;&#114;&#32;&#123;&#10;&#32;&#32;&#119;&#105;&#100;&#116;&#104;&#58;&#32;&#49;&#48;&#48;&#37;&#59;&#10;&#32;&#32;&#104;&#101;&#105;&#103;&#104;&#116;&#58;&#32;&#49;&#48;&#48;&#112;&#120;&#59;&#10;&#32;&#32;&#98;&#97;&#99;&#107;&#103;&#114;&#111;&#117;&#110;&#100;&#45;&#105;&#109;&#97;&#103;&#101;&#58;&#32;&#117;&#114;&#108;&#40;&#34;&#47;&#105;&#109;&#97;&#103;&#101;&#115;&#47;&#104;&#101;&#97;&#100;&#101;&#114;&#46;&#106;&#112;&#103;&#34;&#41;&#59;&#10;&#32;&#32;&#98;&#97;&#99;&#107;&#103;&#114;&#111;&#117;&#110;&#100;&#45;&#115;&#105;&#122;&#101;&#58;&#32;&#99;&#111;&#118;&#101;&#114;&#59;&#10;&#32;&#32;&#98;&#97;&#99;&#107;&#103;&#114;&#111;&#117;&#110;&#100;&#45;&#112;&#111;&#115;&#105;&#116;&#105;&#111;&#110;&#58;&#32;&#99;&#101;&#110;&#116;&#101;&#114;&#32;&#99;&#101;&#110;&#116;&#101;&#114;&#59;&#10;&#125;&#10;</code></pre>
+<div id="header-3"></div>
+<style>
+#header-3 {
+  width: 100%;
+  height: 300px;
+  background-image: url("/images/header.jpg");
+  background-size: cover;
+  background-position: center center;
+}
+</style>
+</div>
+<p>这次在各种情况下显示的都比较好看了。</p>
+<p>你看，我们遇到问题，就这样一个点一个点去解决，并不觉得复杂。而到最后的综合效果还是很让我们有成就感的。如果我们可以合理的细分问题到一个个细节，然后逐个解决，代码就一点也不难了。</p>
+<p>然后我们再说另外一个情况。商品图，额，我的意思是在某些商品列表里展示的商品图片，可能商家上传的图片大小不一，比例不同，但是你都要放进相同尺寸的元素里进行展示，这时候就不适合上面的方式，因为图片可以不填满元素，但是不能进行裁切。万一切掉了重点就不好玩了。</p>
+<p>所以此时，我们要把 <code>background-size</code> 的值设置为 <code>contain</code>，就是保证比例的同时，在元素内尽可能大的显示。因为代码和上面很像，我就不再演示了，大家动手试一试吧。</p>
+<p>不过既然这个背景可能无法填满元素，那我们就要注意设置一下，禁用背景重复了哦~</p>
+<p>最后，其实商品图一般会直接用图片元素（<code>img</code>），特殊情况才采用背景图片，这里只是举例来学习相关属性的应用。</p>
+<p>这两章都是通过假设场景来练习学到的属性，大家也要学着自己给自己提出这种小问题，然后尝试使用已经学到的理论去解决问题。只有能够解决问题的技能，才是你学会了的技能。</p>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0053/" title="卡片 for 第五十三章">卡片 for 第五十三章</a>】</p>
+
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0052/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0054/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

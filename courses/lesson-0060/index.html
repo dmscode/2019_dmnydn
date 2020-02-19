@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第六十章 横排 | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="通过 CSS 进行一定的设置，来达到让某些元素横向排列的目的。这是我们网页在排版中，常用的布局手段。">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第六十章 横排
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2019-01-04 | Update: 2019-05-09">
+    <p>
+      通过 CSS 进行一定的设置，来达到让某些元素横向排列的目的。这是我们网页在排版中，常用的布局手段。
+    </p>
+  </div>
+  <div class="post-content">
+    <p>讲了半天盒子，我们的盒子都只是纵向排列。因为我们讲：默认盒元素是要自己独占一行的。</p>
+<p>但是，大部分情况下，我们需要盒元素可以横排，毕竟极其单纯的纵向布局实在无法满足我们对于网页的需求。至少，我们谁也不想每次看网页都要滚动无数次滚轮，鼠标坏了也是要花钱买的啊。</p>
+<p>那就横排吧，你第一个想到的方法是什么？如果它们是行内元素就好了。但是行内元素不能有宽高内补外补，这就会很不方便。那如果在行内元素里放一个块级元素……对不起，标准不允许。</p>
+<p>尴尬，尴尬如同睡眼惺忪的老鼠，端着咖啡直楞楞的站在那里。</p>
+<p>先说一个属性吧，<code>display</code> 属性可以设置这个元素是行内元素 <code>inline</code> 或是块级元素 <code>block</code>，也就是说，这个确实是可以进行转变的，虽然……我们的问题还是没有得到解决。</p>
+<p>然后它还有第三个属性值可以使用<a href="#footnote-1" class="footnote-link"><sup>[1]</sup></a>，<code>inline-block</code>，这个看起来有意思，你说这到底算啥？在行内的块元素吧。其实这涉及一个对外表现（对于文档流），和对内表现（自身样式），你这么区分一下，就理解了，这算是两种模式的一个结合。</p>
+<p>那动手写一下吧：</p>
+<div class="code-show" data-before-text="代码效果演示 Start" data-after-text="代码效果演示 End"><pre data-file-name="index.html"><code class="html">&#10;&#60;&#100;&#105;&#118;&#32;&#99;&#108;&#97;&#115;&#115;&#61;&#34;&#98;&#111;&#120;&#45;&#105;&#110;&#108;&#105;&#110;&#101;&#45;&#98;&#111;&#120;&#34;&#62;&#31532;&#19968;&#60;&#47;&#100;&#105;&#118;&#62;&#10;&#60;&#100;&#105;&#118;&#32;&#99;&#108;&#97;&#115;&#115;&#61;&#34;&#98;&#111;&#120;&#45;&#105;&#110;&#108;&#105;&#110;&#101;&#45;&#98;&#111;&#120;&#34;&#62;&#31532;&#20108;&#60;&#47;&#100;&#105;&#118;&#62;&#10;&#60;&#100;&#105;&#118;&#32;&#99;&#108;&#97;&#115;&#115;&#61;&#34;&#98;&#111;&#120;&#45;&#105;&#110;&#108;&#105;&#110;&#101;&#45;&#98;&#111;&#120;&#34;&#62;&#31532;&#19977;&#60;&#47;&#100;&#105;&#118;&#62;&#10;&#60;&#100;&#105;&#118;&#32;&#99;&#108;&#97;&#115;&#115;&#61;&#34;&#98;&#111;&#120;&#45;&#105;&#110;&#108;&#105;&#110;&#101;&#45;&#98;&#111;&#120;&#34;&#62;&#31532;&#22235;&#60;&#47;&#100;&#105;&#118;&#62;&#10;</code></pre><pre data-file-name="style.css"><code class="css">&#10;&#46;&#98;&#111;&#120;&#45;&#105;&#110;&#108;&#105;&#110;&#101;&#45;&#98;&#111;&#120;&#32;&#123;&#10;&#32;&#32;&#100;&#105;&#115;&#112;&#108;&#97;&#121;&#58;&#32;&#105;&#110;&#108;&#105;&#110;&#101;&#45;&#98;&#108;&#111;&#99;&#107;&#59;&#10;&#32;&#32;&#98;&#111;&#114;&#100;&#101;&#114;&#58;&#32;&#51;&#112;&#120;&#32;&#115;&#111;&#108;&#105;&#100;&#32;&#111;&#114;&#97;&#110;&#103;&#101;&#59;&#10;&#32;&#32;&#112;&#97;&#100;&#100;&#105;&#110;&#103;&#58;&#32;&#49;&#48;&#112;&#120;&#59;&#10;&#125;&#10;</code></pre>
+<div class="box-inline-box">第一</div>
+<div class="box-inline-box">第二</div>
+<div class="box-inline-box">第三</div>
+<div class="box-inline-box">第四</div>
+<style>
+.box-inline-box {
+  display: inline-block;
+  border: 3px solid orange;
+  padding: 10px;
+}
+</style>
+</div>
+<p>成功了吧，简单吧，横排了吧，内补也起作用了吧，多美好……</p>
+<p>我设置外补了么？没有外补，元素间的空隙是哪里来的？这是一个重要的问题，划重点，必考哦~</p>
+<p>对外表现是行内元素对不对？行内元素会把里面的空白合并显示为一个空格对不对？块元素间的空白才被无视。所以这个空白（间隔），就是代码中换行产生的空白，不信你把这些元素写在一行，中间不留空白试试看，马上就好。</p>
+<p>但是，我们这么简单的元素写在一行都让人觉得很乱，如果复杂一点还不要人命么。所以我不喜欢这种方法。</p>
+<p>网上也讲了许多解决方案。能解决，但是都有一定的弊病或者别扭，反正，我不喜欢。不过还是要知道滴~因为有用啊！否则你以为本站链接怎么做的那么漂亮的呢？</p>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0060/" title="卡片 for 第六十章">卡片 for 第六十章</a>】</p>
+<div class="foot-notes"><p><strong id="footnote-1" class="footnote">&gt;注释 1:</strong> <code>display</code> 的属性值超多，大部分日常用不上，我们就涉及到一些常用的，好奇的同学可以看文档。</p></div>
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0059/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0061/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

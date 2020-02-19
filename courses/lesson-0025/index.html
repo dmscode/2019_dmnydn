@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第二十五章 绝对和相对 | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="绝对地址和相对地址在我们描述一个文件所在位置的时候是必然要用到的，它们没有绝对的好坏，只是各有优势，根据实际情况和需求进行正确的选择才是最重要的。这一张我们通过一些例子来让大家充分认识他们的优点和局限性。">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第二十五章 绝对和相对
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2018-11-19 | Update: 2019-05-09">
+    <p>
+      绝对地址和相对地址在我们描述一个文件所在位置的时候是必然要用到的，它们没有绝对的好坏，只是各有优势，根据实际情况和需求进行正确的选择才是最重要的。这一张我们通过一些例子来让大家充分认识他们的优点和局限性。
+    </p>
+  </div>
+  <div class="post-content">
+    <p>有一天，小老鼠功成名就，变得有房、有车、有房车（请不要叫醒我，让我把这个美梦继续做下去。</p>
+<p>我坐在房车里，思考着人生。举起手机，给面前桌上的咖啡拍了一张照片。发个朋友圈，低调的写上一句：在北京二环里大老鼠中路，二老鼠胡同，第三个四合院的门口，停着一辆房车，房车上第 72 个座位，前面的小桌子上，有一杯咖啡。</p>
+<p>是不是觉得很唯美？</p>
+<p>好，请不要回答，收起你心底深深的羡慕，擦干净嘴角的口水。我这个描述很长，但它很具体呀，无论把这段话发给谁？他都可以凭着这个描述找到这杯咖啡（前提是小老鼠真的有这么一辆房车，而且真的停在那里的话。</p>
+<p>那么假设这一切都是真的，我面前的也不是一杯咖啡，而是两根金条，而且是谁拿到给谁那种。你还会嫌我上面的描述太啰嗦吗？</p>
+<p>虽然它很长，但是无论是谁，也无论你在哪里，都可以凭着这个描述去找到相应的东西。这种我们称它为<strong>绝对地址</strong>。</p>
+<p>当然小耗子这么吝啬，肯定是不会送金条的。为了低调，也不会写得像上面那么啰嗦，也许我只会说：我的面前有一杯咖啡。</p>
+<p>这时候如果你不知道我在哪里，你还能够凭借我的描述去找到这杯咖啡吗？所以这时候我描述的其实是，咖啡相对于我所在的位置。这叫做<strong>相对地址</strong>。</p>
+<p>也许你会说，麻烦点儿就麻烦点吧，都用绝对地址，我就可以稳定找得到你，虽然没有金条，蹭点咖啡喝也是很温暖的。</p>
+<p>我们都喜欢稳定，然而人生注定漂泊。（宅男老鼠的湿人梦</p>
+<p>房车发动，从北京开往上海。一路之上，我面前的咖啡依旧在我的面前。所以相对地址没有发生任何变化，但绝对地址么……四合院的门口已经空空荡荡，再没有了我房车的身影。</p>
+<p>所以如果不移动，绝对地址虽然有点长，却很准确。如果绝对地址中的任何一个环节发生了变化，后面就都跟着出问题了。就像房车开走了，房车上的一切就都不在原来的位置了，无论是我还是咖啡，安静的离去，不带走一片云彩。</p>
+<p>而只要我和咖啡之间的相对位置没有变化，我还坐在这里，咖啡依旧在桌上。那它永远是我面前的咖啡，无论房车开回故乡，抑或是开向远方。</p>
+<hr>
+<p>然而老鼠并没有房车，我们还是说回我们的代码吧。</p>
+<p>我们的网页中可能会有各式各样的内容，我们不可能把它都写在这一个文件里面，所以有的时候就要通过地址把其他文件也引入进来。这么说你觉得复杂？那你就当做我们现在需要在网页中插入一张图片好了。</p>
+<p>我们需要用这个文件的地址告诉浏览器（或者其他什么），到哪里去找这张图片。那如何去写这个文件的地址呢？</p>
+<p>你可以用图片当前所在的位置来表达，我们一般叫做“本地路径”，比如：</p>
+<blockquote>
+<p>file:///E:/全球最可爱的小老鼠/真的帅/自拍照/最满意.jpg</p>
+</blockquote>
+<p>现在当然可以很好的显示出来，帅气迷人的小老鼠，看的自我己都醉了。但是，把网页发布到网上之后又会怎样呢？</p>
+<div class="code-show" data-before-text="代码效果演示 Start" data-after-text="代码效果演示 End"><div class="image-box"><img src="file://E:/全球最可爱的小老鼠/真的帅/自拍照/最满意.jpg" alt="file://E:/全球最可爱的小老鼠/真的帅/自拍照/最满意.jpg" width="300" height="300" style="background: #EFEFEF"></div></div>
+<p>居然不能向你们展现自己帅气的一面，生气气！那么大家结合上面的故事想一想，这是为什么呢？</p>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0025/" title="卡片 for 第二十五章">卡片 for 第二十五章</a>】</p>
+
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0024/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0026/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

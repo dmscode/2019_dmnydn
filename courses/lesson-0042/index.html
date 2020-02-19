@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第四十二章 伪类 | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="伪类是 CSS 选择器中的一个重要概念。通过它可以选择我们当前不便于直接描述的元素，或者同一个元素的不同状态。">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第四十二章 伪类
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2018-12-02 | Update: 2019-05-09">
+    <p>
+      伪类是 CSS 选择器中的一个重要概念。通过它可以选择我们当前不便于直接描述的元素，或者同一个元素的不同状态。
+    </p>
+  </div>
+  <div class="post-content">
+    <p>上一章大家肯定还有疑问，就是链接的下划线好像是去掉了，但当我把鼠标放在链接上的时候，下划线又出来了，这就十分难受。</p>
+<p>因为对于链接，它本身是有几个状态的。首先是我们完全没有搭理它的状态，就是最普通的默认状态；然后当我们的鼠标放上去的时候，又是一种状态；当我们的鼠标按下去，还没有抬起来的时候，就是正在点击这个链接的状态；还有就是我们访问过这个链接以后的状态。</p>
+<p>我们用默认的方法所定义的，只是链接在第一个状态下，也就是默认状态下的样式。而是另外几个状态，有些属性是会从链接的默认状态继承的，而有些属性需要我们单独进行定义。那就定义好了，可是，我们如何表达这几种状态呢？</p>
+<p>我们前面说到选择器，只说了使用元素的标签名，去表示这些元素。如何表示链接元素的这些状态呢？我们来认识稍微复杂一些的选择器，伪类。</p>
+<p>在这一章，我们先不纠结它的名字为什么叫做这个？看一下怎么写，然后用用再说、</p>
+<pre><code class="css">/* :link 没有被访问的链接 */
+a:link {
+  color: blue;
+}
+/* :visited 已经访问过的链接， */
+a:visited {
+  color: blue;
+}
+/* :hover 鼠标悬停在此链接上 */
+a:hover {
+  color: blue;
+}
+/* :active 当前此链接正被按下 */
+a:active {
+  color: blue;
+}
+</code></pre>
+<p>我们在标签后面加上冒号，再用单词来描述它的状态。那么冒号及其后面的部分，就是伪类。现在我们用伪类来修饰 <code>a</code> 这个选择器。</p>
+<p>但是伪类并不只是用来说明状态，它可能是许多其他东西，不过一般都是用来说明前面这个选择器所相关的一些东西。就是在前面的基础上又如何如何。</p>
+<p>现在才刚刚接触，你对这个概念有一定的感受就可以了。上面几个伪类，我们经常用，当然主要是用来描述链接的。因为链接这个元素我们在每个页面中都会用到，现在的审美和默认的样式也有一定的出入，所以做一些自定义是在所难免的。</p>
+<p>然后上面几个伪类，在定义的时候是有顺序的，你可以只使用其中的一个或几个，但是一定要按照上面的顺序书写，否则可能出现其他预料不到的问题。</p>
+<p><code>:hover</code> 这个就很厉害，我们几乎可以把它用在所有元素上，用来表示，当鼠标在这个元素之上的时候。借助这个功能，我们就可以实现许多有意思的动态效果了，这个在后面会做演示。</p>
+<p><code>:link</code> 这个伪类其实比较少用到，从名字也可以看出，它就是针对于链接的，而一般的我们先直接设定 <code>a</code> 的样式，再设定其他几种状态就好了。</p>
+<p>因为本站已经对链接增加了额外的样式，所以就不做演示了，大家可以参照上述代码，把每个状态都设置为不同的颜色，然后来测试一下效果。</p>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0042/" title="卡片 for 第四十二章">卡片 for 第四十二章</a>】</p>
+
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0041/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0043/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

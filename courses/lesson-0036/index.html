@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第三十六章 外部字体 | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="我们也可以在网页中使用网络中的字体，这让人感到十分兴奋，但是它有一些局限性。">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第三十六章 外部字体
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2018-11-23 | Update: 2019-05-15">
+    <p>
+      我们也可以在网页中使用网络中的字体，这让人感到十分兴奋，但是它有一些局限性。
+    </p>
+  </div>
+  <div class="post-content">
+    <p>上一章说到了我们选用字体的尴尬，毕竟只指定一个名称，局限性太大了。那我们能不能为用户提供字体呢？我们的网页用我们自己提供的字体来显示，想想又觉得世界很美好了。</p>
+<p>这个事情还真的能够做到，而且难度也不大。这就是引入外部字体，我们来写一下看看吧：</p>
+<pre><code class="css">@font-face {
+  font-family: &quot;小老鼠长得帅帅哒&quot;;
+  src: url(&quot;font/LaPointesRoad.ttf&quot;);
+}
+p {
+  font-family: &quot;小老鼠长得帅帅哒&quot;;
+}
+</code></pre>
+<p>先来看一看效果:</p>
+<div class="code-show" data-before-text="代码效果演示 Start" data-after-text="代码效果演示 End"><style>
+@font-face {
+  font-family: "小老鼠长得帅帅哒";
+  src: url("/assets/lesson-0036/LaPointesRoad.ttf");
+}
+</style>
+<p style="font-family: '小老鼠长得帅帅哒';">Hello World!</p></div>
+<p>这个效果真美好啊~</p>
+<p>我们首先使用 <code>@font-face</code> 去定义了一个字体。在这里面 <code>font-family</code> 是说我们所定义的字体名称，这个名称和字体本身的名称是没有关系的，你可以随便去写，当然也要符合我们的规则，如果有空格、特殊符号、中文记得用引号引起来。</p>
+<p><code>src</code> 属性说的是这个字体的路径。<code>url()</code> 表示这是一个网址，反正你按着这个结构去写，然后在引号里面去写上字体的地址就对了，我们这里用的又是相对地址。当然，你要保证在这个地址下确实有这个字体文件。否则找不到字体文件还是会显示成为默认字体。</p>
+<p><code>@font-face</code> 还可以被指定 <code>font-weight</code>、<code>font-style</code> 等属性，用来进一步描述这个字体文件，如果有需要，大家可以查阅相关文档，在这里就不深入讲解了。</p>
+<p>到目前为止，这个方法会让你觉得一切都很美好。那么回到上一章我问的问题：为什么使用特殊字体的网页那么少呢？</p>
+<p>字体文件是有体积的，所以引入它会导致我们的网页加载变慢。你也许会说，这个说法也适用于图片，那为什么我们并不介意在网页中插入图片呢？一般来说，字体文件比图片的体积还是要大吧。</p>
+<p>当然更严重的问题是，我们想一下，如果是英文字体，那么它只要包含 26 个小写字母，26 个大写字母，以及十个数字，再加上几十个常用的标点符号，就差不多可以应付几乎所有日常情况了。这才多少内容，也就一百个字符吧。所以英文字体的体积，倒还真的不是特别大，除非你要把所有的字重全部引入，才可能感到头疼。如果你经常逛国外的网站，还是会发现很多用特殊字体的个性站点。</p>
+<p>但是到了中文就比较麻烦，3500 常用字，这些就够吗？其实我们每天都在遇到这些常用字以外的文字。想比较好的涵盖日常内容，起码也得 6500 字吧。这时候已经不需要说别的了，中英文字体体积的差别是很大的。中文字体动辄几兆，十几兆，甚至几十兆。就算现在网速比较快，一秒钟能下载一兆，为这个字体都要等待十来秒，用户表示毫无使用体验。而且用户下载这些字体，是要走你服务器流量的，流量啊，那是真金白银的钱啊，你能接受，你的老板也不会干的。</p>
+<p>所以虽然有方法，但是目前真的很难实用。对于中文，如果希望使用特殊字体，最常见也是最简单的办法就是使用图片。但是这样对搜索引擎不友好，因为机器并不知道你图片上写的是什么内容（虽然现在有些搜索引擎，会去努力的识别图片上的文字，但这依旧不如纯文字更加友好）。不过如果是很少的内容，这个方法的效果已经可以让人满意，并且毕竟它有很好的便捷性。</p>
+<p>还有一种方法，中文字体那么大，是为了包含尽可能多的文字，来覆盖我页面中的内容。这样做就很被动，不如我们把思路反过来，我的页面中有哪些文字，就让这个字体包含哪些内容，多余的就不需要了。因为我们在一个页面中所使用到的文字毕竟非常有限，这样为页面特别定制出来的字体就会相对的小上好多。</p>
+<p>原来方法是有的，虽然说不上尽善尽美，但是可以解决问题。不过想想真的好麻烦，所以没有特别的必要，大家还是会选择使用最基本的字体。</p>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0036/" title="卡片 for 第三十六章">卡片 for 第三十六章</a>】</p>
+
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0035/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0037/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

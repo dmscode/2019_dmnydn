@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第一百一十七章 再进一步 | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="对于网页代码中实体字符的认知。以及由此产生的差别，和使用 jQuery 中 html 和 text 方法之间的差别来书写的小工具。">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第一百一十七章 再进一步
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2019-04-26 | Update: 2019-05-09">
+    <p>
+      对于网页代码中实体字符的认知。以及由此产生的差别，和使用 jQuery 中 html 和 text 方法之间的差别来书写的小工具。
+    </p>
+  </div>
+  <div class="post-content">
+    <p>方法有两种。第一种用 <code>pre</code> 标签，来说明这个标签中的部分是代码，不作解析，直接显示。比如我们网站中显示的代码就是用这种方式。对于成块代码来说这种方式很方便，但是我们在网页中很多地方只是需要显示出某一个符号，用这种方法就会显得啰嗦。</p>
+<p>第二种方法是使用实体字符，我们用另外的一种形式去表达这些符号，比如用 <code>&amp;nbsp;</code> 来表示空格。对，就是用这么一串来表示一个空格。大家可以观察一下特点，<code>&amp;</code> 开头，<code>;</code> 结尾。这样的实体字符有很多，我们就不一一列举了。</p>
+<p>也就是说我们在向网页元素中显示文本的时候，需要将许多的特殊符号转换为对应的实体字符才能够保证，显示的效果符合我们的预期。这也太麻烦了，这么多实体字符，宝宝记不住啊！</p>
+<p>所以这里就有了一个简单的方法，可以帮你完成这个操作，只要将你想要显示的文本给它，它就会转换好，放到对应的元素中。这样子就很方便了，然后我就想到了一个神奇的操作：</p>
+<p>如果我们需要查询某一个符号对应的实体字符，是不是可以先把这个符号写入到元素之中，然后再获取这个元素的代码呢？那么来试试看，基本的结构我就不写了，直接写主要代码：</p>
+<pre><code class="html">&lt;div id=&quot;text&quot;&gt;&lt;/div&gt;
+&lt;script&gt;
+$(&#39;document&#39;).ready(function(){
+  $(&#39;#text&#39;).text(&#39;&lt;&#39;);
+  const code = $(&#39;#text&#39;).html();
+  $(&#39;#text&#39;).text(code);
+})
+&lt;/script&gt;
+</code></pre>
+<p>这里我们做了三个操作:</p>
+<ul>
+<li>第一步：把一个符号，当做文本，显示在对应元素中；</li>
+<li>在这之后，再获取这个元素中的代码，保存入变量；</li>
+<li>最后把刚才获取的代码当作文本，再显示在这个元素之中。</li>
+</ul>
+<p>于是你就得到了这个符号所对应的实体符号。如果我们可以让这一套操作，和输入框进行联动，那就做出了一个查询符号对应实体符号的小工具。就这么几句话代码，没有理由说难吧？所以再看两遍，仔细理解一下哦~</p>
+<p>因为上面所讲到的方法都是双向的操作，所以我们使用 <code>text</code> 方法获取元素的内容时，也会自动将实体符号转换为对应的符号。</p>
+<p>现在有了输入输出，就已经可以做许多的事情了（其实以前也可以做，只是输出的不那么人性化而已）。来做点什么呢？可以写一个循环，然后不断的增加……输出 1、2、3、4……</p>
+<p>这太简单了，就是输出 2、4、6、8……我打开 Excel，输入几个格子，拉一下自动填充也就出来了。咱们搞点稍微复杂的，写个斐波那契数列出来好了，就是那种每个数字都等于前两个数字之和的。（0、1、1、2、3、5、8、13、……</p>
+<pre><code class="html">&lt;div id=&quot;output&quot;&gt;&lt;/div&gt;
+&lt;script&gt;
+$(&#39;document&#39;).ready(function(){
+  // 我先设置两个变量，用来代表当前数字之前的两个数字，初始值是 0 和 1。
+  // 注意这里要用变量而不是常量，因为后面我们还要对它们进行修改
+  let a = 0, b = 1;
+  // 然后把这两个值输出出来
+  $(&#39;#output&#39;).html(a+&#39;&lt;br&gt;&#39;+b);
+  // 就先循环个 100 次吧，反正我自己又不费事
+  // 嗯，但是建议大家最开始数字尽量设置的小一点，免得万一出错卡死了
+  // 注意前面已经有两个数字了，所以我们的计数从 2 开始
+  for(let i=2; i&lt;100; i++){
+    // 先计算出当前的数字，放入常量 c
+    const c = a+b;
+    // 获取当前输出元素中的代码，放入常量 code
+    const code = $(&#39;#output&#39;).html();
+    // 在获取的代码后面加上换行和计算出的当前数字，然后输出
+    $(&#39;#output&#39;).html(code+&#39;&lt;br&gt;&#39;+c);
+    // 接下来为后面的循环做准备，我们要把变量 a、b 中的值替换为最新值
+    a = b;
+    b = c;
+  }
+})
+&lt;/script&gt;
+</code></pre>
+<p>因为篇幅不够，我就不放最终效果了（就是借口，你又拿我怎么样，你咬我呀！</p>
+<p>反正结果有一点壮观，而且代码也不复杂呀，上面更多的明明是我写的注释嘛。</p>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0117/" title="卡片 for 第一百一十七章">卡片 for 第一百一十七章</a>】</p>
+
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0116/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0118/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

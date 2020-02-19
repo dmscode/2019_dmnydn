@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第七章 基本模板 | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="前端开发中，网页的代码书写也是有一个基本的格式的。这样写出来的网页可以让浏览器更容易，更好的识别。现在的编辑器都可以快速的帮我们写出这个基本模板结构了，十分的方便。">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第七章 基本模板
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2018-11-06 | Update: 2019-05-08">
+    <p>
+      前端开发中，网页的代码书写也是有一个基本的格式的。这样写出来的网页可以让浏览器更容易，更好的识别。现在的编辑器都可以快速的帮我们写出这个基本模板结构了，十分的方便。
+    </p>
+  </div>
+  <div class="post-content">
+    <p>装好编辑器，新建文档，再次迫不及待把刚学会的代码写了进去，保存，然后用浏览器打开，非常不错，有效果了呢！</p>
+<p>是的，要说简单，就是这么简单。但是我们真正的写网页，不可能这样直接去写内容，总要严谨一些，先准备一个模板。首先这个操作一点都不麻烦，依然是像刚才一样，新建文档，设置好文档的语言（上一章我们讲过的两种方法），然后先别急着写内容，按照我所说的进行操作：</p>
+<p>首先输入一个英文的感叹号: <code>!</code>，会出现如下的提示。（如果提示没有出现，那么检查，是否已经将文档的语言设置为 HTML，并将输入法切换到英文，然后清空文档，输入感叹号，提示就会出现了）</p>
+<div class="image-box"><img src="/assets/lesson-0007/emmet-437207cbeeb230ca645cb010dca00e15.png" alt="Emmet"></div>
+<p>这时候按一下 <kbd>Tab</kbd> 键，就会出现如下内容：</p>
+<pre><code class="html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;UTF-8&quot;&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+  &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;ie=edge&quot;&gt;
+  &lt;title&gt;Document&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p>那么我们一共按了两个键，就出来这么一大堆内容，看来写代码实在不要太简单啊~刚才用到的功能是 Emmet<a href="#footnote-1" class="footnote-link"><sup>[1]</sup></a> 的快速补全代码，它可以极大的提升我们输入的速度，非常值得学习，而且也非常简单，不过现在我们能够用到的还非常非常少，大概要等到我们 CSS 部分完结之后才行，因为到那时，才能基本掌握使用它所必备的一些基础知识。</p>
+<p>可能好多朋友，首先是觉得一下出来这么多代码，好厉害，然后又觉得这么一堆代码让人头大。那么我们先来记住关键的几点就好：</p>
+<h3 id="第一、先把他当做固定格式来用"><a href="#第一、先把他当做固定格式来用" class="headerlink" title="第一、先把他当做固定格式来用"></a>第一、先把他当做固定格式来用</h3><p>反正按两下就出来，用起来也不麻烦喽~</p>
+<h3 id="第二、修改一下语言"><a href="#第二、修改一下语言" class="headerlink" title="第二、修改一下语言"></a>第二、修改一下语言</h3><p>第二行 <code>&lt;html lang=&quot;en&quot;&gt;</code> 里面的 <code>en</code> 表示英文，当然中文就是 <code>zh</code> 了，这个说的是网页内容的主要语言，不是说代码哦，所以一般我们都改为 <code>zh</code>。<a href="#footnote-2" class="footnote-link"><sup>[2]</sup></a></p>
+<h3 id="第三、title-就是标题"><a href="#第三、title-就是标题" class="headerlink" title="第三、title 就是标题"></a>第三、<code>title</code> 就是标题</h3><p>第七行 <code>&lt;title&gt;Document&lt;/title&gt;</code> 是用来设置网页的标题的，这个内容会显示在浏览器的标签上，如下图：</p>
+<div class="image-box"><img src="/assets/lesson-0007/title-9468e1af4f66c8fc07be28b0a3872e08.png" alt="HTML 标题"></div>
+<p>当然你也可以把 <code>Document</code> 改成其他内容试试看。</p>
+<h3 id="第四、编码要保持一致"><a href="#第四、编码要保持一致" class="headerlink" title="第四、编码要保持一致"></a>第四、编码要保持一致</h3><p>第四行的 <code>&lt;meta charset=&quot;UTF-8&quot;&gt;</code>，这里的 <code>UTF-8</code> 要和 编辑器右下角这个位置保持一致，否则就会乱码。反过来，网页出现乱码，先看是不是这里出了问题。</p>
+<div class="image-box"><img src="/assets/lesson-0007/charset-d3b0a397bfdeabf3ad9ea89d9bf5a825.png" alt="网页编码设置"></div>
+<h3 id="最后、我们网页的内容写在-body-里面"><a href="#最后、我们网页的内容写在-body-里面" class="headerlink" title="最后、我们网页的内容写在 body 里面"></a>最后、我们网页的内容写在 <code>body</code> 里面</h3><p>就是这样：</p>
+<pre><code class="html">&lt;!-- 上面的省略，要不然太长了，假装我写了 --&gt;
+&lt;body&gt;
+  在这里写我们的代码……
+&lt;/body&gt;
+&lt;!-- 下面的省略，要不然太长了，假装我写了 --&gt;
+</code></pre>
+<hr>
+<p>所以从模板开始规范的写代码，一点都不难。按两下按键，出来了模板，修改一下语言和标题，检查一下网页编码，然后就可以开始写我们的内容。</p>
+<p>因为刚刚开始接触这些代码，如果上来我把它们都进行一个非常详细的解释，看起来好像是我讲的非常到位，但至少一半的同学并不能够得到理解，甚至会被这些东西绕晕，毕竟我们对这一切还很陌生。所以本章只先指明其中需要修改和注意的点，让大家先用起来。而关于这个模板的详细解释，我会在以后附上。</p>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0007/" title="卡片 for 第七章">卡片 for 第七章</a>】</p>
+<div class="foot-notes"><p><strong id="footnote-1" class="footnote">&gt;注释 1:</strong> Emmet 原名 Zen Coding，是一个主要针对 HTML 和 CSS 的快速输入插件，简单而强大。不过在 VSCode 里面，是通过编辑器的自动补全功能进行实现，所以有一些地方实现得并不完美，以及和各种自动补全的插件之间，可能有一些冲突，让人略感遗憾，即便如此，它所带来的效率提升，也是极其惊人的。</p><p><strong id="footnote-2" class="footnote">&gt;注释 2:</strong> 对于网页语言的说明，是一个比较容易被忽视的地方，但其实它还是会产生很多影响的，作为入门课程，这里只讲了最简单笼统的设置方式，有兴趣的同学可以在网上自行查询，深入了解一下。</p></div>
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0006/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0008/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第一百六十四章 数据 | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="数据类型以及 JSON。">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第一百六十四章 数据
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2019-07-04 | Update: 2019-07-04">
+    <p>
+      数据类型以及 JSON。
+    </p>
+  </div>
+  <div class="post-content">
+    <p>对于上一章的三种方法，我少讲了一个参数（<code>ajax</code> 表示，哼，明明少讲了三十多个……</p>
+<p>是数据的类型，用来告诉程序，从网址获得的数据是什么类型的。支持的类型挺多的：xml, json, script, html ……</p>
+<p>不过这些影响的主要是返回值。像这样：</p>
+<pre><code class="js">const data = $.get(url, data, function(){ …… })
+</code></pre>
+<p>如果类型是 text、xml 就是没经过处理的数据……</p>
+<p>问题是，我说了，从发起请求，到获得数据，这中间有一定的时间。这样获得返回值并不能立刻使用（因为并不是立刻获得。</p>
+<p>对，有一些方法可以解决。但是我不想搞得那么麻烦，我记不住，所以我就单纯的喜欢回调函数，这个简单，好理解。而获取到的数据传入回调函数时，只是单纯的字符串而已。所以，在我的用法里，数据类型这个参数就不怎么重要。</p>
+<p>但是，JSON 这个数据类型，还是值得我们认识一下的。它是什么呢？当我们有比较多，比较复杂的数据需要存储，传递的时候。我们肯定会选用数组和对象把这些数据整理在一起，对吧？JSON 差不多就是一个这样格式的数据，然后把它保存成一个 json 后缀的文件。这样我们就可以把数据放在一个文件里，进行储存、读取、传递。</p>
+<p>如果我们把上面说到的方法中的数据类型设置为 json，程序就会认为获得的内容是一个 JSON 文件。并试图把它转换为 js 对象放进返回值里。</p>
+<p>但是我上面也说了，实际获得的都是字符串，只是后面如何处理的问题。所以，我们的数据以一定的格式写成字符串，存入文件，这是 JSON。当然本质上就是文本文档。使用的时候读取这些文本，经过转化，还原为数据。</p>
+<pre><code class="js">const a = {name: &#39;喵喵喵&#39;, age: 12}
+const jsonStr = JSON.stringify(a)
+</code></pre>
+<p>这样就把对象 <code>a</code> 变成了 JSON 格式的字符串。</p>
+<pre><code class="js">const obj = JSON.parse(jsonStr)
+console.log(obj.name)
+</code></pre>
+<p>这样就又把字符串还原回了数据。这个方法在数据存储相关的操作中非常常用。但是很简单啊，上面就是两个转换方法，照着抄就行了。</p>
+<p>如果只是简单的获取 JSON 数据，jQuery 提供了一个 <code>getJSON</code> 的方法，对，这也是一个偷懒的简化方法，毕竟在发起请求获取数据这方面，<code>ajax</code> 足以蔑视一切了。其他方法，都是对它的简化而已。</p>
+<p>所以，<code>getJSON</code> 方法等效于：</p>
+<pre><code class="js">$.ajax({
+  dataType: &quot;json&quot;,
+  url: url,
+  data: data,
+  success: success
+});
+</code></pre>
+<p>没写 <code>type</code> 就默认用 get，何况名字都叫 <code>getJSON</code> 了，肯定就只能是 get 方法发送数据了。</p>
+<pre><code class="js">$.getJSON( url, data, function(){} )
+</code></pre>
+<p>请求的地址，要发送的数据，和回调函数。回调函数可以获得三个参数……怎么觉得和前面的差不多啊！</p>
+<p>回调函数获得的第一个参数不再是文本啦，而是一个数据对象。其实就是把获取到的文本当成 JSON 转换为数据之后再传过来，让我们可以少写一行代码……</p>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0164/" title="卡片 for 第一百六十四章">卡片 for 第一百六十四章</a>】</p>
+
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0163/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0165/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

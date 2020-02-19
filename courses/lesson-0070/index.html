@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第七十章 返回顶部 | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="通过一个很简单的网页链接，实现返回当前网页页面顶部的功能。">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第七十章 返回顶部
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2019-01-11 | Update: 2019-05-09">
+    <p>
+      通过一个很简单的网页链接，实现返回当前网页页面顶部的功能。
+    </p>
+  </div>
+  <div class="post-content">
+    <p>前面我们导航中的链接，链接到的地址是 <code>#</code>，那么这个 <code>#</code> 是什么意思呢？</p>
+<p><code>#</code> 表示的是锚点。我们前面所学的网址都是指向某个文件的，但是在一个页面中，也是分为很多部分的，我们想要对它们进行快速的定位，就可以使用锚点的方式：</p>
+<blockquote>
+<p>index.html#footer</p>
+</blockquote>
+<p>这就是链接到 <code>index.html</code> 这个文件的 <code>#footer</code> 这个锚点。这么写你会想到什么？CSS 里面不是用 <code>#</code> 表示 <code>id</code> 的么？对，这就是跳转到相应 id 的元素那里<a href="#footnote-1" class="footnote-link"><sup>[1]</sup></a>。我们说过，在一个页面中，id 是不会重复的，所以可以定位到唯一的一个元素，没有冲突，这就十分的方便。</p>
+<p>那如果我现在就在这个页面当中，写相对地址的时候，消去相同部分就可以把文件名也消除掉了，但是 <code>#</code> 必须保留哦。最后实现的效果就是在当前页面内快速的滚动到相应位置，而不是刷新页面。</p>
+<p>那如果只写 <code>#</code>，后面没有内容呢？那就会直接返回页面的最顶部。诶，点题了哦！这作文可以加分了。</p>
+<p>所以返回顶部其实就是一个地址为 <code>#</code> 的链接。你问我为什么导航部分的链接也都是 <code>#</code> ……我那不是没得写么。</p>
+<p>好啦，怎么返回这个事情解决了，样式我们也会定义，方的圆的，各种颜色，边框阴影……想想都会写的，对吧？就不说了哦，但大家要动手做哦。</p>
+<p>不过这个按钮一般都是浮动在右下角什么的，所以我们用固定定位 <code>fixed</code> 就比较合理。这个很简单，所以不演示了，对，老鼠就是懒，你来咬我呀！</p>
+<p>当然，你也可以使用粘性定位 <code>sticky</code>，只是要注意兼容性。比如自己的网站，我就是任性，用的浏览器垃圾的话，那我就不考虑你的体验了，那就完全没问题。但如果是某些面向的用户十分大众的网站，你就要考虑那些使用的浏览器不怎么好，或者说不怎么懂得选择浏览器的用户了。因为你无法抛弃这些用户，而他们会把遇到的一切问题都归结为——网站辣鸡！</p>
+<p>简单说一下用 JS 来实现类似效果的原理，你就当做闲聊，我们开阔一下视野。首先肯定是静态定位，因为不动嘛；同时监测页面滚动，当页面滚动超过指定位置，把元素设置为固定定位 <code>fixed</code>。滚动回来的过程正好相反。</p>
+<p>这就 OK 了么？不对，如果转换为固定定位 <code>fixed</code>，那它原来的位置就消失了，后面的元素会受到影响，结果你会感觉页面蹦了一下（后面元素位置忽然发生变化）。所以我们需要为这个准备飘起来的元素套一个父元素，当它飘走了，父元素维持原来的尺寸，在原地撑住，等着儿子归来，这是多么感人的一幕，体现了……咳咳咳，这不是写作文，就不抒情了。</p>
+<p>这个效果我们后面也可以自己实现的，嗯，所以要认真的跟着学下去哦，我们会变强的，但绝不变秃！（强势拒绝</p>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0070/" title="卡片 for 第七十章">卡片 for 第七十章</a>】</p>
+<div class="foot-notes"><p><strong id="footnote-1" class="footnote">&gt;注释 1:</strong> 传统上，可以用 <code>&lt;a name=&quot;footer&quot;&gt;&lt;/a&gt;</code> 来定义的，现在当然也可以这么用。不过即便抛开标准不说，我们也会很自然地选择使用 id，因为简单方便啊！</p></div>
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0069/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0071/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

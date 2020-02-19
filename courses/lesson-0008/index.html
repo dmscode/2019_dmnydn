@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第八章 迈出我们的第一步 | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="写一个网页也是很简单的，只要把我们前面所学的内容综合一下，再多认识几个网页标签就好了。书写的规则都是一样的，用两次就轻车熟路了。所以，代码能有多难？">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第八章 迈出我们的第一步
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2018-11-06 | Update: 2019-05-09">
+    <p>
+      写一个网页也是很简单的，只要把我们前面所学的内容综合一下，再多认识几个网页标签就好了。书写的规则都是一样的，用两次就轻车熟路了。所以，代码能有多难？
+    </p>
+  </div>
+  <div class="post-content">
+    <p>准确的说，前面的都是准备工作，嘿嘿，老鼠又水了很多字数。</p>
+<p>现在我们开始正式写点东西。最开始，当然是先写点简单的啦~比如写个作文什么的（好像要跑题的样子……</p>
+<p>先做什么？先写模板啊，上节课学的，别和我说你忘记了。</p>
+<pre><code class="html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;zh&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;UTF-8&quot;&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+  &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;ie=edge&quot;&gt;
+  &lt;title&gt;稻米鼠贼帅！&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;!-- 我们的代码放在 body 标签里 --&gt;
+  &lt;!-- 就是替换掉这部分灰溜溜的文字 --&gt;
+  &lt;!-- 这个模板有点长，会被说水字数 --&gt;
+  &lt;!-- 我就不每段代码都把它写出来了 --&gt;
+  &lt;!-- 但是你们不能偷懒，一定要写的 --&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p>（感觉这次水字数很成功……并不</p>
+<p>那么，我们又发现一个新的标签，长的有点特殊，但是既然放在尖括号里，想必就是标签吧，就是上面这坨灰溜溜的东西。这个呢，是注释，他不起任何作用，也不会显示出来。诶？！那我们为什么要写它们？</p>
+<p>我们的代码无可避免的会越写越长，等你回头看他们的时候就会觉得混乱，很难一下子就看出头绪来，这时候注释就很有用了，我们可以写上各种标记和说明，方便自己以后查看。注释这么写：</p>
+<pre><code class="html">&lt;!-- 两头尖括号，前边一个感叹号 --&gt;
+&lt;!-- 每边两个减号，中间是注释的内容 --&gt;
+</code></pre>
+<p>很简单吧，当然上面我是因为强迫症，每行写了一次，其实在注释里面也是可以换行的，比如：</p>
+<pre><code class="html">&lt;!-- 在这里面是可以换行的
+就像这个样子
+    前面有空格也没所谓 --&gt;
+</code></pre>
+<p>（于是渐渐偏离了主题……</p>
+<p>回来继续写作文，作文啊，首先要有什么？对，是标题，奖励你们一朵小红花~</p>
+<p>标题，那我们就加粗吧，反正目前也就会这个。不可以哦，首先，<code>strong</code> 标签是强调的意思，而不能把它当做加粗（虽然他的表现是加粗）。</p>
+<p>说起来很拗口，大概就是呢，大款和伙夫一般都比较胖，但是你不能说大款和伙夫就是胖子，划等号，那就错了。</p>
+<p><strong>这个很重要！HTML 要语义化，就是说 HTML 不是用来解决这些元素长成什么样的，而是用来说明每一个元素它是什么的</strong>。胖不胖的问题不是我们的关注点，但他是大款还是伙夫这个问题要说明白。</p>
+<p>那么我们写下一段文字，作为标题，于是就要用标签标记出来，这个是标题。但是，问题又来了，我们写作文还好，如果写报告，那上面大标题，下面副标题，文章里面还要有各种小标题，甚至一层套一层。这些都是标题，但是总该区分一下吧，上面不是说了语义化吗，那这个问题是有必要说清楚的。</p>
+<p>所以我们的标题标签有六个，怎么样，六个级别的标题一般都够用了吧？而且特别好记哦~</p>
+<pre><code class="html">&lt;h1&gt;这个是最大的标题&lt;/h1&gt;
+&lt;h2&gt;这个是二级标题&lt;/h2&gt;
+&lt;h3&gt;这个是三级标题&lt;/h3&gt;
+&lt;h4&gt;这个是四级标题&lt;/h4&gt;
+&lt;h5&gt;这个是五级标题&lt;/h5&gt;
+&lt;h6&gt;这个是最小的标题&lt;/h6&gt;
+</code></pre>
+<p>这种东西，看一遍就能记住的吧？记不住的把你们小学一年级数学老师的电话号码给我留下，我想和他探讨一下十以内的数学问题。</p>
+<p>标题问题解决了，我们开始第一段……诶，你不说语义化么，那，段落是不是也要标记一下？是的，段落也要标记，而且，这个就涉及到了我们写代码的格式问题（下一章说哦）。现在呢，先记住段落用 <code>p</code> 标签标记。</p>
+<p>所以我们就可以写出如下作文了：</p>
+<pre><code class="html">&lt;!-- 这部分内容要放在 body 标签中哦 --&gt;
+&lt;h1&gt;老鼠叫我写作文&lt;/h1&gt;
+&lt;p&gt;第一段先夸老鼠超迷人~&lt;/p&gt;
+&lt;p&gt;第二段不知该写啥，凑字数啥的很愁人。&lt;/p&gt;
+</code></pre>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0008/" title="卡片 for 第八章">卡片 for 第八章</a>】</p>
+
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0007/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0009/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

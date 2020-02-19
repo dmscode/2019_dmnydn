@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第十六章 表格 | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="表格是网页中展示数据的常用方法，在以前也是网页排版布局的重要手段，现在在一些特殊场合也要使用表格来进行网页内容的布局。">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第十六章 表格
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2018-11-13 | Update: 2019-05-09">
+    <p>
+      表格是网页中展示数据的常用方法，在以前也是网页排版布局的重要手段，现在在一些特殊场合也要使用表格来进行网页内容的布局。
+    </p>
+  </div>
+  <div class="post-content">
+    <p>表格是一个比较复杂的东西，但其实如果你听懂了上一章的内容，这部分也非常的好理解。</p>
+<p>表格和列表有什么区别呢？列表的每一行，就是一个内容，而表格每行可有多个内容。这么推理下去的话……那么我们首先要选一个标签，那表示这部分内容是一个表格：</p>
+<pre><code class="html">&lt;table&gt;
+  &lt;-- 这里是一个表格 --&gt;
+&lt;/table&gt;
+</code></pre>
+<p>可能有的同学说，咦，<code>table</code> 不是桌子的意思吗？是啊，不过他也有表格的意思，所以喽~</p>
+<p>有了表格，我们要再进行细分，当然可以有很多种划分的方法，不过在这里我们就武断一点，其实就是不得不按照规则制定者所选择的方法去写。那么我们先来把表格拆分成行，</p>
+<pre><code class="html">&lt;table&gt;
+  &lt;tr&gt;&lt;!-- 这里是表格中的一行 --&gt;&lt;/tr&gt;
+  &lt;tr&gt;&lt;!-- 这里是表格中的一行 --&gt;&lt;/tr&gt;
+&lt;/table&gt;
+</code></pre>
+<p>这和我们写列表其实差不多的，可以解释一下，<code>tr</code> 就是 <code>table row</code> 的缩写，意思当然就是“表格里的行”了。</p>
+<p>我们刚才说过，每一行里边可以不止一个项目，就是不止一个单元格。所以我们还要再往下划分：</p>
+<pre><code class="html">&lt;table&gt;
+  &lt;tr&gt;
+    &lt;td&gt;内容 1&lt;/td&gt;
+    &lt;td&gt;内容 2&lt;/td&gt;
+    &lt;td&gt;内容 3&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;内容 4&lt;/td&gt;
+    &lt;td&gt;内容 5&lt;/td&gt;
+    &lt;td&gt;内容 6&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;
+</code></pre>
+<p>现在我们在每一行之中又放入了三个单元格，每一个单元格中写了一些内容，单元格的标签是 <code>td</code>，就是 <code>table data</code> 的缩写，意思是表格中的数据，因为每一个单元格就要写表格中实际要显示的数据了（当然并不一定要是数据，也可以是其他的各种内容）。那么我们来看看效果吧：</p>
+<div class="code-show" data-before-text="代码效果演示 Start" data-after-text="代码效果演示 End"><table border="1">
+  <tr>
+    <td>内容 1</td>
+    <td>内容 2</td>
+    <td>内容 3</td>
+  </tr>
+  <tr>
+    <td>内容 4</td>
+    <td>内容 5</td>
+    <td>内容 6</td>
+  </tr>
+</table></div>
+<p>所以表格就是比列表多出来一层，使得每一行可以显示更多的项目。当然，表格可以实现更复杂的形式，比如我们知道一个操作叫做合并单元格，可以把相邻的几个单元格合并成为一个，这时候显示出来的表格就比较复杂了。这样的代码如何去写呢……其实现在，我并不建议大家使用这么复杂的表格，因为我们后面会学到的各种布局方式要比这灵活的多，而且通用性也很强，学一个方式就可以应付大多数种情况，何乐而不为呢？所以涉及到的各种奇葩属性，我就不一一进行介绍了。如果有需要，大家可以自行查阅文档，不过如果使用量并不大，我觉得其实用可视化编辑器（比如大家熟知的 DreamWeaver）来设计表格，也是一个非常不错的选择。</p>
+<p>表格还有很多复杂的标签，下面代码来举一下例子：</p>
+<pre><code class="html">&lt;table&gt;
+  &lt;caption&gt;这里是整个表格的标题&lt;/caption&gt;
+  &lt;!-- thead 表示表格的头部，就是我们日常说的表头 --&gt;
+  &lt;thead&gt;
+    &lt;!-- th 表示这些内容是表格中的标题，而不是数据 --&gt;
+    &lt;th&gt;内容&lt;/th&gt;
+    &lt;th&gt;内容&lt;/th&gt;
+    &lt;th&gt;内容&lt;/th&gt;
+  &lt;/thead&gt;
+  &lt;!-- tbody 表格的身体，里面是表格的主要内容 --&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;内容&lt;/td&gt;
+      &lt;td&gt;内容&lt;/td&gt;
+      &lt;td&gt;内容&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;内容&lt;/td&gt;
+      &lt;td&gt;内容&lt;/td&gt;
+      &lt;td&gt;内容&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+  &lt;!-- tfoot 是表格的脚，可能应该叫做表尾，反正就是最后的总结部分，或者用来注释一些的内容， --&gt;
+  &lt;tfoot&gt;
+    &lt;td&gt;内容&lt;/td&gt;
+    &lt;td&gt;内容&lt;/td&gt;
+    &lt;td&gt;内容&lt;/td&gt;
+  &lt;/tfoot&gt;
+&lt;/table&gt;
+</code></pre>
+<p>以上算是一个结构相对完整一些的表格吧，但是仅作为了解，遇到时知道是个什么就可以了。我觉得除非需要输出格式化数据的情况，其他都不太需要使用表格，因为它的灵活性比较差。</p>
+<p>不过嘛，当然也有特殊情况啦。曾经，表格被作为重要的布局排版工具，虽然现在可以说已经被取代掉了，但是在许多特殊情况中，还是非得用表格不可。所以下一章我们来简单的谈一谈，如何用表格进行排版。</p>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0016/" title="卡片 for 第十六章">卡片 for 第十六章</a>】</p>
+
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0015/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0017/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第四十八章 这个盒子 | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="我们通过 width 和 height 属性来描述网页中盒元素的尺寸，可以选择各种常用的计量单位。">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第四十八章 这个盒子
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2018-12-04 | Update: 2019-05-09">
+    <p>
+      我们通过 width 和 height 属性来描述网页中盒元素的尺寸，可以选择各种常用的计量单位。
+    </p>
+  </div>
+  <div class="post-content">
+    <p>有了盒子，自然就不缺猫了，然后就能过上幸福的生活（一只老鼠幻想猫什么的，真的好么？</p>
+<p>我们来看看我们的盒元素吧：</p>
+<pre><code class="html">&lt;div id=&quot;box-1&quot;&gt;&lt;/div&gt;
+</code></pre>
+<p>这是一个空盒子，你把它写出来以后会发现并看不到它，不过我们可以感受到它。</p>
+<pre><code class="html">在这里写一些文字
+&lt;div id=&quot;box-1&quot;&gt;&lt;/div&gt;
+这里继续写一些文字
+</code></pre>
+<p>看看效果哦~</p>
+<div class="code-show" data-before-text="代码效果演示 Start" data-after-text="代码效果演示 End">在这里写一些文字
+<div id="box-1"></div>
+这里继续写一些文字</div>
+<p>这里并没有换行符，但它却分成了两行，请参照 <a href="/courses/lesson-0045/" title="第四十五章 讲个故事">第四十五章 讲个故事</a> 的故事思考一下，这是为什么？</p>
+<p>虽然这个块元素中没有任何的内容，但它还是占据了一个位置。默认的它就是占据整个的宽度，也就是宽度是 100%。要注意这个百分比是和父元素的宽度相比。</p>
+<p>然后因为没有内容，它的高度是零。</p>
+<p>当然我们看不见它，总觉得太不直观。那我就给它增加一个属性，来更真实的感受一下它的存在：</p>
+<div class="code-show" data-before-text="代码效果演示 Start" data-after-text="代码效果演示 End"><pre data-file-name="index.html"><code class="html">&#10;&#60;&#100;&#105;&#118;&#32;&#105;&#100;&#61;&#34;&#98;&#111;&#120;&#45;&#50;&#34;&#62;&#60;&#47;&#100;&#105;&#118;&#62;&#10;</code></pre><pre data-file-name="default.css"><code class="css">&#10;&#35;&#98;&#111;&#120;&#45;&#50;&#32;&#123;&#10;&#32;&#32;&#104;&#101;&#105;&#103;&#104;&#116;&#58;&#32;&#49;&#48;&#48;&#112;&#120;&#59;&#10;&#125;&#10;</code></pre>
+<style>
+#box-2 {
+  height: 100px;
+}
+</style>
+在这里写一些文字
+<div id="box-2"></div>
+这里继续写一些文字
+</div>
+<p>于是我们可以看到，这两行文字之间的空间变大了。那么这部分空间，就是被 <code>div</code> 占据了。我们虽然没有看见它，但是可以感受到它。</p>
+<p>这种要靠感受去琢磨的东西实在太反人类了啊！</p>
+<p>其实想看到它也很容易，虽然它是空的，但是我们可以给它一个背景色：</p>
+<div class="code-show" data-before-text="代码效果演示 Start" data-after-text="代码效果演示 End"><pre data-file-name="index.html"><code class="html">&#10;&#60;&#100;&#105;&#118;&#32;&#105;&#100;&#61;&#34;&#98;&#111;&#120;&#45;&#51;&#34;&#62;&#60;&#47;&#100;&#105;&#118;&#62;&#10;</code></pre><pre data-file-name="default.css"><code class="css">&#10;&#35;&#98;&#111;&#120;&#45;&#50;&#32;&#123;&#10;&#32;&#32;&#104;&#101;&#105;&#103;&#104;&#116;&#58;&#32;&#49;&#48;&#48;&#112;&#120;&#59;&#10;&#32;&#32;&#98;&#97;&#99;&#107;&#103;&#114;&#111;&#117;&#110;&#100;&#58;&#32;&#35;&#69;&#70;&#69;&#70;&#69;&#70;&#59;&#10;&#125;&#10;</code></pre>
+<style>
+#box-3 {
+  height: 100px;
+  background: #EFEFEF;
+}
+</style>
+在这里写一些文字
+<div id="box-3"></div>
+这里继续写一些文字
+</div>
+<p>这样看得见摸得着的感觉，就会让我们觉得十分踏实。那为什么不一开始就这么做呢？有些时候，我明明写了某个元素，却找不到它，可能就是因为它的宽或者高是 0。这时候显示的不是一根细线，是彻底不显示，因为零表示没有。即便你设置了背景色也看不到它（当然有别的方法可以用，但是也当然会有更复杂的情况）。</p>
+<p>我希望大家写代码和读代码的时候都不要着急，用一个非常平淡的心情去观察，自然会看到它的蛛丝马迹。这样才能够快速的去解决问题。</p>
+<p>好啦说回来，这一章我们就是先观察一下这个盒子。然后我们看到了一个关于高度的属性，理所当然的，还有一个关于宽度的属性，<code>width</code>。</p>
+<p>这两者可以使用的取值比较多，那么用像素（<code>px</code>）作为单位肯定是没问题的，<code>em</code> 和 <code>rem</code> 也是可以的（但比较少），百分比（<code>%</code>）要记住是相对于父元素的。</p>
+<p>但这仅仅是常用的而已，还有许多复杂的单位，我们后面用到的时候再展开，慢慢去讲。</p>
+<p>基本上所有块元素都可以设置宽和高，而行内元素就不行了。行内元素会非常呆萌的向你说：我就这么多内容呀，那我就占这么大地方！地方少了，我会呆不下的，地方大了，多吃多占，凑不要脸……</p>
+<p>HTML 元素本身也具有宽和高的属性（HTML 属性，不是 CSS），不过现在我们已经很少使用了。一般也就在图片和表格中，还会再遇见。比如：</p>
+<pre><code class="html">&lt;img src=&quot;123.jpg&quot; width=&quot;300px&quot; height=&quot;300px&quot;&gt;
+</code></pre>
+<p>不过如果没有特殊的原因，还是建议把所有样式相关的东西写到 CSS 中，这样便于管理和修改。</p>
+<p>然后对于图片元素会有一个特殊的地方，因为这个内容本身具有一个宽高，就是图片的尺寸。我们再设置宽高，图片会按照我们设定的尺寸而进行拉伸。</p>
+<p>如果我们只设置一个宽度，或者只设置一个高度呢？那么图片会等比例缩放到符合我们所设定的尺寸。这时候其实相当于另一个值被设定为了 <code>auto</code>，就是让浏览器看着办。</p>
+<p>不过图片这个元素有些特殊，你会发现它同时具有块元素和行内元素的特性，这个我们后面再去认识。</p>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0048/" title="卡片 for 第四十八章">卡片 for 第四十八章</a>】</p>
+
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0047/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0049/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

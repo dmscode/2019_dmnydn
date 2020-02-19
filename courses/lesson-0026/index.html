@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第二十六章 相对路径如何写 | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="如何写出一个文件的相对地址/相对路径，方法十分简单，先学会如何操作，然后再深入理解它所表达的意思。">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第二十六章 相对路径如何写
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2018-11-19 | Update: 2019-05-09">
+    <p>
+      如何写出一个文件的相对地址/相对路径，方法十分简单，先学会如何操作，然后再深入理解它所表达的意思。
+    </p>
+  </div>
+  <div class="post-content">
+    <p>上一章我们在写文件地址的时候遇到了问题，因为我们使用的是文件的绝对地址，但是网页发布之后，这个地址不好用了。</p>
+<p>根据所讲的故事，可以猜测出，这种情况需要使用相对地址。虽然我不知道相对地址如何去写，但是，我觉得如果把网页和图片放在一起，发布的时候也一起发布，保持它们的相对位置不发生变化，这一点肯定是没错的。</p>
+<p>所以我们写代码的时候，一般要先建立一个工程文件夹。其实就是说，把相关的内容全都放在一个文件夹里。发布的时候，就把文件夹里的内容全部上传上去，保持它们之间的相对位置。然后在代码中使用的全都是相对地址，是不是就不会出现找不到文件的情况了？</p>
+<p>那么下一个问题就是，如何去写相对地址？这很简单，不过我们先要明确一个问题：斜线代表了什么？</p>
+<p>我这么问你可能一下子反应不过来，那么我们来看下上一章写下的文件地址：</p>
+<blockquote>
+<p>file:///E:/全球最可爱的小老鼠/真的帅/自拍照/最满意.jpg</p>
+</blockquote>
+<p>这时候你明白了，这不就是分隔文件夹名称么。上面表示 E 盘里面的——“全球最可爱的小老鼠”这个文件夹里面的——“真的帅”文件夹里面——“自拍照”文件夹里面——“最满意.jpg” 这个文件。</p>
+<p>说起来有点长，但是只要使用电脑超过两个月的一般都明白，而且觉得我这么说一遍很废话。嗯，我就是想说：<strong>在网址中斜线代表的也是这样的，文件夹的层级关系</strong><a href="#footnote-1" class="footnote-link"><sup>[1]</sup></a></p>
+<p>现在我们有这样一个目录结构：</p>
+<pre><code>E:.
+├─images
+│  ├─小老鼠.jpg
+│  └─page-a.html
+├─dir-a
+│  ├─大花猫.jpg
+│  └─page-b.html
+└─index.html
+</code></pre><p>E 盘下有有两个文件夹 <code>images</code> 和 <code>dir-a</code>，一个网页文件 <code>index.html</code>。两个文件夹里各有一张图片和一个网页文件，这个结构表达方式还是很直观的。</p>
+<p>我们先写出他们的绝对地址：</p>
+<blockquote>
+<p>file:///E:/images/小老鼠.jpg<br>file:///E:/images/page-a.html<br>file:///E:/dir-a/大花猫.jpg<br>file:///E:/dir-a/page-b.html<br>file:///E:/inedx.html</p>
+</blockquote>
+<h3 id="相对于谁"><a href="#相对于谁" class="headerlink" title="相对于谁"></a>相对于谁</h3><p>然后我们要确定一个基准，相对地址，你要知道这是想对谁而言。就是我面前的咖啡，这个“我”。这个问题也简单——“在哪个文件里说这件事，就以哪个文件作为基准”。</p>
+<p>我们来举个例子，看第一个文件夹。我现在想在 <code>page-a.html</code> 这个文件里插入 <code>小老鼠.jpg</code> 这张图片。因为是在 <code>page-a.html</code> 里面写这个代码，那么现在就以 <code>page-a.html</code> 来作为基准。</p>
+<h3 id="去处重复"><a href="#去处重复" class="headerlink" title="去处重复"></a>去处重复</h3><p>然后我们把这两个地址写下来：</p>
+<blockquote>
+<p>file:///E:/images/小老鼠.jpg<br>file:///E:/images/page-a.html</p>
+</blockquote>
+<p>去掉前面相同部分（相同的文件夹部分，文件名里有相同的字可不算数）：</p>
+<blockquote>
+<p>小老鼠.jpg<br>page-a.html</p>
+</blockquote>
+<p>然后看那个作为基准的文件，是否只剩下了文件名。现在上面的  <code>page-a.html</code> 确实只有文件名了，这时候我们的相对地址就成了，我们在 <code>page-a.html</code> 里面写 <code>&lt;img src=&quot;小老鼠.jpg&quot;&gt;</code> 就可以了。</p>
+<h3 id="向上一层"><a href="#向上一层" class="headerlink" title="向上一层"></a>向上一层</h3><p>不过还有一种情况：去掉相同部分后，剩下的不只是文件名。比如我们现在想在 <code>page-b.html</code> 中插入 <code>小老鼠.jpg</code> 这张图片，我们按照上面的操作，以 <code>page-b.html</code> 为基准，先写下两个地址：</p>
+<blockquote>
+<p>file:///E:/images/小老鼠.jpg<br>file:///E:/dir-a/page-b.html</p>
+</blockquote>
+<p>去掉前面相同部分：</p>
+<blockquote>
+<p>images/小老鼠.jpg<br>dir-a/page-b.html</p>
+</blockquote>
+<p>现在基准文件剩下的并不只是文件名，还有一个文件夹 <code>dir-a</code> 这时候怎么办呢？</p>
+<p>在基准文件的路径上去掉一个文件夹，同时在另一个文件路径前添加一个 <code>../</code></p>
+<blockquote>
+<p>../images/小老鼠.jpg<br>page-b.html</p>
+</blockquote>
+<p>反复重复上述动作，直到基准文件只剩下文件名为止。</p>
+<hr>
+<p>只是非常无脑的三步操作，那么大家尝试着，把在这三个网页文件中，分别插入这两张图片的情况都写一下吧~</p>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0026/" title="卡片 for 第二十六章">卡片 for 第二十六章</a>】</p>
+<div class="foot-notes"><p><strong id="footnote-1" class="footnote">&gt;注释 1:</strong> 你和我说现在前端路由系统里表达的已经不是层级关系了，而是一个个的参数。没错，然而那是用后端的 Rewrite 强行把网址指向某个特定的页面（<strong>忽略网址原本的意义</strong>），才可以把它当作参数用的。</p></div>
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0025/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0027/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

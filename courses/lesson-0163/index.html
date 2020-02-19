@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第一百六十三章 获取 | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="jQuery 中的 get、post 和 ajax 方法。">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第一百六十三章 获取
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2019-07-04 | Update: 2019-07-04">
+    <p>
+      jQuery 中的 get、post 和 ajax 方法。
+    </p>
+  </div>
+  <div class="post-content">
+    <p>怎么获取数据呢？有两个方法 <code>get</code> 和 <code>post</code>，对，就是对应两种发送数据的方法。</p>
+<p>除了使用什么方法来发送数据这个区别，其他地方这两者还是非常相似的，所以我们放在一起说好了。</p>
+<p>因为是获取数据，并不涉及当前页面内的元素，所以就没必要再给个选择器，选择一下元素什么的。我们要做的是，用 jQuery 的 get 或者 post 完成发送请求这个操作。所以我们这么写：</p>
+<pre><code class="js">$.get()
+$.post()
+</code></pre>
+<p><code>$</code> 就代表了 jQuery，现在使用它下属的方法，这么写完全没毛病，只是和我们前面的写法有点小区别。（没了选择器相关的参数部分）。</p>
+<p>当然，上面这样是不够的，我们要发送一个请求，发送给谁？包含什么数据？这些挺重要的，是不是听着有点耳熟？就和上一章的一样啦，按着上一章的格式写也没问题。对，还可以给一个函数，用来在请求成功以后调用，参数什么的也一样。</p>
+<p>差不多什么都一样，啊啊，不想重复讲。对了，这种方法知识获取数据，并不会把数据主动的放到什么元素里面。不过你可以在回调函数里随意处置这些数据哦。</p>
+<p>如果你觉得参数有点多，容易搞乱了，也没关系。这两种方法提供了一个更清晰的使用方法。后面的小括号里直接给出一个包含参数的对象。</p>
+<p>但是，不重要啦，懒得讲啦。我讲的很复杂你们也记不住的啦。</p>
+<p>因为上面这些最简单的已经足够满足基本需求了的。再复杂的需求么……可以直接使用 <code>ajax</code> 方法的。这个怎么讲呢……</p>
+<pre><code class="js">$.get(url, data, function(){ …… })
+$.ajax({
+  url: url,
+  data: data,
+  success: function(){}
+})
+$.post(url, data, function(){ …… })
+$.ajax({
+  type: &quot;POST&quot;,
+  url: url,
+  data: data,
+  success: function(){}
+})
+</code></pre>
+<p>上面两种方法等效，下面两种方法等效。这次是真的等效哦，<code>get</code> 和 <code>post</code> 仍然只是为了书写简单一点而存在的。</p>
+<p>那 <code>ajax</code> 方法也没啥特殊啊。不不，你看这个对象她又粗又长……不对。我是说这个作为参数的对象，其实有许多属性可以设置，这里仅仅是我们为了和两种简化方法对应的省略写法。属性多到什么程度呢……大概也就三十五个吧，反正各种你想得到想不到，各种细节，方方面面的，都给安排上了。</p>
+<p>然后呢……不讲了啊。这么复杂，喵叽，自己看文档吧。或者看看下一章？</p>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0163/" title="卡片 for 第一百六十三章">卡片 for 第一百六十三章</a>】</p>
+
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0162/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0164/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

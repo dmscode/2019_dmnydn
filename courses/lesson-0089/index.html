@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第八十九章 注入灵魂 | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="开始 JavaScript 部分的学习，JavaScript 是什么，又可以用来做些什么。">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第八十九章 注入灵魂
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2019-02-12 | Update: 2019-05-09">
+    <p>
+      开始 JavaScript 部分的学习，JavaScript 是什么，又可以用来做些什么。
+    </p>
+  </div>
+  <div class="post-content">
+    <p>以前我喜欢说，神一样的 CSS，因为 CSS 为平白无味的页面，添加了色彩。就仿佛一下子，这个世界有了光；就仿佛普罗米修斯，将火种从天空抛洒到人间……所以我觉得说 CSS 是神，并不过分。</p>
+<p>那就引出了一个问题，当我们讲到 JS 的时候，我又应该如何去形容？</p>
+<p>CSS 带给我们的是五彩斑斓的世界，就宛如一幅名画，让我们叹为观止，却不能参与其中。而 JS 则让我们与页面真正的产生交互，可以说这让页面活了起来，这才是注入灵魂的操作嘛。</p>
+<p>如此伟大的操作，肯定不可能简单到点几个按钮就完成。可以说它很复杂，至少对于编程新人，它很复杂。如果谁非要拿出一个和我相反的想法，让你去相信，那么相信我，他是在骗你的。</p>
+<p>可是，不是说《代码能有多难？》么？</p>
+<p>我们这是一个基础课程，基础到简直不能算是课程，更像一个导览。不过我们说过，纲举目张，所以可以说，这是一个骨头版的基础教程。</p>
+<p>什么意思呢？我们只是拿出来非常基础的内容，先进行学习认识；保证我们可以无障碍的，去认识下一部分的内容。这样我们就可以用最小的付出，去尽可能的纵观前端，从而了解它到底是个什么，能做些什么？我们应该如何去学它。</p>
+<p>简而言之，我们先学其中很简单的内容，用起来再说。如果你们觉得这些东西很好玩，很有兴趣，那就自己查阅文档，深入学习呀……（计划通，小老鼠偷懒的奸计得逞</p>
+<p>好了，说点儿实质的东西，（诶？！承认自己废话多了么……</p>
+<p>JS 只是个缩写，全称 JavaScript，和大名鼎鼎的 Java 没啥关系，只是名字像而已。不过后半部分 Script 值得留意，这个意思是“脚本”，所以这是一种脚本语言。这么说，可能大家并不能够理解。那就简单解释一下：</p>
+<p>有一些语言写出来的程序，最后是需要进行编译的，就是把代码转换成为可以执行的二进制文件。好像还是听不懂哈。其实就是把我们能够读懂的语言转换成为机器能够读懂的语言，这样的过程叫做编译。</p>
+<p>但是脚本语言就比较简单，仿佛并没有编译这个过程，写完以后直接就能用。当然实际上这里面有一个解释器在起作用。就是在运行的时候，由解释器解释（把我们看到的代码翻译成为机器能够读懂的信息）并运行。这样的优势很明显，用起来很简单，即写即用。想修改也简单，用编辑器打开就改了。当然缺点也很明显，就是每次运行都要重新解释，这属于一个重复的工作量，所以在性能上肯定要低一些。</p>
+<p>在前端上，这些优点都是我们需要的，而这些缺点我们也还算可以忍受。程序员只需要把自己写好的代码放在网站上，然后通过网络分发给用户就可以了，而用户的浏览器负责解释和运行的工作。</p>
+<p>然后 JS 可以做什么呢？啊，这才是你们真正感兴趣的话题，是不是？</p>
+<p>它什么都可以做，但这么说等于没说，而且总有人能够从刁钻的角度找到他做不到的事情……而我想我并不能够完整的举例出他所能够做到的所有事情，也就只能随便说说吧……</p>
+<p>它可以操作页面中的元素，包括元素的属性，从这一点上就确定了页面中领导者的地位。</p>
+<p>它可以进行各种运算，以及在不同的时机进行触发。也就是说，可以让页面中的元素在合适的时候发生合适的变化。</p>
+<p>如果你能够理解到我所说的内容，那你就应该知道这已经是相当强大的功能了。</p>
+<p>当你点击按钮，页面就可以做出计算，并给出相应的反应，啊，这不就是个计算器嘛……真的只是计算器吗？</p>
+<p>那个一直在跳的家伙高呼的什么？动画？动画不就是页面元素发生有序的变化么？我们不光能变，还想什么时候变什么时候变，想怎么变怎么变……</p>
+<p>（趁你们还没打我，溜了……</p>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0089/" title="卡片 for 第八十九章">卡片 for 第八十九章</a>】</p>
+
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0088/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0090/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

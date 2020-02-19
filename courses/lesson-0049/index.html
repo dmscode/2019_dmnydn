@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第四十九章 一个拐杖 | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="网页开发者工具，是我们前端开发者在调试网页时的重要工具，让我们可以方便的惯常网页中元素的各种信息、参数、属性。以及造成这些结果的原因和过程。">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第四十九章 一个拐杖
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2018-12-04 | Update: 2019-05-09">
+    <p>
+      网页开发者工具，是我们前端开发者在调试网页时的重要工具，让我们可以方便的惯常网页中元素的各种信息、参数、属性。以及造成这些结果的原因和过程。
+    </p>
+  </div>
+  <div class="post-content">
+    <p>虽然上一章通过给块元素设置背景色，可以非常直观的看到它的位置和大小。但是不能每次写页面，对于每一个元素都这么操作啊，那页面花花绿绿的，岂不成了马赛克？</p>
+<p>所以我们需要一个工具去观察这些元素，不过还好，并不需要去额外安装这样的工具，因为它就在你的浏览器里面。</p>
+<p>大家可以通过如下几种方式打开它：</p>
+<ul>
+<li>在页面中按下 <kbd>F12</kbd>；</li>
+<li>Chrome 浏览器还可以 <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>I</kbd> 或者 <kbd>Ctrl</kbd>+<kbd>Sheft</kbd>+<kbd>J</kbd>；</li>
+<li>记不住？菜单——（更多）工具——开发者工具，就出来了；</li>
+<li>太麻烦？直接在网页元素上<a href="#footnote-1" class="footnote-link"><sup>[1]</sup></a>右键，一般是最后一项“检查”或者叫“检查元素”或者类似的名称吧，点一下就出来了。</li>
+</ul>
+<p>就是像下面的界面：</p>
+<div class="image-box"><img src="/assets/lesson-0049/developer-tool-9d9d736c51fd8ea9b3584d5a6c66c44e.png" alt></div>
+<p>当然，它也可能是在下面。不过这样分屏显示不方便查看，我们先点右上角的<img src="/assets/lesson-0049/tool-menu-72889c8cc64f6bca9d3f17ff2ed57af3.png" alt>菜单。弹出如下内容：</p>
+<div class="image-box"><img src="/assets/lesson-0049/menu-02cea5a30625b0dd56609b65656b78cb.png" alt></div>
+<p>看到英文也不用紧张，首先它们都是非常简单的单词，然后我们现在也不需要在意它们。看到第一行有四个图标，这是表示我们的开发者工具显示在什么地方。后面三个应该非常好理解，反正你自己点着试试就可以了，这种东西多点两下又坏不了。其中第一个，是说将开发者工具放在独立窗口中进行显示，那么我们选择这个。</p>
+<p>然后开发者工具就成了一个独立的窗口，我们把它最大化：</p>
+<div class="image-box"><img src="/assets/lesson-0049/developer-tool-ui-2ceb61ef53ca46a79d03e63e80de2dd5.png" alt></div>
+<p>我非常粗线条的给它划分了一下区域（真丑。</p>
+<p>左上角是两个工具按钮，<img src="/assets/lesson-0049/select-button-343733ad3bf7632408a538678ef291e2.png" alt>是用来选择元素的，你可以先点击这个按钮，然后再点击页面中你要查看的元素。</p>
+<p>顶部用绿框标示的区域，是工具的标签页，我们可以通过它，在多种工具中进行切换。上面所列出来的这些并不是全部……不过目前我们用不上多少。如果有兴趣可以查一下这些单词都是什么意思，这对你理解这个工具很有帮助。目前我们主要使用第一个标签页，也就是当前界面，用来观察页面的元素。</p>
+<p>左边黄框区域，是当前页面的代码。但是需要注意的是，这些是当前用来显示的代码，但并不意味着这就是网页的源代码。它是被浏览器处理后，处于运行中的代码。不理解也没有关系，只要记得，它不是完全等于源代码就可以了，后面我们自然会接触到。</p>
+<p>右边蓝框区域，是用来观察当前选中元素的各种细节的。那怎么才算被选中的元素呢？就是我们左侧正在被蓝色高亮的代码。</p>
+<p>底下紫色边框的区域是控制台，显示一些运行中的输出。目前我们用不到，所以点击它右上角的叉号关掉。后面我们使用的时候可以直接看顶部的第二个标签页，功能是一样的。</p>
+<p>现在你可以用开发者工具来观察你前面所写的代码，尽量不要去观察其他页面，因为上来就观察复杂的代码，会让你遇到许多未知的问题，我们一点点来，循序渐进。</p>
+<p>然后你在左侧选择其中的元素，在右侧去观察元素所具有的 CSS 属性。我们讲一些细节：</p>
+<p>首先你在左侧面板的最底部会看到如下的结构：</p>
+<div class="image-box"><img src="/assets/lesson-0049/the-selecter-a43b629db3c8a2e181e8ab8e331f83cb.png" alt></div>
+<p>这是当前元素的选择器，但是一般我们不会完全照着这个去写选择器，因为它太复杂，太精确，效率也太低。不过我们可以通过它，读出当前元素的层级结构。</p>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0049/" title="卡片 for 第四十九章">卡片 for 第四十九章</a>】</p>
+<div class="foot-notes"><p><strong id="footnote-1" class="footnote">&gt;注释 1:</strong> 部分特殊元素上并不支持，换在其他元素上就好了。有的页面重定义了右键菜单，这时候还是使用上面几种方式去调出吧。</p></div>
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0048/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0050/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

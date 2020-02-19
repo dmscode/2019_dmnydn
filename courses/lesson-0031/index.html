@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第三十一章 文字大小 | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="如何通过 CSS 去描述和定义网页元素的文字大小，以及描述文字尺寸所需要用到的单位。">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第三十一章 文字大小
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2018-11-23 | Update: 2019-05-09">
+    <p>
+      如何通过 CSS 去描述和定义网页元素的文字大小，以及描述文字尺寸所需要用到的单位。
+    </p>
+  </div>
+  <div class="post-content">
+    <p>这时候你也许会想，和 HTML 一样，我只需要知道更多的属性，CSS 就可以写得差不多了。Emmm……你说对了一半，所以我们先认识一些属性，把这一半拿下再说。</p>
+<p>前面我们已经知道如何去设置文字的颜色了，那么现在我们来改变它的大小。HTML 部分和前面一样，我就不写了。</p>
+<p>表示文字大小的 CSS 属性是：<code>font-size</code>，后面的属性值给定文字的尺寸。</p>
+<p>应该说到这里，我们就已经学会了这个属性。但是还有一个比较麻烦的问题，我们如何去描述文字的大小？那么这里有很多种方式<a href="#footnote-1" class="footnote-link"><sup>[1]</sup></a></p>
+<h3 id="绝对大小"><a href="#绝对大小" class="headerlink" title="绝对大小"></a>绝对大小</h3><pre><code class="css">p {
+  font-size: xx-small;
+  font-size: x-small;
+  font-size: small;
+  font-size: medium;
+  font-size: large;
+  font-size: x-large;
+  font-size: xx-large;
+}
+</code></pre>
+<p>我们并不能给一个元素同时设置七个文字大小，如果坚持这样设置，那么前面的设置会被后面的设置所覆盖，起作用的只有最后一条。这里只是为了把可能的取值都列出来给大家看，才这么写的，</p>
+<p>单词我就不解释了，和我们买衣服时看的 Size 十分类似。所以意思也很明白。至于它们具体是多大……Who care？当你使用这种写法的时候，可能更多关注的是它们相对的大小，这种大一点，那一种小一点。</p>
+<h3 id="相对大小"><a href="#相对大小" class="headerlink" title="相对大小"></a>相对大小</h3><p>觉得上面的说法很随便？那么我们还有更加随便的。相对大小就是相对于父元素字体大小而言：</p>
+<pre><code class="css">p {
+  font-size: larger;
+  font-size: smaller;
+}
+</code></pre>
+<p>更大一点儿，或者更小一点，是不是更加随便呢？</p>
+<p>这两种方法都在你并不关心文字具体尺寸的时候使用，但是它们也有一些计算方法，不过可能因为浏览器而异。</p>
+<h3 id="像素"><a href="#像素" class="headerlink" title="像素"></a>像素</h3><p>上面这些粗略的说法，让你这个严谨的人感到不安。那我们就来换一个精确的表达方式，像素（px）。</p>
+<pre><code class="css">p {
+  font-size: 16px;
+}
+</code></pre>
+<p>文字的大小是 16 像素，这是很准确的。但是这个指的是虚拟像素，而不是物理像素。区别是什么呢？</p>
+<p>你看我还在用我的旧笔记本，14 吋的显示器，只有 1366×768 的像素；而你那么土豪，同样是 14 吋的显示器，居然用上了 4K 屏幕，有 3840×2160 的像素。这是什么概念呢？在相同的面积下，我的显示器上只有一个像素，而在你的显示器上，差不多就有 3×3 九个像素。</p>
+<p>那同样是 16 像素的文字，在我的显示器上看起来很合适，到你的显示器上岂不是要小得像蚂蚁了？然而实际情况并不是，你的电脑系统中会有一个缩放设置，强行使用更多的像素来表达一个像素。比如说放比例是 300%，电脑就会用 3×3 的面积去表达一个像素。这时候你电脑上的文字实际看起来比我电脑上还能大一些。</p>
+<p>这种情况在手机上更为常见，所以有时候我们发现虽然设置的都是相同的字号，在手机上显示出来的文字可能更大一些。</p>
+<p>那么有了这个精确的单位，我们觉得世界很美好了。但它也是有缺陷的，就是太精确了。他把文字的大小给彻底确定下来了，导致浏览器无法对文字的大小进行进一步的调整。</p>
+<p>上面我们刚刚讲的，是系统级的缩放。它影响的不只是文字，而是几乎一切显示的内容都进行了相应的缩放。而在浏览器里，还有一个显示文字大小的设置。这个在 PC 端浏览器，你可能没太在意过；手机浏览器里因为设置项比较少，大家应该都见到过。如果我们可以通过浏览器的设置，对几乎所有网页的文字大小进行一个相应的调整，那我们的浏览体验就得到了提升。毕竟每个人对于文字大小的需求都不太一样，有的人可能希望一屏能显示更多的文字，而减少翻页的操作；有的人视力不太好（比如小老鼠），就希望文字能够显示得大一点。浏览器给出的这种调整方式就是为了满足不同浏览者的需求。</p>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0031/" title="卡片 for 第三十一章">卡片 for 第三十一章</a>】</p>
+<div class="foot-notes"><p><strong id="footnote-1" class="footnote">&gt;注释 1:</strong> 真的是很多种，但是有一些实在不常用，就没有提及，我们这里主要讲比较常用的方式.</p></div>
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0030/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0032/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

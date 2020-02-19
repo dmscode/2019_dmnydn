@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第四十七章 id 和 class | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="id 和 class 是网页元素的重要标记方式和分类依据，也是 CSS 选择器选择元素的重要方式。">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第四十七章 id 和 class
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2018-12-03 | Update: 2019-05-09">
+    <p>
+      id 和 class 是网页元素的重要标记方式和分类依据，也是 CSS 选择器选择元素的重要方式。
+    </p>
+  </div>
+  <div class="post-content">
+    <p>上一章认识了两个空白标签，感觉十分有用。不过真要动手写的话，你就会发现问题。我们只学了用标签名字选择器，虽然可以一个页面中的链接，全都是一个样式。那是因为这个标签表示一个固定的意思，一般来说，也都具有相同的样式，这样看起来比较统一。但是到了前面两个标签，它没有具体的意义，可能被用在各种地方，如果我们还使用标签名作为选择器，就会感觉非常的笨拙，很难达到自己预期的效果。</p>
+<p>这时候就会有一个想法：这圈（juan）里一群小猪崽，长得差不多，跑的还挺快，怎么也分不清，不如给它们身上写上编号吧~</p>
+<p>不只你是这么想的，其实很多地方就是这么做的。大家都是好孩子，可能不太了解，在高中的时候，犯了错误被逮到，老师是不会问你的姓名的。因为学校里面可能有重名的，而且名字具体是哪个字，推敲起来也挺麻烦。他们上来就问：“你学号多少？”这是非常科学的，因为每个学号，在这个学校里只对应一个人。而且就算你说话口齿很不清楚，这么几位数字也很好辨别，而且也方便记下来。想想都非常可怕……（总觉得暴露了些什么，咳咳</p>
+<p>那么每个学号（<code>id</code>），只会对应一个人，不会有重复。大家好像明白了什么，于是有：</p>
+<pre><code class="html">&lt;div id=&quot;miao&quot;&gt;&lt;/div&gt;
+</code></pre>
+<p>然后在 CSS 里面，我们用 <code>#</code> 号来表示 id：</p>
+<pre><code class="css">#miao {
+  color: red;
+}
+</code></pre>
+<p>这样我们就可以对元素进行区分了。但是这样完美吗？在学校里，需要分配一些任务的时候，可能会说：一班二班三班负责挖坑，四班五班六班负责植树。很好，一下六个班都被分配了任务。如果你使用学号挨个叫人的话……</p>
+<p>那么我们需要一种方式，来称呼一类元素，这就是 <code>class</code>，我们叫做“类”。你可能说我们初中学英文的时候对它的解释是班级中的“班”，那我们就按照这个来进行理解，这表示这个元素属于哪个班（算是哪一类，其实你怎么理解都可以，只要知道它的特性就好）。</p>
+<p>一个班里面有多少学生呢？其实有多少个都可以，一般是有好多个，但如果某些兴趣班报名的人很少呢，一个也可以，这就成了一对一授课了，要加钱的，2333</p>
+<p>一个学生可以属于多少个班呢，也是不确定的。普通概念中好像只有一个班，如果学校中开展其他兴趣班，那么一个学生就可能同时加入多个班。</p>
+<p>这时候就很有意思了，你看你和我都是三年二班的，可以说我们是一个班的，但是我上的数学兴趣班，你上的美术兴趣班。那美术兴趣班开课的时候，你去上课，没我什么事儿；反过来也是一样。</p>
+<p>这些类比到 <code>class</code> 上也是一样的。可以多个元素被设置为相同的类，一个元素也可以被设置多个类。</p>
+<pre><code class="html">&lt;div class=&quot;hengji&quot;&gt;&lt;/div&gt;
+</code></pre>
+<p>我们在 CSS 中，用 <code>.</code> 来表示类</p>
+<pre><code class="css">.miao {
+  color: red;
+}
+</code></pre>
+<hr>
+<p>所以其实我们就是给元素增加了两个属性，然后通过这两个属性的值对元素进行选择。</p>
+<p><code>id</code> 最大的特点就是精确，每个 <code>id</code> 只能对应一个元素，当然一个元素允许有多个 <code>id</code> （一般也没啥必要）。所以我们通常把它用在页面中必然唯一的元素上，比如每页的页头页尾等。</p>
+<p><code>class</code> 用来标记一类元素，然后对他们进行共同操作。既然是一类，那么数量随意；而一个元素也可以同时属于多个类。我们会在页面中可能出现许多次的元素上使用它，比如说商品列表中每一个商品的名称。</p>
+<p>初学者最容易理解其中一个之后就只用这一个。但是稍微想想就知道这样效果并不好，只用 <code>id</code> 就难以批量操作；只用 <code>class</code> 又难以保证你选择的范围没有重复。</p>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0047/" title="卡片 for 第四十七章">卡片 for 第四十七章</a>】</p>
+
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0046/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0048/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第一百四十五章 基础选择器 | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="jQuery 基础选择器，和 CSS 是一样的。">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第一百四十五章 基础选择器
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2019-06-03 | Update: 2019-06-04">
+    <p>
+      jQuery 基础选择器，和 CSS 是一样的。
+    </p>
+  </div>
+  <div class="post-content">
+    <p>在学 jQuery 最开始我们就说了，我们在第一个小括号里，就是美元符号后面紧跟着的那个小括号，写的是元素的选择器，表示我们要操作是哪个元素。</p>
+<p>这里面支持所有的 CSS 选择器，这很方便，我们不需要额外的再去学习一些方法，就可以直接选择我们想要操作的元素。这也是为什么我们认为 jQuery 是一个很方便的工具的一个原因（虽然现在最新的 JS 是同样可以实现这一效果的）。</p>
+<p>我们要明确的一个问题，我们选择元素，大概会有这样三种结果：</p>
+<p>一个是当前页面中没有我们所选择的这个元素，既然没有这个元素，后面的操作就无从谈起，很可能就会引发报错，所以如果存在这种可能性，我们就要对这一情况进行判断。</p>
+<p>然后是最好的情况，页面中有元素符合我们的选择器，而且这样的元素只有一个。那我们直接对它进行操作就可以了。</p>
+<p>最后是比较复杂的情况，页面中有元素符合我们的选择器，而且这样的元素不止一个。如果我们只是对它进行一些设置，倒还好说，比如说把它们的某个属性都改变为某个值。就好像，让全班的同学午餐都吃学校发放的汉堡，这个事情并不复杂，但如果反过来，让全班学生都汇报一下中午自己吃的是什么东东，那就会很热闹了。所以当我们选中的元素不只是一个的时候，我们想要获取它们的某些属性，就会比较复杂。</p>
+<p>这些问题我们留到后面去讲，在当前我们先研究选择器。但是当我们写一个选择器的时候，一定要有一个思考：选出来的结果，可能是几个元素？零个、一个或者多个。这是一个十分重要的问题，所以在我们开始解决这个问题之前，就要先培养这样的意识。</p>
+<p>好，注意到这样的问题之后我们再来看最基础的选择器部分，好像其实我们都已经学过了呢，反正凑篇幅嘛，再说一遍也没所谓了：</p>
+<ul>
+<li><code>*</code> 匹配任何元素;</li>
+<li><code>a</code> 匹配标签是 a 的元素;</li>
+<li><code>#miao</code> 匹配 ID 是 miao 的元素;</li>
+<li><code>.gugu</code> 匹配 class 是 gugu 的元素。</li>
+</ul>
+<p>上面是最基础的 4 种选择器，我就假装大家都已经会了哦~然后我们把上面的 4 种选择器进行组合，下面的字母，代表上面 4 种选择器中的任意一种：</p>
+<ul>
+<li><code>a b</code> 表示 a 元素里面，符合选择器 b 的后代元素；</li>
+<li><code>a &gt; b</code> 表示 a 元素的子元素里面，符合选择器 b 的元素。</li>
+</ul>
+<p>其实就是先执行前面的选择器，然后在选中元素的里面（它的后代元素或者它的子元素里面）再去执行后面的选择器。</p>
+<p>上面我们是在两个选择器之间，间隔了一个空格或者一个大于号。那如果我在组合的时候中间没有间隔，比如下面这样：</p>
+<p><code>a#miao</code> 表示用两个选择器同时去描述一个元素，也就是被选中的元素要同时符合这两个选择器。这里所说的就是，ID 为 miao 的链接（a）元素。这种组合里应该不会出现星号，因为有它或者没有它都没有区别。如果是 id 和 class 的组合，那么前后顺序并不重要，但如果其中有标签，就像前面这个例子一样，标签名必须写在最前面，因为如果把标签名写在后面就混乱了。</p>
+<p>然后上面所讲的这些选择器的使用方法，是可以进行串联的。<code>a &gt; b &gt; c</code> 像这样，差不多就是在一个选择器的后代中再次进行选择，然后在它的选择结果的后代中继续进行选择……</p>
+<p>最后还有一种组合方式，就是多个选择器之间用逗号进行分隔，表示只要符合其中某个（而不是所有）选择器，就是我们想要的元素。</p>
+<p><code>p, a#miao</code>，像这样表示段落元素（p）是我们想要的，而 id 为 miao 的链接元素（a）也是我们想要的。用逗号分隔，逐条选择，然后我们都要。</p>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0145/" title="卡片 for 第一百四十五张章">卡片 for 第一百四十五张章</a>】</p>
+
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0144/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0146/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>

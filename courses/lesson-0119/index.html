@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min-04aca1f4cd3ec3c05a75a879f3be75a3.css">
+    <link rel="stylesheet" href="/css/default-style-4f2c9a3c7d96a5bff7edc7b16a05f71e.css">
+    <link rel="alternate" href="/atom.xml" title="代码能有多难？">
+    <title>第一百一十九章 添加元素 | 代码能有多难？</title>
+    <meta name="author" content="稻米鼠">
+    
+    <meta name="description" content="jQuery 在网页中添加内容和元素的几种方法。">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min-99b0a83cf1b0b1e2cb16041520e87641.js"></script>
+    <script src="/js/popper.min-83fb8c4d9199dce0224da0206423106f.js"></script>
+    <script src="/js/bootstrap.min-67176c242e1bdc20603c878dee836df3.js"></script>
+    <script src="/js/highlight.9.15.6.min-e725c3aee301dbe6d0f414f23aa1fbf7.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('pre').each(function(){
+          let codeTag = $(this).find('code')
+          let lang = $(codeTag[0]).attr('class').replace(/^.*(html|css|javsscript|js).*$/i, '$1').replace(/javascript/gi, 'js')
+          $(this).attr('data-lang-name', lang.toUpperCase())
+          // hljs.highlightBlock(this)
+        })
+        hljs.initHighlighting()
+        // add line num
+        $('pre > code').each(function(){
+          let codeArray = $(this).html().split('\n');
+          let result = "";
+          codeArray.forEach((code, lineNum) => {
+            if(code!=='' || lineNum !== codeArray.length-1){
+              result += '<div class="code-line" data-line-num="'+lineNum+'">'+code.replace(/(?<=^\s*?)( {2}|\t)/g, '<span class="one-tab"></span>')+'</div>'
+            }
+          })
+          $(this).html(result);
+        });
+      })
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128881873-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128881873-1');
+    </script>
+  </head>
+  <body></body></html>
+<header class="container-fluid">
+  <div class="header-bg" style="background-image: url('/images/header.jpg')"></div>
+  <h1><a href="/" title="代码能有多难？">代码能有多难？</a><br>
+    <small>
+        写给前端新人的故事书
+    </small>
+  </h1>
+  <nav class="nav justify-content-center">
+    
+      <!-- <a href="https://dmnydn.com/" title="圆桌会版（最新）|更新更有趣哦~" class="nav-link has-tip">圆桌会版（最新）|更新更有趣哦~</a> -->
+      <a href="https://dmnydn.com/" title="圆桌会版（最新）" class="nav-link has-tip" data-tip="更新更有趣哦~">圆桌会版（最新）</a>
+    
+      <!-- <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a> -->
+      <a href="/" title="2019 版（完结）" class="nav-link">2019 版（完结）</a>
+    
+      <!-- <a href="/about/" title="关于" class="nav-link">关于</a> -->
+      <a href="/about/" title="关于" class="nav-link">关于</a>
+    
+  </nav>
+</header>
+<div class="container">
+  <div class="row justify-content-center">
+    <div id="content" class="col col-xs-12 col-sm-12 col-md-10 col-lg-8">
+      <article id="post">
+  <h1 class="title">
+    第一百一十九章 添加元素
+  </h1>
+  <div class="post-summary" data-date="Author: 稻米鼠 | Write: 2019-05-06 | Update: 2019-05-09">
+    <p>
+      jQuery 在网页中添加内容和元素的几种方法。
+    </p>
+  </div>
+  <div class="post-content">
+    <p>前面我们所学的几个方法，是让元素发生某种变化。现在我们来研究如何向页面中添加新的元素。</p>
+<p>聪明的宝宝们已经发现了，我们使用 <code>html</code> 方法就可以向页面中添加新的元素。因为可以直接改变某个元素中的代码，如果我们改变 <code>body</code> 元素中的代码，甚至改变 <code>html</code> 元素中的代码，岂不是很随心所欲的么。</p>
+<p>但是这不便捷，我们使用 jQuery 不就是图个方便嘛，所以今天来讲一些更加直接的方法。</p>
+<p>首先我们要有一个网页，网页中有一个元素：</p>
+<pre><code class="html">&lt;body&gt;
+  &lt;div id=&quot;box&quot;&gt;&lt;/div&gt;
+&lt;/body&gt;
+</code></pre>
+<p>简单写一下，大家理解就好了。接下来写 JQ 部分，我们都是选中当前这个元素（<code>#box</code>），然后进行添加操作：</p>
+<pre><code class="js">$(&#39;#box&#39;).before(&#39;&lt;p&gt;这是使用 before 方法添加的元素&lt;/p&gt;&#39;);
+$(&#39;#box&#39;).after(&#39;&lt;p&gt;这是使用 after 方法添加的元素&lt;/p&gt;&#39;);
+$(&#39;#box&#39;).prepend(&#39;&lt;p&gt;这是使用 prepend 方法添加的元素&lt;/p&gt;&#39;);
+$(&#39;#box&#39;).append(&#39;&lt;p&gt;这是使用 append 方法添加的元素&lt;/p&gt;&#39;);
+</code></pre>
+<p>各种基础结构或者事件的触发，大家自己去补全。这里我们没有做讲解，直接给出了四种方法，可以说是非常生硬的灌输了。</p>
+<p>可是这有什么呢？代码的主要部分都已经写在这里了，你要做的仅仅是补全结构，运行，然后通过开发者工具查看效果。</p>
+<p>而这 4 个单词，有两个是你一定认识的吧？</p>
+<p>反正就是在当前选中的这个元素之前，之后添加后面括号中的内容。</p>
+<p>再有就是在当前选中的这个元素<strong>里面</strong>的最前面或者最后面，添加括号中的内容。</p>
+<p>要注意的是，这些方法做的都是添加，而不是像前面那样进行替换。</p>
+<hr>
+<p>思考一个问题，我们使用的选择器都必然对应一个元素吗？肯定不是，所以我们也可以同时选中多个元素进行操作，程序会对所有符合条件的元素应用相同的操作。</p>
+<p>比如：</p>
+<pre><code class="html">&lt;body&gt;
+  &lt;p&gt;这是一个段落。&lt;/p&gt;
+  &lt;p&gt;这是一个段落。&lt;/p&gt;
+  &lt;p&gt;这是一个段落。&lt;/p&gt;
+  &lt;p&gt;这是一个段落。&lt;/p&gt;
+  &lt;p&gt;这是一个段落。&lt;/p&gt;
+&lt;/body&gt;
+</code></pre>
+<pre><code class="js">$(&#39;p&#39;).warp(&#39;&lt;div class=&quot;demo&quot;&gt;&lt;/div&gt;&#39;)
+</code></pre>
+<p>试试看，发生了什么。它将我们给出的代码（强调，一个元素，开始标签和结束标签），套在了每一个符合前面选择器的元素的外面。</p>
+<p>虽然我将这件事情描述出来了，但是大家读着可能比较吃力。那就说得直白一点：老板把你这里的苹果，每个外面都套一个红色的袋子。对，就是刚才我递给你的那种红色的袋子。</p>
+<p>这样换个说法一下子就理解了呢~~</p>
+<p>但是现在事情发生了变化，老板说你这货太矫情了，我这里 200 多个苹果，挨个装袋子，就不能够按时下班了，难道我一个卖水果的也要和你们一起 996 吗？</p>
+<p>所以老板把所有的苹果，都装进同一个袋子里，然后递给了你。</p>
+<pre><code class="js">$(&#39;p&#39;).warpAll(&#39;&lt;div class=&quot;demo&quot;&gt;&lt;/div&gt;&#39;)
+</code></pre>
+<p>我们都知道 all 是全部的意思。所以 <code>warp</code> 是装进袋子，一个一个装，就是对这一系列的元素，其中的每一个单独进行一次装入的操作。<code>warpAll</code> 则是一起装，把所有符合的元素一起塞进一个袋子（元素）中。</p>
+<p>本来我就想讲这么多的，但后来看了一下，关于 <code>warp</code> 还有一个方法，不讲总觉得它会孤单，索性说一下吧：</p>
+<pre><code class="js">$(&#39;p&#39;).warpInner(&#39;&lt;span class=&quot;demo&quot;&gt;&lt;/span&gt;&#39;)
+</code></pre>
+<p>首先这个没有 all，所以是一个元素一个元素进行操作的。然后它和 <code>warp</code> 相似又相反，<code>warp</code> 是将你给出的元素，套在选中的元素外侧；<code>warpInner</code> 是套在元素的内侧——老板，你把苹果直接装在纸箱里容易蹭着，所以在纸箱里先垫上一层泡沫，再放苹果吧。</p>
+<hr>
+<p>今天一共讲了 7 个方法，用起来都很简单，我介绍一下，大家就可以拿着去使用了。</p>
+<p>前 4 个方法，重点在于插入的位置，至于插入什么内容，都没有多大限制，不一定非要是一个元素，也可以是一段其他的代码。</p>
+<p>后面三个方法，都是进行嵌套，要理解清楚，是把你给元素套在谁的外面，又是谁的里面。所以我们要给出的（后面小括号里的内容），也必须是一个元素。</p>
+<p>最后，这些并不是全部的添加元素的方法，只是有一些方法和我们所讲的很类似，用到的不多又容易搞混，于是就没有讲。</p>
+<p>【本章助记卡片：<a href="/wallpaper/wp-0119/" title="卡片 for 第一百一十九章">卡片 for 第一百一十九章</a>】</p>
+
+  </div>
+  
+  <nav id="article-nav">
+    <ul class="pagination justify-content-between">
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0118/" aria-label="Previous">
+          <span aria-hidden="true">&laquo; 上一章</span>
+          <span class="sr-only">上一章</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Top ▲<span class="sr-only">返回顶部</span></a>
+      </li>
+      <li class="page-item ">
+        <a class="page-link" href="/courses/lesson-0120/" aria-label="Next">
+          <span aria-hidden="true">下一章 &raquo;</span>
+          <span class="sr-only">下一章</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="my-coffee">
+  <div id="post-expand-trigger" class="text-center">
+    我已付费 <span class="trigger">&hearts;</span>  解除封印
+  </div>
+  <div id="notice" class="text-center">
+    <hr>
+    内容虽然已经公开，但是本书需要付费
+    <br>
+    作者这么辛苦卖萌，也要靠咖啡提神的
+    <hr>
+  </div>
+  <h3 class="text-center">请老鼠喝杯咖啡吧~</h3>
+  <div id="paymethod" class="image-box" style="width: 100%; margin-left: 0; margin-right: 0;">
+    <div>
+      <img src="/images/WePay-360-45164a045f2c03274a17918f6fc932a1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/AliPay-360-fb5f914f75513b58d211e55a8821dab1.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+    <div>
+      <img src="/images/QQPay-360-e55c493cc234dc2591dc44be1360a519.png" alt="扫描二维码请老鼠喝咖啡~">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('#content').addClass('content-short')
+    $('#my-coffee').addClass('show-trigger')
+    $('#post-expand-trigger').click(function () {
+      $('#content').removeClass('content-short')
+      $('#my-coffee').removeClass('show-trigger')
+      $(this).addClass('d-none')
+    })
+  })
+</script>
+  <div class="foot-tip">
+  <p>这只是一个培养兴趣，引导入门的启蒙读物，请不要太过较真。也请读者多多查阅 <a href="https://developer.mozilla.org/zh-CN/">MDN Web 文档</a>，获得更权威的技术细节。</p>
+
+</div>
+</article>
+    </div>
+  </div>
+</div>
+    <footer class="text-center">
+      Copyright by 
+      <a href="https://dmnydn.com">代码能有多难？（https://dmnydn.com）</a> 2018 — 2020
+    </footer>
+  <script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1582101779888')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script>
