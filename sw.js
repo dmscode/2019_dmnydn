@@ -30,15 +30,15 @@ var precacheUrls = [];
 
   precacheUrls.push('/page/2/');
 
-  precacheUrls.push('/wallpaper/wp-0002/');
+  precacheUrls.push('/uncategorized/hello-world/');
 
-  precacheUrls.push('/courses/lesson-0083/');
+  precacheUrls.push('/courses/lesson-0000/');
 
-  precacheUrls.push('/wallpaper/wp-0165/');
+  precacheUrls.push('/courses/lesson-0002/');
 
-  precacheUrls.push('/wallpaper/wp-0164/');
+  precacheUrls.push('/courses/lesson-0001/');
 
-  precacheUrls.push('/wallpaper/wp-0162/');
+  precacheUrls.push('/courses/lesson-0006/');
 
 toolbox.precache(precacheUrls);
 toolbox.options = {"networkTimeoutSeconds":5};
