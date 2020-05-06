@@ -30,9 +30,9 @@ var precacheUrls = [];
 
   precacheUrls.push('/page/2/');
 
-  precacheUrls.push('/courses/lesson-0000/');
-
   precacheUrls.push('/uncategorized/hello-world/');
+
+  precacheUrls.push('/courses/lesson-0000/');
 
   precacheUrls.push('/courses/lesson-0001/');
 
