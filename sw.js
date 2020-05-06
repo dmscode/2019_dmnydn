@@ -30,15 +30,15 @@ var precacheUrls = [];
 
   precacheUrls.push('/page/2/');
 
-  precacheUrls.push('/uncategorized/hello-world/');
-
   precacheUrls.push('/courses/lesson-0000/');
 
-  precacheUrls.push('/courses/lesson-0002/');
+  precacheUrls.push('/uncategorized/hello-world/');
 
   precacheUrls.push('/courses/lesson-0001/');
 
-  precacheUrls.push('/courses/lesson-0006/');
+  precacheUrls.push('/courses/lesson-0002/');
+
+  precacheUrls.push('/courses/lesson-0003/');
 
 toolbox.precache(precacheUrls);
 toolbox.options = {"networkTimeoutSeconds":5};
